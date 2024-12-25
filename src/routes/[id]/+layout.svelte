@@ -3,7 +3,7 @@
 </script>
 
 <nav>
-    <a href="/">Home</a>
+    <a href="/">Back</a>
 </nav>
 
 {@render children?.()}

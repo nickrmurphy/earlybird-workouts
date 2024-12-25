@@ -6,12 +6,17 @@
     <h1>
       Workouts
     </h1>
-    <a href="/new">
+    <button>
       Add
-  </a>
+    </button>
 </header>
 <main>
-  <WorkoutCard workoutName="Push" exercises={["Bench Press", "Tricpes Dip", "Tricep Kickback", "Pec Fly"]} />
+  <a href="/12">
+    <WorkoutCard
+      workoutName="Push"
+      exercises={["Bench Press", "Triceps Dip", "Tricep Kickback", "Pec Fly"]}
+    />
+  </a>
 </main>
 
 <style>
@@ -21,9 +26,9 @@
     align-items: center;
   }
 
-  a {
+  button {
     border-radius: 8px;
-    border: 1px solid transparent;
+    border: 1px solid black;
     padding: var(--size-1) var(--size-3);
     font-size: 1em;
     font-weight: 500;
@@ -31,6 +36,5 @@
     color: #0f0f0f;
     background-color: #ffffff;
     transition: border-color 0.25s;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   }
 </style>
