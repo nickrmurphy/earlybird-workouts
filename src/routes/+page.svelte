@@ -6,9 +6,11 @@
     <h1>
       Workouts
     </h1>
-    <button>
-      Add
-    </button>
+    <a href="/new">
+      <button>
+        Add
+      </button>
+    </a>
 </header>
 <main>
   <a href="/12">

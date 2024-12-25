@@ -25,34 +25,26 @@
 
 <h1>Push</h1>
 <main>
-    <section>
-        <label>
-            Name
-            <input type="text" placeholder="Workout Name" />
-        </label>
-    </section>
-    <section>
-        <header>
-            <h2>Exercises</h2>
-        </header>
-        <ul>
-            {#each exercises as exercise}
-                <li>
-                   <ExerciseItem 
-                    name={exercise.name}
-                    weight={exercise.weight}
-                    sets={exercise.sets}
-                    reps={exercise.reps}
-                   />
-                </li>
-            {/each}
+    <header>
+        <h2>Exercises</h2>
+    </header>
+    <ul>
+        {#each exercises as exercise}
             <li>
-                Add exercises
+               <ExerciseItem 
+                name={exercise.name}
+                weight={exercise.weight}
+                sets={exercise.sets}
+                reps={exercise.reps}
+               />
             </li>
-        </ul>
-    </section>
+        {/each}
+        <li>
+            Add exercises
+        </li>
+    </ul>
     <footer>
-        <button>Save</button>
+        <button>Start</button>
     </footer>
 </main>
 
@@ -73,5 +65,9 @@
         list-style: none outside;
         display: flex;
         align-items: center;
+    }
+
+    button {
+        width: 100%;
     }
 </style>

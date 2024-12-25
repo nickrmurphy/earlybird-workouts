@@ -31,3 +31,8 @@
     --size-14: 20rem;
     --size-15: 30rem;
 }
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
