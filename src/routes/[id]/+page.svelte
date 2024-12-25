@@ -58,7 +58,7 @@
     }
 
     li:not(:first-child) {
-        border-top: 1px solid black;
+        border-top: 1px solid;
     }
 
     li {

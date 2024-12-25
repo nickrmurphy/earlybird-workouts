@@ -8,7 +8,7 @@
     </h1>
     <a href="/new">
       <button>
-        Add
+        +
       </button>
     </a>
 </header>
@@ -22,6 +22,15 @@
 </main>
 
 <style>
+  h1 {
+    font-size: var(--font-size-6);
+    font-weight: var(--font-weight-7);
+  }
+
+  header, main {
+    padding: var(--size-1) var(--size-2);
+  }
+
   header {
     display: flex;
     justify-content: space-between;
@@ -30,13 +39,8 @@
 
   button {
     border-radius: 8px;
-    border: 1px solid black;
     padding: var(--size-1) var(--size-3);
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    color: #0f0f0f;
-    background-color: #ffffff;
-    transition: border-color 0.25s;
+    color: var(--raisin-black);
+    background-color: var(--yellow);
   }
 </style>

@@ -1,0 +1,10 @@
+:root {
+    --yellow: #e6c229;
+    --raisin-black: #34252fff;
+    --magnolia: #f5f0f6ff;
+
+    /* CSS HSL */
+    --yellow-hsl: 49 79% 53%;
+    --raisin-black-hsl: 320 17% 17%;
+    --magnolia-hsl: 290 25% 95%;
+}

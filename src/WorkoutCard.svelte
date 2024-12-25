@@ -11,7 +11,7 @@
 <div class="container">
     <h3>{workoutName}</h3>
     <footer>
-        <div>
+        <div class="exercise-list">
             <div>
                 <span class="exercise-count">
                     {exercises.length}
@@ -37,6 +37,10 @@
 </div>
 
 <style>
+    h3 {
+        font-weight: var(--font-weight-6);
+        font-size: var(--font-size-3);
+    }
     h3, footer {
         padding: var(--size-1) var(--size-2);
     }
@@ -50,8 +54,19 @@
 
     .container {
         border-radius: 8px;
-        border: 1px solid black;
+        border: 1px solid hsl(var(--yellow-hsl) / 20%);
         max-width: var(--max-width, 300px);
+        background-color: hsl(var(--yellow-hsl) / 10%);
+        padding: var(--size-1);
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-3);
+    }
+
+    .exercise-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-2);
     }
 
     .exercise-name {
@@ -66,9 +81,9 @@
     }
 
     .exercise-count-label {
-        font-weight: 500;
+        font-weight: var(--font-weight-2);
         text-transform: uppercase;
-        font-size: x-small;
+        font-size: var(--font-size-0);
     }
 
     .overflow-container {
@@ -79,7 +94,7 @@
         border-radius: 9999px;
         padding: var(--size-1) var(--size-2);
         font-size: small;
-        border: 1px solid black;
+        border: 1px solid;
         width: fit-content;
     }
 </style>

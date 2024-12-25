@@ -35,7 +35,8 @@
         justify-content: center;
         text-align: center;
         font-size: small;
-        border: 1px solid #000;
+        color: var(--raisin-black);
+        background-color: var(--yellow);
         border-radius: 9999px;
         height: var(--size-8);
         width: var(--size-8);
