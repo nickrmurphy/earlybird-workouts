@@ -15,7 +15,7 @@
         <span>lbs</span>
     </div>
     <div class="details">
-        <span>{name}</span>
+        <span class="name">{name}</span>
         <span>{reps} reps, {sets} sets</span>
     </div>
 </div>
@@ -24,8 +24,9 @@
     .container {
         display: flex;
         justify-content: space-between;
-        padding: 1rem;
+        padding: var(--size-3) var(--size-2);
         gap: var(--size-3);
+        align-items: center;
     }
 
     .weight {
@@ -37,13 +38,20 @@
         font-size: small;
         color: var(--raisin-black);
         background-color: var(--yellow);
-        border-radius: 9999px;
+        border-radius: var(--radius-round);
         height: var(--size-8);
         width: var(--size-8);
+        font-size: var(--font-size-1);
+        font-weight: var(--font-weight-6);
     }
 
     .details {
         display: grid;
+    }
+
+    .name {
+        font-weight: var(--font-weight-6);
+        font-size: var(--font-size-2);
     }
 
 </style>

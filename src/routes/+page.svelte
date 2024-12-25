@@ -1,11 +1,12 @@
 <script lang="ts">
+  import Heading from "../Heading.svelte";
   import WorkoutCard from "../WorkoutCard.svelte";
 </script>
 
 <header>
-    <h1>
+    <Heading>
       Workouts
-    </h1>
+    </Heading>
     <a href="/new">
       <button>
         +
@@ -22,11 +23,6 @@
 </main>
 
 <style>
-  h1 {
-    font-size: var(--font-size-6);
-    font-weight: var(--font-weight-7);
-  }
-
   header, main {
     padding: var(--size-1) var(--size-2);
   }
@@ -38,9 +34,15 @@
   }
 
   button {
-    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-round);
+    height: var(--size-7);
+    width: var(--size-7);
     padding: var(--size-1) var(--size-3);
     color: var(--raisin-black);
     background-color: var(--yellow);
+
   }
 </style>

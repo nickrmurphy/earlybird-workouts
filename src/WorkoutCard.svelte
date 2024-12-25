@@ -53,7 +53,7 @@
     }
 
     .container {
-        border-radius: 8px;
+        border-radius: var(--radius-3);
         border: 1px solid hsl(var(--yellow-hsl) / 20%);
         max-width: var(--max-width, 300px);
         background-color: hsl(var(--yellow-hsl) / 10%);
@@ -91,7 +91,7 @@
     }
 
     .overflow-count {
-        border-radius: 9999px;
+        border-radius: var(--radius-round);
         padding: var(--size-1) var(--size-2);
         font-size: small;
         border: 1px solid;

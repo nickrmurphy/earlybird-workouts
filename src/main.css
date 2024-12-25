@@ -1,6 +1,7 @@
 @import "./styles/font.css";
 @import "./styles/size.css";
 @import "./styles/colors.css";
+@import "./styles/border.css";
 
 @font-face {
     font-weight: 300 900;
@@ -14,13 +15,20 @@
     line-height: 24px;
     font-weight: 400;
 
-    color: #f5f0f6;
-    background-color: #34252f;
-    border-color: hsla(290, 25%, 95%, 0.7);
+    color: var(--magnolia);
+    background-color: var(--raisin-black);
+    border-color: hsl(var(--magnolia-hsl) / 10%);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+}
+
+body {
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
 }
