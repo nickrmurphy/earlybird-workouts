@@ -1,30 +1,65 @@
 <script lang="ts">
-  import Heading from "../Heading.svelte";
+  import Button from "../Button.svelte";
+import Dialog from "../Dialog.svelte";
+import Heading from "../Heading.svelte";
+  import Input from "../Input.svelte";
   import WorkoutCard from "../WorkoutCard.svelte";
+
+  const workouts = [
+    {
+      name: "Push",
+      exercises: ["Bench Press", "Triceps Dip", "Tricep Kickback", "Pec Fly"],
+    },
+    {
+      name: "Pull",
+      exercises: ["Pull-up", "Bicep Curl", "Lat Pulldown", "Face Pull"],
+    },
+    {
+      name: "Legs",
+      exercises: ["Squat", "Deadlift", "Lunges", "Leg Press"],
+    }
+  ];
 </script>
 
-<header>
+<main>
+  <header>
     <Heading>
       Workouts
     </Heading>
-    <a href="/new">
-      <button>
+      <Button rounded="full" popovertarget="create-workout">
         +
-      </button>
-    </a>
+      </Button>
 </header>
-<main>
-  <a href="/12">
-    <WorkoutCard
-      workoutName="Push"
-      exercises={["Bench Press", "Triceps Dip", "Tricep Kickback", "Pec Fly"]}
-    />
-  </a>
+  <section class="workouts">
+    {#each workouts as workout}
+      <a href="/12">
+        <WorkoutCard
+          workoutName={workout.name}
+          exercises={workout.exercises}
+        />
+      </a>
+    {/each}
+  </section>
 </main>
+
+<Dialog id="create-workout" popover="auto">
+  <h2>Workout name</h2>
+  <Input />
+  {#snippet actions()}
+    <Button variant="ghost" popovertargetaction="hide" popovertarget="create-workout">Cancel</Button>
+    <Button>Save</Button>
+  {/snippet}
+</Dialog>
 
 <style>
   header, main {
     padding: var(--size-1) var(--size-2);
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-5);
   }
 
   header {
@@ -33,16 +68,14 @@
     align-items: center;
   }
 
-  button {
+  section.workouts {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: var(--radius-round);
-    height: var(--size-7);
-    width: var(--size-7);
-    padding: var(--size-1) var(--size-3);
-    color: var(--raisin-black);
-    background-color: var(--yellow);
+    gap: var(--size-4);
+    overflow: scroll;
+  }
 
+  h2 {
+    font-size: var(--size-4);
+    font-weight: var(--font-weight-5);
   }
 </style>
