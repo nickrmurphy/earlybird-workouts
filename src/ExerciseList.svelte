@@ -30,8 +30,15 @@
     }
 
     li {
+        width: 100%;
         list-style: none outside;
         display: flex;
         align-items: center;
+
+        a {
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
     }
 </style>

@@ -23,9 +23,9 @@
     <Heading>
       Workouts
     </Heading>
-      <Button rounded="full" popovertarget="create-workout">
-        <Plus />
-      </Button>
+    <Button rounded="full" popovertarget="create-workout">
+      <Plus />
+    </Button>
 </header>
   <section class="workouts">
     {#if data.workouts}
@@ -55,12 +55,11 @@
       goto(`/${newId}`);
     }
   }}>
-    <input bind:value={newWorkoutName} placeholder="e.g. Upper body" required minlength={2} />
-    <button type="submit">Save</button>
+    <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" required minlength={2} />
   </form>
   {#snippet actions()}
     <Button variant="ghost" popovertargetaction="hide" popovertarget="create-workout">Cancel</Button>
-    <Button type="button" form="create-workout-form">Save</Button>
+    <Button type="submit" form="create-workout-form">Save</Button>
   {/snippet}
 </Dialog>
 
@@ -83,6 +82,7 @@
 
   section.workouts {
     display: flex;
+    flex-direction: column;
     gap: var(--size-4);
     overflow: scroll;
   }

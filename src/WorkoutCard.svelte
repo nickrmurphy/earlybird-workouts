@@ -55,7 +55,6 @@
     .container {
         border-radius: var(--radius-3);
         border: 1px solid hsl(var(--yellow-hsl) / 20%);
-        max-width: var(--max-width, 300px);
         background-color: hsl(var(--yellow-hsl) / 10%);
         padding: var(--size-1);
         display: flex;
@@ -73,7 +72,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 175px;
     }
 
     .exercise-count {

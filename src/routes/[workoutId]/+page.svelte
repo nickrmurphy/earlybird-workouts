@@ -39,7 +39,7 @@
     <section>
         <header>
             <Heading level={2}>Exercises</Heading>
-            <Button variant="ghost" popovertarget="add-exercise">
+            <Button variant="outline" popovertarget="add-exercise">
                 <PencilEdit />
             </Button>
         </header>
@@ -49,7 +49,7 @@
         />
     </section>
     <footer>
-        <button>Start workout</button>
+        <Button --width="100%" size="lg">Start workout</Button>
     </footer>
 </main>
 
@@ -116,18 +116,16 @@
         left: env(safe-area-inset-left);
         right: env(safe-area-inset-right);
         display: flex;
+        gap: var(--size-2);
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        
-        button {
+        padding: var(--size-3);
+
+        div {
             display: flex;
-            width: 90%;
-            border-radius: var(--radius-3);
-            font-weight: var(--font-weight-7);
-            color: hsl(var(--raisin-black-hsl) / 90%);
-            justify-content: center;
-            background-color: var(--yellow);
-            padding: var(--size-3) var(--size-2);
+            gap: var(--size-2);
+            width: 100%;
         }
     }
 
