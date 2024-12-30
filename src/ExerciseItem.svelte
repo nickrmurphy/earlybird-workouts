@@ -16,7 +16,7 @@
     </div>
     <div class="details">
         <span class="name">{name}</span>
-        <span>{reps} reps, {sets} sets</span>
+        <span>{sets} sets, {reps} reps</span>
     </div>
 </div>
 
@@ -51,6 +51,7 @@
 
     .details {
         display: grid;
+        gap: var(--size-2);
     }
 
     .name {

@@ -2,7 +2,25 @@
     import Heading from "../../../Heading.svelte";
     import { ArrowLeft } from "../../../icons";
     import Input from "../../../Input.svelte";
+    import { updateReps, updateSets, updateWeight } from "./actions";
+    
     let { data } = $props();
+
+    let weight = $state(data.exercise.weight);
+    let sets = $state(data.exercise.sets);
+    let reps = $state(data.exercise.reps);
+
+    $effect(() => {
+        updateWeight(data.workoutId, data.exercise.id, weight);
+    });
+
+    $effect(() => {
+        updateSets(data.workoutId, data.exercise.id, sets);
+    });
+
+    $effect(() => {
+        updateReps(data.workoutId, data.exercise.id, reps);
+    });
 </script>
 
 <nav>
@@ -12,20 +30,20 @@
     </a>
 </nav>
 <header>
-    <Heading>Bench Press</Heading>
+    <Heading level={2}>{data.exercise.name}</Heading>
 </header>
 <main>
     <label>
         Weight
-        <Input type="number" step={0.5} inputmode="decimal" />
+        <Input type="number" step={0.5} inputmode="decimal" bind:value={weight} />
     </label>
     <label>
         Sets
-        <Input type="number" step={1} inputmode="numeric"  />
+        <Input type="number" step={1} inputmode="numeric" bind:value={sets} />
     </label>
     <label>
         Reps
-        <Input  type="number" step={1} inputmode="numeric" />
+        <Input  type="number" step={1} inputmode="numeric" bind:value={reps} />
     </label>
 </main>
 

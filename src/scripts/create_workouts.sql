@@ -1,9 +1,9 @@
-CREATE TABLE workouts (
+CREATE TABLE IF NOT EXISTS workouts (
     id   INTEGER PRIMARY KEY,
     name TEXT    NOT NULL
 );
 
-CREATE TABLE workout_exercises (
+CREATE TABLE IF NOT EXISTS workout_exercises (
     id                  PRIMARY KEY,
     workout_id  INTEGER REFERENCES workouts (id) ON DELETE CASCADE
                         NOT NULL,
@@ -12,4 +12,3 @@ CREATE TABLE workout_exercises (
     reps        INTEGER,
     weight      NUMERIC
 );
-
