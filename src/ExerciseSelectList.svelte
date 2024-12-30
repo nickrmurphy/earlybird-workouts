@@ -4,22 +4,30 @@
 
     type Props = {
         options: { value: number, label: string }[];
+        onAdd?: (value: number) => void;
+        onRemove?: (value: number) => void;
         selected?: number[];
     };
 
-    let { options, selected = $bindable([]) }: Props = $props();
+    let { options, onAdd, onRemove, selected = $bindable([]) }: Props = $props();
 </script>
 
 <ul>
     {#each options as option}
         <li>
             {#if selected.includes(option.value)}
-                <button onclick={() => selected = selected.filter((value) => value !== option.value)}>
+                <button onclick={() => {
+                    selected = selected.filter((value) => value !== option.value);
+                    onRemove?.(option.value);
+                }}>
                     <CheckmarkCircle />
                     {option.label}
                 </button>
             {:else}
-               <button onclick={() => selected.push(option.value)}>
+               <button onclick={() => {
+                    selected.push(option.value);
+                    onAdd?.(option.value);
+               }}>
                     <CircleEmpty />
                     {option.label}
                 </button>

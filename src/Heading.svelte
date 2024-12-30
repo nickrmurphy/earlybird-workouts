@@ -26,7 +26,7 @@
 <style>
     h1 {
       font-size: var(--font-size-6);
-      font-weight: var(--font-weight-7);
+      font-weight: var(--font-weight-8);
     }
 
     h2, h3 {

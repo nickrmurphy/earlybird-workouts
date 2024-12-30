@@ -1,40 +1,18 @@
 <script lang="ts">
   import Button from "../../Button.svelte";
   import Dialog from "../../Dialog.svelte";
-  import ExerciseItem from "../../ExerciseItem.svelte";
   import ExerciseList from "../../ExerciseList.svelte";
   import ExerciseSelectList from "../../ExerciseSelectList.svelte";
   import Heading from "../../Heading.svelte";
   import { ArrowLeft } from "../../icons";
   import PencilEdit from "../../icons/PencilEdit.svelte";
   import Input from "../../Input.svelte";
+  import { addExercise, removeExercise } from "./actions";
 
-    const exercises = [
-        {
-            id: 1,
-            name: "Squats",
-            sets: 3,
-            reps: 10,
-            weight: 135
-        },
-        {
-            id: 2,
-            name: "Bench Press",
-            sets: 3,
-            reps: 10,
-            weight: 135
-        },
-        {
-            id: 3,
-            name: "Deadlift",
-            sets: 3,
-            reps: 10,
-            weight: 135
-        }
-    ];
-
-    const exerciseOptions = Array.from({ length: 100}).map((_, i) => ({ value: i, label: `Exercise: ${i + 1}` }));
-    let selectedOptions = $state([]);
+    let { data } = $props();
+    $inspect(data.workout);
+    let exerciseOptions = $derived(data.allExercises?.map((exercise) => ({ value: exercise.id, label: exercise.name })) || []);
+    let selectedOptions = $derived(data.exercises.map((exercise) => exercise.id));
 </script>
 
 <nav>
@@ -44,7 +22,7 @@
     </a>
 </nav>
 <header>
-    <Heading>Push</Heading>
+    <Heading>{data.workout.name}</Heading>
 </header>
 <main>
     <section>
@@ -54,7 +32,10 @@
                 <PencilEdit />
             </Button>
         </header>
-        <ExerciseList workoutId={12} exercises={exercises} />
+        <ExerciseList
+            workoutId={data.workout.id}
+            exercises={data.exercises}
+        />
     </section>
     <footer>
         <button>Start workout</button>
@@ -69,7 +50,16 @@
         </h2>
         <Input />
     {/snippet}
-    <ExerciseSelectList options={exerciseOptions} bind:selected={selectedOptions} />
+    <ExerciseSelectList
+        selected={selectedOptions}    
+        options={exerciseOptions}
+        onAdd={async (value) => {
+            await addExercise(data.workout.id, value);
+        }}
+        onRemove={async (value) => {
+            await removeExercise(data.workout.id, value);
+        }}
+    />
     {#snippet actions()}
         <Button popovertargetaction="hide" popovertarget="add-exercise">
             Done

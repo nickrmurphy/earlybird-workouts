@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import Button from "../Button.svelte";
   import Dialog from "../Dialog.svelte";
   import Heading from "../Heading.svelte";
   import { Plus } from "../icons";
   import Input from "../Input.svelte";
   import WorkoutCard from "../WorkoutCard.svelte";
+  import { createWorkout } from "./actions";
 
   const workouts = [
     {
@@ -20,8 +22,14 @@
       exercises: ["Squat", "Deadlift", "Lunges", "Leg Press"],
     }
   ];
-
   const { data } = $props();
+
+  let newWorkoutName = $state("");
+
+  function getExercises(workoutId: number) {
+    const exercises = data.exercises?.[workoutId] || [];
+    return exercises.map((exercise) => exercise.name);
+  }
 </script>
 
 <main>
@@ -33,26 +41,40 @@
         <Plus />
       </Button>
 </header>
-  {data.error}
-  {JSON.stringify(data.equipment)}
   <section class="workouts">
-    {#each workouts as workout}
-      <a href="/12">
-        <WorkoutCard
-          workoutName={workout.name}
-          exercises={workout.exercises}
-        />
-      </a>
-    {/each}
+    {#if data.workouts}
+      {#each data.workouts as workout}
+        <a href={`/${workout.id}`}>
+          <WorkoutCard
+            workoutName={workout.name}
+            exercises={getExercises(workout.id)}
+          />
+        </a>
+      {/each}
+    {/if}
   </section>
 </main>
 
-<Dialog id="create-workout" popover="auto">
+<Dialog id="create-workout" popover="auto" ontoggle={(e) => {
+  if (e.newState === "closed") {
+    newWorkoutName = "";
+  }
+}}>
   <h2>Workout name</h2>
-  <Input />
+  <form id="create-workout-form" onsubmit={async (e) => {
+    e.preventDefault();
+    const newId = await createWorkout(newWorkoutName);
+    if (newId) {
+      newWorkoutName = "";
+      goto(`/${newId}`);
+    }
+  }}>
+    <input bind:value={newWorkoutName} placeholder="e.g. Upper body" required minlength={2} />
+    <button type="submit">Save</button>
+  </form>
   {#snippet actions()}
     <Button variant="ghost" popovertargetaction="hide" popovertarget="create-workout">Cancel</Button>
-    <Button>Save</Button>
+    <Button type="button" form="create-workout-form">Save</Button>
   {/snippet}
 </Dialog>
 
