@@ -1,8 +1,8 @@
 <script>
-  import Heading from "../../../Heading.svelte";
-  import { ArrowLeft } from "../../../icons";
-  import Input from "../../../Input.svelte";
-    let {data } = $props();
+    import Heading from "../../../Heading.svelte";
+    import { ArrowLeft } from "../../../icons";
+    import Input from "../../../Input.svelte";
+    let { data } = $props();
 </script>
 
 <nav>

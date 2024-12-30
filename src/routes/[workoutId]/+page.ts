@@ -11,7 +11,7 @@ export const load: PageLoad = async ({ params }) => {
         FROM workouts w
         WHERE w.id = $1
     `,
-    [params.id]
+    [params.workoutId]
   );
 
   const exercises: Exercise[] = await db.select(
@@ -21,7 +21,7 @@ export const load: PageLoad = async ({ params }) => {
         INNER JOIN exercises e on e.id = we.exercise_id
         WHERE we.workout_id = $1
     `,
-    [params.id]
+    [params.workoutId]
   );
 
   return { exercises, workout: workoutResult[0] };

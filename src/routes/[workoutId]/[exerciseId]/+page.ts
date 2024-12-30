@@ -2,7 +2,7 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = ({ params }) => {
   return {
-    workoutId: params.id,
+    workoutId: params.workoutId,
     exerciseId: params.exerciseId,
   };
 };
