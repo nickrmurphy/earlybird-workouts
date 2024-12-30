@@ -1,7 +1,8 @@
 <script lang="ts">
   import Button from "../Button.svelte";
-import Dialog from "../Dialog.svelte";
-import Heading from "../Heading.svelte";
+  import Dialog from "../Dialog.svelte";
+  import Heading from "../Heading.svelte";
+  import { Plus } from "../icons";
   import Input from "../Input.svelte";
   import WorkoutCard from "../WorkoutCard.svelte";
 
@@ -19,6 +20,8 @@ import Heading from "../Heading.svelte";
       exercises: ["Squat", "Deadlift", "Lunges", "Leg Press"],
     }
   ];
+
+  const { data } = $props();
 </script>
 
 <main>
@@ -27,9 +30,11 @@ import Heading from "../Heading.svelte";
       Workouts
     </Heading>
       <Button rounded="full" popovertarget="create-workout">
-        +
+        <Plus />
       </Button>
 </header>
+  {data.error}
+  {JSON.stringify(data.equipment)}
   <section class="workouts">
     {#each workouts as workout}
       <a href="/12">
