@@ -4,19 +4,22 @@
 
     type Props = {
         exercises: Exercise[];
+        workoutId: number;
     }
 
-    let { exercises }: Props = $props();
+    let { exercises, workoutId }: Props = $props();
 </script>
 <ul>
     {#each exercises as exercise}
         <li>
-            <ExerciseItem 
-                name={exercise.name}
-                weight={exercise.weight}
-                sets={exercise.sets}
-                reps={exercise.reps}
-            />
+            <a href={`/${workoutId}/${exercise.id}`}>
+                <ExerciseItem 
+                    name={exercise.name}
+                    weight={exercise.weight}
+                    sets={exercise.sets}
+                    reps={exercise.reps}
+                />
+            </a>
         </li>
     {/each}
 </ul>

@@ -11,18 +11,21 @@
 
     const exercises = [
         {
+            id: 1,
             name: "Squats",
             sets: 3,
             reps: 10,
             weight: 135
         },
         {
+            id: 2,
             name: "Bench Press",
             sets: 3,
             reps: 10,
             weight: 135
         },
         {
+            id: 3,
             name: "Deadlift",
             sets: 3,
             reps: 10,
@@ -51,7 +54,7 @@
                 <PencilEdit />
             </Button>
         </header>
-        <ExerciseList exercises={exercises} />
+        <ExerciseList workoutId={12} exercises={exercises} />
     </section>
     <footer>
         <button>Start workout</button>
