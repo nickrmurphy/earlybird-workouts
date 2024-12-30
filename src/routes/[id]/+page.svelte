@@ -1,17 +1,28 @@
 <script lang="ts">
-  import Button from "../../Button.svelte";
-  import Dialog from "../../Dialog.svelte";
-  import ExerciseList from "../../ExerciseList.svelte";
-  import ExerciseSelectList from "../../ExerciseSelectList.svelte";
-  import Heading from "../../Heading.svelte";
-  import { ArrowLeft } from "../../icons";
-  import PencilEdit from "../../icons/PencilEdit.svelte";
-  import Input from "../../Input.svelte";
-  import { addExercise, removeExercise } from "./actions";
+    import Button from "../../Button.svelte";
+    import Dialog from "../../Dialog.svelte";
+    import ExerciseList from "../../ExerciseList.svelte";
+    import ExerciseSelectList from "../../ExerciseSelectList.svelte";
+    import Heading from "../../Heading.svelte";
+    import { ArrowLeft } from "../../icons";
+    import PencilEdit from "../../icons/PencilEdit.svelte";
+    import Input from "../../Input.svelte";
+    import { addExercise, removeExercise } from "./actions";
 
     let { data } = $props();
-    $inspect(data.workout);
-    let exerciseOptions = $derived(data.allExercises?.map((exercise) => ({ value: exercise.id, label: exercise.name })) || []);
+
+    let filterQuery = $state("");
+    let exerciseOptions = $derived.by(() => {
+        const filteredExercises = filterQuery === ""  ? data.allExercises : data.allExercises?.filter((exercise) =>
+            exercise.name.toLowerCase().includes(filterQuery.toLowerCase())
+        );
+
+        return filteredExercises?.map((exercise) => ({
+            value: exercise.id,
+            label: exercise.name,
+        })) || [];
+    });
+    
     let selectedOptions = $derived(data.exercises.map((exercise) => exercise.id));
 </script>
 
@@ -48,7 +59,7 @@
             Select exercises
             <span class="selected-count">{selectedOptions.length}</span>
         </h2>
-        <Input />
+        <Input bind:value={filterQuery} />
     {/snippet}
     <ExerciseSelectList
         selected={selectedOptions}    

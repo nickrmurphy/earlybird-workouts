@@ -8,20 +8,6 @@
   import WorkoutCard from "../WorkoutCard.svelte";
   import { createWorkout } from "./actions";
 
-  const workouts = [
-    {
-      name: "Push",
-      exercises: ["Bench Press", "Triceps Dip", "Tricep Kickback", "Pec Fly"],
-    },
-    {
-      name: "Pull",
-      exercises: ["Pull-up", "Bicep Curl", "Lat Pulldown", "Face Pull"],
-    },
-    {
-      name: "Legs",
-      exercises: ["Squat", "Deadlift", "Lunges", "Leg Press"],
-    }
-  ];
   const { data } = $props();
 
   let newWorkoutName = $state("");

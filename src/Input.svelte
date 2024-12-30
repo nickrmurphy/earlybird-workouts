@@ -2,10 +2,10 @@
     import type { HTMLInputAttributes } from 'svelte/elements';
     type Props = HTMLInputAttributes & {};
 
-    let { children, ...props }: Props = $props();
+    let { children, value = $bindable(), ...props }: Props = $props();
 </script>
 
-<input {...props} />
+<input bind:value={value} {...props} />
 
 <style>
     input {
