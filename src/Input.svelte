@@ -13,5 +13,6 @@
         border-radius: var(--radius-2);
         padding: var(--size-1);
         font-size: var(--font-size-2);
+        color: var(--magnolia);
     }
 </style>

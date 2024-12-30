@@ -25,6 +25,13 @@
         font-size: var(--font-size-2);
         display: flex;
         align-items: center;
+        text-align: center;
+        justify-content: center;
+
+        :global(svg) {
+            height: var(--size-4);
+            width: var(--size-4);
+        }
     }
 
     .primary {

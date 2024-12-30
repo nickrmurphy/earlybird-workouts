@@ -12,7 +12,7 @@
 <div class="container">
     <div class="weight">
         <span>{weight}</span>
-        <span>lbs</span>
+        <span class="weight-unit">lbs</span>
     </div>
     <div class="details">
         <span class="name">{name}</span>
@@ -41,8 +41,12 @@
         border-radius: var(--radius-round);
         height: var(--size-8);
         width: var(--size-8);
-        font-size: var(--font-size-1);
+        font-size: var(--font-size-2);
         font-weight: var(--font-weight-6);
+    }
+
+    .weight-unit {
+        font-size: var(--font-size-0);
     }
 
     .details {
