@@ -42,3 +42,13 @@ export const updateReps = async (
   invalidateAll();
   return result.rowsAffected;
 };
+
+export const deleteExercise = async (workoutId: number, exerciseId: number) => {
+  const db = await Database.load("sqlite:earlybirdworkouts.db");
+  const result = await db.execute(
+    "DELETE FROM workout_exercises WHERE workout_id = $1 AND exercise_id = $2",
+    [workoutId, exerciseId]
+  );
+  await invalidateAll();
+  return result.rowsAffected;
+};

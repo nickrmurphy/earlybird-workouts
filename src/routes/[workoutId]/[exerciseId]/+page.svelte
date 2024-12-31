@@ -1,8 +1,10 @@
 <script>
+    import { confirm } from '@tauri-apps/plugin-dialog';
     import Heading from "../../../Heading.svelte";
     import { ArrowLeft } from "../../../icons";
     import Input from "../../../Input.svelte";
-    import { updateReps, updateSets, updateWeight } from "./actions";
+    import { deleteExercise, updateReps, updateSets, updateWeight } from "./actions";
+    import { goto } from '$app/navigation';
     
     let { data } = $props();
 
@@ -21,6 +23,19 @@
     $effect(() => {
         updateReps(data.workoutId, data.exercise.id, reps);
     });
+
+    async function confirmDelete() {
+        const confirmDelete = await confirm(
+            'This action cannot be reverted. Are you sure?',
+            { title: 'Delete exercise', kind: 'warning', okLabel: 'Delete' }
+        );
+
+        if (confirmDelete) {
+            await deleteExercise(data.workoutId, data.exercise.id).then(() => {
+                goto(`/${data.workoutId}`);
+            });
+        }
+    }
 </script>
 
 <nav>
@@ -28,6 +43,7 @@
         <ArrowLeft />
         Back
     </a>
+    <button onclick={confirmDelete}>Delete</button>
 </nav>
 <header>
     <Heading level={2}>{data.exercise.name}</Heading>
@@ -50,7 +66,11 @@
 <style>
      nav {
         padding: var(--size-3) var(--size-2);
-        a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        a, button {
             display: flex;
             align-items: center;
             gap: var(--size-2);
@@ -59,10 +79,19 @@
                 width: var(--size-4);
             }
         }
+
+        button {
+            /* TODO: Replace red */
+            color: red;
+        }
     }
 
     header, main {
         padding: var(--size-1) var(--size-2);
+    }
+
+    header {
+        margin-bottom: var(--size-4);
     }
 
     main {
