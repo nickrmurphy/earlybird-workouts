@@ -8,7 +8,10 @@ export const load: LayoutLoad = async () => {
 
   if (!activeWorkout) {
     redirect(303, "/");
-  } else {
-    return { activeWorkout };
   }
+
+  const workoutExercises =
+    await services.workoutHistory.getWorkoutHistoryExercises(activeWorkout.id);
+
+  return { activeWorkout, workoutExercises };
 };

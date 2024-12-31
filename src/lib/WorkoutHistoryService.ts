@@ -7,6 +7,14 @@ type WorkoutHistory = {
   workoutId: number;
 };
 
+// TODO: Move to types.ts when stabilized
+type WorkoutHistoryExercise = {
+  id: number;
+  name: string;
+  sets: number;
+  isComplete: number;
+};
+
 export class WorkoutHistoryService {
   db: Database;
 
@@ -23,8 +31,6 @@ export class WorkoutHistoryService {
       `,
       [workoutId]
     );
-
-    console.log(createHistoryResult); //TODO: Remove after testing
 
     if (createHistoryResult.lastInsertId) {
       const exercises = await services.workout.getExercises(workoutId);
@@ -44,14 +50,12 @@ export class WorkoutHistoryService {
           `);
         }
 
-        console.log(exercise); //TODO: Remove after testing
         queryValues.push(exercise.id, exercise.reps, exercise.weight);
         dbStatements.push(insertStatement.join(" "));
       });
 
       const command = dbStatements.join("");
-      console.log(command); //TODO: Remove after testing
-      console.log(queryValues); //TODO: Remove after testing
+
       // Execute DB Command
       try {
         await this.db.execute(command, queryValues);
@@ -74,5 +78,41 @@ export class WorkoutHistoryService {
       `
     );
     return result[0];
+  }
+
+  async getWorkoutHistoryExercises(
+    workoutHistoryId: number
+  ): Promise<WorkoutHistoryExercise[]> {
+    const result: WorkoutHistoryExercise[] = await this.db.select(
+      `
+            SELECT 
+          e.id AS id, 
+          e.name AS name, 
+          COUNT(*) AS sets, 
+          NOT EXISTS (
+              SELECT 1 
+              FROM workout_history_sets whs 
+              WHERE whs.is_complete = 0 AND whs.exercise_id = e.id
+          ) AS isComplete
+      FROM workout_history wh
+      INNER JOIN workout_history_sets whs ON whs.workout_history_id = wh.id
+      INNER JOIN exercises e ON e.id = whs.exercise_id
+      WHERE wh.id = $1
+      GROUP BY e.id, e.name;
+    `,
+      [workoutHistoryId]
+    );
+    return result;
+  }
+
+  async setWorkoutHistoryEndTime(workoutHistoryId: number) {
+    await this.db.execute(
+      `
+        UPDATE workout_history
+        SET end_time = CURRENT_TIMESTAMP
+        WHERE id = $1
+      `,
+      [workoutHistoryId]
+    );
   }
 }

@@ -4,19 +4,10 @@
 export const prerender = true;
 export const ssr = false;
 
-import { db } from "$lib/db.svelte";
+import { services } from "$lib/services.svelte";
 import type { LayoutLoad } from "./$types";
 
 export const load: LayoutLoad = async () => {
-  try {
-    const allExercises: { id: number; name: string }[] = await db.earlybird
-      .select(`
-        SELECT e.id as id, e.name as name
-        FROM exercises e
-    `);
-    console.log("allExercises", allExercises);
-    return { allExercises };
-  } catch (e) {
-    console.error(e);
-  }
+  const allExercises = await services.exercise.getExercises();
+  return { allExercises };
 };
