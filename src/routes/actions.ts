@@ -1,11 +1,11 @@
 import { invalidateAll } from "$app/navigation";
-import Database from "@tauri-apps/plugin-sql";
+import { db } from "$lib/db.svelte";
 
 export const createWorkout = async (name: string) => {
-  const db = await Database.load("sqlite:earlybirdworkouts.db");
-  const result = await db.execute("INSERT INTO workouts (name) VALUES ($1)", [
-    name,
-  ]);
+  const result = await db.earlybird.execute(
+    "INSERT INTO workouts (name) VALUES ($1)",
+    [name]
+  );
   invalidateAll();
   return result.lastInsertId;
 };

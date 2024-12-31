@@ -1,13 +1,12 @@
 import { invalidateAll } from "$app/navigation";
-import Database from "@tauri-apps/plugin-sql";
+import { db } from "$lib/db.svelte";
 
 export const updateWeight = async (
   workoutId: number,
   exerciseId: number,
   weight: number
 ) => {
-  const db = await Database.load("sqlite:earlybirdworkouts.db");
-  const result = await db.execute(
+  const result = await db.earlybird.execute(
     "UPDATE workout_exercises SET weight = $1 WHERE workout_id = $2 AND exercise_id = $3",
     [weight, workoutId, exerciseId]
   );
@@ -20,8 +19,7 @@ export const updateSets = async (
   exerciseId: number,
   sets: number
 ) => {
-  const db = await Database.load("sqlite:earlybirdworkouts.db");
-  const result = await db.execute(
+  const result = await db.earlybird.execute(
     "UPDATE workout_exercises SET sets = $1 WHERE workout_id = $2 AND exercise_id = $3",
     [sets, workoutId, exerciseId]
   );
@@ -34,8 +32,7 @@ export const updateReps = async (
   exerciseId: number,
   reps: number
 ) => {
-  const db = await Database.load("sqlite:earlybirdworkouts.db");
-  const result = await db.execute(
+  const result = await db.earlybird.execute(
     "UPDATE workout_exercises SET reps = $1 WHERE workout_id = $2 AND exercise_id = $3",
     [reps, workoutId, exerciseId]
   );
@@ -44,8 +41,7 @@ export const updateReps = async (
 };
 
 export const deleteExercise = async (workoutId: number, exerciseId: number) => {
-  const db = await Database.load("sqlite:earlybirdworkouts.db");
-  const result = await db.execute(
+  const result = await db.earlybird.execute(
     "DELETE FROM workout_exercises WHERE workout_id = $1 AND exercise_id = $2",
     [workoutId, exerciseId]
   );

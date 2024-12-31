@@ -1,15 +1,15 @@
 import Database from "@tauri-apps/plugin-sql";
 import type { PageLoad } from "./$types";
+import { db } from "$lib/db.svelte";
 
 export const load: PageLoad = async ({ params }) => {
-  const db = await Database.load("sqlite:earlybirdworkouts.db");
   const exerciseResult: {
     id: number;
     name: string;
     sets: number;
     reps: number;
     weight: number;
-  }[] = await db.select(
+  }[] = await db.earlybird.select(
     `
       SELECT e.id as id, e.name as name, we.sets as sets, we.reps as reps, we.weight as weight
       FROM workout_exercises we
