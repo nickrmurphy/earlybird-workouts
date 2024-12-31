@@ -1,10 +1,100 @@
---
--- File generated with SQLiteStudio v3.4.4 on Mon Dec 30 09:57:30 2024
---
--- Text encoding used: UTF-8
 
--- Table: exercises
-CREATE TABLE IF NOT EXISTS exercises (id INTEGER PRIMARY KEY, name TEXT NOT NULL, difficulty TEXT, muscle_group_id INTEGER REFERENCES muscle_groups (id) NOT NULL, primary_muscle_id INTEGER REFERENCES muscles (id) NOT NULL, secondary_muscle_id INTEGER REFERENCES muscles (id), tertiary_muscle_id INTEGER REFERENCES muscles (id), primary_equipment_id INTEGER REFERENCES equipment (id), secondary_equipment_id INTEGER REFERENCES equipment (id), primary_equipment_count INTEGER, secondary_equipment_count INTEGER, single_or_double_arm TEXT, continuous_or_alternating_arms TEXT, continuous_or_alternating_legs TEXT, body_region TEXT, force_type TEXT, mechanics TEXT, classification TEXT);
+INSERT INTO equipment (id, name) VALUES (1, 'Stability Ball');
+INSERT INTO equipment (id, name) VALUES (2, 'Bodyweight');
+INSERT INTO equipment (id, name) VALUES (3, 'Gymnastic Rings');
+INSERT INTO equipment (id, name) VALUES (4, 'Parallette Bars');
+INSERT INTO equipment (id, name) VALUES (5, 'Slam Ball');
+INSERT INTO equipment (id, name) VALUES (6, 'Dumbbell');
+INSERT INTO equipment (id, name) VALUES (7, 'Ab Wheel');
+INSERT INTO equipment (id, name) VALUES (8, 'Cable');
+INSERT INTO equipment (id, name) VALUES (9, 'Medicine Ball');
+INSERT INTO equipment (id, name) VALUES (10, 'Suspension Trainer');
+INSERT INTO equipment (id, name) VALUES (11, 'Barbell');
+INSERT INTO equipment (id, name) VALUES (12, 'Miniband');
+INSERT INTO equipment (id, name) VALUES (13, 'Sliders');
+INSERT INTO equipment (id, name) VALUES (14, 'Pull Up Bar');
+INSERT INTO equipment (id, name) VALUES (15, 'EZ Bar');
+INSERT INTO equipment (id, name) VALUES (16, 'Landmine');
+INSERT INTO equipment (id, name) VALUES (17, 'Superband');
+INSERT INTO equipment (id, name) VALUES (18, 'Kettlebell');
+INSERT INTO equipment (id, name) VALUES (19, 'Resistance Band');
+INSERT INTO equipment (id, name) VALUES (20, 'Weight Plate');
+INSERT INTO equipment (id, name) VALUES (21, 'Macebell');
+INSERT INTO equipment (id, name) VALUES (22, 'Indian Club');
+INSERT INTO equipment (id, name) VALUES (23, 'Clubbell');
+INSERT INTO equipment (id, name) VALUES (24, 'Tire');
+INSERT INTO equipment (id, name) VALUES (25, 'Trap Bar');
+INSERT INTO equipment (id, name) VALUES (26, 'Battle Ropes');
+INSERT INTO equipment (id, name) VALUES (27, 'Bulgarian Bag');
+INSERT INTO equipment (id, name) VALUES (28, 'Heavy Sandbag');
+INSERT INTO equipment (id, name) VALUES (29, 'Sandbag');
+INSERT INTO equipment (id, name) VALUES (30, 'Wall Ball');
+INSERT INTO equipment (id, name) VALUES (31, 'None');
+INSERT INTO equipment (id, name) VALUES (32, 'Bench (Flat)');
+INSERT INTO equipment (id, name) VALUES (33, 'Kettlebell ');
+INSERT INTO equipment (id, name) VALUES (36, 'Bench (Incline)');
+INSERT INTO equipment (id, name) VALUES (39, 'Bench (Decline)');
+INSERT INTO equipment (id, name) VALUES (40, 'Plyo Box');
+INSERT INTO equipment (id, name) VALUES (41, 'Slant Board');
+INSERT INTO equipment (id, name) VALUES (42, 'Sledge Hammer');
+INSERT INTO equipment (id, name) VALUES (45, 'Gravity Boots');
+
+INSERT INTO muscle_groups (id, name) VALUES (1, 'Abdominals');
+INSERT INTO muscle_groups (id, name) VALUES (2, 'Glutes');
+INSERT INTO muscle_groups (id, name) VALUES (3, 'Chest');
+INSERT INTO muscle_groups (id, name) VALUES (4, 'Shoulders');
+INSERT INTO muscle_groups (id, name) VALUES (5, 'Back');
+INSERT INTO muscle_groups (id, name) VALUES (6, 'Adductors');
+INSERT INTO muscle_groups (id, name) VALUES (7, 'Biceps');
+INSERT INTO muscle_groups (id, name) VALUES (8, 'Quadriceps');
+INSERT INTO muscle_groups (id, name) VALUES (9, 'Hamstrings');
+INSERT INTO muscle_groups (id, name) VALUES (10, 'Abductors');
+INSERT INTO muscle_groups (id, name) VALUES (11, 'Trapezius');
+INSERT INTO muscle_groups (id, name) VALUES (12, 'Triceps');
+INSERT INTO muscle_groups (id, name) VALUES (13, 'Forearms');
+INSERT INTO muscle_groups (id, name) VALUES (14, 'Calves');
+INSERT INTO muscle_groups (id, name) VALUES (15, 'Shins');
+INSERT INTO muscle_groups (id, name) VALUES (16, 'Hip Flexors');
+INSERT INTO muscle_groups (id, name) VALUES (17, 'Trapezius ');
+
+INSERT INTO muscles (id, name) VALUES (1, 'Rectus Abdominis');
+INSERT INTO muscles (id, name) VALUES (2, 'Gluteus Maximus');
+INSERT INTO muscles (id, name) VALUES (3, 'Obliques');
+INSERT INTO muscles (id, name) VALUES (4, 'Pectoralis Major');
+INSERT INTO muscles (id, name) VALUES (5, 'Posterior Deltoids');
+INSERT INTO muscles (id, name) VALUES (6, 'Latissimus Dorsi');
+INSERT INTO muscles (id, name) VALUES (7, 'Adductor Magnus');
+INSERT INTO muscles (id, name) VALUES (8, 'Biceps Brachii');
+INSERT INTO muscles (id, name) VALUES (9, 'Quadriceps Femoris');
+INSERT INTO muscles (id, name) VALUES (10, 'Anterior Deltoids');
+INSERT INTO muscles (id, name) VALUES (11, 'Biceps Femoris');
+INSERT INTO muscles (id, name) VALUES (12, 'Gluteus Medius');
+INSERT INTO muscles (id, name) VALUES (13, 'Upper Trapezius');
+INSERT INTO muscles (id, name) VALUES (14, 'Triceps Brachii ');
+INSERT INTO muscles (id, name) VALUES (15, 'Brachioradialis');
+INSERT INTO muscles (id, name) VALUES (16, 'Erector Spinae ');
+INSERT INTO muscles (id, name) VALUES (17, 'Triceps Brachii');
+INSERT INTO muscles (id, name) VALUES (18, 'Infraspinatus');
+INSERT INTO muscles (id, name) VALUES (19, 'Medial Deltoids');
+INSERT INTO muscles (id, name) VALUES (20, 'Erector Spinae');
+INSERT INTO muscles (id, name) VALUES (21, 'Gastrocnemius');
+INSERT INTO muscles (id, name) VALUES (22, 'Tibialis Anterior');
+INSERT INTO muscles (id, name) VALUES (23, 'Iliopsoas');
+INSERT INTO muscles (id, name) VALUES (24, 'Subscapularis ');
+INSERT INTO muscles (id, name) VALUES (25, 'Serratus Anterior');
+INSERT INTO muscles (id, name) VALUES (26, 'Soleus');
+INSERT INTO muscles (id, name) VALUES (35, 'Gluteus Minimus');
+INSERT INTO muscles (id, name) VALUES (36, 'Brachialis');
+INSERT INTO muscles (id, name) VALUES (41, 'Rhomboids');
+INSERT INTO muscles (id, name) VALUES (44, 'Triceps Brachaii');
+INSERT INTO muscles (id, name) VALUES (46, 'Anterior Deltoids ');
+INSERT INTO muscles (id, name) VALUES (49, 'Subscapularis');
+INSERT INTO muscles (id, name) VALUES (51, 'Rectus Femoris');
+INSERT INTO muscles (id, name) VALUES (53, 'Teres Major');
+INSERT INTO muscles (id, name) VALUES (56, 'Teres Minor');
+INSERT INTO muscles (id, name) VALUES (60, 'Tensor Fasciae Latae');
+INSERT INTO muscles (id, name) VALUES (61, 'Rectus Abdominis ');
+
 INSERT INTO exercises (id, name, difficulty, muscle_group_id, primary_muscle_id, secondary_muscle_id, tertiary_muscle_id, primary_equipment_id, secondary_equipment_id, primary_equipment_count, secondary_equipment_count, single_or_double_arm, continuous_or_alternating_arms, continuous_or_alternating_legs, body_region, force_type, mechanics, classification) VALUES (1, 'Stability Ball Dead Bug', 'Beginner', 1, 1, NULL, NULL, 1, 31, 1, 0, 'Single Arm', 'Alternating', 'Alternating', 'Midsection', 'Other', 'Compound', 'Postural');
 INSERT INTO exercises (id, name, difficulty, muscle_group_id, primary_muscle_id, secondary_muscle_id, tertiary_muscle_id, primary_equipment_id, secondary_equipment_id, primary_equipment_count, secondary_equipment_count, single_or_double_arm, continuous_or_alternating_arms, continuous_or_alternating_legs, body_region, force_type, mechanics, classification) VALUES (2, 'Bodyweight Glute Bridge', 'Beginner', 2, 2, NULL, NULL, 2, 31, 1, 0, 'No Arms', 'Continuous', 'Continuous', 'Lower Body', NULL, 'Compound', 'Bodybuilding');
 INSERT INTO exercises (id, name, difficulty, muscle_group_id, primary_muscle_id, secondary_muscle_id, tertiary_muscle_id, primary_equipment_id, secondary_equipment_id, primary_equipment_count, secondary_equipment_count, single_or_double_arm, continuous_or_alternating_arms, continuous_or_alternating_legs, body_region, force_type, mechanics, classification) VALUES (3, 'Bodyweight Bird Dog', 'Beginner', 1, 1, NULL, NULL, 2, 31, 1, 0, 'Single Arm', 'Alternating', 'Alternating', 'Midsection', 'Other', 'Compound', 'Postural');
@@ -2685,3 +2775,4 @@ INSERT INTO exercises (id, name, difficulty, muscle_group_id, primary_muscle_id,
 INSERT INTO exercises (id, name, difficulty, muscle_group_id, primary_muscle_id, secondary_muscle_id, tertiary_muscle_id, primary_equipment_id, secondary_equipment_id, primary_equipment_count, secondary_equipment_count, single_or_double_arm, continuous_or_alternating_arms, continuous_or_alternating_legs, body_region, force_type, mechanics, classification) VALUES (2899, 'Dumbbell Crush Grip Single Leg Romanian Deadlift', 'Intermediate', 9, 11, 2, NULL, 6, 31, 1, 0, 'Double Arm', 'Continuous', 'Continuous', 'Lower Body', 'Pull', 'Compound', 'Bodybuilding');
 INSERT INTO exercises (id, name, difficulty, muscle_group_id, primary_muscle_id, secondary_muscle_id, tertiary_muscle_id, primary_equipment_id, secondary_equipment_id, primary_equipment_count, secondary_equipment_count, single_or_double_arm, continuous_or_alternating_arms, continuous_or_alternating_legs, body_region, force_type, mechanics, classification) VALUES (2900, 'Alternating Double Clubbell Pullover', 'Novice', 5, 6, 5, 17, 23, 31, 2, 0, 'Double Arm', 'Alternating', 'Continuous', 'Upper Body', 'Pull', 'Compound', NULL);
 INSERT INTO exercises (id, name, difficulty, muscle_group_id, primary_muscle_id, secondary_muscle_id, tertiary_muscle_id, primary_equipment_id, secondary_equipment_id, primary_equipment_count, secondary_equipment_count, single_or_double_arm, continuous_or_alternating_arms, continuous_or_alternating_legs, body_region, force_type, mechanics, classification) VALUES (2901, 'Barbell Tall Kneeling Bicep Curl', 'Novice', 7, 8, 36, 15, 11, 31, 1, 0, 'Double Arm', 'Continuous', 'Continuous', 'Upper Body', 'Pull', 'Isolation', 'Bodybuilding');
+

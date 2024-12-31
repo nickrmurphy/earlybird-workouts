@@ -12,38 +12,14 @@ pub fn run() {
         // Define your migrations here
         Migration {
             version: 1,
-            description: "create_muscles",
-            sql: include_str!("../../src/scripts/create_muscles.sql"),
+            description: "init_schema",
+            sql: include_str!("../../src/scripts/init_schema.sql"),
             kind: MigrationKind::Up,
         },
         Migration {
             version: 2,
-            description: "create_muscle_groups",
-            sql: include_str!("../../src/scripts/create_muscle_groups.sql"),
-            kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 3,
-            description: "create_equipment",
-            sql: include_str!("../../src/scripts/create_equipment.sql"),
-            kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 4,
-            description: "create_exercises",
-            sql: include_str!("../../src/scripts/create_exercises.sql"),
-            kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 5,
-            description: "create_workouts",
-            sql: include_str!("../../src/scripts/create_workouts.sql"),
-            kind: MigrationKind::Up,
-        },
-        Migration {
-            version: 6,
-            description: "create_workout_history",
-            sql: include_str!("../../src/scripts/create_workout_history.sql"),
+            description: "seed_data",
+            sql: include_str!("../../src/scripts/seed_data.sql"),
             kind: MigrationKind::Up,
         },
     ];
