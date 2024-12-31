@@ -8,7 +8,7 @@
     import { ArrowLeft } from "../../icons";
     import PencilEdit from "../../icons/PencilEdit.svelte";
     import Input from "../../Input.svelte";
-    import { addExercise, deleteWorkout, removeExercise } from "$lib/workoutActions";
+    import { addExercise, deleteWorkout, removeExercise, startWorkout } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
 
     let { data } = $props();
@@ -65,7 +65,7 @@
         />
     </section>
     <footer>
-        <Button --width="100%" size="lg">Start workout</Button>
+        <Button --width="100%" size="lg" onclick={() => startWorkout(data.workout.id)}>Start workout</Button>
     </footer>
 </main>
 

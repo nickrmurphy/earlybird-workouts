@@ -14,7 +14,7 @@ export const load: LayoutLoad = async () => {
         SELECT e.id as id, e.name as name
         FROM exercises e
     `);
-
+    console.log("allExercises", allExercises);
     return { allExercises };
   } catch (e) {
     console.error(e);

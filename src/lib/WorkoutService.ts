@@ -1,5 +1,5 @@
 import Database from "@tauri-apps/plugin-sql";
-import type { Exercise } from "../types";
+import type { Exercise, Workout } from "../types";
 
 export class WorkoutService {
   db: Database;
@@ -18,8 +18,8 @@ export class WorkoutService {
     return result.lastInsertId;
   }
 
-  async getWorkout(workoutId: number) {
-    const result: { id: number; name: string }[] = await this.db.select(
+  async getWorkout(workoutId: number): Promise<Workout> {
+    const result: Workout[] = await this.db.select(
       `
         SELECT w.id as id, w.name as name
         FROM workouts w

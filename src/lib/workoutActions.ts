@@ -1,3 +1,4 @@
+import { goto } from "$app/navigation";
 import { services } from "$lib/services.svelte";
 import { mutation } from "$lib/utils";
 
@@ -31,3 +32,10 @@ export const updateReps = async (
   exerciseId: number,
   reps: number
 ) => mutation(services.workout.setExerciseReps(workoutId, exerciseId, reps));
+
+export const startWorkout = async (workoutId: number) => {
+  await mutation(
+    services.workoutHistory.createWorkoutHistoryAndSets(workoutId)
+  );
+  goto(`/active`);
+};

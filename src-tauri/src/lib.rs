@@ -40,6 +40,12 @@ pub fn run() {
             sql: include_str!("../../src/scripts/create_workouts.sql"),
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 6,
+            description: "create_workout_history",
+            sql: include_str!("../../src/scripts/create_workout_history.sql"),
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()

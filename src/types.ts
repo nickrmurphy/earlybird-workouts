@@ -5,3 +5,8 @@ export type Exercise = {
   reps: number;
   weight: number;
 };
+
+export type Workout = {
+  id: number;
+  name: string;
+};
