@@ -65,6 +65,8 @@
     .exercise-list {
         display: flex;
         flex-direction: column;
+        font-size: var(--font-size-1);
+        line-height: var(--font-size-3);
         gap: var(--size-2);
     }
 
