@@ -3,7 +3,7 @@
     import Heading from "../../../Heading.svelte";
     import { ArrowLeft } from "../../../icons";
     import Input from "../../../Input.svelte";
-    import { deleteExercise, updateReps, updateSets, updateWeight } from "./actions";
+    import { removeExercise, updateReps, updateSets, updateWeight } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
     
     let { data } = $props();
@@ -31,7 +31,7 @@
         );
 
         if (confirmDelete) {
-            await deleteExercise(data.workoutId, data.exercise.id).then(() => {
+            await removeExercise(data.workoutId, data.exercise.id).then(() => {
                 goto(`/${data.workoutId}`);
             });
         }

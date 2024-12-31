@@ -8,7 +8,7 @@
     import { ArrowLeft } from "../../icons";
     import PencilEdit from "../../icons/PencilEdit.svelte";
     import Input from "../../Input.svelte";
-    import { addExercise, deleteWorkout, removeExercise } from "./actions";
+    import { addExercise, deleteWorkout, removeExercise } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
 
     let { data } = $props();

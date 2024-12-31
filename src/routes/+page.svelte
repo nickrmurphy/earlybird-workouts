@@ -6,7 +6,7 @@
   import { Plus } from "../icons";
   import Input from "../Input.svelte";
   import WorkoutCard from "../WorkoutCard.svelte";
-  import { createWorkout } from "./actions";
+  import { createWorkout } from "$lib/workoutActions";
 
   const { data } = $props();
 
