@@ -14,7 +14,12 @@ export const load: PageLoad = async ({ params }) => {
     Number(params.exerciseId)
   );
 
+  const exercise = await services.exercise.getExercise(
+    Number(params.exerciseId)
+  );
+
   return {
+    exercise,
     exerciseSets,
   };
 };

@@ -12,6 +12,6 @@ export const load: LayoutLoad = async () => {
 
   const workoutExercises =
     await services.workoutHistory.getWorkoutHistoryExercises(activeWorkout.id);
-
+  console.log(workoutExercises);
   return { activeWorkout, workoutExercises };
 };

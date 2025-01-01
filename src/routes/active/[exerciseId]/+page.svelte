@@ -1,47 +1,22 @@
 <script lang="ts">
+  import { completeWorkoutSet, setWorkoutHistorySetReps, setWorkoutHistorySetWeight } from "$lib/workoutHistoryActions";
+  import ActiveExerciseSet from "../../../ActiveExerciseSet.svelte";
+  import Heading from "../../../Heading.svelte";
+
     let { data } = $props();
 </script>
 
 <a href="/active">Back</a>
-Details
+<Heading level={2}>{data.exercise.name}</Heading>
 
 {#each data.exerciseSets as set}
-    <div>
-        <label>
-            Reps
-            <input type="number" defaultValue={set.reps} />
-        </label>
-
-        <label>
-            Weight
-            <input type="number" defaultValue={set.weight} />
-        </label>
-        <button>
-            {set.isComplete ? 'Complete' : 'Incomplete'}
-        </button>
-    </div>
+  <ActiveExerciseSet
+    setId={set.id}
+    reps={set.reps}
+    weight={set.weight}
+    isComplete={set.isComplete > 0}
+    onToggleComplete={(isComplete) => completeWorkoutSet(set.id, isComplete)}
+    onRepsChange={(reps) => setWorkoutHistorySetReps(set.id, reps)}
+    onWeightChange={(weight) => setWorkoutHistorySetWeight(set.id, weight)}
+  />
 {/each}
-
-<style>
-    div {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: var(--size-2);
-        margin: var(--size-2) 0;
-
-        button {
-            border: 1px solid black;
-        }
-    }
-
-    label {
-        display: grid;
-        gap: var(--size-2);
-        margin: var(--size-2) 0;
-        grid-column: span 2 / span 2;
-    }
-
-    input {
-        flex: 1;
-    }
-</style>

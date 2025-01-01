@@ -5,10 +5,11 @@
     type Props = {
         exerciseName: string;
         setCount: number;
+        completeSets: number;
         isComplete: boolean;
     }
 
-    let { exerciseName, setCount, isComplete }: Props = $props();
+    let { exerciseName, setCount, isComplete, completeSets }: Props = $props();
 </script>
 
 <div class="card">
@@ -21,7 +22,7 @@
     </div>
     <div class="container">
         <h3>{exerciseName}</h3>
-        <p>{setCount} sets</p>
+        <p>{completeSets} / {setCount} sets</p>
     </div>
 </div>
 

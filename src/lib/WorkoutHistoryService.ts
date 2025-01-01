@@ -12,6 +12,7 @@ type WorkoutHistory = {
 type WorkoutHistoryExercise = {
   id: number;
   name: string;
+  completeSets: number;
   sets: number;
   isComplete: number;
 };
@@ -93,14 +94,21 @@ export class WorkoutHistoryService {
   ): Promise<WorkoutHistoryExercise[]> {
     const result: WorkoutHistoryExercise[] = await this.db.select(
       `
-            SELECT 
+        SELECT 
           e.id AS id, 
-          e.name AS name, 
+          e.name AS name,
           COUNT(*) AS sets, 
+          (
+            SELECT COUNT(*)
+            FROM workout_history_sets whs
+            INNER JOIN workout_history wh ON wh.id = whs.workout_history_id
+            WHERE whs.is_complete = 1 AND whs.exercise_id = e.id AND wh.id = $1
+          ) AS completeSets,
           NOT EXISTS (
               SELECT 1 
               FROM workout_history_sets whs 
-              WHERE whs.is_complete = 0 AND whs.exercise_id = e.id
+              INNER JOIN workout_history wh ON wh.id = whs.workout_history_id
+              WHERE whs.is_complete = 0 AND whs.exercise_id = e.id AND wh.id = $1
           ) AS isComplete
       FROM workout_history wh
       INNER JOIN workout_history_sets whs ON whs.workout_history_id = wh.id
@@ -138,5 +146,44 @@ export class WorkoutHistoryService {
     );
 
     return result;
+  }
+
+  async setWorkoutHistorySetReps(workoutHistorySetId: number, reps: number) {
+    await this.db.execute(
+      `
+      UPDATE workout_history_sets
+      SET reps = $1
+      WHERE id = $2
+    `,
+      [reps, workoutHistorySetId]
+    );
+  }
+
+  async setWorkoutHistorySetWeight(
+    workoutHistorySetId: number,
+    weight: number
+  ) {
+    await this.db.execute(
+      `
+      UPDATE workout_history_sets
+      SET weight = $1
+      WHERE id = $2
+    `,
+      [weight, workoutHistorySetId]
+    );
+  }
+
+  async setWorkoutHistorySetComplete(
+    workoutHistorySetId: number,
+    isComplete: boolean
+  ) {
+    await this.db.execute(
+      `
+      UPDATE workout_history_sets
+      SET is_complete = $1
+      WHERE id = $2
+    `,
+      [isComplete ? 1 : 0, workoutHistorySetId]
+    );
   }
 }

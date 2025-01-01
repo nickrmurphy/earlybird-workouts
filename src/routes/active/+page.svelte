@@ -13,6 +13,7 @@
         <ActiveExerciseCard
             exerciseName={exercise.name}
             setCount={exercise.sets}
+            completeSets={exercise.completeSets}
             isComplete={exercise.isComplete > 0}
         />
     </a>
