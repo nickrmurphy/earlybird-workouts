@@ -31,6 +31,7 @@
         classes.rounded[rounded],
         classes.variant[variant],
         classes.size[size],
+        props.class
     ]}
 >
     {@render children?.()}

@@ -23,7 +23,7 @@
     <Heading>
       Workouts
     </Heading>
-    <Button rounded="full" popovertarget="create-workout">
+    <Button rounded="full" popovertarget="create-workout" popovertargetaction="show">
       <Plus />
     </Button>
 </header>
@@ -55,12 +55,10 @@
       goto(`/${newId}`);
     }
   }}>
-    <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" required minlength={2} />
+    <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" minlength={2} required/>
+    <Button type="submit" form="create-workout-form" formmethod="POST">Save</Button>
   </form>
-  {#snippet actions()}
-    <Button variant="ghost" popovertargetaction="hide" popovertarget="create-workout">Cancel</Button>
-    <Button type="submit" form="create-workout-form">Save</Button>
-  {/snippet}
+  <Button type="button" formmethod="dialog" variant="ghost" popovertargetaction="hide" popovertarget="create-workout">Cancel</Button>
 </Dialog>
 
 <style>
@@ -90,5 +88,11 @@
   h2 {
     font-size: var(--size-4);
     font-weight: var(--font-weight-5);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
   }
 </style>
