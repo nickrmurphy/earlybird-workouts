@@ -4,7 +4,7 @@
 export const prerender = true;
 export const ssr = false;
 
-import { beforeNavigate, goto } from "$app/navigation";
+import { goto } from "$app/navigation";
 import { services } from "$lib/services.svelte";
 import type { LayoutLoad } from "./$types";
 
