@@ -1,4 +1,7 @@
 <script lang="ts">
+  import Button from "./Button.svelte";
+  import Checkmark from "./icons/Checkmark.svelte";
+
     type Props = {
         setId: number;
         reps: number;
@@ -28,7 +31,11 @@
     </section>
 
     <section class="checkbox">
-        <input type="checkbox" defaultChecked={isComplete} onchange={(e) => onToggleComplete?.(e.currentTarget.checked)}  />
+        <Button rounded="full" variant={isComplete ? "primary" : "outline"} onclick={() => onToggleComplete?.(!isComplete)}>
+            {#if isComplete}
+                <Checkmark />
+            {/if}
+        </Button>
     </section>    
 </div>
 
@@ -39,10 +46,6 @@
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: var(--size-2);
         margin: var(--size-2) 0;
-
-        input[type="checkbox"] {
-            margin-top: auto;
-        }
     }
 
     label {
@@ -59,6 +62,8 @@
 
     section.checkbox {
         grid-column: span 1 / span 1;
+        padding-top: var(--size-5);
+        align-items: center;
     }
 
     input {
@@ -67,9 +72,6 @@
         color: var(--magnolia);
         font-size: var(--font-size-3);
         font-weight: var(--font-weight-7);
-    }
-
-    input[type="checkbox"] {
-        border-radius: var(--radius-round);
+        border: 1px solid hsl(var(--magnolia-hsl) / 50%);
     }
 </style>

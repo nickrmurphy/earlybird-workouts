@@ -7,17 +7,21 @@
     let { data } = $props();
 </script>
 
-<Heading>{data.activeWorkout.workoutName}</Heading>
-{#each data.workoutExercises as exercise }
-    <a href={`/active/${exercise.id}`}>
-        <ActiveExerciseCard
-            exerciseName={exercise.name}
-            setCount={exercise.sets}
-            completeSets={exercise.completeSets}
-            isComplete={exercise.isComplete > 0}
-        />
-    </a>
-{/each}
+<header>
+    <Heading>{data.activeWorkout.workoutName}</Heading>
+</header>
+<div>
+    {#each data.workoutExercises as exercise }
+        <a href={`/active/${exercise.id}`}>
+            <ActiveExerciseCard
+                exerciseName={exercise.name}
+                setCount={exercise.sets}
+                completeSets={exercise.completeSets}
+                isComplete={exercise.isComplete > 0}
+            />
+        </a>
+    {/each}
+</div>
 <footer>
     <Button onclick={() => completeWorkout(data.activeWorkout.id)} --width="100%">
         End workout
@@ -25,6 +29,17 @@
 </footer>
 
 <style>
+    header, div {
+        padding: var(--size-2);
+    }
+
+    div {
+        margin-top: var(--size-3);
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-3);
+    }
+
     footer {
         position: absolute;
         display: flex;

@@ -10,6 +10,7 @@
     import Input from "../../Input.svelte";
     import { addExercise, deleteWorkout, removeExercise, startWorkout } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
+  import PageNavHeader from '../../PageNavHeader.svelte';
 
     let { data } = $props();
 
@@ -41,13 +42,11 @@
     }
 </script>
 
-<nav>
-    <a href="/">
-        <ArrowLeft />
-        Back
-    </a>
-    <button onclick={confirmDelete}>Delete</button>
-</nav>
+<PageNavHeader backHref="/">
+    {#snippet endContent()}
+        <button onclick={confirmDelete}>Delete</button> 
+    {/snippet}
+</PageNavHeader>
 <header>
     <Heading>{data.workout.name}</Heading>
 </header>
@@ -95,25 +94,9 @@
 </Dialog>
 
 <style>
-    nav {
-        padding: var(--size-3) var(--size-2);
-        display: flex;
-        justify-content: space-between;
-
-        a, button {
-            display: flex;
-            align-items: center;
-            gap: var(--size-2);
-            :global(svg) {
-                height: var(--size-4);
-                width: var(--size-4);
-            }
-        }
-
-        button {
+    button {
             /* TODO: replace red */
             color: red;
-        }
     }
 
     header, main, section {
