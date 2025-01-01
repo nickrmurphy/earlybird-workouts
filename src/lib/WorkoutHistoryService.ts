@@ -5,6 +5,7 @@ import { services } from "./services.svelte";
 type WorkoutHistory = {
   id: number;
   workoutId: number;
+  workoutName: string;
 };
 
 // TODO: Move to types.ts when stabilized
@@ -12,6 +13,13 @@ type WorkoutHistoryExercise = {
   id: number;
   name: string;
   sets: number;
+  isComplete: number;
+};
+
+type WorkoutHistorySet = {
+  id: number;
+  reps: number;
+  weight: number;
   isComplete: number;
 };
 
@@ -71,7 +79,7 @@ export class WorkoutHistoryService {
   async getPendingWorkoutHistory(): Promise<WorkoutHistory | undefined> {
     const result: WorkoutHistory[] = await this.db.select(
       `
-        SELECT wh.id as id, w.id as workoutId
+        SELECT wh.id as id, w.id as workoutId, w.name as workoutName
         FROM workout_history wh
         INNER JOIN workouts w on w.id = wh.workout_id
         WHERE wh.end_time IS NULL
@@ -114,5 +122,21 @@ export class WorkoutHistoryService {
       `,
       [workoutHistoryId]
     );
+  }
+
+  async getWorkoutHistorySets(
+    workoutHistoryId: number,
+    exerciseId: number
+  ): Promise<WorkoutHistorySet[]> {
+    const result: WorkoutHistorySet[] = await this.db.select(
+      `
+      SELECT whs.id as id, whs.reps as reps, whs.weight as weight, whs.is_complete as isComplete
+      FROM workout_history_sets whs
+      WHERE whs.workout_history_id = $1 AND whs.exercise_id = $2;
+    `,
+      [workoutHistoryId, exerciseId]
+    );
+
+    return result;
   }
 }

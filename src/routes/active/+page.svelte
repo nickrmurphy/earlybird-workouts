@@ -1,19 +1,20 @@
 <script lang="ts">
     import Heading from '../../Heading.svelte';
     import Button from '../../Button.svelte';
-  import { completeWorkout } from '$lib/workoutHistoryActions';
+    import { completeWorkout } from '$lib/workoutHistoryActions';
+    import ActiveExerciseCard from '../../ActiveExerciseCard.svelte';
 
     let { data } = $props();
 </script>
 
-<Heading>Active workout</Heading>
+<Heading>{data.activeWorkout.workoutName}</Heading>
 {#each data.workoutExercises as exercise }
     <a href={`/active/${exercise.id}`}>
-        <div>
-            <h2>{exercise.name}</h2>
-            <p>{exercise.sets} sets</p>
-            <p>Complete: {exercise.isComplete > 0}</p>
-        </div>
+        <ActiveExerciseCard
+            exerciseName={exercise.name}
+            setCount={exercise.sets}
+            isComplete={exercise.isComplete > 0}
+        />
     </a>
 {/each}
 <footer>

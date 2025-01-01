@@ -37,5 +37,5 @@ export const startWorkout = async (workoutId: number) => {
   await mutation(
     services.workoutHistory.createWorkoutHistoryAndSets(workoutId)
   );
-  goto(`/active`);
+  goto("/active");
 };

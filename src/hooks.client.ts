@@ -1,4 +1,4 @@
-import type { ClientInit } from "@sveltejs/kit";
+import type { ClientInit, Handle } from "@sveltejs/kit";
 import Database from "@tauri-apps/plugin-sql";
 import { db } from "$lib/db.svelte";
 import { services } from "$lib/services.svelte";

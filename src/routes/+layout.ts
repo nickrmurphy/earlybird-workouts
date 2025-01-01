@@ -4,10 +4,18 @@
 export const prerender = true;
 export const ssr = false;
 
+import { beforeNavigate, goto } from "$app/navigation";
 import { services } from "$lib/services.svelte";
 import type { LayoutLoad } from "./$types";
 
-export const load: LayoutLoad = async () => {
+export const load: LayoutLoad = async ({ url }) => {
   const allExercises = await services.exercise.getExercises();
+  const activeWorkout =
+    await services.workoutHistory.getPendingWorkoutHistory();
+
+  if (activeWorkout && !url.pathname.startsWith("/active")) {
+    goto("/active");
+  }
+
   return { allExercises };
 };
