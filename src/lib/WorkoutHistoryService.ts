@@ -6,6 +6,7 @@ type WorkoutHistory = {
   id: number;
   workoutId: number;
   workoutName: string;
+  startTime: number;
 };
 
 // TODO: Move to types.ts when stabilized
@@ -80,7 +81,7 @@ export class WorkoutHistoryService {
   async getPendingWorkoutHistory(): Promise<WorkoutHistory | undefined> {
     const result: WorkoutHistory[] = await this.db.select(
       `
-        SELECT wh.id as id, w.id as workoutId, w.name as workoutName
+        SELECT wh.id as id, w.id as workoutId, w.name as workoutName, wh.start_time as startTime
         FROM workout_history wh
         INNER JOIN workouts w on w.id = wh.workout_id
         WHERE wh.end_time IS NULL
