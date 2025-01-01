@@ -1,11 +1,10 @@
 <script>
     import { confirm } from '@tauri-apps/plugin-dialog';
     import Heading from "../../../Heading.svelte";
-    import { ArrowLeft } from "../../../icons";
     import Input from "../../../Input.svelte";
     import { removeExercise, updateReps, updateSets, updateWeight } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
-  import PageNavHeader from '../../../PageNavHeader.svelte';
+    import PageNavHeader from '../../../PageNavHeader.svelte';
     
     let { data } = $props();
 
@@ -67,7 +66,7 @@
         /* TODO: Replace red */
         color: red;
     }
-    
+
     header, main {
         padding: var(--size-1) var(--size-2);
     }

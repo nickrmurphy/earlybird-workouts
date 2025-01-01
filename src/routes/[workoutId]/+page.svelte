@@ -5,12 +5,11 @@
     import ExerciseList from "../../ExerciseList.svelte";
     import ExerciseSelectList from "../../ExerciseSelectList.svelte";
     import Heading from "../../Heading.svelte";
-    import { ArrowLeft } from "../../icons";
     import PencilEdit from "../../icons/PencilEdit.svelte";
     import Input from "../../Input.svelte";
     import { addExercise, deleteWorkout, removeExercise, startWorkout } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
-  import PageNavHeader from '../../PageNavHeader.svelte';
+    import PageNavHeader from '../../PageNavHeader.svelte';
 
     let { data } = $props();
 

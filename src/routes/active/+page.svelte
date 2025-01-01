@@ -1,10 +1,22 @@
 <script lang="ts">
+    import { confirm } from '@tauri-apps/plugin-dialog';
     import Heading from '../../Heading.svelte';
     import Button from '../../Button.svelte';
     import { completeWorkout } from '$lib/workoutHistoryActions';
     import ActiveExerciseCard from '../../ActiveExerciseCard.svelte';
 
     let { data } = $props();
+
+    async function confirmEndWorkout() {
+        const confirmEnd = await confirm(
+            'This action cannot be reverted. Are you sure?',
+            { title: 'End workout', kind: 'warning', okLabel: 'Finish' }
+        );
+
+        if (confirmEnd) {
+            completeWorkout(data.activeWorkout.id);
+        }
+    }
 </script>
 
 <header>
@@ -23,7 +35,7 @@
     {/each}
 </div>
 <footer>
-    <Button onclick={() => completeWorkout(data.activeWorkout.id)} --width="100%">
+    <Button onclick={confirmEndWorkout} --width="100%">
         End workout
     </Button>
 </footer>
