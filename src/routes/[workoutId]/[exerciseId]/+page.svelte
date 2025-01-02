@@ -38,7 +38,7 @@
     }
 </script>
 
-<PageNavHeader backHref={`/${data.workoutId}`}>
+<PageNavHeader backHref={`/${data.workoutId}`} backLabel={data.workout.name}>
     {#snippet endContent()}
         <button onclick={confirmDelete}>Delete</button>    
     {/snippet}

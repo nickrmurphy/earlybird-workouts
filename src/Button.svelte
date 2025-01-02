@@ -90,4 +90,7 @@
         border-radius: var(--radius-3);
     }
 
+    button:disabled {
+        opacity: 0.5;
+    }
 </style>

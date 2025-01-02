@@ -4,14 +4,15 @@
     type Props = {
         endContent?: Snippet;
         backHref?: string;
+        backLabel?: string;
     };
-    let { backHref, endContent }: Props = $props();
+    let { backHref, backLabel, endContent }: Props = $props();
 </script>
 <nav>
     {#if backHref}
         <a href={backHref}>
             <ArrowLeft />
-            Back
+            {backLabel || "Back"}
         </a>
     {/if}
 
