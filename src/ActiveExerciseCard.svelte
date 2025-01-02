@@ -1,6 +1,7 @@
 <script lang="ts">
   import { CircleEmpty } from "./icons";
   import CheckmarkCircle from "./icons/CheckmarkCircle.svelte";
+  import RemoveCircle from "./icons/RemoveCircle.svelte";
 
     type Props = {
         exerciseName: string;
@@ -16,6 +17,8 @@
     <div>
         {#if isComplete}
             <CheckmarkCircle />
+        {:else if completeSets > 0}
+            <RemoveCircle />
         {:else}
             <CircleEmpty />
         {/if}

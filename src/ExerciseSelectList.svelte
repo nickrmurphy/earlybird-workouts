@@ -20,7 +20,10 @@
                     selected = selected.filter((value) => value !== option.value);
                     onRemove?.(option.value);
                 }}>
-                    <CheckmarkCircle />
+
+                    <span>
+                        <CheckmarkCircle />
+                    </span>
                     {option.label}
                 </button>
             {:else}
@@ -28,7 +31,9 @@
                     selected.push(option.value);
                     onAdd?.(option.value);
                }}>
-                    <CircleEmpty />
+                    <span>
+                        <CircleEmpty />
+                    </span>
                     {option.label}
                 </button>
             {/if}
@@ -44,17 +49,13 @@
     li {
         list-style: none outside;
         display: flex;
+
         button {
             display: flex;
             width: 100%;
             align-items: center;
             padding: var(--size-3) var(--size-2);
             gap: var(--size-2);
-
-            :global(svg) {
-                height: var(--size-4);
-                width: var(--size-4);
-            }
         }
     }
 </style>

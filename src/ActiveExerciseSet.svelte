@@ -25,7 +25,7 @@
 
     <section>
         <label for={`weight-${setId}`}>
-            Weight
+            Weight <span class="unit">(lbs)</span>
         </label>
         <input id={`weight-${setId}`} min={0} disabled={isComplete} type="number" defaultValue={weight} onchange={(e)=> onWeightChange?.(Number(e.currentTarget.value))} />
     </section>
@@ -50,6 +50,11 @@
 
     label {
         font-weight: var(--font-weight-5);
+        display: flex;
+        gap: var(--size-2);
+        .unit {
+            color: hsl(var(--magnolia-hsl) / 70%);
+        }
     }
 
     section {

@@ -48,7 +48,9 @@
 </header>
 <main>
     <label>
-        Weight
+        <span>
+            Weight <span class="unit">(lbs)</span>
+        </span>
         <Input --font-size="var(--font-size-3)" --font-weight="var(--font-weight-7)" type="number" step={0.5} inputmode="decimal" bind:value={weight} />
     </label>
     <label>
@@ -86,6 +88,16 @@
         flex-direction: column;
         gap: var(--size-2);
         font-weight: var(--font-weight-6);
+
+        span {
+            display: flex;
+            gap: var(--size-2);
+            align-items: end;
+        }
+
+        .unit {
+            color: hsl(var(--magnolia-hsl)  / 70%);
+        }
     }
 
 </style>

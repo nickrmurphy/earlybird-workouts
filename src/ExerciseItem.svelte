@@ -39,8 +39,8 @@
         color: var(--raisin-black);
         background-color: var(--yellow);
         border-radius: var(--radius-round);
-        height: var(--size-8);
-        width: var(--size-8);
+        min-height: var(--size-8);
+        min-width: var(--size-8);
         font-size: var(--font-size-2);
         font-weight: var(--font-weight-6);
     }
