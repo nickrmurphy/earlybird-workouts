@@ -49,15 +49,15 @@
 <main>
     <label>
         Weight
-        <Input type="number" step={0.5} inputmode="decimal" bind:value={weight} />
+        <Input --font-size="var(--font-size-3)" --font-weight="var(--font-weight-7)" type="number" step={0.5} inputmode="decimal" bind:value={weight} />
     </label>
     <label>
         Sets
-        <Input type="number" step={1} inputmode="numeric" bind:value={sets} />
+        <Input --font-size="var(--font-size-3)" --font-weight="var(--font-weight-7)" type="number" step={1} inputmode="numeric" bind:value={sets} />
     </label>
     <label>
         Reps
-        <Input  type="number" step={1} inputmode="numeric" bind:value={reps} />
+        <Input --font-size="var(--font-size-3)" --font-weight="var(--font-weight-7)" type="number" step={1} inputmode="numeric" bind:value={reps} />
     </label>
 </main>
 

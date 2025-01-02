@@ -12,7 +12,9 @@
         background-color: transparent;
         border-radius: var(--radius-2);
         padding: var(--size-2);
-        font-size: var(--font-size-2);
+        font-size: var(--font-size, var(--font-size-2));
+        font-weight: var(--font-weight);
         color: var(--magnolia);
+        border: 1px solid hsl(var(--magnolia-hsl) / 50%);
     }
 </style>
