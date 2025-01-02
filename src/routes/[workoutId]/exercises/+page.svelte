@@ -8,17 +8,24 @@
   let { data } = $props();
 
   let filterQuery = $state("");
+  let selectedOnly = $state(false);
+  let selectedOptions = $derived(data.exercises.map((exercise) => exercise.id));
+
   let exerciseOptions = $derived.by(() => {
-      const filteredExercises = filterQuery === ""  ? data.allExercises : data.allExercises?.filter((exercise) =>
+      let filteredExercises = filterQuery === ""  ? data.allExercises : data.allExercises?.filter((exercise) =>
           exercise.name.toLowerCase().includes(filterQuery.toLowerCase())
       );  
+
+      if (selectedOnly) {
+        filteredExercises = filteredExercises?.filter((exercise) => selectedOptions.includes(exercise.id)) || [];
+      }
+
       return filteredExercises?.map((exercise) => ({
           value: exercise.id,
           label: exercise.name,
       })) || [];
   });
     
-  let selectedOptions = $derived(data.exercises.map((exercise) => exercise.id));
 </script>
 
 <div class="overflow"></div>
@@ -30,6 +37,10 @@
             <span class="selected-count">{selectedOptions.length}</span>
         </div>
         <Input bind:value={filterQuery}  />
+        <div class="tab-group">
+            <button onclick={() => selectedOnly = false} data-selected={!selectedOnly}>All</button>
+            <button onclick={() => selectedOnly = true} data-selected={selectedOnly}>Selected</button>
+        </div>
     </header>
 </section>
 <main>
@@ -89,5 +100,28 @@
         min-width: var(--size-3);
         justify-content: center;
         display: flex;
+    }
+
+    .tab-group {
+        display: flex;
+        gap: var(--size-1);
+        border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+        border-radius: var(--radius-3);
+        padding: var(--size-1);
+
+        button {
+            border-radius: var(--radius-round);
+            padding: var(--size-1) var(--size-2);
+            width: 100%;
+            text-align: center;
+            font-weight: var(--font-weight-5);
+            color: hsl(var(--magnolia-hsl / 70%));
+        }
+        
+        button[data-selected=true] {
+            background-color:  hsl(var(--yellow-hsl) / 90%);
+            color: var(--raisin-black);
+            font-weight: var(--font-weight-7);
+        }
     }
 </style>

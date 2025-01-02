@@ -11,6 +11,7 @@ export class ExerciseService {
     const allExercises: { id: number; name: string }[] = await this.db.select(`
             SELECT e.id as id, e.name as name
             FROM exercises e
+            ORDER BY e.name
         `);
     return allExercises;
   }
