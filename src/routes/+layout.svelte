@@ -1,10 +1,21 @@
 <script lang="ts">
     import "../reset.css";
     import "../main.css";
-    import { page } from "$app/state";
+    import { onNavigate } from '$app/navigation'
+
     let { children } = $props();
-    
-    ;
+
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return
+
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve()
+				await navigation.complete
+			})
+		})
+	})
+
 </script>
 
 <!-- Top Padding -->

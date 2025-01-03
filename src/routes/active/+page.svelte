@@ -4,6 +4,7 @@
     import Button from '../../Button.svelte';
     import { completeWorkout } from '$lib/workoutHistoryActions';
     import ActiveExerciseCard from '../../ActiveExerciseCard.svelte';
+  import PageNavHeader from '../../PageNavHeader.svelte';
 
     let { data } = $props();
 
@@ -19,9 +20,7 @@
     }
 </script>
 
-<header>
-    <Heading>{data.activeWorkout.workoutName}</Heading>
-</header>
+<PageNavHeader title={data.activeWorkout.workoutName} />
 <div>
     {#each data.workoutExercises as exercise }
         <a href={`/active/${exercise.id}`}>
@@ -41,11 +40,8 @@
 </footer>
 
 <style>
-    header, div {
-        padding: var(--size-2);
-    }
-
     div {
+        padding: var(--size-2);
         margin-top: var(--size-3);
         display: flex;
         flex-direction: column;

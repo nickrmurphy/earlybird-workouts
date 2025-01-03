@@ -37,7 +37,7 @@
     </nav>
     <header>
         {#if title}
-            <Heading {level}>{title}</Heading>
+            <Heading style="view-transition-name: nav-heading" {level}>{title}</Heading>
         {/if}
         {#if headerContent}
             <div>
@@ -65,11 +65,13 @@
     nav {
         display: flex;
         justify-content: space-between;
+        /* view-transition-name: ; */
 
         a {
             display: flex;
             align-items: center;
             gap: var(--size-2);
+            
             :global(svg) {
                 height: var(--size-4);
                 width: var(--size-4);
