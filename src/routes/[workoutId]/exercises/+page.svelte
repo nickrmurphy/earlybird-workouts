@@ -1,8 +1,9 @@
 <script lang="ts">
   import ExerciseSelectList from "../../../ExerciseSelectList.svelte";
   import Input from "../../../Input.svelte";
-  import PageNavHeader from "../../../PageNavHeader.svelte";
   import { addExercise, removeExercise } from "$lib/workoutActions";
+  import Navbar from "../../Navbar.svelte";
+  import PageHeader from "../../../PageHeader.svelte";
 
   let { data } = $props();
 
@@ -27,16 +28,19 @@
     
 </script>
 
-<PageNavHeader backHref={`/${data.workout.id}`} backLabel={data.workout.name}>
-    <Input bind:value={filterQuery} placeholder="Search for an exercise..." />
-    <div class="tab-group">
-        <button onclick={() => selectedOnly = false} data-selected={!selectedOnly}>All</button>
-        <button onclick={() => selectedOnly = true} data-selected={selectedOnly}>
-            Selected
-            <span class="selected-count">({selectedOptions.length})</span>
-        </button>
-    </div>
-</PageNavHeader>
+
+<PageHeader>
+    {#snippet control()}
+        <Input bind:value={filterQuery} placeholder="Search for an exercise..." />
+        <div class="tab-group">
+            <button onclick={() => selectedOnly = false} data-selected={!selectedOnly}>All</button>
+            <button onclick={() => selectedOnly = true} data-selected={selectedOnly}>
+                Selected
+                <span class="selected-count">({selectedOptions.length})</span>
+            </button>
+        </div>
+    {/snippet}
+</PageHeader>
 <main>
     <ExerciseSelectList
         selected={selectedOptions}    
@@ -49,11 +53,12 @@
         }}
     />
 </main>
-
+<Navbar backHref={`/${data.workout.id}`} backLabel={data.workout.name}/>
 <style>
 
     main {
         padding: var(--size-2);
+        padding-bottom: var(--navbar-height);
     }
 
     .selected-count {

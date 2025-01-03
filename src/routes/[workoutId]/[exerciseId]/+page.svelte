@@ -3,7 +3,8 @@
     import Input from "../../../Input.svelte";
     import { removeExercise, updateReps, updateSets, updateWeight } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
-    import PageNavHeader from '../../../PageNavHeader.svelte';
+    import PageHeader from '../../../PageHeader.svelte';
+    import Navbar from '../../Navbar.svelte';
     
     let { data } = $props();
 
@@ -37,16 +38,7 @@
     }
 </script>
 
-<PageNavHeader
-    backHref={`/${data.workoutId}`}
-    backLabel={data.workout.name}
-    title={data.exercise.name}
-    level={2}
->
-    {#snippet endContent()}
-        <button onclick={confirmDelete}>Delete</button>    
-    {/snippet}
-</PageNavHeader>
+<PageHeader title={data.exercise.name} level={2} />
 <main>
     <label>
         <span>
@@ -63,6 +55,11 @@
         <Input --font-size="var(--font-size-3)" --font-weight="var(--font-weight-7)" type="number" step={1} inputmode="numeric" bind:value={reps} />
     </label>
 </main>
+<Navbar backHref={`/${data.workoutId}`} backLabel={data.workout.name}>
+    {#snippet actions()}
+        <button onclick={confirmDelete}>Delete</button>
+    {/snippet}
+</Navbar>
 
 <style>
     button {

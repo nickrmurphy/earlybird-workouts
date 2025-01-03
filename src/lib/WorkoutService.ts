@@ -8,6 +8,15 @@ export class WorkoutService {
     this.db = db;
   }
 
+  async getWorkouts(): Promise<Workout[]> {
+    return this.db.select(
+      `
+            SELECT w.id as id, w.name as name
+            FROM workouts w
+        `
+    );
+  }
+
   async createWorkout(name: string) {
     const result = await this.db.execute(
       `

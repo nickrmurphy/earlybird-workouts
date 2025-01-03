@@ -3,13 +3,14 @@
   import { createWorkout } from "$lib/workoutActions";
   import Button from "../../Button.svelte";
   import Input from "../../Input.svelte";
-  import PageNavHeader from "../../PageNavHeader.svelte";
+  import PageHeader from "../../PageHeader.svelte";
+  import Navbar from "../Navbar.svelte";
 
   let newWorkoutName = $state("");
 </script>
 
-<PageNavHeader backHref="/" title="Create a workout" />
-<form onsubmit={async (e) => {
+<PageHeader title="Create a workout" />
+<form id="new-workout" onsubmit={async (e) => {
     e.preventDefault();
     const newId = await createWorkout(newWorkoutName);
     if (newId) {
@@ -20,10 +21,10 @@
         Title
         <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" required type="text" />
     </label>
-    <footer>
-        <Button --width="100%" type="submit">Save</Button>
-    </footer>
 </form>
+<Navbar backHref="/">
+    <Button type="submit" form="new-workout" --width="100%" rounded="full">Save</Button>
+</Navbar>
 
 <style>
     form {
@@ -34,14 +35,5 @@
         display: grid;
         gap: var(--size-2);
         font-weight: var(--font-weight-6);
-    }
-
-    footer {
-        position: absolute;
-        padding: var(--size-2);
-
-        bottom: env(safe-area-inset-bottom);
-        left: env(safe-area-inset-left);
-        right: env(safe-area-inset-right);
     }
 </style>

@@ -3,24 +3,22 @@
   import Button from "../Button.svelte";
   import Heading from "../Heading.svelte";
   import { Plus } from "../icons";
-  import PageNavHeader from "../PageNavHeader.svelte";
+  import PageHeader from "../PageHeader.svelte";
   import WorkoutCard from "../WorkoutCard.svelte";
 
   const { data } = $props();
 
   function getExercises(workoutId: number) {
-    const exercises = data.exercises?.[workoutId] || [];
+    const exercises = data.workoutExercises[workoutId] || [];
     return exercises.map((exercise) => exercise.name);
   }
 </script>
 
-<PageNavHeader title="Workouts">
-  {#snippet headerContent()}
+<PageHeader title="Workouts">
     <Button rounded="full" onclick={() => goto("/new")}>
       <Plus />
     </Button>
-  {/snippet}
-</PageNavHeader>
+</PageHeader>
 <main>
   <section class="workouts">
     {#if data.workouts}

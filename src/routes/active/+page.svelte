@@ -4,7 +4,8 @@
     import Button from '../../Button.svelte';
     import { completeWorkout } from '$lib/workoutHistoryActions';
     import ActiveExerciseCard from '../../ActiveExerciseCard.svelte';
-  import PageNavHeader from '../../PageNavHeader.svelte';
+    import PageHeader from '../../PageHeader.svelte';
+  import Navbar from '../Navbar.svelte';
 
     let { data } = $props();
 
@@ -20,8 +21,8 @@
     }
 </script>
 
-<PageNavHeader title={data.activeWorkout.workoutName} />
-<div>
+<PageHeader title={data.activeWorkout.workoutName} />
+<main>
     {#each data.workoutExercises as exercise }
         <a href={`/active/${exercise.id}`}>
             <ActiveExerciseCard
@@ -32,31 +33,21 @@
             />
         </a>
     {/each}
-</div>
-<footer>
-    <Button onclick={confirmEndWorkout} --width="100%">
+</main>
+<Navbar>
+    <Button onclick={confirmEndWorkout} --width="100%" rounded="full">
         End workout
     </Button>
-</footer>
+</Navbar>
 
 <style>
-    div {
+    main {
         padding: var(--size-2);
         margin-top: var(--size-3);
         display: flex;
         flex-direction: column;
         gap: var(--size-3);
-    }
 
-    footer {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: var(--size-2);
-        padding: var(--size-2);
-        bottom: env(safe-area-inset-bottom);
-        left: env(safe-area-inset-left);
-        right: env(safe-area-inset-right);
+        padding-bottom: var(--navbar-height);
     }
 </style>

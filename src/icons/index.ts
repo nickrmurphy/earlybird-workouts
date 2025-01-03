@@ -2,6 +2,7 @@ export { default as ArrowLeft } from "./ArrowLeft.svelte";
 export { default as Checkmark } from "./Checkmark.svelte";
 export { default as CheckmarkCircle } from "./CheckmarkCircle.svelte";
 export { default as CircleEmpty } from "./CircleEmpty.svelte";
+export { default as More } from "./More.svelte";
 export { default as PencilEdit } from "./PencilEdit.svelte";
 export { default as Plus } from "./Plus.svelte";
 export { default as RemoveCircle } from "./RemoveCircle.svelte";

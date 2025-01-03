@@ -71,6 +71,9 @@
     .size-md {
         padding: var(--size-1) var(--size-2);
         font-size: var(--font-size-2);
+
+        min-width: 44px;
+        min-height: 44px;
     }
 
     .size-lg {
@@ -80,8 +83,6 @@
 
     .rounded-full {
         border-radius: var(--radius-round);
-        height: var(--size-7);
-        width: var(--size-7);
         justify-content: center;
     }
 

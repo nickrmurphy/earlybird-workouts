@@ -1,13 +1,14 @@
 <script lang="ts">
   import { completeWorkoutSet, setWorkoutHistorySetReps, setWorkoutHistorySetWeight } from "$lib/workoutHistoryActions";
   import ActiveExerciseSet from "../../../ActiveExerciseSet.svelte";
-  import PageNavHeader from "../../../PageNavHeader.svelte";
+  import PageHeader from "../../../PageHeader.svelte";
+  import Navbar from "../../Navbar.svelte";
 
     let { data } = $props();
 </script>
 
-<PageNavHeader backHref="/active" title={data.exercise.name} level={2}/>
-<div>
+<PageHeader title={data.exercise.name} level={2}/>
+<main>
   {#each data.exerciseSets as set}
     <ActiveExerciseSet
       setId={set.id}
@@ -19,10 +20,11 @@
       onWeightChange={(weight) => setWorkoutHistorySetWeight(set.id, weight)}
     />
   {/each}
-</div>
+</main>
+<Navbar backHref="/active" />
 
 <style>
-  div {
+  main {
     display: flex;
     flex-direction: column;
     gap: var(--size-1);
