@@ -1,6 +1,5 @@
 <script>
     import { confirm } from '@tauri-apps/plugin-dialog';
-    import Heading from "../../../Heading.svelte";
     import Input from "../../../Input.svelte";
     import { removeExercise, updateReps, updateSets, updateWeight } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
@@ -38,14 +37,16 @@
     }
 </script>
 
-<PageNavHeader backHref={`/${data.workoutId}`} backLabel={data.workout.name}>
+<PageNavHeader
+    backHref={`/${data.workoutId}`}
+    backLabel={data.workout.name}
+    title={data.exercise.name}
+    level={2}
+>
     {#snippet endContent()}
         <button onclick={confirmDelete}>Delete</button>    
     {/snippet}
 </PageNavHeader>
-<header>
-    <Heading level={2}>{data.exercise.name}</Heading>
-</header>
 <main>
     <label>
         <span>
@@ -69,18 +70,11 @@
         color: red;
     }
 
-    header, main {
-        padding: var(--size-1) var(--size-2);
-    }
-
-    header {
-        margin-bottom: var(--size-4);
-    }
-
     main {
         display: flex;
         flex-direction: column;
         gap: var(--size-4);
+        padding: var(--size-4) var(--size-2);
     }
 
     label {

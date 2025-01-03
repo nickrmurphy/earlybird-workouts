@@ -3,6 +3,7 @@
   import Button from "../Button.svelte";
   import Heading from "../Heading.svelte";
   import { Plus } from "../icons";
+  import PageNavHeader from "../PageNavHeader.svelte";
   import WorkoutCard from "../WorkoutCard.svelte";
 
   const { data } = $props();
@@ -13,15 +14,14 @@
   }
 </script>
 
-<main>
-  <header>
-    <Heading>
-      Workouts
-    </Heading>
+<PageNavHeader title="Workouts">
+  {#snippet headerContent()}
     <Button rounded="full" onclick={() => goto("/new")}>
       <Plus />
     </Button>
-</header>
+  {/snippet}
+</PageNavHeader>
+<main>
   <section class="workouts">
     {#if data.workouts}
       {#each data.workouts as workout}
@@ -37,20 +37,11 @@
 </main>
 
 <style>
-  header, main {
-    padding: var(--size-1) var(--size-2);
-  }
-
   main {
     display: flex;
     flex-direction: column;
     gap: var(--size-5);
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: var(--size-4) var(--size-2);
   }
 
   section.workouts {

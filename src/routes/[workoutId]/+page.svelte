@@ -24,17 +24,11 @@
     }
 </script>
 
-<div class="top-padding"></div>
-<div class="top">
-    <PageNavHeader backHref="/">
-        {#snippet endContent()}
-            <button onclick={confirmDelete}>Delete</button> 
-        {/snippet}
-    </PageNavHeader>
-    <header>
-        <Heading>{data.workout.name}</Heading>
-    </header>
-</div>
+<PageNavHeader backHref="/" title={data.workout.name}>
+    {#snippet endContent()}
+        <button onclick={confirmDelete}>Delete</button> 
+    {/snippet}
+</PageNavHeader>
 <main>
     <section>
         <header>
@@ -88,23 +82,5 @@
         align-items: center;
         justify-content: center;
         padding: var(--size-3);
-    }
-
-    .top {
-        position: sticky;
-        background-color: var(--raisin-black);
-        top: env(safe-area-inset-top);
-        left: env(safe-area-inset-left);
-        right: env(safe-area-inset-right);
-        padding-bottom: var(--size-1);
-    }
-
-    .top-padding {
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100px;
-        position: fixed;
-        background-color: var(--raisin-black);
     }
 </style>

@@ -1,16 +1,12 @@
 <script lang="ts">
   import { completeWorkoutSet, setWorkoutHistorySetReps, setWorkoutHistorySetWeight } from "$lib/workoutHistoryActions";
   import ActiveExerciseSet from "../../../ActiveExerciseSet.svelte";
-  import Heading from "../../../Heading.svelte";
   import PageNavHeader from "../../../PageNavHeader.svelte";
 
     let { data } = $props();
 </script>
 
-<PageNavHeader backHref="/active" />
-<header>
-  <Heading level={2}>{data.exercise.name}</Heading>
-</header>
+<PageNavHeader backHref="/active" title={data.exercise.name} level={2}/>
 <div>
   {#each data.exerciseSets as set}
     <ActiveExerciseSet
@@ -26,14 +22,10 @@
 </div>
 
 <style>
-
   div {
     display: flex;
     flex-direction: column;
     gap: var(--size-1);
-  }
-
-  header, div {
     padding: var(--size-2);
   }
 </style>

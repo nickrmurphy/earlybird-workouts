@@ -2,17 +2,13 @@
   import { goto } from "$app/navigation";
   import { createWorkout } from "$lib/workoutActions";
   import Button from "../../Button.svelte";
-  import Heading from "../../Heading.svelte";
   import Input from "../../Input.svelte";
   import PageNavHeader from "../../PageNavHeader.svelte";
 
   let newWorkoutName = $state("");
 </script>
 
-<PageNavHeader backHref="/" />
-<header>
-    <Heading>Create a workout</Heading>
-</header>
+<PageNavHeader backHref="/" title="Create a workout" />
 <form onsubmit={async (e) => {
     e.preventDefault();
     const newId = await createWorkout(newWorkoutName);
@@ -30,7 +26,7 @@
 </form>
 
 <style>
-    header, form {
+    form {
         padding: var(--size-2);
     }
 
