@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { SvelteHTMLElements } from "svelte/elements";
     import Heading from "./Heading.svelte";
-  import type { Snippet } from "svelte";
+    import type { Snippet } from "svelte";
 
     type Props = SvelteHTMLElements["HTMLHeadingElement"] & {
         title?: string;

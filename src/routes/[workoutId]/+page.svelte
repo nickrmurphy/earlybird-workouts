@@ -2,13 +2,11 @@
     import { confirm } from '@tauri-apps/plugin-dialog';
     import Button from "../../Button.svelte";
     import ExerciseList from "../../ExerciseList.svelte";
-    import Heading from "../../Heading.svelte";
     import PencilEdit from "../../icons/PencilEdit.svelte";
     import { deleteWorkout, startWorkout } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
     import { fly } from 'svelte/transition';
-    import Navbar from '../Navbar.svelte';
-    import PageHeader from '../../PageHeader.svelte';
+    import { Navbar, PageHeader, Heading } from '$lib/components/page';
 
     let { data } = $props();
 

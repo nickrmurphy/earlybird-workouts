@@ -3,8 +3,8 @@
   import { createWorkout } from "$lib/workoutActions";
   import Button from "../../Button.svelte";
   import Input from "../../Input.svelte";
-  import PageHeader from "../../PageHeader.svelte";
-  import Navbar from "../Navbar.svelte";
+  import PageHeader from "../../lib/components/page/PageHeader.svelte";
+  import Navbar from "../../lib/components/page/Navbar.svelte";
 
   let newWorkoutName = $state("");
 </script>

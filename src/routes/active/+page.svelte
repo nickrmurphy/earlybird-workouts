@@ -1,11 +1,9 @@
 <script lang="ts">
     import { confirm } from '@tauri-apps/plugin-dialog';
-    import Heading from '../../Heading.svelte';
     import Button from '../../Button.svelte';
     import { completeWorkout } from '$lib/workoutHistoryActions';
     import ActiveExerciseCard from '../../ActiveExerciseCard.svelte';
-    import PageHeader from '../../PageHeader.svelte';
-  import Navbar from '../Navbar.svelte';
+    import { Navbar, PageHeader } from '$lib/components/page';
 
     let { data } = $props();
 

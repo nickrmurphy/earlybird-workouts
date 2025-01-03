@@ -1,8 +1,8 @@
 <script lang="ts">
   import { completeWorkoutSet, setWorkoutHistorySetReps, setWorkoutHistorySetWeight } from "$lib/workoutHistoryActions";
   import ActiveExerciseSet from "../../../ActiveExerciseSet.svelte";
-  import PageHeader from "../../../PageHeader.svelte";
-  import Navbar from "../../Navbar.svelte";
+  import PageHeader from "../../../lib/components/page/PageHeader.svelte";
+  import Navbar from "../../../lib/components/page/Navbar.svelte";
 
     let { data } = $props();
 </script>

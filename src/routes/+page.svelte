@@ -1,9 +1,8 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import Button from "../Button.svelte";
-  import Heading from "../Heading.svelte";
   import { Plus } from "../icons";
-  import PageHeader from "../PageHeader.svelte";
+  import { PageHeader } from "$lib/components/page";
   import WorkoutCard from "../WorkoutCard.svelte";
 
   const { data } = $props();

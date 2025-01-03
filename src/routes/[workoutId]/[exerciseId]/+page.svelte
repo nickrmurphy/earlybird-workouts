@@ -3,8 +3,8 @@
     import Input from "../../../Input.svelte";
     import { removeExercise, updateReps, updateSets, updateWeight } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
-    import PageHeader from '../../../PageHeader.svelte';
-    import Navbar from '../../Navbar.svelte';
+    import PageHeader from '../../../lib/components/page/PageHeader.svelte';
+    import Navbar from '../../../lib/components/page/Navbar.svelte';
     
     let { data } = $props();
 

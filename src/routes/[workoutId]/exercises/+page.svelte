@@ -2,8 +2,7 @@
   import ExerciseSelectList from "../../../ExerciseSelectList.svelte";
   import Input from "../../../Input.svelte";
   import { addExercise, removeExercise } from "$lib/workoutActions";
-  import Navbar from "../../Navbar.svelte";
-  import PageHeader from "../../../PageHeader.svelte";
+  import { PageHeader, Navbar } from "$lib/components/page";
 
   let { data } = $props();
 
