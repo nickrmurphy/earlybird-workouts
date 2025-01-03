@@ -6,3 +6,4 @@ export { default as More } from "./More.svelte";
 export { default as PencilEdit } from "./PencilEdit.svelte";
 export { default as Plus } from "./Plus.svelte";
 export { default as RemoveCircle } from "./RemoveCircle.svelte";
+export { default as XIcon } from "./XIcon.svelte";

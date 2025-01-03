@@ -7,6 +7,7 @@
     import { goto } from '$app/navigation';
     import { fly } from 'svelte/transition';
     import { Navbar, PageHeader, Heading } from '$lib/components/page';
+  import NavbarActionItem from '$lib/components/page/NavbarActionItem.svelte';
 
     let { data } = $props();
 
@@ -43,14 +44,14 @@
 </main>
 <Navbar backHref="/">
     {#snippet actions()}
-        <div>Option 1</div>
+        <NavbarActionItem onclick={confirmDelete} variant="destructive">Delete workout</NavbarActionItem>
     {/snippet}
     {#if dropdownOpen}
         <div class="dropdown-content" transition:fly={{ y: 100, duration: 200 }} >
-            <div class="item">Delete</div>
+            <div class="item">Delete workout</div>
         </div>
     {/if}
-    <Button --width="100%" class="btn" rounded="full" onclick={() => startWorkout(data.workout.id)}>
+    <Button disabled={data.exercises.length === 0} --width="100%" class="btn" rounded="full" onclick={() => startWorkout(data.workout.id)}>
         Start workout
     </Button>
 </Navbar>

@@ -5,6 +5,7 @@
     import { goto } from '$app/navigation';
     import PageHeader from '../../../lib/components/page/PageHeader.svelte';
     import Navbar from '../../../lib/components/page/Navbar.svelte';
+    import { NavbarActionItem } from '$lib/components/page';
     
     let { data } = $props();
 
@@ -55,18 +56,13 @@
         <Input --font-size="var(--font-size-3)" --font-weight="var(--font-weight-7)" type="number" step={1} inputmode="numeric" bind:value={reps} />
     </label>
 </main>
-<Navbar backHref={`/${data.workoutId}`} backLabel={data.workout.name}>
+<Navbar backHref={`/${data.workoutId}`}>
     {#snippet actions()}
-        <button onclick={confirmDelete}>Delete</button>
+        <NavbarActionItem onclick={confirmDelete} variant="destructive">Delete exercise</NavbarActionItem>
     {/snippet}
 </Navbar>
 
 <style>
-    button {
-        /* TODO: Replace red */
-        color: red;
-    }
-
     main {
         display: flex;
         flex-direction: column;
@@ -90,5 +86,4 @@
             color: hsl(var(--magnolia-hsl)  / 70%);
         }
     }
-
 </style>

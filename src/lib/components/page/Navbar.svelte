@@ -1,33 +1,40 @@
 <script lang="ts">
     import type { SvelteHTMLElements } from 'svelte/elements';
-    import { ArrowLeft, More } from '../../../icons';
+    import { ArrowLeft, More, XIcon } from '../../../icons';
     import { goto } from '$app/navigation';
     import type { Snippet } from 'svelte';
+  import NavbarActions from './NavbarActions.svelte';
 
     type Props = SvelteHTMLElements["nav"] & {
         backHref?: string;
-        backLabel?: string;
         actions?: Snippet;
     };
 
-    let { children, backHref, backLabel, actions }: Props = $props();
+    let { children, backHref, actions }: Props = $props();
+    let actionsOpen = $state(false);
 </script>
 
-{#snippet backButton(href: string, backLabel?: string)}
+{#snippet backButton(href: string )}
     <button onclick={() => goto(href)}>
         <ArrowLeft />
-        <!-- {backLabel} -->
     </button>
 {/snippet}
 
 <nav>
     {#if backHref}
-        {@render backButton(backHref, backLabel)}
+        {@render backButton(backHref)}
     {/if}
     {#if actions}
-        <button>
-            <More />
+        <button onclick={() => actionsOpen = !actionsOpen}>
+            {#if actionsOpen}
+                <XIcon />
+            {:else}
+                <More />
+            {/if}
         </button>
+        <NavbarActions bind:open={actionsOpen}>
+            {@render actions()}
+        </NavbarActions>
     {/if}
     {@render children?.()}
 </nav>
