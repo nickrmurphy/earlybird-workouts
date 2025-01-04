@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
     import type { HTMLButtonAttributes } from 'svelte/elements';
 
     const classes = { 
@@ -7,14 +8,32 @@
             destructive: 'var-destructive',
         }
     }
-    type Props = HTMLButtonAttributes & {
+    type WithRoutingProps = {
+        href?: string;
+        onclick?: never;
+    }
+
+    type WithClickProps = {
+        href?: never;
+        onclick: HTMLButtonAttributes['onclick'];
+    }
+
+    type Props = Omit<HTMLButtonAttributes, "onclick"> & {
         variant?: keyof typeof classes.variant;
-    };
-    let { children, variant = "primary", ...props }: Props = $props();
+    } & (WithRoutingProps | WithClickProps);
+    let { children, variant = "primary", href, onclick, ...props }: Props = $props();
 </script>
 
 <button
     {...props}
+    onclick={(e) => {
+        if (href) {
+            e.preventDefault();
+            goto(href);
+        } else {
+            onclick?.(e);
+        }
+    }}
     class={[
         classes.variant[variant],
         props.class

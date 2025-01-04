@@ -39,3 +39,6 @@ export const startWorkout = async (workoutId: number) => {
   );
   goto("/active");
 };
+
+export const renameWorkout = async (workoutId: number, name: string) =>
+  await mutation(services.workout.renameWorkout(workoutId, name));

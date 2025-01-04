@@ -27,6 +27,16 @@ export class WorkoutService {
     return result.lastInsertId;
   }
 
+  async renameWorkout(workoutId: number, name: string) {
+    const result = await this.db.execute(
+      `
+        UPDATE workouts SET name = $1 WHERE id = $2
+      `,
+      [name, workoutId]
+    );
+    return result.rowsAffected;
+  }
+
   async getWorkout(workoutId: number): Promise<Workout> {
     const result: Workout[] = await this.db.select(
       `

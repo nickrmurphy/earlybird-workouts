@@ -43,7 +43,10 @@
 </main>
 <Navbar backHref="/">
     {#snippet actions()}
-        <NavbarActionItem onclick={() => goto(`/${data.workout.id}/history`)}>
+        <NavbarActionItem href={`/${data.workout.id}/edit`}>
+            Rename workout
+        </NavbarActionItem>
+        <NavbarActionItem href={`/${data.workout.id}/history`}>
             View history
         </NavbarActionItem>
         <NavbarActionItem onclick={confirmDelete} variant="destructive">
