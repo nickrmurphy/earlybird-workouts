@@ -20,14 +20,14 @@
         <label for={`reps-${setId}`}>
             Reps
         </label>
-        <input id={`reps-${setId}`} min={0} disabled={isComplete} type="number" defaultValue={reps} onchange={(e) => onRepsChange?.(Number(e.currentTarget.value))} />
+        <input id={`reps-${setId}`} inputmode="numeric" min={0} disabled={isComplete} type="number" defaultValue={reps} onchange={(e) => onRepsChange?.(Number(e.currentTarget.value))}  />
     </section>
 
     <section>
         <label for={`weight-${setId}`}>
             Weight <span class="unit">(lbs)</span>
         </label>
-        <input id={`weight-${setId}`} min={0} disabled={isComplete} type="number" defaultValue={weight} onchange={(e)=> onWeightChange?.(Number(e.currentTarget.value))} />
+        <input id={`weight-${setId}`} inputmode="numeric" min={0} disabled={isComplete} type="number" defaultValue={weight} onchange={(e)=> onWeightChange?.(Number(e.currentTarget.value))} />
     </section>
 
     <section class="checkbox">

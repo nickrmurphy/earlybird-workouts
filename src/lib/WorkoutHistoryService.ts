@@ -143,7 +143,7 @@ export class WorkoutHistoryService {
       `
       SELECT whs.id as id, whs.reps as reps, whs.weight as weight, whs.is_complete as isComplete, whs.exercise_id as exerciseId, e.name as exerciseName
       FROM workout_history_sets whs
-      INNER JOIN exercise e ON whs.exercise_id = $2
+      INNER JOIN exercises e ON whs.exercise_id = $2
       WHERE whs.workout_history_id = $1 AND whs.exercise_id = $2;
     `,
       [workoutHistoryId, exerciseId]

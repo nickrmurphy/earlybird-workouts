@@ -7,7 +7,12 @@
   let { data } = $props();
   let historyDate = $derived.by(() => {
     const startTime = data.workoutHistory.find((history) => history.id === data.historyId)?.startTime;
-    return dateFormatter.format(new Date(startTime));
+    if (startTime) {
+        return dateFormatter.format(new Date(startTime));
+    } else {
+        console.error("History not found");
+        return "";
+    }
   });
 
 </script>
