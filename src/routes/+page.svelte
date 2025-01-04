@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import Button from "../Button.svelte";
-  import { Plus } from "../icons";
+  import { Plus } from "$lib/icons";
   import { PageHeader } from "$lib/components/page";
   import WorkoutCard from "../WorkoutCard.svelte";
 

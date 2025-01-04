@@ -2,7 +2,7 @@
     import { confirm } from '@tauri-apps/plugin-dialog';
     import Button from "../../Button.svelte";
     import ExerciseList from "../../ExerciseList.svelte";
-    import PencilEdit from "../../icons/PencilEdit.svelte";
+    import { PencilEdit } from "$lib/icons";
     import { deleteWorkout, startWorkout } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
     import { Navbar, PageHeader, Heading } from '$lib/components/page';

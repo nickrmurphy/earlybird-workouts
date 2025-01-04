@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { CircleEmpty } from "./icons";
-  import CheckmarkCircle from "./icons/CheckmarkCircle.svelte";
+  import { CircleEmpty, CheckmarkCircle } from "$lib/icons";
 
     type Props = {
         options: { value: number, label: string }[];

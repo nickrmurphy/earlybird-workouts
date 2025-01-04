@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { SvelteHTMLElements } from 'svelte/elements';
-    import { ArrowLeft, More, XIcon } from '../../../icons';
+    import { ArrowLeft, More, XIcon } from '$lib/icons';
     import { goto } from '$app/navigation';
     import type { Snippet } from 'svelte';
   import NavbarActions from './NavbarActions.svelte';

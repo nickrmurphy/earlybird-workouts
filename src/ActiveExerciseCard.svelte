@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { CircleEmpty } from "./icons";
-  import CheckmarkCircle from "./icons/CheckmarkCircle.svelte";
-  import RemoveCircle from "./icons/RemoveCircle.svelte";
+  import { CircleEmpty, CheckmarkCircle, RemoveCircle } from "$lib/icons";
 
     type Props = {
         exerciseName: string;

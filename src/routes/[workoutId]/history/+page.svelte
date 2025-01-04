@@ -3,7 +3,7 @@
   import { PageHeader } from "$lib/components/page";
   import Navbar from "$lib/components/page/Navbar.svelte";
   import { dateFormatter } from "$lib/utils";
-  import { ChevronRight } from "../../../icons";
+  import { ChevronRight } from "$lib/icons";
 
   let { data } = $props();
 </script>

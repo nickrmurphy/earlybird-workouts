@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckmarkCircle, CircleEmpty } from "./icons";
+  import { CheckmarkCircle, CircleEmpty } from "$lib/icons";
 
     type Props = {
         exerciseName: string;

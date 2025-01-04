@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from "./Button.svelte";
-  import Checkmark from "./icons/Checkmark.svelte";
+  import { Checkmark } from "$lib/icons";
 
     type Props = {
         setId: number;
