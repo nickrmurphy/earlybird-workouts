@@ -5,3 +5,7 @@ export async function mutation<T>(action: Promise<T>) {
   await invalidateAll();
   return result;
 }
+
+export const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "long",
+});

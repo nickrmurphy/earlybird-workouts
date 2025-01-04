@@ -22,6 +22,7 @@
         variant?: keyof typeof classes.variant;
         size?: keyof typeof classes.size;
     };
+
     let { children, rounded = 'default', variant = 'primary', size = "md", ...props }: Props = $props();
 </script>
 
@@ -59,7 +60,6 @@
 
     .var-ghost {
         background-color: transparent;
-        color: var(--magnolia);
     }
 
     .var-outline {

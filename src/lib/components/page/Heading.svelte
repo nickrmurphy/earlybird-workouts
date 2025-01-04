@@ -29,8 +29,13 @@
       font-weight: var(--font-weight-8);
     }
 
-    h2, h3 {
+    h2 {
       font-size: var(--font-size-3);
       font-weight: var(--font-weight-6);
+    }
+
+    h3 {
+      font-size: var(--font-size-2);
+      font-weight: var(--font-weight-5);
     }
 </style>

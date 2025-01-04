@@ -6,6 +6,7 @@ type WorkoutHistory = {
   id: number;
   workoutId: number;
   workoutName: string;
+  startTime: string;
 };
 
 // TODO: Move to types.ts when stabilized
@@ -21,6 +22,8 @@ type WorkoutHistorySet = {
   id: number;
   reps: number;
   weight: number;
+  exerciseId: number;
+  exerciseName: string;
   isComplete: number;
 };
 
@@ -80,7 +83,7 @@ export class WorkoutHistoryService {
   async getPendingWorkoutHistory(): Promise<WorkoutHistory | undefined> {
     const result: WorkoutHistory[] = await this.db.select(
       `
-        SELECT wh.id as id, w.id as workoutId, w.name as workoutName
+        SELECT wh.id as id, w.id as workoutId, w.name as workoutName, wh.start_time as startTime
         FROM workout_history wh
         INNER JOIN workouts w on w.id = wh.workout_id
         WHERE wh.end_time IS NULL
@@ -132,14 +135,15 @@ export class WorkoutHistoryService {
     );
   }
 
-  async getWorkoutHistorySets(
+  async getExerciseWorkoutHistorySets(
     workoutHistoryId: number,
     exerciseId: number
   ): Promise<WorkoutHistorySet[]> {
     const result: WorkoutHistorySet[] = await this.db.select(
       `
-      SELECT whs.id as id, whs.reps as reps, whs.weight as weight, whs.is_complete as isComplete
+      SELECT whs.id as id, whs.reps as reps, whs.weight as weight, whs.is_complete as isComplete, whs.exercise_id as exerciseId, e.name as exerciseName
       FROM workout_history_sets whs
+      INNER JOIN exercise e ON whs.exercise_id = $2
       WHERE whs.workout_history_id = $1 AND whs.exercise_id = $2;
     `,
       [workoutHistoryId, exerciseId]
@@ -185,5 +189,36 @@ export class WorkoutHistoryService {
     `,
       [isComplete ? 1 : 0, workoutHistorySetId]
     );
+  }
+
+  async getWorkoutHistories(workoutId: number): Promise<WorkoutHistory[]> {
+    const result: WorkoutHistory[] = await this.db.select(
+      `
+        SELECT wh.id as id, w.id as workoutId, w.name as workoutName, wh.start_time as startTime
+        FROM workout_history wh
+        INNER JOIN workouts w on w.id = wh.workout_id
+        WHERE w.id = $1
+        ORDER BY wh.start_time DESC
+      `,
+      [workoutId]
+    );
+    return result;
+  }
+
+  async getWorkoutHistorySets(
+    workoutHistoryId: number
+  ): Promise<WorkoutHistorySet[]> {
+    const result: WorkoutHistorySet[] = await this.db.select(
+      `
+      SELECT whs.id as id, whs.reps as reps, whs.weight as weight, whs.is_complete as isComplete, whs.exercise_id as exerciseId, e.name as exerciseName
+      FROM workout_history_sets whs
+      INNER JOIN workout_history wh ON wh.id = whs.workout_history_id
+      INNER JOIN exercises e ON e.id = whs.exercise_id
+      WHERE wh.id = $1
+    `,
+      [workoutHistoryId]
+    );
+
+    return result;
   }
 }

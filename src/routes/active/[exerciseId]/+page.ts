@@ -9,10 +9,11 @@ export const load: PageLoad = async ({ params }) => {
   if (!activeWorkout) {
     redirect(303, "/");
   }
-  const exerciseSets = await services.workoutHistory.getWorkoutHistorySets(
-    activeWorkout.id,
-    Number(params.exerciseId)
-  );
+  const exerciseSets =
+    await services.workoutHistory.getExerciseWorkoutHistorySets(
+      activeWorkout.id,
+      Number(params.exerciseId)
+    );
 
   const exercise = await services.exercise.getExercise(
     Number(params.exerciseId)
