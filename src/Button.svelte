@@ -46,6 +46,7 @@
         text-align: center;
         justify-content: center;
         width: var(--width);
+        gap: var(--size-2);
 
         :global(svg) {
             height: var(--size-4);

@@ -6,6 +6,8 @@ export { default as CircleEmpty } from "./CircleEmpty.svelte";
 export { default as Clock } from "./Clock.svelte";
 export { default as More } from "./More.svelte";
 export { default as PencilEdit } from "./PencilEdit.svelte";
+export { default as Play } from "./Play.svelte";
 export { default as Plus } from "./Plus.svelte";
 export { default as RemoveCircle } from "./RemoveCircle.svelte";
+export { default as StopCircle } from "./StopCircle.svelte";
 export { default as XIcon } from "./XIcon.svelte";
