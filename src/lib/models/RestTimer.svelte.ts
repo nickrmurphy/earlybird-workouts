@@ -1,22 +1,39 @@
 export class RestTimer {
-  private startTime: Date | undefined = undefined;
-  private intervalId: number | undefined = $state(undefined);
+  #startTime: Date | undefined = undefined;
+  #intervalId: number | undefined = $state(undefined);
+  #runTimeSeconds = $state(0);
+  #persister: (value: number) => void = () => {};
 
-  runTimeSeconds = $state(0);
   elapsedTime = $state(0);
-  isRunning = $derived(this.intervalId !== undefined);
+  isRunning = $derived(this.#intervalId !== undefined);
   isExpired = $derived(this.elapsedTime >= this.runTimeSeconds);
 
-  constructor(runTimeSeconds: number) {
-    this.runTimeSeconds = runTimeSeconds;
+  constructor({
+    loader,
+    persister,
+  }: {
+    loader: () => number;
+    persister: (value: number) => void;
+  }) {
+    this.#runTimeSeconds = loader();
+    this.#persister = persister;
+  }
+
+  get runTimeSeconds() {
+    return this.#runTimeSeconds;
+  }
+
+  set runTimeSeconds(value: number) {
+    this.#runTimeSeconds = value;
+    this.#persister(value);
   }
 
   start() {
-    this.startTime = new Date();
-    this.intervalId = setInterval(() => {
-      if (this.startTime) {
+    this.#startTime = new Date();
+    this.#intervalId = setInterval(() => {
+      if (this.#startTime) {
         this.elapsedTime = Math.floor(
-          (new Date().getTime() - this.startTime.getTime()) / 1000
+          (new Date().getTime() - this.#startTime.getTime()) / 1000
         );
       } else {
         this.elapsedTime = 0;
@@ -25,11 +42,11 @@ export class RestTimer {
   }
 
   stop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = undefined;
+    if (this.#intervalId) {
+      clearInterval(this.#intervalId);
+      this.#intervalId = undefined;
+      this.#startTime = undefined;
       this.elapsedTime = 0;
-      this.startTime = undefined;
     }
   }
 }
