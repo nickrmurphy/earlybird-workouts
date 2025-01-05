@@ -25,6 +25,7 @@
         );
 
         if (confirmEnd) {
+            activityStore.restTimer.stop();
             completeWorkout(data.activeWorkout.id);
         }
     }
