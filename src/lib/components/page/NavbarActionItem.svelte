@@ -49,7 +49,7 @@
         display: flex;
         align-items: center;
         text-align: center;
-        justify-content: center;
+        justify-content: var(--justify-content, center);
         width: 100%;
         padding: var(--size-4);
 

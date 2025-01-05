@@ -6,6 +6,10 @@
     import { Navbar, PageHeader } from '$lib/components/page';
     import { activityStore } from './activityStore.svelte';
     import { Play, StopCircle } from '$lib/icons';
+    import NavbarActionItem from '$lib/components/page/NavbarActionItem.svelte';
+
+    let { data } = $props();
+
 
     let elapsedTime = $derived.by(() => {
         let time = activityStore.restTimer.elapsedTime;
@@ -14,9 +18,7 @@
         } else {
             return time.toString();
         }
-    })
-
-    let { data } = $props();
+    });
 
     async function confirmEndWorkout() {
         const confirmEnd = await confirm(
@@ -53,15 +55,26 @@
     {/each}
 </main>
 <Navbar>
-    <Button --width="33%" rounded="full" variant="outline" onclick={toggleTimer}>
+    {#snippet actions()}
+        <NavbarActionItem --justify-content="space-between">
+            Rest time:
+            <select bind:value={activityStore.restTimer.runTimeSeconds}>
+                {#each [10, 20, 30, 45, 60, 90, 120, 180] as time}
+                    <option value={time}>{time}s</option>
+                {/each}
+            </select>
+            <!-- <input type="range" step={5} min={5} max={180} bind:value={restTimeSeconds} /> -->
+        </NavbarActionItem>
+    {/snippet}
+    <Button --width="50%" rounded="full" variant="outline" onclick={toggleTimer}>
         {#if activityStore.restTimer.isRunning}
             <StopCircle />
         {:else}
             <Play />
         {/if}
-        <time data-expired="{activityStore.restTimer.isExpired}">{elapsedTime}/60s</time>
+        <time data-expired="{activityStore.restTimer.isExpired}">{elapsedTime}/{activityStore.restTimer.runTimeSeconds} s.</time>
     </Button>
-    <Button onclick={confirmEndWorkout} --width="66%" rounded="full">
+    <Button onclick={confirmEndWorkout} --width="50%" rounded="full">
         End workout
     </Button>
 </Navbar>
@@ -70,7 +83,7 @@
     main {
         padding: var(--size-2);
         margin-top: var(--size-3);
-        display: flex;
+        display: flex;  
         flex-direction: column;
         gap: var(--size-3);
 
@@ -84,5 +97,13 @@
     time[data-expired="true"] {
         /* TODO: This red sucks, change it. Also should probably make the whole button red */
         color: red;
+    }
+
+    select {
+        padding: var(--size-2) var(--size-3);
+        border-radius: var(--radius-3);
+        border: 1px solid var(--yellow);
+        background: none;
+        color: var(--black);
     }
 </style>

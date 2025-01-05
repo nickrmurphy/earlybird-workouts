@@ -1,7 +1,8 @@
 export class RestTimer {
-  private intervalId: number | undefined = $state(undefined);
-  private runTimeSeconds = 0;
   private startTime: Date | undefined = undefined;
+  private intervalId: number | undefined = $state(undefined);
+
+  runTimeSeconds = $state(0);
   elapsedTime = $state(0);
   isRunning = $derived(this.intervalId !== undefined);
   isExpired = $derived(this.elapsedTime >= this.runTimeSeconds);
