@@ -10,7 +10,7 @@
 <style>
     input {
         background-color: transparent;
-        border-radius: var(--radius-2);
+        border-radius: var(--radius-3);
         padding: var(--size-2);
         font-size: var(--font-size, var(--font-size-2));
         font-weight: var(--font-weight);

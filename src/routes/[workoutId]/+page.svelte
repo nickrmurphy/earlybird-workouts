@@ -46,6 +46,9 @@
         <NavbarActionItem href={`/${data.workout.id}/edit`}>
             Rename workout
         </NavbarActionItem>
+        <NavbarActionItem href={`/${data.workout.id}/reorder`}>
+            Reorder exercises
+        </NavbarActionItem>
         <NavbarActionItem href={`/${data.workout.id}/history`}>
             View history
         </NavbarActionItem>

@@ -22,6 +22,12 @@ pub fn run() {
             sql: include_str!("../../src/scripts/seed_data.sql"),
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 3,
+            description: "add_workout_exercises_position",
+            sql: include_str!("../../src/scripts/add_exercises_position.sql"),
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()

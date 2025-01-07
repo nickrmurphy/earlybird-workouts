@@ -62,10 +62,11 @@ export class WorkoutService {
   async getExercises(workoutId: number): Promise<Exercise[]> {
     return this.db.select(
       `
-            SELECT e.id as id, e.name as name, we.sets as sets, we.reps as reps, we.weight as weight
+            SELECT e.id as id, e.name as name, we.sets as sets, we.reps as reps, we.weight as weight, we.position as position
             FROM workout_exercises we
             INNER JOIN exercises e on e.id = we.exercise_id
             WHERE we.workout_id = $1
+            ORDER BY we.position ASC
         `,
       [workoutId]
     );
@@ -74,7 +75,7 @@ export class WorkoutService {
   async getExercise(workoutId: number, exerciseId: number): Promise<Exercise> {
     const result: Exercise[] = await this.db.select(
       `
-          SELECT e.id as id, e.name as name, we.sets as sets, we.reps as reps, we.weight as weight
+          SELECT e.id as id, e.name as name, we.sets as sets, we.reps as reps, we.weight as weight, we.position as position
           FROM workout_exercises we
           INNER JOIN exercises e on e.id = we.exercise_id
           WHERE we.exercise_id = $1 AND we.workout_id = $2
@@ -135,6 +136,20 @@ export class WorkoutService {
         UPDATE workout_exercises SET reps = $1 WHERE workout_id = $2 AND exercise_id = $3
       `,
       [reps, workoutId, exerciseId]
+    );
+    return result.rowsAffected;
+  }
+
+  async setExercisePosition(
+    workoutId: number,
+    exerciseId: number,
+    position: number
+  ) {
+    const result = await this.db.execute(
+      `
+        UPDATE workout_exercises SET position = $1 WHERE workout_id = $2 AND exercise_id = $3
+      `,
+      [position, workoutId, exerciseId]
     );
     return result.rowsAffected;
   }

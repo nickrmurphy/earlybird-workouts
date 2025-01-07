@@ -4,6 +4,7 @@ export type Exercise = {
   sets: number;
   reps: number;
   weight: number;
+  position: number;
 };
 
 export type Workout = {

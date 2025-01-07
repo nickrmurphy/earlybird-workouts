@@ -1,7 +1,9 @@
 export { default as ArrowLeft } from "./ArrowLeft.svelte";
 export { default as Checkmark } from "./Checkmark.svelte";
 export { default as CheckmarkCircle } from "./CheckmarkCircle.svelte";
+export { default as ChevronDown } from "./ChevronDown.svelte";
 export { default as ChevronRight } from "./ChevronRight.svelte";
+export { default as ChevronUp } from "./ChevronUp.svelte";
 export { default as CircleEmpty } from "./CircleEmpty.svelte";
 export { default as Clock } from "./Clock.svelte";
 export { default as More } from "./More.svelte";

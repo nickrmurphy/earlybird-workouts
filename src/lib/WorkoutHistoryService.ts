@@ -112,12 +112,15 @@ export class WorkoutHistoryService {
               FROM workout_history_sets whs 
               INNER JOIN workout_history wh ON wh.id = whs.workout_history_id
               WHERE whs.is_complete = 0 AND whs.exercise_id = e.id AND wh.id = $1
-          ) AS isComplete
+          ) AS isComplete,
+        we.position AS position
       FROM workout_history wh
       INNER JOIN workout_history_sets whs ON whs.workout_history_id = wh.id
       INNER JOIN exercises e ON e.id = whs.exercise_id
+      INNER JOIN workout_exercises we ON we.exercise_id = whs.exercise_id
       WHERE wh.id = $1
-      GROUP BY e.id, e.name;
+      GROUP BY e.id, e.name
+      ORDER BY we.position ASC;
     `,
       [workoutHistoryId]
     );
