@@ -10,6 +10,9 @@ import type { LayoutLoad } from "./$types";
 
 export const load: LayoutLoad = async ({ url }) => {
   const allExercises = await services.exercise.getExercises();
+  const allEquipment = await services.equipment.getEquipment();
+  const allMuscleGroups = await services.muscleGroup.getMuscleGroups();
+
   const activeWorkout =
     await services.workoutHistory.getPendingWorkoutHistory();
 
@@ -17,5 +20,5 @@ export const load: LayoutLoad = async ({ url }) => {
     goto("/active");
   }
 
-  return { allExercises };
+  return { allExercises, allEquipment, allMuscleGroups };
 };

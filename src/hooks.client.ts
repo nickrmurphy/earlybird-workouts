@@ -5,6 +5,8 @@ import { services } from "$lib/services.svelte";
 import { WorkoutService } from "$lib/WorkoutService";
 import { WorkoutHistoryService } from "$lib/WorkoutHistoryService";
 import { ExerciseService } from "$lib/ExerciseService";
+import { EquipmentService } from "$lib/EquipmentService";
+import { MuscleGroupService } from "$lib/MuscleGroupService";
 
 export const init: ClientInit = async () => {
   const dbConnection = await Database.load("sqlite:earlybirdworkouts.db");
@@ -13,4 +15,6 @@ export const init: ClientInit = async () => {
   services.exercise = new ExerciseService(dbConnection);
   services.workout = new WorkoutService(dbConnection);
   services.workoutHistory = new WorkoutHistoryService(dbConnection);
+  services.equipment = new EquipmentService(dbConnection);
+  services.muscleGroup = new MuscleGroupService(dbConnection);
 };

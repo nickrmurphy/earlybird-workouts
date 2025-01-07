@@ -52,7 +52,7 @@
         }}
     />
 </main>
-<Navbar backHref={`/${data.workout.id}`} backLabel={data.workout.name}/>
+<Navbar backHref={`/${data.workout.id}`} />
 <style>
 
     main {
