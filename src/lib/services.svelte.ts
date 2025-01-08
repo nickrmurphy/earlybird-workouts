@@ -1,9 +1,10 @@
-import Database from "@tauri-apps/plugin-sql";
-import type { WorkoutService } from "./WorkoutService";
-import type { WorkoutHistoryService } from "./WorkoutHistoryService";
-import type { ExerciseService } from "./ExerciseService";
-import type { EquipmentService } from "./EquipmentService";
-import type { MuscleGroupService } from "./MuscleGroupService";
+import type {
+  WorkoutService,
+  WorkoutHistoryService,
+  ExerciseService,
+  EquipmentService,
+  MuscleGroupService,
+} from "./services";
 
 type ServiceStore = {
   exercise: ExerciseService;

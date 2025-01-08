@@ -1,5 +1,5 @@
 import type Database from "@tauri-apps/plugin-sql";
-import { services } from "./services.svelte";
+import { WorkoutService } from "./WorkoutService";
 
 // TODO: Move to types.ts when stabilized
 type WorkoutHistory = {
@@ -29,9 +29,11 @@ type WorkoutHistorySet = {
 
 export class WorkoutHistoryService {
   db: Database;
+  workoutService: WorkoutService;
 
   constructor(db: Database) {
     this.db = db;
+    this.workoutService = new WorkoutService(db);
   }
 
   async createWorkoutHistoryAndSets(workoutId: number) {
@@ -45,7 +47,7 @@ export class WorkoutHistoryService {
     );
 
     if (createHistoryResult.lastInsertId) {
-      const exercises = await services.workout.getExercises(workoutId);
+      const exercises = await this.workoutService.getExercises(workoutId);
       const dbStatements: string[] = [];
       const queryValues = [createHistoryResult.lastInsertId];
 
