@@ -3,21 +3,28 @@
   import Input from "../../../Input.svelte";
   import { addExercise, removeExercise } from "$lib/workoutActions";
   import { PageHeader, Navbar } from "$lib/components/page";
+  import { goto } from "$app/navigation";
+  import { page } from "$app/state";
 
   let { data } = $props();
 
   let filterQuery = $state("");
   let selectedOnly = $state(false);
   let selectedOptions = $derived(data.exercises.map((exercise) => exercise.id));
+  let searchParams = $state(page.url.searchParams);
+
+  function updateFilterQuery(name?: string) {
+    // TODO: Debounce this
+    if (name) {
+        searchParams.set("name", name);  
+    } else {
+        searchParams.delete("name");
+    }
+    goto(`?${searchParams.toString()}`);
+  }
 
   let exerciseOptions = $derived.by(() => {
-      let filteredExercises = filterQuery === ""  ? data.allExercises : data.allExercises?.filter((exercise) =>
-          exercise.name.toLowerCase().includes(filterQuery.toLowerCase())
-      );  
-
-      if (selectedOnly) {
-        filteredExercises = filteredExercises?.filter((exercise) => selectedOptions.includes(exercise.id)) || [];
-      }
+      let filteredExercises = selectedOnly ? data.queriedExercises?.filter((exercise) => selectedOptions.includes(exercise.id)) || [] : data.queriedExercises;
 
       return filteredExercises?.map((exercise) => ({
           value: exercise.id,
@@ -30,7 +37,7 @@
 
 <PageHeader>
     {#snippet control()}
-        <Input bind:value={filterQuery} placeholder="Search for an exercise..." />
+        <Input autofocus bind:value={filterQuery} oninput={(e) => updateFilterQuery(e.currentTarget.value)} placeholder="Search for an exercise..." />
         <div class="tab-group">
             <button onclick={() => selectedOnly = false} data-selected={!selectedOnly}>All</button>
             <button onclick={() => selectedOnly = true} data-selected={selectedOnly}>

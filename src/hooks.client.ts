@@ -1,12 +1,14 @@
-import type { ClientInit, Handle } from "@sveltejs/kit";
+import type { ClientInit } from "@sveltejs/kit";
 import Database from "@tauri-apps/plugin-sql";
 import { db } from "$lib/db.svelte";
 import { services } from "$lib/services.svelte";
-import { WorkoutService } from "$lib/WorkoutService";
-import { WorkoutHistoryService } from "$lib/WorkoutHistoryService";
-import { ExerciseService } from "$lib/ExerciseService";
-import { EquipmentService } from "$lib/EquipmentService";
-import { MuscleGroupService } from "$lib/MuscleGroupService";
+import {
+  WorkoutService,
+  WorkoutHistoryService,
+  ExerciseService,
+  EquipmentService,
+  MuscleGroupService,
+} from "$lib/services";
 
 export const init: ClientInit = async () => {
   const dbConnection = await Database.load("sqlite:earlybirdworkouts.db");

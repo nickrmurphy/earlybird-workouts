@@ -1,5 +1,5 @@
 import { services } from "$lib/services.svelte";
-import type { Exercise } from "../types";
+import type { Exercise } from "$lib/types";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async () => {
