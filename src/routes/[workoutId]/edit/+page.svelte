@@ -21,7 +21,7 @@
   }}>
       <label>
           Title
-          <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" required type="text" />
+          <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" required type="text" enterkeyhint="done" />
       </label>
   </form>
   <Navbar backHref="/{data.workout.id}">

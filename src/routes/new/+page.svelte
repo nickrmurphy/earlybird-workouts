@@ -14,12 +14,12 @@
     e.preventDefault();
     const newId = await createWorkout(newWorkoutName);
     if (newId) {
-      goto(`/${newId}`);
+      goto(`/${newId}/exercises`);
     }
 }}>
     <label>
         Title
-        <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" required type="text" />
+        <Input bind:value={newWorkoutName} placeholder="e.g. Upper body" required type="text" enterkeyhint="next" />
     </label>
 </form>
 <Navbar backHref="/">

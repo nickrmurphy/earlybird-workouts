@@ -7,6 +7,7 @@
     import { activityStore } from './activityStore.svelte';
     import { Play, StopCircle } from '$lib/icons';
     import NavbarActionItem from '$lib/components/page/NavbarActionItem.svelte';
+  import { goto } from '$app/navigation';
 
     let { data } = $props();
 
@@ -28,7 +29,9 @@
 
         if (confirmEnd) {
             activityStore.restTimer.stop();
-            completeWorkout(data.activeWorkout.id);
+            completeWorkout(data.activeWorkout.id).then(() => {
+                goto(`/${data.activeWorkout.workoutId}/history/${data.activeWorkout.id}`);
+            });
         }
     }
 

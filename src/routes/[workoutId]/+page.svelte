@@ -2,7 +2,7 @@
     import { confirm } from '@tauri-apps/plugin-dialog';
     import Button from "../../Button.svelte";
     import ExerciseList from "../../ExerciseList.svelte";
-    import { PencilEdit } from "$lib/icons";
+    import { ListSettings, PlusMinus, PlusMinusCircle } from "$lib/icons";
     import { deleteWorkout, startWorkout } from "$lib/workoutActions";
     import { goto } from '$app/navigation';
     import { Navbar, PageHeader, Heading } from '$lib/components/page';
@@ -31,8 +31,8 @@
             <label for="edit-workout">
                 <Heading level={2}>Exercises</Heading>
             </label>
-            <Button id="edit-workout" variant="ghost" onclick={() => goto(`/${data.workout.id}/exercises`)}>
-                <PencilEdit />
+            <Button id="edit-workout" variant="ghost" rounded="full" onclick={() => goto(`/${data.workout.id}/exercises`)}>
+                <PlusMinusCircle />
             </Button>
         </header>
         <ExerciseList
