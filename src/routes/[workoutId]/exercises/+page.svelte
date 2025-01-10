@@ -5,6 +5,7 @@
   import { PageHeader, Navbar } from "$lib/components/page";
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
+  import { debounce } from "$lib/utils";
 
   let { data } = $props();
 
@@ -12,8 +13,28 @@
   let selectedOnly = $state(false);
   let selectedOptions = $derived(data.exercises.map((exercise) => exercise.id));
   let searchParams = $state(page.url.searchParams);
+  let equipmentFilter = $state(-1);
+  let muscleGroupFilter = $state(-1);
 
-  function updateFilterQuery(name?: string) {
+  $effect(() => {
+    if (equipmentFilter > 0) {
+        searchParams.set("equipmentId", equipmentFilter.toString());  
+    } else {
+        searchParams.delete("equipmentId");
+    }
+    goto(`?${searchParams.toString()}`);
+  });
+
+  $effect(() => {
+      if (muscleGroupFilter > 0) {
+          searchParams.set("muscleGroupId", muscleGroupFilter.toString());  
+      } else {
+          searchParams.delete("muscleGroupId");
+      }
+      goto(`?${searchParams.toString()}`);
+  });
+
+  const updateFilterQuery = debounce(function updateFilterQuery(name?: string) {
     // TODO: Debounce this
     if (name) {
         searchParams.set("name", name);  
@@ -21,7 +42,7 @@
         searchParams.delete("name");
     }
     goto(`?${searchParams.toString()}`);
-  }
+  }, 1000)
 
   let exerciseOptions = $derived.by(() => {
       let filteredExercises = selectedOnly ? data.queriedExercises?.filter((exercise) => selectedOptions.includes(exercise.id)) || [] : data.queriedExercises;
@@ -37,7 +58,7 @@
 
 <PageHeader>
     {#snippet control()}
-        <Input autofocus bind:value={filterQuery} oninput={(e) => updateFilterQuery(e.currentTarget.value)} placeholder="Search for an exercise..." />
+        <Input bind:value={filterQuery} type="search" onchange={(e) => updateFilterQuery(e.currentTarget.value)} placeholder="Search for an exercise..." enterkeyhint="search" />
         <div class="tab-group">
             <button onclick={() => selectedOnly = false} data-selected={!selectedOnly}>All</button>
             <button onclick={() => selectedOnly = true} data-selected={selectedOnly}>
@@ -59,7 +80,21 @@
         }}
     />
 </main>
-<Navbar backHref={`/${data.workout.id}`} />
+<Navbar backHref={`/${data.workout.id}`}>
+    <select bind:value={equipmentFilter}>
+        <option value={-1}>All equipment</option>
+        {#each data.allEquipment as equipment}
+            <option value={equipment.id}>{equipment.name}</option>
+        {/each}
+    </select>
+    <select bind:value={muscleGroupFilter}>
+        <option value={-1}>All muscle groups</option>
+        {#each data.allMuscleGroups as muscleGroup}
+            <option value={muscleGroup.id}>{muscleGroup.name}</option>
+        {/each}
+    </select>
+</Navbar>
+
 <style>
 
     main {
@@ -96,5 +131,16 @@
             color: var(--raisin-black);
             font-weight: var(--font-weight-7);
         }
+    }
+
+    select {
+        padding: var(--size-2) var(--size-3);
+        border-radius: var(--radius-round);
+        width: 100%;
+        font-size: var(--font-size-0);
+        border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+        background: none;
+        color: var(--black);
+        min-height: 44px;
     }
 </style>

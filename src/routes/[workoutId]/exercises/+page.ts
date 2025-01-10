@@ -2,9 +2,13 @@ import { services } from "$lib/services.svelte";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ url }) => {
+  const equipmentId = url.searchParams.get("equipmentId");
+  const muscleGroupId = url.searchParams.get("muscleGroupId");
   const queriedExercises = await services.exercise.queryExercises({
     name: url.searchParams.get("name") || undefined,
+    equipmentId: equipmentId ? parseInt(equipmentId) : undefined,
+    muscleGroupId: muscleGroupId ? parseInt(muscleGroupId) : undefined,
   });
-  console.log("queriedExercises", queriedExercises);
+
   return { queriedExercises };
 };

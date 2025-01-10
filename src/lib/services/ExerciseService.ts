@@ -33,7 +33,11 @@ export class ExerciseService {
       }
 
       if (options.equipmentId) {
-        filterClauses.push(`e.equipment_id = $${params.length + 1}`);
+        filterClauses.push(
+          `(e.primary_equipment_id = $${
+            params.length + 1
+          } OR e.secondary_equipment_id = $${params.length + 1})`
+        );
         params.push(options.equipmentId);
       }
     }
