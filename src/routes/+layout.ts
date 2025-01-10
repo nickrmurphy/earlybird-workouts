@@ -9,16 +9,10 @@ import { services } from "$lib/services.svelte";
 import type { LayoutLoad } from "./$types";
 
 export const load: LayoutLoad = async ({ url }) => {
-  const allExercises = await services.exercise.getExercises();
-  const allEquipment = await services.equipment.getEquipment();
-  const allMuscleGroups = await services.muscleGroup.getMuscleGroups();
-
   const activeWorkout =
     await services.workoutHistory.getPendingWorkoutHistory();
 
   if (activeWorkout && !url.pathname.startsWith("/active")) {
     goto("/active");
   }
-
-  return { allExercises, allEquipment, allMuscleGroups };
 };

@@ -2,6 +2,9 @@ import { services } from "$lib/services.svelte";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ url }) => {
+  const allEquipment = await services.equipment.getEquipment();
+  const allMuscleGroups = await services.muscleGroup.getMuscleGroups();
+
   const equipmentId = url.searchParams.get("equipmentId");
   const muscleGroupId = url.searchParams.get("muscleGroupId");
   const queriedExercises = await services.exercise.queryExercises({
@@ -10,5 +13,5 @@ export const load: PageLoad = async ({ url }) => {
     muscleGroupId: muscleGroupId ? parseInt(muscleGroupId) : undefined,
   });
 
-  return { queriedExercises };
+  return { queriedExercises, allEquipment, allMuscleGroups };
 };
