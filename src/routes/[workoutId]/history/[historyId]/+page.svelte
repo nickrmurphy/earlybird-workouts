@@ -1,8 +1,6 @@
 <script lang="ts">
-  import Navbar from "$lib/components/page/Navbar.svelte";
-  import PageHeader from "$lib/components/page/PageHeader.svelte";
+  import { Navbar, PageHeader, ExerciseSetTable } from "$lib/components";
   import { dateFormatter } from "$lib/utils";
-  import ExerciseSetTable from "../../../../ExerciseSetTable.svelte";
 
   let { data } = $props();
   let historyDate = $derived.by(() => {

@@ -1,8 +1,11 @@
 <script lang="ts">
-  import ExerciseSelectList from "../../../ExerciseSelectList.svelte";
-  import Input from "../../../Input.svelte";
   import { addExercise, removeExercise } from "$lib/workoutActions";
-  import { PageHeader, Navbar } from "$lib/components/page";
+  import {
+    PageHeader,
+    Navbar,
+    Input,
+    ExerciseSelectList,
+  } from "$lib/components";
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import { debounce } from "$lib/utils";

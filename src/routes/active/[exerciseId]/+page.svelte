@@ -4,11 +4,13 @@
     setWorkoutHistorySetReps,
     setWorkoutHistorySetWeight,
   } from "$lib/workoutHistoryActions";
-  import ActiveExerciseSet from "../../../ActiveExerciseSet.svelte";
-  import PageHeader from "../../../lib/components/page/PageHeader.svelte";
-  import Navbar from "../../../lib/components/page/Navbar.svelte";
+  import {
+    ActiveExerciseSet,
+    PageHeader,
+    Navbar,
+    Button,
+  } from "$lib/components";
   import { activityStore } from "../activityStore.svelte";
-  import Button from "../../../Button.svelte";
   import { Play, StopCircle } from "$lib/icons";
 
   let { data } = $props();

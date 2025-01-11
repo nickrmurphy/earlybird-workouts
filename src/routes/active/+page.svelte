@@ -1,12 +1,15 @@
 <script lang="ts">
   import { confirm } from "@tauri-apps/plugin-dialog";
-  import Button from "../../Button.svelte";
+  import {
+    Button,
+    ActiveExerciseCard,
+    Navbar,
+    PageHeader,
+    NavbarActionItem,
+  } from "$lib/components";
   import { completeWorkout } from "$lib/workoutHistoryActions";
-  import ActiveExerciseCard from "../../ActiveExerciseCard.svelte";
-  import { Navbar, PageHeader } from "$lib/components/page";
   import { activityStore } from "./activityStore.svelte";
   import { Play, StopCircle } from "$lib/icons";
-  import NavbarActionItem from "$lib/components/page/NavbarActionItem.svelte";
   import { goto } from "$app/navigation";
 
   let { data } = $props();

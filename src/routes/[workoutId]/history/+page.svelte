@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { PageHeader } from "$lib/components/page";
-  import Navbar from "$lib/components/page/Navbar.svelte";
+  import { PageHeader, Navbar } from "$lib/components";
   import { dateFormatter } from "$lib/utils";
   import { ChevronRight } from "$lib/icons";
 

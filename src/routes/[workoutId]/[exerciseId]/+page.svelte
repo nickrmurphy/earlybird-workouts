@@ -1,6 +1,5 @@
 <script>
   import { confirm } from "@tauri-apps/plugin-dialog";
-  import Input from "../../../Input.svelte";
   import {
     removeExercise,
     updateReps,
@@ -8,9 +7,7 @@
     updateWeight,
   } from "$lib/workoutActions";
   import { goto } from "$app/navigation";
-  import PageHeader from "../../../lib/components/page/PageHeader.svelte";
-  import Navbar from "../../../lib/components/page/Navbar.svelte";
-  import { NavbarActionItem } from "$lib/components/page";
+  import { PageHeader, Navbar, NavbarActionItem, Input } from "$lib/components";
 
   let { data } = $props();
 

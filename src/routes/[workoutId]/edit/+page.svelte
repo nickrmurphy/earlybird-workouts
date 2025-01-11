@@ -1,9 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { Navbar, PageHeader } from "$lib/components/page";
+  import { Navbar, PageHeader, Button, Input } from "$lib/components";
   import { renameWorkout } from "$lib/workoutActions";
-  import Button from "../../../Button.svelte";
-  import Input from "../../../Input.svelte";
 
   let { data } = $props();
   let newWorkoutName = $state(data.workout.name);

@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { PageHeader } from "$lib/components/page";
-  import Navbar from "$lib/components/page/Navbar.svelte";
-  import ChevronDown from "$lib/icons/ChevronDown.svelte";
-  import ChevronUp from "$lib/icons/ChevronUp.svelte";
+  import { PageHeader, Button, Navbar } from "$lib/components";
+  import { ChevronDown, ChevronUp } from "$lib/icons";
   import { flip } from "svelte/animate";
-  import Button from "../../../Button.svelte";
   import { updatePosition } from "$lib/workoutActions";
   import { goto } from "$app/navigation";
+
   let { data } = $props();
 
   let orderedExercises = $state(data.exercises);
@@ -20,6 +18,7 @@
 
     return isChanged;
   });
+
   function arraymove(arr: Array<unknown>, fromIndex: number, toIndex: number) {
     var element = arr[fromIndex];
     arr.splice(fromIndex, 1);
