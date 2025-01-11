@@ -3,6 +3,7 @@
 @import "./lib/styles/size.css";
 @import "./lib/styles/colors.css";
 @import "./lib/styles/border.css";
+@import "./lib/styles/input.css";
 
 @font-face {
   font-weight: 300 900;

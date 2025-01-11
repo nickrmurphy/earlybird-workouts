@@ -7,7 +7,7 @@
     updateWeight,
   } from "$lib/mutations";
   import { goto } from "$app/navigation";
-  import { PageHeader, Navbar, NavbarActionItem, Input } from "$lib/components";
+  import { PageHeader, Navbar, NavbarActionItem } from "$lib/components";
 
   let { data } = $props();
 
@@ -47,36 +47,15 @@
     <span>
       Weight <span class="unit">(lbs)</span>
     </span>
-    <Input
-      --font-size="var(--font-size-3)"
-      --font-weight="var(--font-weight-7)"
-      type="number"
-      step={0.5}
-      inputmode="decimal"
-      bind:value={weight}
-    />
+    <input type="number" step={0.5} inputmode="decimal" bind:value={weight} />
   </label>
   <label>
     Sets
-    <Input
-      --font-size="var(--font-size-3)"
-      --font-weight="var(--font-weight-7)"
-      type="number"
-      step={1}
-      inputmode="numeric"
-      bind:value={sets}
-    />
+    <input type="number" step={1} inputmode="numeric" bind:value={sets} />
   </label>
   <label>
     Reps
-    <Input
-      --font-size="var(--font-size-3)"
-      --font-weight="var(--font-weight-7)"
-      type="number"
-      step={1}
-      inputmode="numeric"
-      bind:value={reps}
-    />
+    <input type="number" step={1} inputmode="numeric" bind:value={reps} />
   </label>
 </main>
 <Navbar backHref={`/${data.workoutId}`}>
@@ -110,5 +89,10 @@
     .unit {
       color: hsl(var(--magnolia-hsl) / 70%);
     }
+  }
+
+  input {
+    font-weight: var(--font-weight-7);
+    font-size: var(--font-size-3);
   }
 </style>
