@@ -54,7 +54,7 @@
     backdrop-filter: blur(8px);
     box-shadow: var(--shadow-6);
     border-radius: var(--radius-round);
-    background-color: hsl(var(--magnolia-hsl) / 10%);
+    background-color: hsl(var(--white-hsl) / 10%);
 
     /* styling for background */
     padding: 5px;

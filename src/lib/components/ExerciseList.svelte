@@ -1,6 +1,6 @@
 <script lang="ts">
   import ExerciseItem from "./ExerciseItem.svelte";
-  import type { Exercise } from "./types";
+  import type { Exercise } from "$lib/types";
 
   type Props = {
     exercises: Exercise[];

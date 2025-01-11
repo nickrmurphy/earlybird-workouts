@@ -28,6 +28,12 @@ pub fn run() {
             sql: include_str!("../../scripts/add_exercises_position.sql"),
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 4,
+            description: "nullable_workout_history_workout_id",
+            sql: include_str!("../../scripts/nullable_workout_history_workout_id.sql"),
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()
