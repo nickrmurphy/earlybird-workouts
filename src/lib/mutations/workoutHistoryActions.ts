@@ -1,5 +1,5 @@
-import { services } from "./stores";
-import { mutation } from "./utils";
+import { services } from "../stores";
+import { mutation } from "../utils";
 
 export const completeWorkout = async (workoutHistoryId: number) =>
   mutation(services.workoutHistory.setWorkoutHistoryEndTime(workoutHistoryId));
