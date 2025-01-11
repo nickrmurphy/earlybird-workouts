@@ -1,26 +1,10 @@
 <script lang="ts">
   import type { HTMLButtonAttributes } from "svelte/elements";
 
-  const classes = {
-    variant: {
-      primary: "var-primary",
-      ghost: "var-ghost",
-      outline: "var-outline",
-    },
-    size: {
-      md: "size-md",
-      lg: "size-lg",
-    },
-    rounded: {
-      full: "rounded-full",
-      default: "rounded",
-    },
-  };
-
   type Props = HTMLButtonAttributes & {
-    rounded?: keyof typeof classes.rounded;
-    variant?: keyof typeof classes.variant;
-    size?: keyof typeof classes.size;
+    rounded?: "default" | "full";
+    variant?: "primary" | "ghost" | "outline";
+    size?: "md" | "lg";
   };
 
   let {
@@ -34,12 +18,9 @@
 
 <button
   {...props}
-  class={[
-    classes.rounded[rounded],
-    classes.variant[variant],
-    classes.size[size],
-    props.class,
-  ]}
+  data-variant={variant}
+  data-size={size}
+  data-rounded={rounded}
 >
   {@render children?.()}
 </button>
@@ -60,22 +41,22 @@
     }
   }
 
-  .var-primary {
+  button[data-variant="primary"] {
     background-color: var(--yellow);
     color: hsl(var(--raisin-black-hsl) / 90%);
   }
 
-  .var-ghost {
+  button[data-variant="ghost"] {
     background-color: transparent;
   }
 
-  .var-outline {
+  button[data-variant="outline"] {
     border: 1px solid var(--yellow);
     background-color: transparent;
     color: var(--yellow);
   }
 
-  .size-md {
+  button[data-size="md"] {
     padding: var(--size-1) var(--size-2);
 
     min-width: 44px;
@@ -83,19 +64,18 @@
     font-size: var(--font-size-2);
   }
 
-  .size-lg {
+  button[data-size="lg"] {
     padding: var(--size-1) var(--size-2);
     font-size: var(--font-size-3);
   }
 
-  .rounded-full {
-    justify-content: center;
-    border-radius: var(--radius-round);
-  }
-
-  .rounded {
+  button[data-rounded="rounded"] {
     border-radius: var(--radius-3);
     padding: var(--size-2) var(--size-3);
+  }
+
+  button[data-rounded="full"] {
+    border-radius: var(--radius-round);
   }
 
   button:disabled {
