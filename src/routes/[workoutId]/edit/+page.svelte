@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { Navbar, PageHeader, Button } from "$lib/components";
+  import { Navbar, PageHeader, Button, Input } from "$lib/components";
   import { renameWorkout } from "$lib/mutations";
 
   let { data } = $props();
@@ -22,7 +22,7 @@
 >
   <label>
     Title
-    <input
+    <Input
       bind:value={newWorkoutName}
       placeholder="e.g. Upper body"
       required

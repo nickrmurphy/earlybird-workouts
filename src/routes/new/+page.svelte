@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { createWorkout } from "$lib/mutations";
-  import { Button, PageHeader, Navbar } from "$lib/components";
+  import { Button, Input, PageHeader, Navbar } from "$lib/components";
 
   let newWorkoutName = $state("");
 </script>
@@ -19,7 +19,7 @@
 >
   <label>
     Title
-    <input
+    <Input
       bind:value={newWorkoutName}
       placeholder="e.g. Upper body"
       required

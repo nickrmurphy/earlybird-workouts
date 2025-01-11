@@ -1,6 +1,11 @@
 <script lang="ts">
   import { addExercise, removeExercise } from "$lib/mutations";
-  import { PageHeader, Navbar, ExerciseSelectList } from "$lib/components";
+  import {
+    PageHeader,
+    Navbar,
+    Input,
+    ExerciseSelectList,
+  } from "$lib/components";
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import { debounce } from "$lib/utils";
@@ -60,7 +65,7 @@
 
 <PageHeader>
   {#snippet control()}
-    <input
+    <Input
       bind:value={filterQuery}
       type="search"
       onchange={(e) => updateFilterQuery(e.currentTarget.value)}
