@@ -52,6 +52,7 @@
     align-items: center;
     gap: var(--size-2);
     backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-6);
     border-radius: var(--radius-round);
     background-color: hsl(var(--magnolia-hsl) / 10%);
 

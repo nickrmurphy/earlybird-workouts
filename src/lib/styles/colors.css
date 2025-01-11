@@ -4,6 +4,8 @@
   --magnolia: #f5f0f6ff;
 
   /* CSS HSL */
+  --black-hsl: 0 0% 0%;
+  --white-hsl: 0 0% 100%;
   --yellow-hsl: 49 79% 53%;
   --raisin-black-hsl: 320 17% 17%;
   --magnolia-hsl: 290 25% 95%;

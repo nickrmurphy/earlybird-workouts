@@ -38,7 +38,7 @@
     background-color: var(--yellow);
     min-width: var(--size-8);
     min-height: var(--size-8);
-    color: var(--raisin-black);
+    color: black;
     font-weight: var(--font-weight-6);
     font-size: small;
     font-size: var(--font-size-2);

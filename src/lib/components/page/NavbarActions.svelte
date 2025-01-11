@@ -22,11 +22,11 @@
     bottom: var(--navbar-height);
     bottom: 133%;
     left: env(safe-area-inset-left);
+    box-shadow: var(--shadow-6);
     border: 1px solid hsl(var(--magnolia-hsl) / 70%);
     border-radius: var(--radius-3);
 
-    background-color: hsl(var(--raisin-black-hsl) / 100%);
-    /* backdrop-filter: blur(8px); */
+    background-color: var(--raisin-black);
 
     :global(:first-child) {
       border-top-right-radius: var(--radius-3);

@@ -43,7 +43,7 @@
 
   button[data-variant="primary"] {
     background-color: var(--yellow);
-    color: hsl(var(--raisin-black-hsl) / 90%);
+    color: hsla(var(--black-hsl) / 70%);
   }
 
   button[data-variant="ghost"] {

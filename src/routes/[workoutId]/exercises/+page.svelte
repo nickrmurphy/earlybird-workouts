@@ -146,7 +146,7 @@
 
     button[data-selected="true"] {
       background-color: hsl(var(--yellow-hsl) / 90%);
-      color: var(--raisin-black);
+      color: hsl(var(--black-hsl) / 80%);
       font-weight: var(--font-weight-7);
     }
   }
