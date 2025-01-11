@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { createWorkout } from "$lib/workoutActions";
+  import { createWorkout } from "$lib/mutations";
   import { Button, Input, PageHeader, Navbar } from "$lib/components";
 
   let newWorkoutName = $state("");

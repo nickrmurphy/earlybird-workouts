@@ -1,7 +1,7 @@
 <script lang="ts">
   import { confirm } from "@tauri-apps/plugin-dialog";
   import { PlusMinusCircle } from "$lib/icons";
-  import { deleteWorkout, startWorkout } from "$lib/workoutActions";
+  import { deleteWorkout, startWorkout } from "$lib/mutations";
   import { goto } from "$app/navigation";
   import {
     Navbar,

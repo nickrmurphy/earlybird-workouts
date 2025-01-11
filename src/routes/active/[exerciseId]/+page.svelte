@@ -3,7 +3,7 @@
     completeWorkoutSet,
     setWorkoutHistorySetReps,
     setWorkoutHistorySetWeight,
-  } from "$lib/workoutHistoryActions";
+  } from "$lib/mutations";
   import {
     ActiveExerciseSet,
     PageHeader,

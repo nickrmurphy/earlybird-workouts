@@ -1,4 +1,4 @@
-import { services } from "./services.svelte";
+import { services } from "./stores";
 import { mutation } from "./utils";
 
 export const completeWorkout = async (workoutHistoryId: number) =>

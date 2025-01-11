@@ -7,7 +7,7 @@
     PageHeader,
     NavbarActionItem,
   } from "$lib/components";
-  import { completeWorkout } from "$lib/workoutHistoryActions";
+  import { completeWorkout } from "$lib/mutations";
   import { activityStore } from "./activityStore.svelte";
   import { Play, StopCircle } from "$lib/icons";
   import { goto } from "$app/navigation";

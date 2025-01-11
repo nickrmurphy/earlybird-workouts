@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { addExercise, removeExercise } from "$lib/workoutActions";
+  import { addExercise, removeExercise } from "$lib/mutations";
   import {
     PageHeader,
     Navbar,

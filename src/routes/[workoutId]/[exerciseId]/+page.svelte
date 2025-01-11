@@ -5,7 +5,7 @@
     updateReps,
     updateSets,
     updateWeight,
-  } from "$lib/workoutActions";
+  } from "$lib/mutations";
   import { goto } from "$app/navigation";
   import { PageHeader, Navbar, NavbarActionItem, Input } from "$lib/components";
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { Navbar, PageHeader, Button, Input } from "$lib/components";
-  import { renameWorkout } from "$lib/workoutActions";
+  import { renameWorkout } from "$lib/mutations";
 
   let { data } = $props();
   let newWorkoutName = $state(data.workout.name);

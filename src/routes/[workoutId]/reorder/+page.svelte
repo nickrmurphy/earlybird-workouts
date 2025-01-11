@@ -2,7 +2,7 @@
   import { PageHeader, Button, Navbar } from "$lib/components";
   import { ChevronDown, ChevronUp } from "$lib/icons";
   import { flip } from "svelte/animate";
-  import { updatePosition } from "$lib/workoutActions";
+  import { updatePosition } from "$lib/mutations";
   import { goto } from "$app/navigation";
 
   let { data } = $props();
