@@ -131,6 +131,7 @@ table {
 
 button {
   -webkit-appearance: none;
+  appearance: none;
   cursor: pointer;
   box-shadow: none;
   border: none;
