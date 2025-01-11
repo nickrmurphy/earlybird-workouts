@@ -10,13 +10,14 @@
     Navbar,
     Button,
   } from "$lib/components";
-  import { activityStore } from "../activityStore.svelte";
+  import { activity } from "$lib/stores";
   import { Play, StopCircle } from "$lib/icons";
 
   let { data } = $props();
 
+  // TODO: Make a format util
   let elapsedTime = $derived.by(() => {
-    let time = activityStore.restTimer.elapsedTime;
+    let time = activity.restTimer.elapsedTime;
     if (time < 10) {
       return `0${time}`;
     } else {
@@ -25,10 +26,10 @@
   });
 
   function toggleTimer() {
-    if (activityStore.restTimer.isRunning) {
-      activityStore.restTimer.stop();
+    if (activity.restTimer.isRunning) {
+      activity.restTimer.stop();
     } else {
-      activityStore.restTimer.start();
+      activity.restTimer.start();
     }
   }
 </script>
@@ -43,8 +44,8 @@
       isComplete={set.isComplete > 0}
       onToggleComplete={(isComplete) => {
         if (isComplete) {
-          activityStore.restTimer.stop();
-          activityStore.restTimer.start();
+          activity.restTimer.stop();
+          activity.restTimer.start();
         }
         completeWorkoutSet(set.id, isComplete);
       }}
@@ -55,14 +56,12 @@
 </main>
 <Navbar backHref="/active">
   <Button --width="100%" rounded="full" variant="outline" onclick={toggleTimer}>
-    {#if activityStore.restTimer.isRunning}
+    {#if activity.restTimer.isRunning}
       <StopCircle />
     {:else}
       <Play />
     {/if}
-    <time data-expired={activityStore.restTimer.isExpired}
-      >{elapsedTime}/60s</time
-    >
+    <time data-expired={activity.restTimer.isExpired}>{elapsedTime}/60s</time>
   </Button>
 </Navbar>
 

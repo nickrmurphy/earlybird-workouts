@@ -8,14 +8,14 @@
     NavbarActionItem,
   } from "$lib/components";
   import { completeWorkout } from "$lib/mutations";
-  import { activityStore } from "./activityStore.svelte";
+  import { activity } from "$lib/stores";
   import { Play, StopCircle } from "$lib/icons";
   import { goto } from "$app/navigation";
 
   let { data } = $props();
 
   let elapsedTime = $derived.by(() => {
-    let time = activityStore.restTimer.elapsedTime;
+    let time = activity.restTimer.elapsedTime;
     if (time < 10) {
       return `0${time}`;
     } else {
@@ -30,7 +30,7 @@
     );
 
     if (confirmEnd) {
-      activityStore.restTimer.stop();
+      activity.restTimer.stop();
       completeWorkout(data.activeWorkout.id).then(() => {
         goto(
           `/${data.activeWorkout.workoutId}/history/${data.activeWorkout.id}`,
@@ -40,10 +40,10 @@
   }
 
   function toggleTimer() {
-    if (activityStore.restTimer.isRunning) {
-      activityStore.restTimer.stop();
+    if (activity.restTimer.isRunning) {
+      activity.restTimer.stop();
     } else {
-      activityStore.restTimer.start();
+      activity.restTimer.start();
     }
   }
 </script>
@@ -65,7 +65,7 @@
   {#snippet actions()}
     <NavbarActionItem --justify-content="space-between">
       Rest time:
-      <select bind:value={activityStore.restTimer.runTimeSeconds}>
+      <select bind:value={activity.restTimer.runTimeSeconds}>
         {#each [10, 20, 30, 45, 60, 90, 120, 180] as time}
           <option value={time}>{time}s</option>
         {/each}
@@ -74,13 +74,13 @@
     </NavbarActionItem>
   {/snippet}
   <Button --width="50%" rounded="full" variant="outline" onclick={toggleTimer}>
-    {#if activityStore.restTimer.isRunning}
+    {#if activity.restTimer.isRunning}
       <StopCircle />
     {:else}
       <Play />
     {/if}
-    <time data-expired={activityStore.restTimer.isExpired}
-      >{elapsedTime}/{activityStore.restTimer.runTimeSeconds} s.</time
+    <time data-expired={activity.restTimer.isExpired}
+      >{elapsedTime}/{activity.restTimer.runTimeSeconds} s.</time
     >
   </Button>
   <Button onclick={confirmEndWorkout} --width="50%" rounded="full">

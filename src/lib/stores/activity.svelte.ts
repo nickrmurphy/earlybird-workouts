@@ -1,6 +1,6 @@
 import { RestTimer } from "$lib/models";
 
-export const activityStore = $state({
+export const activity = $state({
   restTimer: new RestTimer({
     loader: () => {
       const restTimer = localStorage.getItem("restTimer");
