@@ -1,7 +1,8 @@
-@import "./styles/font.css";
-@import "./styles/size.css";
-@import "./styles/colors.css";
-@import "./styles/border.css";
+@import "./lib/styles/reset.css";
+@import "./lib/styles/font.css";
+@import "./lib/styles/size.css";
+@import "./lib/styles/colors.css";
+@import "./lib/styles/border.css";
 
 @font-face {
   font-weight: 300 900;

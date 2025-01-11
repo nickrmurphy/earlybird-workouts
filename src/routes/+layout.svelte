@@ -1,5 +1,4 @@
 <script lang="ts">
-  import "../reset.css";
   import "../main.css";
   import { onNavigate } from "$app/navigation";
 
