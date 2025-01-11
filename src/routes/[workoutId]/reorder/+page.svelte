@@ -91,7 +91,7 @@
     display: flex;
     flex-direction: column;
     :not(:first-child) {
-      border-top: 1px solid hsl(var(--magnolia-hsl) / 30%);
+      border-top: 1px solid var(--border-color);
     }
   }
 

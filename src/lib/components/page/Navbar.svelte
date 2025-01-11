@@ -67,7 +67,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--size-2);
-    border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-round);
     padding: var(--size-1) var(--size-2);
     min-width: 44px;

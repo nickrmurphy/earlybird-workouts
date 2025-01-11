@@ -98,7 +98,7 @@
 
   input {
     display: flex;
-    border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+    border: 1px solid var(--border-color);
     background-color: transparent;
     color: var(--magnolia);
     font-weight: var(--font-weight-7);

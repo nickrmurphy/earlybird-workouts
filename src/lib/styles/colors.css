@@ -1,12 +1,16 @@
 :root {
+  /* Literal */
   --yellow: #e6c229;
   --raisin-black: #34252fff;
   --magnolia: #f5f0f6ff;
 
-  /* CSS HSL */
+  /* Literal HSL */
   --black-hsl: 0 0% 0%;
   --white-hsl: 0 0% 100%;
   --yellow-hsl: 49 79% 53%;
   --raisin-black-hsl: 320 17% 17%;
   --magnolia-hsl: 290 25% 95%;
+
+  /* Semantic */
+  --border-color: hsl(var(--white-hsl) / 30%);
 }

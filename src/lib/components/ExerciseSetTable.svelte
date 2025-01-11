@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
 
-    border: 1px solid hsl(var(--magnolia-hsl) / 30%);
+    border: 1px solid var(--border-color);
     border-radius: var(--size-3);
   }
 
@@ -88,7 +88,7 @@
   tbody {
     tr {
       td {
-        border-top: 1px solid hsl(var(--magnolia-hsl) / 30%);
+        border-top: 1px solid var(--border-color);
       }
       :first-child {
         padding-left: var(--size-2);

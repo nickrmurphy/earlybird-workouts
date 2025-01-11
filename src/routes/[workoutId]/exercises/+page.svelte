@@ -127,7 +127,7 @@
   .tab-group {
     display: flex;
     gap: var(--size-1);
-    border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-3);
     padding: var(--size-1);
 
@@ -152,7 +152,7 @@
   }
 
   select {
-    border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-round);
     background: none;
     padding: var(--size-2) var(--size-3);

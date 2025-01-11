@@ -23,7 +23,7 @@
     bottom: 133%;
     left: env(safe-area-inset-left);
     box-shadow: var(--shadow-6);
-    border: 1px solid hsl(var(--magnolia-hsl) / 70%);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-3);
 
     background-color: var(--raisin-black);
@@ -39,7 +39,7 @@
     }
 
     :global(:not(:first-child)) {
-      border-top: 1px solid hsl(var(--magnolia-hsl) / 70%);
+      border-top: 1px solid var(--border-color);
     }
   }
 </style>

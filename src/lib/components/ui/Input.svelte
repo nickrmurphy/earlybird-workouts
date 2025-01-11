@@ -9,7 +9,7 @@
 
 <style>
   input {
-    border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-3);
     background-color: transparent;
     padding: var(--size-2);
