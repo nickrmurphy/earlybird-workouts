@@ -1,4 +1,3 @@
-import { db } from "$lib/db.svelte";
 import {
   EquipmentService,
   ExerciseService,
@@ -6,7 +5,7 @@ import {
   WorkoutHistoryService,
   WorkoutService,
 } from "$lib/services";
-import { services } from "$lib/services.svelte";
+import { db, services } from "$lib/stores";
 import type { ClientInit } from "@sveltejs/kit";
 import Database from "@tauri-apps/plugin-sql";
 

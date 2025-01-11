@@ -1,5 +1,5 @@
 import { goto } from "$app/navigation";
-import { services } from "$lib/services.svelte";
+import { services } from "$lib/stores";
 import { mutation } from "$lib/utils";
 
 export const createWorkout = async (name: string) =>

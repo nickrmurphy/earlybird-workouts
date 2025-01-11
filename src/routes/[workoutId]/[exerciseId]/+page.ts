@@ -1,4 +1,4 @@
-import { services } from "$lib/services.svelte";
+import { services } from "$lib/stores";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ params }) => {

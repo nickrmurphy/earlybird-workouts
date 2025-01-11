@@ -1,4 +1,4 @@
-import { services } from "$lib/services.svelte";
+import { services } from "$lib/stores";
 import { redirect } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 

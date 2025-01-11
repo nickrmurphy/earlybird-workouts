@@ -1,5 +1,5 @@
-import { db } from "$lib/db.svelte";
-import type { PageLoad } from "./$types";
+import { db } from "$lib/stores/db.svelte";
+import type { PageLoad } from "./routes/$types";
 
 export const load: PageLoad = async () => {
   try {

@@ -1,4 +1,4 @@
-import { services } from "$lib/services.svelte";
+import { services } from "$lib/stores";
 import type { LayoutLoad } from "./$types";
 
 export const prerender = false;
