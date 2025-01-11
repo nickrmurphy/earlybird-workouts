@@ -13,19 +13,19 @@ pub fn run() {
         Migration {
             version: 1,
             description: "init_schema",
-            sql: include_str!("../../src/scripts/init_schema.sql"),
+            sql: include_str!("../../scripts/init_schema.sql"),
             kind: MigrationKind::Up,
         },
         Migration {
             version: 2,
             description: "seed_data",
-            sql: include_str!("../../src/scripts/seed_data.sql"),
+            sql: include_str!("../../scripts/seed_data.sql"),
             kind: MigrationKind::Up,
         },
         Migration {
             version: 3,
             description: "add_workout_exercises_position",
-            sql: include_str!("../../src/scripts/add_exercises_position.sql"),
+            sql: include_str!("../../scripts/add_exercises_position.sql"),
             kind: MigrationKind::Up,
         },
     ];
