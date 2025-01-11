@@ -1,85 +1,85 @@
 <script lang="ts">
-    import type { SvelteHTMLElements } from 'svelte/elements';
-    import { ArrowLeft, More, XIcon } from '$lib/icons';
-    import { goto } from '$app/navigation';
-    import type { Snippet } from 'svelte';
-  import NavbarActions from './NavbarActions.svelte';
+  import type { SvelteHTMLElements } from "svelte/elements";
+  import { ArrowLeft, More, XIcon } from "$lib/icons";
+  import { goto } from "$app/navigation";
+  import type { Snippet } from "svelte";
+  import NavbarActions from "./NavbarActions.svelte";
 
-    type Props = SvelteHTMLElements["nav"] & {
-        backHref?: string;
-        actions?: Snippet;
-    };
+  type Props = SvelteHTMLElements["nav"] & {
+    backHref?: string;
+    actions?: Snippet;
+  };
 
-    let { children, backHref, actions }: Props = $props();
-    let actionsOpen = $state(false);
+  let { children, backHref, actions }: Props = $props();
+  let actionsOpen = $state(false);
 </script>
 
-{#snippet backButton(href: string )}
-    <button onclick={() => goto(href)}>
-        <ArrowLeft />
-    </button>
+{#snippet backButton(href: string)}
+  <button onclick={() => goto(href)}>
+    <ArrowLeft />
+  </button>
 {/snippet}
 
 <nav>
-    {#if backHref}
-        {@render backButton(backHref)}
-    {/if}
-    {#if actions}
-        <button onclick={() => actionsOpen = !actionsOpen}>
-            {#if actionsOpen}
-                <XIcon />
-            {:else}
-                <More />
-            {/if}
-        </button>
-        <NavbarActions bind:open={actionsOpen}>
-            {@render actions()}
-        </NavbarActions>
-    {/if}
-    {@render children?.()}
+  {#if backHref}
+    {@render backButton(backHref)}
+  {/if}
+  {#if actions}
+    <button onclick={() => (actionsOpen = !actionsOpen)}>
+      {#if actionsOpen}
+        <XIcon />
+      {:else}
+        <More />
+      {/if}
+    </button>
+    <NavbarActions bind:open={actionsOpen}>
+      {@render actions()}
+    </NavbarActions>
+  {/if}
+  {@render children?.()}
 </nav>
 
 <style>
-    nav {
-        /* layout */
-        display: flex;
-        align-items: center;
-        gap: var(--size-2);
+  nav {
+    /* layout */
+    display: flex;
 
-        /* styling for background */
-        padding: 5px;
-        border-radius: var(--radius-round);
-        background-color: hsl(var(--magnolia-hsl) / 10%);
-        backdrop-filter: blur(8px);
+    /* positioning */
+    position: fixed;
+    right: var(--size-2);
+    bottom: env(safe-area-inset-bottom);
+    left: var(--size-2);
+    align-items: center;
+    gap: var(--size-2);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-round);
+    background-color: hsl(var(--magnolia-hsl) / 10%);
 
-        /* positioning */
-        position: fixed;
-        left: var(--size-2);
-        right: var(--size-2);
-        bottom: env(safe-area-inset-bottom);
+    /* styling for background */
+    padding: 5px;
 
-        view-transition-name: nav-bar;
+    view-transition-name: nav-bar;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--size-2);
+    border: 1px solid hsl(var(--magnolia-hsl) / 50%);
+    border-radius: var(--radius-round);
+    padding: var(--size-1) var(--size-2);
+    min-width: 44px;
+    min-height: 44px;
+
+    :global(svg) {
+      width: var(--size-4);
+      height: var(--size-4);
     }
+  }
 
-    button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: var(--size-2);
-        border: 1px solid hsl(var(--magnolia-hsl) / 50%);
-        border-radius: var(--radius-round);
-        min-width: 44px;
-        min-height: 44px;
-        padding: var(--size-1) var(--size-2);
-        
-        :global(svg){
-            width: var(--size-4);
-            height: var(--size-4);
-        }
-    }
-
-    :global(:root){
-        /* safe area + button height + padding-bottom + padding-top */
-        --navbar-height: calc(env(safe-area-inset-bottom) + 44px + 5px + 5px);
-    }
+  :global(:root) {
+    /* safe area + button height + padding-bottom + padding-top */
+    --navbar-height: calc(env(safe-area-inset-bottom) + 44px + 5px + 5px);
+  }
 </style>

@@ -8,7 +8,7 @@ export const load: PageLoad = async () => {
 
   for (const workout of workouts) {
     workoutExercises[workout.id] = await services.workout.getExercises(
-      workout.id
+      workout.id,
     );
   }
 

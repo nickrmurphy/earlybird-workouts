@@ -14,9 +14,9 @@
 </script>
 
 <PageHeader title="Workouts">
-    <Button rounded="full" onclick={() => goto("/new")}>
-      <Plus />
-    </Button>
+  <Button rounded="full" onclick={() => goto("/new")}>
+    <Plus />
+  </Button>
 </PageHeader>
 <main>
   <section class="workouts">
@@ -47,5 +47,4 @@
     gap: var(--size-4);
     overflow: scroll;
   }
-
 </style>

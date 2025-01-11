@@ -14,7 +14,7 @@ export class MuscleGroupService {
         SELECT mg.id as id, mg.name as name
         FROM muscle_groups mg
         ORDER BY mg.name
-        `
+        `,
     );
   }
 }

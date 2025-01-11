@@ -43,7 +43,7 @@ export class WorkoutHistoryService {
       `
         INSERT INTO workout_history (workout_id, start_time) VALUES ($1, CURRENT_TIMESTAMP)
       `,
-      [workoutId]
+      [workoutId],
     );
 
     if (createHistoryResult.lastInsertId) {
@@ -59,8 +59,8 @@ export class WorkoutHistoryService {
           insertStatement.push(`
             INSERT INTO workout_history_sets (workout_history_id, exercise_id, reps, weight)
             VALUES($1, $${queryValues.length + 1}, $${
-            queryValues.length + 2
-          }, $${queryValues.length + 3});
+              queryValues.length + 2
+            }, $${queryValues.length + 3});
           `);
         }
 
@@ -89,13 +89,13 @@ export class WorkoutHistoryService {
         FROM workout_history wh
         INNER JOIN workouts w on w.id = wh.workout_id
         WHERE wh.end_time IS NULL
-      `
+      `,
     );
     return result[0];
   }
 
   async getWorkoutHistoryExercises(
-    workoutHistoryId: number
+    workoutHistoryId: number,
   ): Promise<WorkoutHistoryExercise[]> {
     const result: WorkoutHistoryExercise[] = await this.db.select(
       `
@@ -124,7 +124,7 @@ export class WorkoutHistoryService {
       GROUP BY e.id, e.name
       ORDER BY we.position ASC;
     `,
-      [workoutHistoryId]
+      [workoutHistoryId],
     );
     return result;
   }
@@ -136,13 +136,13 @@ export class WorkoutHistoryService {
         SET end_time = CURRENT_TIMESTAMP
         WHERE id = $1
       `,
-      [workoutHistoryId]
+      [workoutHistoryId],
     );
   }
 
   async getExerciseWorkoutHistorySets(
     workoutHistoryId: number,
-    exerciseId: number
+    exerciseId: number,
   ): Promise<WorkoutHistorySet[]> {
     const result: WorkoutHistorySet[] = await this.db.select(
       `
@@ -151,7 +151,7 @@ export class WorkoutHistoryService {
       INNER JOIN exercises e ON whs.exercise_id = $2
       WHERE whs.workout_history_id = $1 AND whs.exercise_id = $2 AND e.id = $2;
     `,
-      [workoutHistoryId, exerciseId]
+      [workoutHistoryId, exerciseId],
     );
 
     return result;
@@ -164,13 +164,13 @@ export class WorkoutHistoryService {
       SET reps = $1
       WHERE id = $2
     `,
-      [reps, workoutHistorySetId]
+      [reps, workoutHistorySetId],
     );
   }
 
   async setWorkoutHistorySetWeight(
     workoutHistorySetId: number,
-    weight: number
+    weight: number,
   ) {
     await this.db.execute(
       `
@@ -178,13 +178,13 @@ export class WorkoutHistoryService {
       SET weight = $1
       WHERE id = $2
     `,
-      [weight, workoutHistorySetId]
+      [weight, workoutHistorySetId],
     );
   }
 
   async setWorkoutHistorySetComplete(
     workoutHistorySetId: number,
-    isComplete: boolean
+    isComplete: boolean,
   ) {
     await this.db.execute(
       `
@@ -192,7 +192,7 @@ export class WorkoutHistoryService {
       SET is_complete = $1
       WHERE id = $2
     `,
-      [isComplete ? 1 : 0, workoutHistorySetId]
+      [isComplete ? 1 : 0, workoutHistorySetId],
     );
   }
 
@@ -205,13 +205,13 @@ export class WorkoutHistoryService {
         WHERE w.id = $1
         ORDER BY wh.start_time DESC
       `,
-      [workoutId]
+      [workoutId],
     );
     return result;
   }
 
   async getWorkoutHistorySets(
-    workoutHistoryId: number
+    workoutHistoryId: number,
   ): Promise<WorkoutHistorySet[]> {
     const result: WorkoutHistorySet[] = await this.db.select(
       `
@@ -221,7 +221,7 @@ export class WorkoutHistoryService {
       INNER JOIN exercises e ON e.id = whs.exercise_id
       WHERE wh.id = $1
     `,
-      [workoutHistoryId]
+      [workoutHistoryId],
     );
 
     return result;

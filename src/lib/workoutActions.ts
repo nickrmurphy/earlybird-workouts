@@ -17,25 +17,25 @@ export const deleteWorkout = async (workoutId: number) =>
 export const updateWeight = async (
   workoutId: number,
   exerciseId: number,
-  weight: number
+  weight: number,
 ) =>
   mutation(services.workout.setExerciseWeight(workoutId, exerciseId, weight));
 
 export const updateSets = async (
   workoutId: number,
   exerciseId: number,
-  sets: number
+  sets: number,
 ) => mutation(services.workout.setExerciseSets(workoutId, exerciseId, sets));
 
 export const updateReps = async (
   workoutId: number,
   exerciseId: number,
-  reps: number
+  reps: number,
 ) => mutation(services.workout.setExerciseReps(workoutId, exerciseId, reps));
 
 export const startWorkout = async (workoutId: number) => {
   await mutation(
-    services.workoutHistory.createWorkoutHistoryAndSets(workoutId)
+    services.workoutHistory.createWorkoutHistoryAndSets(workoutId),
   );
   goto("/active");
 };
@@ -46,8 +46,8 @@ export const renameWorkout = async (workoutId: number, name: string) =>
 export const updatePosition = async (
   workoutId: number,
   exerciseId: number,
-  position: number
+  position: number,
 ) =>
   mutation(
-    services.workout.setExercisePosition(workoutId, exerciseId, position)
+    services.workout.setExercisePosition(workoutId, exerciseId, position),
   );

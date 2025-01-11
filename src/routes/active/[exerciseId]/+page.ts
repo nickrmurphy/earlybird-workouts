@@ -12,11 +12,11 @@ export const load: PageLoad = async ({ params }) => {
   const exerciseSets =
     await services.workoutHistory.getExerciseWorkoutHistorySets(
       activeWorkout.id,
-      Number(params.exerciseId)
+      Number(params.exerciseId),
     );
 
   const exercise = await services.exercise.getExercise(
-    Number(params.exerciseId)
+    Number(params.exerciseId),
   );
 
   return {

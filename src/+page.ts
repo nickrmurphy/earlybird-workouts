@@ -20,7 +20,7 @@ export const load: PageLoad = async () => {
 
     const exercises = Object.groupBy(
       workoutExercises,
-      ({ workoutId }) => workoutId
+      ({ workoutId }) => workoutId,
     );
 
     return { workouts, exercises };

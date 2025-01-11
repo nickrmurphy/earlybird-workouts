@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "prettier-plugin-svelte",
+    "prettier-plugin-css-order",
+    "prettier-plugin-organize-imports"
+  ],
+  "pluginSearchDirs": ["."],
+  "overrides": [
+    {
+      "files": "*.svelte",
+      "options": {
+        "parser": "svelte"
+      }
+    }
+  ]
+}

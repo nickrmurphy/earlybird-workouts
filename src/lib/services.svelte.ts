@@ -1,9 +1,9 @@
 import type {
-  WorkoutService,
-  WorkoutHistoryService,
-  ExerciseService,
   EquipmentService,
+  ExerciseService,
   MuscleGroupService,
+  WorkoutHistoryService,
+  WorkoutService,
 } from "./services";
 
 type ServiceStore = {

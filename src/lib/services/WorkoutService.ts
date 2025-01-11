@@ -13,7 +13,7 @@ export class WorkoutService {
       `
             SELECT w.id as id, w.name as name
             FROM workouts w
-        `
+        `,
     );
   }
 
@@ -22,7 +22,7 @@ export class WorkoutService {
       `
         INSERT INTO workouts (name) VALUES ($1)
       `,
-      [name]
+      [name],
     );
     return result.lastInsertId;
   }
@@ -32,7 +32,7 @@ export class WorkoutService {
       `
         UPDATE workouts SET name = $1 WHERE id = $2
       `,
-      [name, workoutId]
+      [name, workoutId],
     );
     return result.rowsAffected;
   }
@@ -44,7 +44,7 @@ export class WorkoutService {
         FROM workouts w
         WHERE w.id = $1
       `,
-      [workoutId]
+      [workoutId],
     );
     return result[0];
   }
@@ -54,7 +54,7 @@ export class WorkoutService {
       `
         DELETE FROM workouts WHERE id = $1
       `,
-      [workoutId]
+      [workoutId],
     );
     return result.rowsAffected;
   }
@@ -68,7 +68,7 @@ export class WorkoutService {
             WHERE we.workout_id = $1
             ORDER BY we.position ASC
         `,
-      [workoutId]
+      [workoutId],
     );
   }
 
@@ -80,7 +80,7 @@ export class WorkoutService {
           INNER JOIN exercises e on e.id = we.exercise_id
           WHERE we.exercise_id = $1 AND we.workout_id = $2
       `,
-      [exerciseId, workoutId]
+      [exerciseId, workoutId],
     );
 
     return result[0];
@@ -91,7 +91,7 @@ export class WorkoutService {
       `
         INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, weight) VALUES ($1, $2, $3, $4, $5)
       `,
-      [workoutId, exerciseId, 4, 10, 40]
+      [workoutId, exerciseId, 4, 10, 40],
     );
     return result.lastInsertId;
   }
@@ -101,7 +101,7 @@ export class WorkoutService {
       `
         DELETE FROM workout_exercises WHERE workout_id = $1 AND exercise_id = $2
       `,
-      [workoutId, exerciseId]
+      [workoutId, exerciseId],
     );
     return result.rowsAffected;
   }
@@ -109,13 +109,13 @@ export class WorkoutService {
   async setExerciseWeight(
     workoutId: number,
     exerciseId: number,
-    weight: number
+    weight: number,
   ) {
     const result = await this.db.execute(
       `
         UPDATE workout_exercises SET weight = $1 WHERE workout_id = $2 AND exercise_id = $3
       `,
-      [weight, workoutId, exerciseId]
+      [weight, workoutId, exerciseId],
     );
     return result.rowsAffected;
   }
@@ -125,7 +125,7 @@ export class WorkoutService {
       `
         UPDATE workout_exercises SET sets = $1 WHERE workout_id = $2 AND exercise_id = $3
       `,
-      [sets, workoutId, exerciseId]
+      [sets, workoutId, exerciseId],
     );
     return result.rowsAffected;
   }
@@ -135,7 +135,7 @@ export class WorkoutService {
       `
         UPDATE workout_exercises SET reps = $1 WHERE workout_id = $2 AND exercise_id = $3
       `,
-      [reps, workoutId, exerciseId]
+      [reps, workoutId, exerciseId],
     );
     return result.rowsAffected;
   }
@@ -143,13 +143,13 @@ export class WorkoutService {
   async setExercisePosition(
     workoutId: number,
     exerciseId: number,
-    position: number
+    position: number,
   ) {
     const result = await this.db.execute(
       `
         UPDATE workout_exercises SET position = $1 WHERE workout_id = $2 AND exercise_id = $3
       `,
-      [position, workoutId, exerciseId]
+      [position, workoutId, exerciseId],
     );
     return result.rowsAffected;
   }

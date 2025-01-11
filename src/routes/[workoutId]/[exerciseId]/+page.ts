@@ -1,5 +1,5 @@
-import type { PageLoad } from "./$types";
 import { services } from "$lib/services.svelte";
+import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ params }) => {
   const workoutId = Number(params.workoutId);

@@ -4,35 +4,35 @@
 @import "./styles/border.css";
 
 @font-face {
-    font-weight: 300 900;
-    src: url('/Figtree.ttf');
-    font-family: 'Figtree';
+  font-weight: 300 900;
+  src: url("/Figtree.ttf");
+  font-family: "Figtree";
 }
 
 :root {
-    font-family: Figtree, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
+  border-color: hsl(var(--magnolia-hsl) / 10%);
+  background-color: var(--raisin-black);
 
-    color: var(--magnolia);
-    background-color: var(--raisin-black);
-    border-color: hsl(var(--magnolia-hsl) / 10%);
+  color: var(--magnolia);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: Figtree, Helvetica, Arial, sans-serif;
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 
-    -webkit-user-select: none;
-    /* Safari */
-    -ms-user-select: none;
-    /* IE 10 and IE 11 */
-    user-select: none;
-    /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
 
 body {
-    height: 100vh;
+  height: 100vh;
 }

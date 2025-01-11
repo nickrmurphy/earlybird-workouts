@@ -14,7 +14,7 @@ export class EquipmentService {
             SELECT e.id as id, e.name as name
             FROM equipment e
             ORDER BY e.name
-        `
+        `,
     );
   }
 }

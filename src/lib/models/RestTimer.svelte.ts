@@ -33,7 +33,7 @@ export class RestTimer {
     this.#intervalId = setInterval(() => {
       if (this.#startTime) {
         this.elapsedTime = Math.floor(
-          (new Date().getTime() - this.#startTime.getTime()) / 1000
+          (new Date().getTime() - this.#startTime.getTime()) / 1000,
         );
       } else {
         this.elapsedTime = 0;

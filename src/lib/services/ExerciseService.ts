@@ -16,7 +16,7 @@ export class ExerciseService {
   }
 
   async queryExercises(
-    options: FilterOptions
+    options: FilterOptions,
   ): Promise<{ id: number; name: string }[]> {
     const filterClauses: string[] = [];
     let params: (number | string)[] = [];
@@ -36,7 +36,7 @@ export class ExerciseService {
         filterClauses.push(
           `(e.primary_equipment_id = $${
             params.length + 1
-          } OR e.secondary_equipment_id = $${params.length + 1})`
+          } OR e.secondary_equipment_id = $${params.length + 1})`,
         );
         params.push(options.equipmentId);
       }
@@ -54,7 +54,7 @@ export class ExerciseService {
 
     const exercises: { id: number; name: string }[] = await this.db.select(
       query,
-      params
+      params,
     );
     return exercises;
   }
@@ -75,7 +75,7 @@ export class ExerciseService {
             FROM exercises e
             WHERE e.id = $1
         `,
-      [exerciseId]
+      [exerciseId],
     );
     return exerciseResult[0];
   }

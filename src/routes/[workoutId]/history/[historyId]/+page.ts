@@ -15,7 +15,7 @@ export const load: PageLoad = async ({ params }) => {
   const exerciseHistoryMap: Record<number, ExerciseHistory> = {};
   const workoutHistorySets =
     await services.workoutHistory.getWorkoutHistorySets(
-      Number(params.historyId)
+      Number(params.historyId),
     );
 
   workoutHistorySets.forEach((set) => {

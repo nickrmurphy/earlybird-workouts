@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { completeWorkoutSet, setWorkoutHistorySetReps, setWorkoutHistorySetWeight } from "$lib/workoutHistoryActions";
+  import {
+    completeWorkoutSet,
+    setWorkoutHistorySetReps,
+    setWorkoutHistorySetWeight,
+  } from "$lib/workoutHistoryActions";
   import ActiveExerciseSet from "../../../ActiveExerciseSet.svelte";
   import PageHeader from "../../../lib/components/page/PageHeader.svelte";
   import Navbar from "../../../lib/components/page/Navbar.svelte";
@@ -7,27 +11,27 @@
   import Button from "../../../Button.svelte";
   import { Play, StopCircle } from "$lib/icons";
 
-    let { data } = $props();
+  let { data } = $props();
 
-    let elapsedTime = $derived.by(() => {
-        let time = activityStore.restTimer.elapsedTime;
-        if (time < 10) {
-            return `0${time}`;
-        } else {
-            return time.toString();
-        }
-    })
-
-    function toggleTimer() {
-        if (activityStore.restTimer.isRunning) {
-            activityStore.restTimer.stop();
-        } else {
-            activityStore.restTimer.start();
-        }
+  let elapsedTime = $derived.by(() => {
+    let time = activityStore.restTimer.elapsedTime;
+    if (time < 10) {
+      return `0${time}`;
+    } else {
+      return time.toString();
     }
+  });
+
+  function toggleTimer() {
+    if (activityStore.restTimer.isRunning) {
+      activityStore.restTimer.stop();
+    } else {
+      activityStore.restTimer.start();
+    }
+  }
 </script>
 
-<PageHeader title={data.exercise.name} level={2}/>
+<PageHeader title={data.exercise.name} level={2} />
 <main>
   {#each data.exerciseSets as set}
     <ActiveExerciseSet
@@ -50,11 +54,13 @@
 <Navbar backHref="/active">
   <Button --width="100%" rounded="full" variant="outline" onclick={toggleTimer}>
     {#if activityStore.restTimer.isRunning}
-        <StopCircle />
+      <StopCircle />
     {:else}
-        <Play />
+      <Play />
     {/if}
-    <time data-expired="{activityStore.restTimer.isExpired}">{elapsedTime}/60s</time>
+    <time data-expired={activityStore.restTimer.isExpired}
+      >{elapsedTime}/60s</time
+    >
   </Button>
 </Navbar>
 
