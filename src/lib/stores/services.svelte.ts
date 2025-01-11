@@ -4,7 +4,7 @@ import type {
   MuscleGroupService,
   WorkoutHistoryService,
   WorkoutService,
-} from "./services";
+} from "$lib/services";
 
 type ServiceStore = {
   exercise: ExerciseService;

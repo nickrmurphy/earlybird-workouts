@@ -1,6 +1,5 @@
 <script lang="ts">
-  import ChevronDown from "../../icons/ChevronDown.svelte";
-  import ChevronUp from "../../icons/ChevronUp.svelte";
+  import { ChevronDown, ChevronUp } from "$lib/icons";
 
   type Props = {
     exercises: {

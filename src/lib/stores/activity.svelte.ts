@@ -1,13 +1,9 @@
-import { RestTimer } from "$lib/models";
+import type { RestTimer } from "$lib/models";
 
-export const activity = $state({
-  restTimer: new RestTimer({
-    loader: () => {
-      const restTimer = localStorage.getItem("restTimer");
-      return restTimer ? parseInt(restTimer, 10) : 60;
-    },
-    persister: (value) => {
-      localStorage.setItem("restTimer", value.toString());
-    },
-  }),
+type ActivityStore = {
+  restTimer: RestTimer;
+};
+
+export const activity = $state<ActivityStore>({
+  restTimer: undefined!, // Set on app initialization in hooks.client.ts
 });

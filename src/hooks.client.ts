@@ -1,3 +1,4 @@
+import { RestTimer } from "$lib/models";
 import {
   EquipmentService,
   ExerciseService,
@@ -5,7 +6,7 @@ import {
   WorkoutHistoryService,
   WorkoutService,
 } from "$lib/services";
-import { services } from "$lib/stores";
+import { activity, services } from "$lib/stores";
 import type { ClientInit } from "@sveltejs/kit";
 import Database from "@tauri-apps/plugin-sql";
 
@@ -17,4 +18,14 @@ export const init: ClientInit = async () => {
   services.workoutHistory = new WorkoutHistoryService(dbConnection);
   services.equipment = new EquipmentService(dbConnection);
   services.muscleGroup = new MuscleGroupService(dbConnection);
+
+  activity.restTimer = new RestTimer({
+    loader: () => {
+      const restTimer = localStorage.getItem("restTimer");
+      return restTimer ? parseInt(restTimer, 10) : 60;
+    },
+    persister: (value) => {
+      localStorage.setItem("restTimer", value.toString());
+    },
+  });
 };
