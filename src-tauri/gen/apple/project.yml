@@ -10,7 +10,7 @@ configs:
 settingGroups:
   app:
     base:
-      PRODUCT_NAME: earlybird-workout
+      PRODUCT_NAME: Workouts
       PRODUCT_BUNDLE_IDENTIFIER: com.byearlybird.workouts
 targetTemplates:
   app:
