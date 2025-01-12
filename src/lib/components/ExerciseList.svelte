@@ -13,7 +13,7 @@
 <ul>
   {#each exercises as exercise}
     <li>
-      <Pressable href={`/${workoutId}/${exercise.id}`}>
+      <Pressable style="width:100%" href={`/${workoutId}/${exercise.id}`}>
         <ExerciseItem
           name={exercise.name}
           weight={exercise.weight}
