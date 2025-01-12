@@ -6,6 +6,7 @@
     Navbar,
     PageHeader,
     NavbarActionItem,
+    Pressable,
   } from "$lib/components";
   import { completeWorkout } from "$lib/mutations";
   import { activity } from "$lib/stores";
@@ -51,14 +52,14 @@
 <PageHeader title={data.activeWorkout.workoutName} />
 <main>
   {#each data.workoutExercises as exercise}
-    <a href={`/active/${exercise.id}`}>
+    <Pressable href={`/active/${exercise.id}`}>
       <ActiveExerciseCard
         exerciseName={exercise.name}
         setCount={exercise.sets}
         completeSets={exercise.completeSets}
         isComplete={exercise.isComplete > 0}
       />
-    </a>
+    </Pressable>
   {/each}
 </main>
 <Navbar>

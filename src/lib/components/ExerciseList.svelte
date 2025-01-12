@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ExerciseItem from "./ExerciseItem.svelte";
   import type { Exercise } from "$lib/types";
+  import { Pressable, ExerciseItem } from "$lib/components";
 
   type Props = {
     exercises: Exercise[];
@@ -13,14 +13,14 @@
 <ul>
   {#each exercises as exercise}
     <li>
-      <a href={`/${workoutId}/${exercise.id}`}>
+      <Pressable href={`/${workoutId}/${exercise.id}`}>
         <ExerciseItem
           name={exercise.name}
           weight={exercise.weight}
           sets={exercise.sets}
           reps={exercise.reps}
         />
-      </a>
+      </Pressable>
     </li>
   {/each}
 </ul>
@@ -35,11 +35,5 @@
     align-items: center;
     width: 100%;
     list-style: none outside;
-
-    a {
-      display: flex;
-      align-items: center;
-      width: 100%;
-    }
   }
 </style>

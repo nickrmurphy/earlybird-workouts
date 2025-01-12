@@ -12,7 +12,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius-3);
     background-color: transparent;
-    padding: var(--size-2);
+    padding: 12px 10px;
     color: var(--magnolia);
     font-weight: var(--font-weight);
     font-size: var(--font-size, var(--font-size-2));

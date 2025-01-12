@@ -6,6 +6,7 @@
     Button,
     WorkoutCard,
     EmptyMessage,
+    Pressable,
   } from "$lib/components";
 
   const { data } = $props();
@@ -25,12 +26,12 @@
   <section class="workouts">
     {#if data.workouts.length > 0}
       {#each data.workouts as workout}
-        <a href={`/${workout.id}`}>
+        <Pressable href={`/${workout.id}`}>
           <WorkoutCard
             workoutName={workout.name}
             exercises={getExercises(workout.id)}
           />
-        </a>
+        </Pressable>
       {/each}
     {:else}
       <EmptyMessage
