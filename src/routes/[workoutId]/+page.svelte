@@ -10,7 +10,9 @@
     NavbarActionItem,
     Button,
     ExerciseList,
+    EmptyMessage,
   } from "$lib/components";
+  import Plus from "$lib/icons/Plus.svelte";
 
   let { data } = $props();
 
@@ -41,10 +43,21 @@
         rounded="full"
         onclick={() => goto(`/${data.workout.id}/exercises`)}
       >
-        <PlusMinusCircle />
+        {#if data.exercises.length > 0}
+          <PlusMinusCircle />
+        {:else}
+          <Plus />
+        {/if}
       </Button>
     </header>
-    <ExerciseList workoutId={data.workout.id} exercises={data.exercises} />
+    {#if data.exercises.length > 0}
+      <ExerciseList workoutId={data.workout.id} exercises={data.exercises} />
+    {:else}
+      <EmptyMessage
+        header="No exercises yet."
+        message="Click the plus button to add one."
+      />
+    {/if}
   </section>
 </main>
 <Navbar backHref="/">

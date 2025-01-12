@@ -1,7 +1,12 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { Plus } from "$lib/icons";
-  import { PageHeader, Button, WorkoutCard } from "$lib/components";
+  import {
+    PageHeader,
+    Button,
+    WorkoutCard,
+    EmptyMessage,
+  } from "$lib/components";
 
   const { data } = $props();
 
@@ -18,7 +23,7 @@
 </PageHeader>
 <main>
   <section class="workouts">
-    {#if data.workouts}
+    {#if data.workouts.length > 0}
       {#each data.workouts as workout}
         <a href={`/${workout.id}`}>
           <WorkoutCard
@@ -27,6 +32,11 @@
           />
         </a>
       {/each}
+    {:else}
+      <EmptyMessage
+        header="No Workouts yet."
+        message="Click the plus button to add one."
+      />
     {/if}
   </section>
 </main>

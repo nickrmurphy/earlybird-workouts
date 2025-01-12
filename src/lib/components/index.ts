@@ -1,5 +1,6 @@
 export { default as ActiveExerciseCard } from "./ActiveExerciseCard.svelte";
 export { default as ActiveExerciseSet } from "./ActiveExerciseSet.svelte";
+export { default as EmptyMessage } from "./EmptyMessage.svelte";
 export { default as ExerciseItem } from "./ExerciseItem.svelte";
 export { default as ExerciseList } from "./ExerciseList.svelte";
 export { default as ExerciseOrderList } from "./ExerciseOrderList.svelte";

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { PageHeader, Navbar } from "$lib/components";
+  import { PageHeader, Navbar, EmptyMessage } from "$lib/components";
   import { dateFormatter } from "$lib/utils";
   import { ChevronRight } from "$lib/icons";
 
@@ -10,6 +10,12 @@
 <PageHeader level={2} title={`${data.workout.name} History`} />
 <main>
   <ol>
+    {#if data.workoutHistory.length === 0}
+      <EmptyMessage
+        header="No history yet."
+        message="Past workout details will appear here."
+      />
+    {/if}
     {#each data.workoutHistory as history}
       <li>
         <button
