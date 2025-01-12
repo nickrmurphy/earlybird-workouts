@@ -23,4 +23,22 @@
   --size-lg: 1024px;
   --size-xl: 1440px;
   --size-xxl: 1920px;
+
+  --size-px-000: -8px;
+  --size-px-00: -4px;
+  --size-px-1: 4px;
+  --size-px-2: 8px;
+  --size-px-3: 16px;
+  --size-px-4: 20px;
+  --size-px-5: 24px;
+  --size-px-6: 28px;
+  --size-px-7: 32px;
+  --size-px-8: 48px;
+  --size-px-9: 64px;
+  --size-px-10: 80px;
+  --size-px-11: 120px;
+  --size-px-12: 160px;
+  --size-px-13: 240px;
+  --size-px-14: 320px;
+  --size-px-15: 480px;
 }

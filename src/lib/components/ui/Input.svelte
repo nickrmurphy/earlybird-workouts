@@ -17,4 +17,10 @@
     font-weight: var(--font-weight);
     font-size: var(--font-size, var(--font-size-2));
   }
+
+  input:focus {
+    transition: all;
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+  }
 </style>
