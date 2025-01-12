@@ -8,30 +8,11 @@
     ActiveExerciseSet,
     PageHeader,
     Navbar,
-    Button,
+    TimerButton,
   } from "$lib/components";
   import { activity } from "$lib/stores";
-  import { Play, StopCircle } from "$lib/icons";
 
   let { data } = $props();
-
-  // TODO: Make a format util
-  let elapsedTime = $derived.by(() => {
-    let time = activity.restTimer.elapsedTime;
-    if (time < 10) {
-      return `0${time}`;
-    } else {
-      return time.toString();
-    }
-  });
-
-  function toggleTimer() {
-    if (activity.restTimer.isRunning) {
-      activity.restTimer.stop();
-    } else {
-      activity.restTimer.start();
-    }
-  }
 </script>
 
 <PageHeader title={data.exercise.name} level={2} />
@@ -55,14 +36,13 @@
   {/each}
 </main>
 <Navbar backHref="/active">
-  <Button --width="100%" rounded="full" variant="outline" onclick={toggleTimer}>
-    {#if activity.restTimer.isRunning}
-      <StopCircle />
-    {:else}
-      <Play />
-    {/if}
-    <time data-expired={activity.restTimer.isExpired}>{elapsedTime}/60s</time>
-  </Button>
+  <TimerButton
+    onclick={() => activity.restTimer.toggle()}
+    elapsedTime={activity.restTimer.elapsedTime}
+    runTimeSeconds={activity.restTimer.runTimeSeconds}
+    isRunning={activity.restTimer.isRunning}
+    isExpired={activity.restTimer.isExpired}
+  />
 </Navbar>
 
 <style>

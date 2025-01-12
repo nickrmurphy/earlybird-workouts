@@ -7,10 +7,10 @@
     PageHeader,
     NavbarActionItem,
     Pressable,
+    TimerButton,
   } from "$lib/components";
   import { completeWorkout } from "$lib/mutations";
   import { activity } from "$lib/stores";
-  import { Play, StopCircle } from "$lib/icons";
   import { goto } from "$app/navigation";
 
   let { data } = $props();
@@ -39,14 +39,6 @@
       });
     }
   }
-
-  function toggleTimer() {
-    if (activity.restTimer.isRunning) {
-      activity.restTimer.stop();
-    } else {
-      activity.restTimer.start();
-    }
-  }
 </script>
 
 <PageHeader title={data.activeWorkout.workoutName} />
@@ -71,19 +63,16 @@
           <option value={time}>{time}s</option>
         {/each}
       </select>
-      <!-- <input type="range" step={5} min={5} max={180} bind:value={restTimeSeconds} /> -->
     </NavbarActionItem>
   {/snippet}
-  <Button --width="50%" rounded="full" variant="outline" onclick={toggleTimer}>
-    {#if activity.restTimer.isRunning}
-      <StopCircle />
-    {:else}
-      <Play />
-    {/if}
-    <time data-expired={activity.restTimer.isExpired}
-      >{elapsedTime}/{activity.restTimer.runTimeSeconds} s.</time
-    >
-  </Button>
+  <TimerButton
+    width="50%"
+    onclick={() => activity.restTimer.toggle()}
+    elapsedTime={activity.restTimer.elapsedTime}
+    runTimeSeconds={activity.restTimer.runTimeSeconds}
+    isRunning={activity.restTimer.isRunning}
+    isExpired={activity.restTimer.isExpired}
+  />
   <Button onclick={confirmEndWorkout} --width="50%" rounded="full">
     End workout
   </Button>
@@ -98,14 +87,6 @@
     padding: var(--size-2);
 
     padding-bottom: var(--navbar-height);
-  }
-
-  time {
-    font-size: var(--font-size-0);
-  }
-
-  time[data-expired="true"] {
-    color: var(--rust);
   }
 
   select {

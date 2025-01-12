@@ -49,4 +49,12 @@ export class RestTimer {
       this.elapsedTime = 0;
     }
   }
+
+  toggle() {
+    if (this.isRunning) {
+      this.stop();
+    } else {
+      this.start();
+    }
+  }
 }

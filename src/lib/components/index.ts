@@ -7,5 +7,6 @@ export { default as ExerciseOrderList } from "./ExerciseOrderList.svelte";
 export { default as ExerciseSelectList } from "./ExerciseSelectList.svelte";
 export { default as ExerciseSetTable } from "./ExerciseSetTable.svelte";
 export * from "./page";
+export { default as TimerButton } from "./TimerButton.svelte";
 export * from "./ui";
 export { default as WorkoutCard } from "./WorkoutCard.svelte";
