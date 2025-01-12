@@ -104,8 +104,7 @@
   }
 
   time[data-expired="true"] {
-    /* TODO: This red sucks, change it. Also should probably make the whole button red */
-    color: red;
+    color: var(--rust);
   }
 
   select {

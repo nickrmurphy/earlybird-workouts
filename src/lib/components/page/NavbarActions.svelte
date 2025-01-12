@@ -26,7 +26,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius-3);
 
-    background-color: var(--raisin-black);
+    background-color: var(--licorice);
 
     :global(:first-child) {
       border-top-right-radius: var(--radius-3);

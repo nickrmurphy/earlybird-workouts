@@ -67,6 +67,6 @@
   }
 
   .var-destructive {
-    color: red;
+    color: var(--rust);
   }
 </style>

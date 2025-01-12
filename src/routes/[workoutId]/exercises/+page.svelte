@@ -161,4 +161,9 @@
     color: var(--black);
     font-size: var(--font-size-0);
   }
+
+  select:focus {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+  }
 </style>

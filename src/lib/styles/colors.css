@@ -1,8 +1,10 @@
 :root {
   /* Literal */
+  --magnolia: #f5f0f6;
   --yellow: #e6c229;
-  --raisin-black: #241921ff;
-  --magnolia: #f5f0f6ff;
+  --rust: #BC3908;
+  --raisin-black: #241921;
+  --licorice: #181116;
 
   /* Literal HSL */
   --black-hsl: 0 0% 0%;
