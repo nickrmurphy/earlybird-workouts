@@ -63,7 +63,7 @@
 </main>
 <Navbar>
   {#snippet actions()}
-    <NavbarActionItem --justify-content="space-between">
+    <NavbarActionItem>
       Rest time:
       <select bind:value={activity.restTimer.runTimeSeconds}>
         {#each [10, 20, 30, 45, 60, 90, 120, 180] as time}

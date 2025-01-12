@@ -8,6 +8,7 @@
   } from "$lib/mutations";
   import { goto } from "$app/navigation";
   import { PageHeader, Navbar, NavbarActionItem, Input } from "$lib/components";
+  import { Delete } from "$lib/icons";
 
   let { data } = $props();
 
@@ -81,9 +82,10 @@
 </main>
 <Navbar backHref={`/${data.workoutId}`}>
   {#snippet actions()}
-    <NavbarActionItem onclick={confirmDelete} variant="destructive"
-      >Delete exercise</NavbarActionItem
-    >
+    <NavbarActionItem onclick={confirmDelete} variant="destructive">
+      Delete exercise
+      <Delete />
+    </NavbarActionItem>
   {/snippet}
 </Navbar>
 

@@ -2,12 +2,6 @@
   import { goto } from "$app/navigation";
   import type { HTMLButtonAttributes } from "svelte/elements";
 
-  const classes = {
-    variant: {
-      primary: "var-primary",
-      destructive: "var-destructive",
-    },
-  };
   type WithRoutingProps = {
     href?: string;
     onclick?: never;
@@ -19,7 +13,7 @@
   };
 
   type Props = Omit<HTMLButtonAttributes, "onclick"> & {
-    variant?: keyof typeof classes.variant;
+    variant?: "primary" | "destructive";
   } & (WithRoutingProps | WithClickProps);
   let {
     children,
@@ -32,6 +26,8 @@
 
 <button
   {...props}
+  data-variant={variant}
+  class={props.class}
   onclick={(e) => {
     if (href) {
       e.preventDefault();
@@ -40,7 +36,6 @@
       onclick?.(e);
     }
   }}
-  class={[classes.variant[variant], props.class]}
 >
   {@render children?.()}
 </button>
@@ -48,7 +43,7 @@
 <style>
   button {
     display: flex;
-    justify-content: var(--justify-content, center);
+    justify-content: var(--justify-content, space-between);
     align-items: center;
     padding: var(--size-4);
     width: 100%;
@@ -66,7 +61,11 @@
     opacity: 0.5;
   }
 
-  .var-destructive {
+  button[data-variant="primary"] {
+    color: white;
+  }
+
+  button[data-variant="destructive"] {
     color: var(--rust);
   }
 </style>

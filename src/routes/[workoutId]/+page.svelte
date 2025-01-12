@@ -1,6 +1,12 @@
 <script lang="ts">
   import { confirm } from "@tauri-apps/plugin-dialog";
-  import { PlusMinusCircle } from "$lib/icons";
+  import {
+    ArrowUpDown,
+    Clock,
+    Delete,
+    PencilEdit,
+    PlusMinusCircle,
+  } from "$lib/icons";
   import { deleteWorkout, startWorkout } from "$lib/mutations";
   import { goto } from "$app/navigation";
   import {
@@ -64,15 +70,19 @@
   {#snippet actions()}
     <NavbarActionItem href={`/${data.workout.id}/edit`}>
       Rename workout
+      <PencilEdit />
     </NavbarActionItem>
     <NavbarActionItem href={`/${data.workout.id}/reorder`}>
       Reorder exercises
+      <ArrowUpDown />
     </NavbarActionItem>
     <NavbarActionItem href={`/${data.workout.id}/history`}>
       View history
+      <Clock />
     </NavbarActionItem>
     <NavbarActionItem onclick={confirmDelete} variant="destructive">
       Delete workout
+      <Delete />
     </NavbarActionItem>
   {/snippet}
   <Button
