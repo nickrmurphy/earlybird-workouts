@@ -43,11 +43,9 @@
 
 <style>
   h4 {
-    border-top-right-radius: var(--size-3);
-    border-top-left-radius: var(--size-3);
-
     background-color: hsl(var(--yellow-hsl) / 70%);
     padding: var(--size-3) var(--size-2);
+    color: hsl(var(--black-hsl) / 80%);
     font-weight: var(--font-weight-7);
     font-size: var(--font-size-2);
   }
@@ -58,6 +56,7 @@
 
     border: 1px solid var(--border-color);
     border-radius: var(--size-3);
+    overflow: hidden;
   }
 
   thead {
