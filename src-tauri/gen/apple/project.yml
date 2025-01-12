@@ -1,6 +1,6 @@
 name: earlybird-workout
 options:
-  bundleIdPrefix: com.earlybirdos.workout
+  bundleIdPrefix: com.byearlybird.workouts
   deploymentTarget:
     iOS: 13.0
 fileGroups: [../../src]
@@ -11,7 +11,7 @@ settingGroups:
   app:
     base:
       PRODUCT_NAME: earlybird-workout
-      PRODUCT_BUNDLE_IDENTIFIER: com.earlybirdos.workout
+      PRODUCT_BUNDLE_IDENTIFIER: com.byearlybird.workouts
 targetTemplates:
   app:
     type: application
