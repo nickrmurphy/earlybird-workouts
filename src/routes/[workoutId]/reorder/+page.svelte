@@ -68,7 +68,7 @@
     {/each}
   </ul>
 </form>
-<Navbar backHref="/">
+<Navbar backHref="/{data.workout.id}">
   <Button
     form="reorder-exercises"
     --width="100%"
