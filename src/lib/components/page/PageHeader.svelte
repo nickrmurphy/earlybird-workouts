@@ -4,7 +4,7 @@
   import type { Snippet } from "svelte";
 
   type Props = SvelteHTMLElements["HTMLHeadingElement"] & {
-    title?: string;
+    title?: string | string[];
     level?: 1 | 2;
     control?: Snippet;
   };
@@ -15,8 +15,20 @@
 <div class="unsafe"></div>
 <header>
   {#if title}
-    <Heading style="view-transition-name: page-heading" {level}>{title}</Heading
-    >
+    <Heading style="view-transition-name: page-heading" {level}>
+      <span>
+        {#if typeof title === "string"}
+          {title}
+        {:else}
+          {#each title as t, idx}
+            <span data-current={idx === title.length - 1}>{t}</span>
+            {#if idx < title.length - 1}
+              <span data-current={idx === title.length - 1}>/</span>
+            {/if}
+          {/each}
+        {/if}
+      </span>
+    </Heading>
   {/if}
   {@render children?.()}
   {#if control}
@@ -54,5 +66,15 @@
     flex-direction: column;
     gap: var(--size-2);
     width: 100%;
+  }
+
+  span {
+    display: flex;
+    align-items: start;
+    gap: var(--size-2);
+  }
+
+  span[data-current="false"] {
+    color: hsl(var(--magnolia-hsl) / 60%);
   }
 </style>

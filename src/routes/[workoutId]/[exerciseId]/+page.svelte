@@ -42,7 +42,7 @@
   }
 </script>
 
-<PageHeader title={data.exercise.name} level={2} />
+<PageHeader title={[data.workout.name, data.exercise.name]} level={2} />
 <main>
   <label>
     <span>

@@ -26,7 +26,7 @@
   }
 </script>
 
-<PageHeader title="Reorder exercises" level={2} />
+<PageHeader title={data.workout.name} level={2} />
 <form
   id="reorder-exercises"
   onsubmit={async (e) => {
