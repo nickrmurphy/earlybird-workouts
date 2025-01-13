@@ -38,14 +38,13 @@
   });
 
   const updateFilterQuery = debounce(function updateFilterQuery(name?: string) {
-    // TODO: Debounce this
     if (name) {
       searchParams.set("name", name);
     } else {
       searchParams.delete("name");
     }
     goto(`?${searchParams.toString()}`);
-  }, 1000);
+  }, 750);
 
   let exerciseOptions = $derived.by(() => {
     let filteredExercises = selectedOnly
@@ -68,7 +67,7 @@
     <Input
       bind:value={filterQuery}
       type="search"
-      onchange={(e) => updateFilterQuery(e.currentTarget.value)}
+      oninput={(e) => updateFilterQuery(e.currentTarget.value)}
       placeholder="Search for an exercise..."
       enterkeyhint="search"
     />
