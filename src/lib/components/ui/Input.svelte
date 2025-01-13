@@ -20,7 +20,7 @@
 
   input:focus {
     transition: all;
-    outline: 2px solid var(--primary);
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
 </style>

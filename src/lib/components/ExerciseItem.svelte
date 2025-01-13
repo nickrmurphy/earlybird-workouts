@@ -35,7 +35,7 @@
     justify-content: center;
     align-items: center;
     border-radius: var(--radius-round);
-    background-color: var(--primary);
+    background-color: var(--primary-color);
     min-width: var(--size-8);
     min-height: var(--size-8);
     color: black;
