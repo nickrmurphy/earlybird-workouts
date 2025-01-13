@@ -42,7 +42,7 @@
   }
 
   button[data-variant="primary"] {
-    background-color: var(--yellow);
+    background-color: var(--primary);
     color: hsla(var(--black-hsl) / 70%);
   }
 
@@ -51,9 +51,9 @@
   }
 
   button[data-variant="outline"] {
-    border: 1px solid var(--yellow);
+    border: 1px solid var(--primary);
     background-color: transparent;
-    color: var(--yellow);
+    color: var(--primary);
   }
 
   button[data-size="md"] {

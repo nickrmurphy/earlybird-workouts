@@ -90,7 +90,7 @@
   }
 
   select {
-    border: 1px solid var(--yellow);
+    border: 1px solid var(--primary);
     border-radius: var(--radius-3);
     background: none;
     padding: var(--size-2) var(--size-3);

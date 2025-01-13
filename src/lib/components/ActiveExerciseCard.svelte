@@ -31,9 +31,9 @@
   .card {
     display: flex;
     gap: var(--size-2);
-    border: 1px solid var(--yellow);
+    border: 1px solid hsl(var(--yellow-hsl) / 20%);
     border-radius: var(--radius-3);
-    background-color: hsl(var(--yellow-hsl) / 5%);
+    background-color: hsl(var(--yellow-hsl) / 10%);
     padding: var(--size-2);
   }
 

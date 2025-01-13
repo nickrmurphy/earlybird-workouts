@@ -2,7 +2,7 @@
   /* Literal */
   --magnolia: #f5f0f6;
   --yellow: #e6c229;
-  --rust: #BC3908;
+  --rust: #bc3908;
   --raisin-black: #241921;
   --licorice: #181116;
 
@@ -15,4 +15,5 @@
 
   /* Semantic */
   --border-color: hsl(var(--white-hsl) / 30%);
+  --primary-color: hsl(var(--yellow-hsl));
 }
