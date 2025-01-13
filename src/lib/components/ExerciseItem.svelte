@@ -23,10 +23,10 @@
 <style>
   .container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: var(--size-3);
     padding: var(--size-3) var(--size-2);
+    width: 100%;
   }
 
   .weight {
