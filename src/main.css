@@ -12,7 +12,16 @@
 }
 
 :root {
+  --black-hsl: 0 0% 0%;
+  --white-hsl: 0 0% 100%;
+
+  --primary-hsl: 49 79% 53%;
+  --background-hsl: 317 17% 8%;
+
+  --primary: hsl(var(--primary-hsl));
   --destructive: #bc3908;
+  --background: hsl(var(--background-hsl));
+  --foreground: hsla(0, 0%, 100%, 0.9);
 
   border-color: hsl(var(--magnolia-hsl) / 10%);
   background-color: var(--raisin-black);

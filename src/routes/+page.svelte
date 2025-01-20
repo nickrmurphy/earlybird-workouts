@@ -7,7 +7,11 @@
     WorkoutCard,
     EmptyMessage,
     Pressable,
+    Page,
   } from "$lib/components";
+  import PageHeader2 from "$lib/components/page/PageHeader2.svelte";
+  import Button2 from "$lib/components/ui/Button2.svelte";
+  import { IconCirclePlus, IconCirclePlusFilled } from "@tabler/icons-svelte";
 
   const { data } = $props();
 
@@ -17,12 +21,17 @@
   }
 </script>
 
-<PageHeader title="Workouts">
-  <Button rounded="full" onclick={() => goto("/new")}>
-    <Plus />
-  </Button>
-</PageHeader>
-<main>
+<!-- <PageHeader title="Workouts">
+  
+</PageHeader> -->
+<Page>
+  <PageHeader2 title="Workouts">
+    {#snippet right()}
+      <button onclick={() => goto("/new")}>
+        <IconCirclePlus color="var(--primary)" size={24} />
+      </button>
+    {/snippet}
+  </PageHeader2>
   <section class="workouts">
     {#if data.workouts.length > 0}
       {#each data.workouts as workout}
@@ -40,16 +49,9 @@
       />
     {/if}
   </section>
-</main>
+</Page>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-5);
-    padding: var(--size-4) var(--size-2);
-  }
-
   section.workouts {
     display: flex;
     flex-direction: column;
