@@ -15,12 +15,17 @@
   } from "$lib/components";
   import {
     IconDotsCircleHorizontal,
+    IconHistory,
+    IconPencil,
     IconPlus,
     IconPlusMinus,
     IconSwitchVertical,
+    IconTrashFilled,
   } from "@tabler/icons-svelte";
+  import { popover } from "$lib/actions/index.js";
   import { fade } from "svelte/transition";
 
+  let dropdownToggle: HTMLElement | null = $state(null);
   let showDropdown = $state(false);
 
   let { data } = $props();
@@ -39,7 +44,35 @@
   }
 </script>
 
-<PageHeader title={data.workout.name} />
+<PageHeader title={data.workout.name} level={2}>
+  <button
+    bind:this={dropdownToggle}
+    onclick={() => (showDropdown = !showDropdown)}
+  >
+    <IconDotsCircleHorizontal />
+  </button>
+  {#if showDropdown}
+    <div
+      class="dropdown"
+      transition:fade={{ duration: 100 }}
+      use:popover={{
+        anchorElement: dropdownToggle,
+        onClickOutside: () => (showDropdown = false),
+      }}
+    >
+      <button onclick={() => goto(`/${data.workout.id}/edit`)}>
+        Rename <IconPencil />
+      </button>
+      <button onclick={() => goto(`/${data.workout.id}/history`)}>
+        View history
+        <IconHistory />
+      </button>
+      <button onclick={confirmDelete} style="color: var(--destructive)">
+        Delete <IconTrashFilled />
+      </button>
+    </div>
+  {/if}
+</PageHeader>
 <main>
   <section>
     <header>
@@ -79,24 +112,9 @@
   </section>
 </main>
 <Navbar backHref="/">
-  {#snippet actions()}
-    <NavbarActionItem href={`/${data.workout.id}/edit`}>
-      Rename workout
-      <PencilEdit />
-    </NavbarActionItem>
-    <NavbarActionItem href={`/${data.workout.id}/history`}>
-      View history
-      <Clock />
-    </NavbarActionItem>
-    <NavbarActionItem onclick={confirmDelete} variant="destructive">
-      Delete workout
-      <Delete />
-    </NavbarActionItem>
-  {/snippet}
   <Button
     disabled={data.exercises.length === 0}
     --width="100%"
-    class="btn"
     rounded="full"
     onclick={async () => {
       await impactFeedback("medium");
@@ -121,5 +139,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  div.dropdown {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    border-radius: var(--radius-3);
+    background-color: var(--licorice);
+
+    button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--size-2);
+      box-shadow: var(--shadow-5);
+      padding: var(--size-2) var(--size-3);
+      width: 100%;
+      min-width: 200px;
+    }
   }
 </style>

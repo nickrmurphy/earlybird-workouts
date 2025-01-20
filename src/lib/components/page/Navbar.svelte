@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { SvelteHTMLElements } from "svelte/elements";
-  import { ArrowLeft, More, XIcon } from "$lib/icons";
+  import { More, XIcon } from "$lib/icons";
   import { goto } from "$app/navigation";
   import type { Snippet } from "svelte";
   import NavbarActions from "./NavbarActions.svelte";
+  import { IconArrowLeft } from "@tabler/icons-svelte";
 
   type Props = SvelteHTMLElements["nav"] & {
     backHref?: string;
@@ -16,7 +17,7 @@
 
 {#snippet backButton(href: string)}
   <button onclick={() => goto(href)}>
-    <ArrowLeft />
+    <IconArrowLeft />
   </button>
 {/snippet}
 

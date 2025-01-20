@@ -9,8 +9,12 @@ import type { Action } from "svelte/action";
 
 export const popover: Action<
   HTMLDivElement,
-  { anchorElement: HTMLElement; placement?: ComputePositionConfig["placement"] }
-> = (node, { anchorElement, placement = "bottom" }) => {
+  {
+    anchorElement: HTMLElement;
+    placement?: ComputePositionConfig["placement"];
+    onClickOutside?: () => void;
+  }
+> = (node, { anchorElement, placement = "bottom", onClickOutside }) => {
   const placeElement = (anchor: HTMLElement) =>
     computePosition(anchor, node, {
       placement,
@@ -22,11 +26,28 @@ export const popover: Action<
       });
     });
 
+  const handleClick = (event: MouseEvent) => {
+    if (
+      node &&
+      !node.contains(event.target as Node) &&
+      !event.defaultPrevented
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      onClickOutside?.();
+    }
+  };
+
+  document.addEventListener("click", handleClick, true);
+
   placeElement(anchorElement);
 
   return {
     update: ({ anchorElement }) => {
       placeElement(anchorElement);
+    },
+    destroy() {
+      document.removeEventListener("click", handleClick, true);
     },
   };
 };

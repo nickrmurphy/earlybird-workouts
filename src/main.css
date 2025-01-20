@@ -12,6 +12,8 @@
 }
 
 :root {
+  --destructive: #bc3908;
+
   border-color: hsl(var(--magnolia-hsl) / 10%);
   background-color: var(--raisin-black);
 
