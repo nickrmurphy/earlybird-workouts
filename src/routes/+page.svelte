@@ -1,17 +1,21 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { Plus } from "$lib/icons";
+
   import {
-    PageHeader,
-    Button,
     WorkoutCard,
     EmptyMessage,
     Pressable,
     Page,
+    Input,
   } from "$lib/components";
   import PageHeader2 from "$lib/components/page/PageHeader2.svelte";
-  import Button2 from "$lib/components/ui/Button2.svelte";
-  import { IconCirclePlus, IconCirclePlusFilled } from "@tabler/icons-svelte";
+  import Button from "$lib/components/ui/Button.svelte";
+  import { createWorkout } from "$lib/mutations";
+
+  import { IconArrowRight, IconCirclePlus } from "@tabler/icons-svelte";
+
+  let newWorkoutName = $state("");
+  let createWorkoutModal: HTMLDialogElement | null = $state(null);
 
   const { data } = $props();
 
@@ -19,6 +23,15 @@
     const exercises = data.workoutExercises[workoutId] || [];
     return exercises.map((exercise) => exercise.name);
   }
+
+  const handleCreateWorkout = async (e: Event) => {
+    e.preventDefault();
+    if (!newWorkoutName) return;
+    const newId = await createWorkout(newWorkoutName);
+    if (newId) {
+      goto(`/${newId}/exercises`);
+    }
+  };
 </script>
 
 <!-- <PageHeader title="Workouts">
@@ -27,7 +40,7 @@
 <Page>
   <PageHeader2 title="Workouts">
     {#snippet right()}
-      <button onclick={() => goto("/new")}>
+      <button onclick={() => createWorkoutModal?.showModal()}>
         <IconCirclePlus color="var(--primary)" size={24} />
       </button>
     {/snippet}
@@ -51,11 +64,64 @@
   </section>
 </Page>
 
+<dialog bind:this={createWorkoutModal}>
+  <h1>Create a workout</h1>
+  <form
+    style="display: flex; gap: var(--size-4); flex-direction: column;"
+    onsubmit={handleCreateWorkout}
+  >
+    <Input
+      bind:value={newWorkoutName}
+      minlength={1}
+      min={1}
+      placeholder="e.g. Upper Body"
+      type="text"
+      enterkeyhint="next"
+    />
+    <div style="display: flex; justify-content: space-between;">
+      <Button
+        type="button"
+        variant="ghost"
+        onclick={() => createWorkoutModal?.close()}>Cancel</Button
+      >
+      <Button type="submit">
+        Create
+        <IconArrowRight />
+      </Button>
+    </div>
+  </form>
+</dialog>
+
 <style>
   section.workouts {
     display: flex;
     flex-direction: column;
     gap: var(--size-4);
     overflow: scroll;
+  }
+
+  dialog[open] {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    gap: var(--size-4);
+    margin-top: 33%;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    border: none;
+    border-radius: var(--radius-3);
+    background-color: var(--popover);
+    color: var(--foreground);
+  }
+
+  dialog::backdrop {
+    backdrop-filter: blur(0px);
+    background-color: hsl(var(--black-hsl) / 60%);
+  }
+
+  dialog h1 {
+    font-weight: 600;
+    font-size: var(--size-4);
   }
 </style>

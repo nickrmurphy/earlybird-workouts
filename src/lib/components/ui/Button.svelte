@@ -69,7 +69,7 @@
     font-size: var(--font-size-3);
   }
 
-  button[data-rounded="rounded"] {
+  button[data-rounded="default"] {
     border-radius: var(--radius-3);
     padding: var(--size-2) var(--size-3);
   }

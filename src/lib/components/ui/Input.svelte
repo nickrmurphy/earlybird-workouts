@@ -2,7 +2,7 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   type Props = HTMLInputAttributes & {};
 
-  let { children, value = $bindable(), ...props }: Props = $props();
+  let { value = $bindable(), ...props }: Props = $props();
 </script>
 
 <input bind:value {...props} />
