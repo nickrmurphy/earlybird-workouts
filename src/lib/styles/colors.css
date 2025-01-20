@@ -3,8 +3,10 @@
   --magnolia: #f5f0f6;
   --yellow: #e6c229;
   --rust: #bc3908;
-  --raisin-black: #241921;
-  --licorice: #181116;
+  /* --raisin-black: #241921;
+  --licorice: #181116; */
+  --raisin-black: #181116;
+  --licorice: #241921;
 
   /* Literal HSL */
   --black-hsl: 0 0% 0%;

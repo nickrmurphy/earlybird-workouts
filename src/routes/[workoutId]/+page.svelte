@@ -1,14 +1,9 @@
 <script lang="ts">
   import { confirm } from "@tauri-apps/plugin-dialog";
-  import {
-    ArrowUpDown,
-    Clock,
-    Delete,
-    PencilEdit,
-    PlusMinusCircle,
-  } from "$lib/icons";
+  import { Clock, Delete, PencilEdit } from "$lib/icons";
   import { deleteWorkout, startWorkout } from "$lib/mutations";
   import { goto } from "$app/navigation";
+  import { impactFeedback } from "@tauri-apps/plugin-haptics";
   import {
     Navbar,
     PageHeader,
@@ -18,7 +13,15 @@
     ExerciseList,
     EmptyMessage,
   } from "$lib/components";
-  import Plus from "$lib/icons/Plus.svelte";
+  import {
+    IconDotsCircleHorizontal,
+    IconPlus,
+    IconPlusMinus,
+    IconSwitchVertical,
+  } from "@tabler/icons-svelte";
+  import { fade } from "svelte/transition";
+
+  let showDropdown = $state(false);
 
   let { data } = $props();
 
@@ -43,18 +46,27 @@
       <label for="edit-workout">
         <Heading level={2}>Exercises</Heading>
       </label>
-      <Button
-        id="edit-workout"
-        variant="ghost"
-        rounded="full"
-        onclick={() => goto(`/${data.workout.id}/exercises`)}
-      >
-        {#if data.exercises.length > 0}
-          <PlusMinusCircle />
-        {:else}
-          <Plus />
-        {/if}
-      </Button>
+      <div style="display: flex; gap: var(--size-1)">
+        <Button
+          variant="ghost"
+          rounded="full"
+          onclick={() => goto(`/${data.workout.id}/reorder`)}
+        >
+          <IconSwitchVertical />
+        </Button>
+        <Button
+          id="edit-workout"
+          variant="ghost"
+          rounded="full"
+          onclick={() => goto(`/${data.workout.id}/exercises`)}
+        >
+          {#if data.exercises.length > 0}
+            <IconPlusMinus />
+          {:else}
+            <IconPlus />
+          {/if}
+        </Button>
+      </div>
     </header>
     {#if data.exercises.length > 0}
       <ExerciseList workoutId={data.workout.id} exercises={data.exercises} />
@@ -72,10 +84,6 @@
       Rename workout
       <PencilEdit />
     </NavbarActionItem>
-    <NavbarActionItem href={`/${data.workout.id}/reorder`}>
-      Reorder exercises
-      <ArrowUpDown />
-    </NavbarActionItem>
     <NavbarActionItem href={`/${data.workout.id}/history`}>
       View history
       <Clock />
@@ -90,7 +98,10 @@
     --width="100%"
     class="btn"
     rounded="full"
-    onclick={() => startWorkout(data.workout.id)}
+    onclick={async () => {
+      await impactFeedback("medium");
+      startWorkout(data.workout.id);
+    }}
   >
     Start workout
   </Button>
