@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CircleEmpty, CheckmarkCircle } from "$lib/icons";
+  import { IconCircle, IconCircleCheckFilled } from "@tabler/icons-svelte";
 
   type Props = {
     options: { value: number; label: string }[];
@@ -22,7 +22,7 @@
           }}
         >
           <span>
-            <CheckmarkCircle />
+            <IconCircleCheckFilled color="var(--primary)" />
           </span>
           {option.label}
         </button>
@@ -34,7 +34,7 @@
           }}
         >
           <span>
-            <CircleEmpty />
+            <IconCircle />
           </span>
           {option.label}
         </button>
@@ -58,6 +58,7 @@
       gap: var(--size-2);
       padding: var(--size-3) var(--size-2);
       width: 100%;
+      color: var(--foreground);
     }
   }
 </style>

@@ -16,10 +16,12 @@
   --white-hsl: 0 0% 100%;
 
   --primary-hsl: 49 79% 53%;
+  --secondary-hsl: 12 6.5% 15.1%;
   --background-hsl: 317 17% 8%;
   --popover-hsl: 316 18% 12%;
 
   --primary: hsl(var(--primary-hsl));
+  --secondary: hsl(var(--secondary-hsl));
   --destructive: #bc3908;
   --background: hsl(var(--background-hsl));
   --popover: hsl(var(--popover-hsl));

@@ -133,14 +133,14 @@
       border-radius: var(--radius-round);
       padding: var(--size-1) var(--size-2);
       width: 100%;
-      color: hsl(var(--magnolia-hsl / 70%));
+      color: hsl(var(--white-hsl) / 70%);
       font-weight: var(--font-weight-5);
       text-align: center;
     }
 
     button[data-selected="true"] {
-      background-color: hsl(var(--yellow-hsl) / 90%);
-      color: hsl(var(--black-hsl) / 80%);
+      background-color: var(--secondary);
+      color: var(--foreground);
       font-weight: var(--font-weight-7);
     }
   }
