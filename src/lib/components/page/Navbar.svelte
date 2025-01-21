@@ -55,11 +55,10 @@
     box-shadow: var(--shadow-6);
     border-radius: var(--radius-round);
     background-color: hsl(var(--white-hsl) / 5%);
-
     /* styling for background */
     padding: 5px;
 
-    view-transition-name: nav-bar;
+    /* view-transition-name: nav-bar; */
   }
 
   button {
