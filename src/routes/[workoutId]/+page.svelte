@@ -1,17 +1,20 @@
 <script lang="ts">
   import { confirm } from "@tauri-apps/plugin-dialog";
-  import { Clock, Delete, PencilEdit } from "$lib/icons";
-  import { deleteWorkout, startWorkout } from "$lib/mutations";
+  import {
+    deleteWorkout,
+    startWorkout,
+    updateReps,
+    updateSets,
+    updateWeight,
+  } from "$lib/mutations";
   import { goto } from "$app/navigation";
   import { impactFeedback } from "@tauri-apps/plugin-haptics";
   import {
     Navbar,
-    PageHeader,
-    Heading,
-    NavbarActionItem,
     Button,
-    ExerciseList,
     EmptyMessage,
+    Page,
+    ExerciseItem,
   } from "$lib/components";
   import {
     IconDotsCircleHorizontal,
@@ -19,16 +22,49 @@
     IconPencil,
     IconPlus,
     IconPlusMinus,
+    IconRocket,
     IconSwitchVertical,
     IconTrashFilled,
+    IconX,
   } from "@tabler/icons-svelte";
   import { popover } from "$lib/actions/index.js";
-  import { fade } from "svelte/transition";
-
+  import { fade, fly } from "svelte/transition";
+  import PageHeader2 from "$lib/components/page/PageHeader2.svelte";
+  import Input from "$lib/components/ui/Input.svelte";
+  import { debounce } from "$lib/utils.js";
+  let { data } = $props();
   let dropdownToggle: HTMLElement | null = $state(null);
   let showDropdown = $state(false);
+  let showExerciseDialog = $state(false);
 
-  let { data } = $props();
+  const debouncedUpdateWeight = debounce((weight: number) => {
+    if (!data.exercise) return;
+    updateWeight(data.workoutId, data.exercise.id, weight);
+  }, 500);
+
+  const debouncedUpdateSets = debounce((sets: number) => {
+    if (!data.exercise) return;
+    updateSets(data.workoutId, data.exercise.id, sets);
+  }, 500);
+
+  const debouncedUpdateReps = debounce((reps: number) => {
+    if (!data.exercise) return;
+    updateReps(data.workoutId, data.exercise.id, reps);
+  }, 500);
+
+  let exercise = $derived(data.exercise);
+
+  $effect(() => {
+    if (exercise) {
+      showExerciseDialog = true;
+    }
+  });
+
+  $effect(() => {
+    if (!showExerciseDialog) {
+      goto(`?`);
+    }
+  });
 
   async function confirmDelete() {
     const confirmDelete = await confirm(
@@ -44,65 +80,59 @@
   }
 </script>
 
-<PageHeader title={data.workout.name} level={2}>
-  <button
-    bind:this={dropdownToggle}
-    onclick={() => (showDropdown = !showDropdown)}
-  >
-    <IconDotsCircleHorizontal />
-  </button>
-  {#if showDropdown}
-    <div
-      class="dropdown"
-      transition:fade={{ duration: 100 }}
-      use:popover={{
-        anchorElement: dropdownToggle,
-        onClickOutside: () => (showDropdown = false),
-      }}
-    >
-      <button onclick={() => goto(`/${data.workout.id}/edit`)}>
-        Rename <IconPencil />
+<Page>
+  <PageHeader2 title={data.workout.name}>
+    {#snippet right()}
+      <button onclick={() => goto(`/${data.workout.id}/reorder`)}>
+        <IconSwitchVertical color="var(--primary)" />
       </button>
-      <button onclick={() => goto(`/${data.workout.id}/history`)}>
-        View history
-        <IconHistory />
+      <button onclick={() => goto(`/${data.workout.id}/exercises`)}>
+        {#if data.exercises.length > 0}
+          <IconPlusMinus color="var(--primary)" />
+        {:else}
+          <IconPlus color="var(--primary)" />
+        {/if}
       </button>
-      <button onclick={confirmDelete} style="color: var(--destructive)">
-        Delete <IconTrashFilled />
+      <button
+        bind:this={dropdownToggle}
+        onclick={() => (showDropdown = !showDropdown)}
+      >
+        <IconDotsCircleHorizontal size={24} color="var(--primary)" />
       </button>
-    </div>
-  {/if}
-</PageHeader>
-<main>
+      {#if showDropdown}
+        <div
+          class="dropdown"
+          transition:fade={{ duration: 100 }}
+          use:popover={{
+            anchorElement: dropdownToggle,
+            onClickOutside: () => (showDropdown = false),
+          }}
+        >
+          <button onclick={() => goto(`/${data.workout.id}/edit`)}>
+            Rename <IconPencil />
+          </button>
+          <button onclick={() => goto(`/${data.workout.id}/history`)}>
+            View history
+            <IconHistory />
+          </button>
+          <button onclick={confirmDelete} style="color: var(--destructive)">
+            Delete <IconTrashFilled />
+          </button>
+        </div>
+      {/if}
+    {/snippet}
+  </PageHeader2>
   <section>
-    <header>
-      <label for="edit-workout">
-        <Heading level={2}>Exercises</Heading>
-      </label>
-      <div style="display: flex; gap: var(--size-1)">
-        <Button
-          variant="ghost"
-          rounded="full"
-          onclick={() => goto(`/${data.workout.id}/reorder`)}
-        >
-          <IconSwitchVertical />
-        </Button>
-        <Button
-          id="edit-workout"
-          variant="ghost"
-          rounded="full"
-          onclick={() => goto(`/${data.workout.id}/exercises`)}
-        >
-          {#if data.exercises.length > 0}
-            <IconPlusMinus />
-          {:else}
-            <IconPlus />
-          {/if}
-        </Button>
-      </div>
-    </header>
     {#if data.exercises.length > 0}
-      <ExerciseList workoutId={data.workout.id} exercises={data.exercises} />
+      {#each data.exercises as exercise}
+        <ExerciseItem
+          onclick={() => goto(`?exerciseId=${exercise.id}`)}
+          name={exercise.name}
+          sets={exercise.sets}
+          reps={exercise.reps}
+          weight={exercise.weight}
+        />
+      {/each}
     {:else}
       <EmptyMessage
         header="No exercises yet."
@@ -110,7 +140,59 @@
       />
     {/if}
   </section>
-</main>
+</Page>
+{#if showExerciseDialog}
+  <div
+    transition:fade={{ duration: 200 }}
+    class="overlay"
+    role="none"
+    onclick={(e) => {
+      e.stopPropagation();
+      showExerciseDialog = false;
+    }}
+  ></div>
+  <div role="dialog" transition:fly={{ y: 1000, duration: 200 }}>
+    <button onclick={() => (showExerciseDialog = false)}>
+      <IconX />
+    </button>
+    <h2>{exercise?.name}</h2>
+    <div style="display: flex; gap: var(--size-4); flex-direction: column;">
+      <label>
+        <span>Weight (lbs)</span>
+        <Input
+          defaultValue={data.exercise?.weight}
+          type="number"
+          step={0.5}
+          inputmode="decimal"
+          oninput={(e) =>
+            debouncedUpdateWeight(parseInt(e.currentTarget.value))}
+        />
+      </label>
+      <label>
+        <span>Sets</span>
+        <select
+          value={data.exercise?.sets}
+          onchange={(e) => debouncedUpdateSets(parseInt(e.currentTarget.value))}
+        >
+          {#each { length: 10 }, idx}
+            <option value={idx + 1}>{idx + 1}</option>
+          {/each}
+        </select>
+      </label>
+      <label>
+        <span>Reps</span>
+        <select
+          value={data.exercise?.reps}
+          onchange={(e) => debouncedUpdateReps(parseInt(e.currentTarget.value))}
+        >
+          {#each { length: 30 }, idx}
+            <option value={idx + 1}>{idx + 1}</option>
+          {/each}
+        </select>
+      </label>
+    </div>
+  </div>
+{/if}
 <Navbar backHref="/">
   <Button
     disabled={data.exercises.length === 0}
@@ -122,23 +204,17 @@
     }}
   >
     Start workout
+    <IconRocket />
   </Button>
 </Navbar>
 
 <style>
-  main {
+  button {
     display: flex;
-    flex-direction: column;
-    gap: var(--size-4);
-    padding: var(--size-2);
-
-    padding-bottom: var(--navbar-height);
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    width: 40px;
+    height: 40px;
   }
 
   div.dropdown {
@@ -158,5 +234,68 @@
       width: 100%;
       min-width: 200px;
     }
+  }
+
+  div[role="dialog"] {
+    display: flex;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    flex-direction: column;
+    gap: var(--size-6);
+    z-index: 99;
+    border-top-right-radius: var(--radius-3);
+    border-top-left-radius: var(--radius-3);
+    background-color: var(--popover);
+    padding-top: var(--size-2);
+    padding-right: var(--size-2);
+    padding-left: var(--size-2);
+    height: 75%;
+    color: var(--foreground);
+
+    button {
+      position: absolute;
+      top: var(--size-2);
+      right: var(--size-2);
+    }
+
+    h2 {
+      padding: var(--size-2);
+      max-width: 90%;
+      font-weight: var(--font-weight-6);
+      font-size: var(--font-size-3);
+    }
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 98;
+    background-color: hsl(var(--black-hsl) / 70%);
+  }
+
+  label {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  select {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-3);
+    background-color: transparent;
+    padding: 12px 10px;
+    color: var(--magnolia);
+    font-weight: var(--font-weight);
+    font-size: var(--font-size, var(--font-size-2));
+  }
+
+  select:focus {
+    transition: all;
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
   }
 </style>

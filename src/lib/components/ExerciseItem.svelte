@@ -1,15 +1,17 @@
 <script lang="ts">
-  type Props = {
+  import type { HTMLAttributes } from "svelte/elements";
+
+  type Props = HTMLAttributes<HTMLDivElement> & {
     name: string;
     sets: number;
     reps: number;
     weight: number;
   };
 
-  let { name, sets, reps, weight }: Props = $props();
+  let { name, sets, reps, weight, ...props }: Props = $props();
 </script>
 
-<div class="container">
+<div class="container" {...props}>
   <div class="weight">
     <span>{weight}</span>
     <span class="weight-unit">lbs</span>
@@ -34,11 +36,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 2px solid var(--primary);
     border-radius: var(--radius-round);
-    background-color: var(--primary-color);
     min-width: var(--size-8);
     min-height: var(--size-8);
-    color: black;
+    color: var(--foreground);
     font-weight: var(--font-weight-6);
     font-size: small;
     font-size: var(--font-size-2);

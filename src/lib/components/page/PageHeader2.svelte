@@ -17,7 +17,7 @@
   {/if}
   {@render children?.()}
   {#if right}
-    <div style="margin-left: auto;">{@render right()}</div>
+    <div class="right">{@render right()}</div>
   {/if}
 </header>
 
@@ -40,5 +40,12 @@
   h1[data-level="1"] {
     font-weight: var(--font-weight-7);
     font-size: var(--font-size-4);
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4);
+    margin-left: auto;
   }
 </style>
