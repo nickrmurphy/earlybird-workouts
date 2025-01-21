@@ -1,80 +1,69 @@
 <script lang="ts">
-  import type { SvelteHTMLElements } from "svelte/elements";
-  import Heading from "./Heading.svelte";
   import type { Snippet } from "svelte";
+  import type { SvelteHTMLElements } from "svelte/elements";
 
   type Props = SvelteHTMLElements["HTMLHeadingElement"] & {
     title?: string | string[];
     level?: 1 | 2;
-    control?: Snippet;
+    right?: Snippet;
   };
 
-  let { level = 1, title, children, control }: Props = $props();
+  let { level = 1, title, children, right }: Props = $props();
 </script>
 
-<div class="unsafe"></div>
 <header>
-  {#if title}
-    <Heading style="view-transition-name: page-heading" {level}>
-      <span>
-        {#if typeof title === "string"}
-          {title}
-        {:else}
-          {#each title as t, idx}
-            <span data-current={idx === title.length - 1}>{t}</span>
-            {#if idx < title.length - 1}
-              <span data-current={idx === title.length - 1}>/</span>
-            {/if}
-          {/each}
-        {/if}
-      </span>
-    </Heading>
+  {#if title || right}
+    <div class="top-content">
+      {#if title}
+        <h1 data-level={level}>{title}</h1>
+      {/if}
+      {#if right}
+        <div class="right">{@render right()}</div>
+      {/if}
+    </div>
   {/if}
-  {@render children?.()}
-  {#if control}
-    <div class="control">
-      {@render control()}
+  {#if children}
+    <div class="bottom-content">
+      {@render children?.()}
     </div>
   {/if}
 </header>
 
 <style>
-  .unsafe {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    background-color: var(--raisin-black);
-    height: env(safe-area-inset-top);
-  }
-
   header {
-    display: flex;
-
     position: sticky;
-    top: env(safe-area-inset-top);
-    right: var(--size-2);
-    left: var(--size-2);
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--raisin-black);
-    padding: var(--size-2);
+    top: 0;
+    backdrop-filter: blur(10px);
+    margin-right: var(--size-000);
+    margin-left: var(--size-000);
+    background-color: hsla(var(--background-hsl) / 90%);
+    padding-top: calc(env(safe-area-inset-top) + var(--size-2));
+    padding-right: var(--size-3);
+    padding-bottom: var(--size-2);
+    padding-left: var(--size-3);
   }
 
-  .control {
+  h1[data-level="1"] {
+    font-weight: var(--font-weight-7);
+    font-size: var(--font-size-4);
+  }
+
+  .top-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .bottom-content {
     display: flex;
     flex-direction: column;
     gap: var(--size-2);
     width: 100%;
   }
 
-  span {
+  .right {
     display: flex;
-    align-items: start;
-    gap: var(--size-2);
-  }
-
-  span[data-current="false"] {
-    color: hsl(var(--magnolia-hsl) / 60%);
+    align-items: center;
+    gap: var(--size-4);
+    margin-left: auto;
   }
 </style>

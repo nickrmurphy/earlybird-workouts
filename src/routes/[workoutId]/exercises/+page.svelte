@@ -1,10 +1,11 @@
 <script lang="ts">
   import { addExercise, removeExercise } from "$lib/mutations";
   import {
-    PageHeader,
     Navbar,
     Input,
     ExerciseSelectList,
+    Page,
+    PageHeader,
   } from "$lib/components";
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
@@ -62,8 +63,8 @@
   });
 </script>
 
-<PageHeader>
-  {#snippet control()}
+<Page>
+  <PageHeader>
     <Input
       bind:value={filterQuery}
       type="search"
@@ -84,9 +85,8 @@
         <span class="selected-count">({selectedOptions.length})</span>
       </button>
     </div>
-  {/snippet}
-</PageHeader>
-<main>
+  </PageHeader>
+
   <ExerciseSelectList
     selected={selectedOptions}
     options={exerciseOptions}
@@ -97,7 +97,7 @@
       await removeExercise(data.workout.id, value);
     }}
   />
-</main>
+</Page>
 <Navbar backHref={`/${data.workout.id}`}>
   <select bind:value={equipmentFilter}>
     <option value={-1}>All equipment</option>
@@ -114,11 +114,6 @@
 </Navbar>
 
 <style>
-  main {
-    padding: var(--size-2);
-    padding-bottom: var(--navbar-height);
-  }
-
   .selected-count {
     font-size: var(--font-size-0);
   }

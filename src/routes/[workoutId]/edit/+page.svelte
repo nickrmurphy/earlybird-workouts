@@ -1,36 +1,38 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { Navbar, PageHeader, Button, Input } from "$lib/components";
+  import { Navbar, Button, Input, Page, PageHeader } from "$lib/components";
   import { renameWorkout } from "$lib/mutations";
 
   let { data } = $props();
   let newWorkoutName = $state(data.workout.name);
 </script>
 
-<PageHeader title="Edit workout" />
-<form
-  id="edit-workout"
-  onsubmit={async (e) => {
-    e.preventDefault();
-    const rowsAffected = await renameWorkout(data.workout.id, newWorkoutName);
-    if (rowsAffected === 0) {
-      console.error("Failed to rename workout");
-    } else {
-      goto(`/${data.workout.id}`);
-    }
-  }}
->
-  <label>
-    Title
-    <Input
-      bind:value={newWorkoutName}
-      placeholder="e.g. Upper body"
-      required
-      type="text"
-      enterkeyhint="done"
-    />
-  </label>
-</form>
+<Page>
+  <PageHeader title="Edit workout" />
+  <form
+    id="edit-workout"
+    onsubmit={async (e) => {
+      e.preventDefault();
+      const rowsAffected = await renameWorkout(data.workout.id, newWorkoutName);
+      if (rowsAffected === 0) {
+        console.error("Failed to rename workout");
+      } else {
+        goto(`/${data.workout.id}`);
+      }
+    }}
+  >
+    <label>
+      Title
+      <Input
+        bind:value={newWorkoutName}
+        placeholder="e.g. Upper body"
+        required
+        type="text"
+        enterkeyhint="done"
+      />
+    </label>
+  </form>
+</Page>
 <Navbar backHref="/{data.workout.id}">
   <Button type="submit" form="edit-workout" --width="100%" rounded="full"
     >Save</Button

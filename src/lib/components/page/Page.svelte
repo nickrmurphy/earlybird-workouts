@@ -16,7 +16,7 @@
     flex-direction: column;
     gap: var(--size-4);
     padding-right: var(--size-2);
-    padding-bottom: var(--navbar-height);
+    padding-bottom: calc(var(--navbar-height) + var(--size-2));
     padding-left: var(--size-2);
   }
 </style>

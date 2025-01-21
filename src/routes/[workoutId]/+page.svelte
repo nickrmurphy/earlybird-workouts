@@ -15,6 +15,7 @@
     EmptyMessage,
     Page,
     ExerciseItem,
+    PageHeader,
   } from "$lib/components";
   import {
     IconDotsCircleHorizontal,
@@ -29,7 +30,6 @@
   } from "@tabler/icons-svelte";
   import { popover } from "$lib/actions/index.js";
   import { fade, fly } from "svelte/transition";
-  import PageHeader2 from "$lib/components/page/PageHeader2.svelte";
   import Input from "$lib/components/ui/Input.svelte";
   import { debounce } from "$lib/utils.js";
   let { data } = $props();
@@ -81,7 +81,7 @@
 </script>
 
 <Page>
-  <PageHeader2 title={data.workout.name}>
+  <PageHeader title={data.workout.name}>
     {#snippet right()}
       <button onclick={() => goto(`/${data.workout.id}/reorder`)}>
         <IconSwitchVertical color="var(--primary)" />
@@ -121,7 +121,7 @@
         </div>
       {/if}
     {/snippet}
-  </PageHeader2>
+  </PageHeader>
   <section>
     {#if data.exercises.length > 0}
       {#each data.exercises as exercise}

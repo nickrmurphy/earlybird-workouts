@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PageHeader, Button, Navbar } from "$lib/components";
+  import { Button, Navbar, Page, PageHeader } from "$lib/components";
   import { ChevronDown, ChevronUp } from "$lib/icons";
   import { flip } from "svelte/animate";
   import { updatePosition } from "$lib/mutations";
@@ -26,58 +26,60 @@
   }
 </script>
 
-<PageHeader title={data.workout.name} level={2} />
-<form
-  id="reorder-exercises"
-  onsubmit={async (e) => {
-    e.preventDefault();
-    const promises: Promise<unknown>[] = [];
-    orderedExercises.forEach((exercise, idx) => {
-      promises.push(updatePosition(data.workout.id, exercise.id, idx + 1));
-    });
-    await Promise.all(promises).then(() => {
-      goto(`/${data.workout.id}`);
-    });
-  }}
->
-  <ul>
-    {#each orderedExercises as exercise, idx (exercise.id)}
-      <li animate:flip={{ duration: 300 }}>
-        {exercise.name}
-        <div>
-          <Button
-            rounded="full"
-            disabled={idx === 0}
-            variant="outline"
-            type="button"
-            onclick={() => arraymove(orderedExercises, idx, idx - 1)}
-          >
-            <ChevronUp />
-          </Button>
-          <Button
-            rounded="full"
-            variant="outline"
-            disabled={idx === orderedExercises.length - 1}
-            type="button"
-            onclick={() => arraymove(orderedExercises, idx, idx + 1)}
-          >
-            <ChevronDown />
-          </Button>
-        </div>
-      </li>
-    {/each}
-  </ul>
-</form>
-<Navbar backHref="/{data.workout.id}">
-  <Button
-    form="reorder-exercises"
-    --width="100%"
-    rounded="full"
-    disabled={!isChanged}
+<Page>
+  <PageHeader title={data.workout.name} />
+  <form
+    id="reorder-exercises"
+    onsubmit={async (e) => {
+      e.preventDefault();
+      const promises: Promise<unknown>[] = [];
+      orderedExercises.forEach((exercise, idx) => {
+        promises.push(updatePosition(data.workout.id, exercise.id, idx + 1));
+      });
+      await Promise.all(promises).then(() => {
+        goto(`/${data.workout.id}`);
+      });
+    }}
   >
-    Save changes
-  </Button>
-</Navbar>
+    <ul>
+      {#each orderedExercises as exercise, idx (exercise.id)}
+        <li animate:flip={{ duration: 300 }}>
+          {exercise.name}
+          <div>
+            <Button
+              rounded="full"
+              disabled={idx === 0}
+              variant="outline"
+              type="button"
+              onclick={() => arraymove(orderedExercises, idx, idx - 1)}
+            >
+              <ChevronUp />
+            </Button>
+            <Button
+              rounded="full"
+              variant="outline"
+              disabled={idx === orderedExercises.length - 1}
+              type="button"
+              onclick={() => arraymove(orderedExercises, idx, idx + 1)}
+            >
+              <ChevronDown />
+            </Button>
+          </div>
+        </li>
+      {/each}
+    </ul>
+  </form>
+  <Navbar backHref="/{data.workout.id}">
+    <Button
+      form="reorder-exercises"
+      --width="100%"
+      rounded="full"
+      disabled={!isChanged}
+    >
+      Save changes
+    </Button>
+  </Navbar>
+</Page>
 
 <style>
   form {

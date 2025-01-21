@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Navbar, PageHeader, ExerciseSetTable } from "$lib/components";
+  import { Navbar, ExerciseSetTable, Page, PageHeader } from "$lib/components";
   import { dateFormatter } from "$lib/utils";
 
   let { data } = $props();
@@ -16,23 +16,25 @@
   });
 </script>
 
-<PageHeader title={historyDate} level={2} />
-<main>
+<Page>
+  <PageHeader title={data.workout.name}>
+    {#snippet right()}
+      <time>{historyDate}</time>
+    {/snippet}
+  </PageHeader>
+
   {#each data.exerciseHistory as exercise}
     <ExerciseSetTable
       exerciseName={exercise.exerciseName}
       sets={exercise.sets}
     />
   {/each}
-</main>
+</Page>
 <Navbar backHref={`/${data.workout.id}/history`}></Navbar>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-5);
-    padding: var(--size-2);
-    padding-bottom: var(--navbar-height);
+  time {
+    font-weight: var(--font-weight-7);
+    font-size: var(--font-size-2);
   }
 </style>

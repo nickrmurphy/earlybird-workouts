@@ -1,14 +1,18 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { PageHeader, Navbar, EmptyMessage } from "$lib/components";
+  import { Navbar, EmptyMessage, Page, PageHeader } from "$lib/components";
   import { dateFormatter } from "$lib/utils";
   import { ChevronRight } from "$lib/icons";
 
   let { data } = $props();
 </script>
 
-<PageHeader level={2} title={`${data.workout.name} History`} />
-<main>
+<Page>
+  <PageHeader title={data.workout.name}>
+    {#snippet right()}
+      <h3>History</h3>
+    {/snippet}
+  </PageHeader>
   <ol>
     {#if data.workoutHistory.length === 0}
       <EmptyMessage
@@ -27,13 +31,13 @@
       </li>
     {/each}
   </ol>
-</main>
+</Page>
 <Navbar backHref={`/${data.workout.id}`} />
 
 <style>
-  main {
-    padding: var(--size-2);
-    padding-top: var(--size-5);
+  h3 {
+    font-weight: var(--font-weight-7);
+    font-size: var(--font-size-2);
   }
 
   ol {

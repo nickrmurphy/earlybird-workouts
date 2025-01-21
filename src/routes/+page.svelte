@@ -7,8 +7,8 @@
     Pressable,
     Page,
     Input,
+    PageHeader,
   } from "$lib/components";
-  import PageHeader2 from "$lib/components/page/PageHeader2.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import { createWorkout } from "$lib/mutations";
 
@@ -34,17 +34,14 @@
   };
 </script>
 
-<!-- <PageHeader title="Workouts">
-  
-</PageHeader> -->
 <Page>
-  <PageHeader2 title="Workouts">
+  <PageHeader title="Workouts">
     {#snippet right()}
       <button onclick={() => createWorkoutModal?.showModal()}>
         <IconCirclePlus color="var(--primary)" size={24} />
       </button>
     {/snippet}
-  </PageHeader2>
+  </PageHeader>
   <section class="workouts">
     {#if data.workouts.length > 0}
       {#each data.workouts as workout}

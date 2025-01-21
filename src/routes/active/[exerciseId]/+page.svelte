@@ -6,17 +6,18 @@
   } from "$lib/mutations";
   import {
     ActiveExerciseSet,
-    PageHeader,
     Navbar,
     TimerButton,
+    PageHeader,
+    Page,
   } from "$lib/components";
   import { activity } from "$lib/stores";
 
   let { data } = $props();
 </script>
 
-<PageHeader title={data.exercise.name} level={2} />
-<main>
+<Page>
+  <PageHeader title={data.exercise.name} />
   {#each data.exerciseSets as set}
     <ActiveExerciseSet
       setId={set.id}
@@ -34,7 +35,7 @@
       onWeightChange={(weight) => setWorkoutHistorySetWeight(set.id, weight)}
     />
   {/each}
-</main>
+</Page>
 <Navbar backHref="/active">
   <TimerButton
     onclick={() => activity.restTimer.toggle()}
@@ -44,12 +45,3 @@
     isExpired={activity.restTimer.isExpired}
   />
 </Navbar>
-
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-1);
-    padding: var(--size-2);
-  }
-</style>

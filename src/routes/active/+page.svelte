@@ -4,10 +4,11 @@
     Button,
     ActiveExerciseCard,
     Navbar,
-    PageHeader,
     NavbarActionItem,
     Pressable,
     TimerButton,
+    Page,
+    PageHeader,
   } from "$lib/components";
   import { completeWorkout } from "$lib/mutations";
   import { activity } from "$lib/stores";
@@ -41,8 +42,8 @@
   }
 </script>
 
-<PageHeader title={data.activeWorkout.workoutName} />
-<main>
+<Page>
+  <PageHeader title={data.activeWorkout.workoutName} />
   {#each data.workoutExercises as exercise}
     <Pressable href={`/active/${exercise.id}`}>
       <ActiveExerciseCard
@@ -53,7 +54,7 @@
       />
     </Pressable>
   {/each}
-</main>
+</Page>
 <Navbar>
   {#snippet actions()}
     <NavbarActionItem>
@@ -79,16 +80,6 @@
 </Navbar>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-3);
-    margin-top: var(--size-3);
-    padding: var(--size-2);
-
-    padding-bottom: var(--navbar-height);
-  }
-
   select {
     border: 1px solid var(--primary-color);
     border-radius: var(--radius-3);
