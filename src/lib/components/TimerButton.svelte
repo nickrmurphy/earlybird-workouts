@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button } from "$lib/components";
-  import { Play, StopCircle } from "$lib/icons";
+  import { IconPlayerPlay, IconPlayerStop } from "@tabler/icons-svelte";
 
   type Props = {
     width?: string;
@@ -37,9 +37,9 @@
   {onclick}
 >
   {#if isRunning}
-    <StopCircle />
+    <IconPlayerStop />
   {:else}
-    <Play />
+    <IconPlayerPlay />
   {/if}
   <time data-expired={isExpired}>
     {formattedElapsedTime}/{runTimeSeconds} s.</time

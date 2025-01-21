@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button } from "./ui";
-  import { Checkmark } from "$lib/icons";
+  import { IconCheck } from "@tabler/icons-svelte";
 
   type Props = {
     setId: number;
@@ -59,7 +59,7 @@
       onclick={() => onToggleComplete?.(!isComplete)}
     >
       {#if isComplete}
-        <Checkmark />
+        <IconCheck />
       {/if}
     </Button>
   </section>

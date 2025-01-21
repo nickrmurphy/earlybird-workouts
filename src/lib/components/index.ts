@@ -3,7 +3,6 @@ export { default as ActiveExerciseSet } from "./ActiveExerciseSet.svelte";
 export { default as EmptyMessage } from "./EmptyMessage.svelte";
 export { default as ExerciseItem } from "./ExerciseItem.svelte";
 export { default as ExerciseList } from "./ExerciseList.svelte";
-export { default as ExerciseOrderList } from "./ExerciseOrderList.svelte";
 export { default as ExerciseSelectList } from "./ExerciseSelectList.svelte";
 export { default as ExerciseSetTable } from "./ExerciseSetTable.svelte";
 export * from "./page";

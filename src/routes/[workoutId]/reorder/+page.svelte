@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Button, Navbar, Page, PageHeader } from "$lib/components";
-  import { ChevronDown, ChevronUp } from "$lib/icons";
   import { flip } from "svelte/animate";
   import { updatePosition } from "$lib/mutations";
   import { goto } from "$app/navigation";
+  import { IconChevronDown, IconChevronUp } from "@tabler/icons-svelte";
 
   let { data } = $props();
 
@@ -53,7 +53,7 @@
               type="button"
               onclick={() => arraymove(orderedExercises, idx, idx - 1)}
             >
-              <ChevronUp />
+              <IconChevronUp />
             </Button>
             <Button
               rounded="full"
@@ -62,7 +62,7 @@
               type="button"
               onclick={() => arraymove(orderedExercises, idx, idx + 1)}
             >
-              <ChevronDown />
+              <IconChevronDown />
             </Button>
           </div>
         </li>
@@ -101,6 +101,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--size-2);
     padding: var(--size-4) 0;
     font-weight: var(--font-weight-7);
     font-size: var(--font-size-2);

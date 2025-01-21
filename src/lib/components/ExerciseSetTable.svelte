@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckmarkCircle, CircleEmpty } from "$lib/icons";
+  import { IconCircle, IconCircleCheck } from "@tabler/icons-svelte";
 
   type Props = {
     exerciseName: string;
@@ -30,9 +30,9 @@
           <td>{set.reps}</td>
           <td>
             {#if set.isComplete}
-              <span><CheckmarkCircle /></span>
+              <span><IconCircleCheck color="var(--foreground)" /></span>
             {:else}
-              <span><CircleEmpty /></span>
+              <span><IconCircle color="var(--foreground)" /></span>
             {/if}
           </td>
         </tr>

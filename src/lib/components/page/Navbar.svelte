@@ -1,10 +1,9 @@
 <script lang="ts">
   import type { SvelteHTMLElements } from "svelte/elements";
-  import { More, XIcon } from "$lib/icons";
   import { goto } from "$app/navigation";
   import type { Snippet } from "svelte";
   import NavbarActions from "./NavbarActions.svelte";
-  import { IconArrowLeft } from "@tabler/icons-svelte";
+  import { IconArrowLeft, IconDots, IconX } from "@tabler/icons-svelte";
 
   type Props = SvelteHTMLElements["nav"] & {
     backHref?: string;
@@ -28,9 +27,9 @@
   {#if actions}
     <button onclick={() => (actionsOpen = !actionsOpen)}>
       {#if actionsOpen}
-        <XIcon />
+        <IconX />
       {:else}
-        <More />
+        <IconDots />
       {/if}
     </button>
     <NavbarActions bind:open={actionsOpen}>

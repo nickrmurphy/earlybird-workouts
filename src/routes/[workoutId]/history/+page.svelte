@@ -2,7 +2,7 @@
   import { goto } from "$app/navigation";
   import { Navbar, EmptyMessage, Page, PageHeader } from "$lib/components";
   import { dateFormatter } from "$lib/utils";
-  import { ChevronRight } from "$lib/icons";
+  import { IconChevronRight } from "@tabler/icons-svelte";
 
   let { data } = $props();
 </script>
@@ -26,7 +26,7 @@
           onclick={() => goto(`/${data.workout.id}/history/${history.id}`)}
         >
           {dateFormatter.format(new Date(history.startTime))}
-          <ChevronRight />
+          <IconChevronRight />
         </button>
       </li>
     {/each}
@@ -56,9 +56,9 @@
         align-items: center;
         padding: var(--size-4) var(--size-2);
         width: 100%;
-
+        color: var(--foreground);
         font-weight: var(--font-weight-6);
-        font-size: var(--font-size-3);
+        font-size: var(--font-size-2);
       }
     }
   }
