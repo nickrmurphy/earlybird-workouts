@@ -34,7 +34,7 @@
           }}
         >
           <span>
-            <IconCircle />
+            <IconCircle color="var(--primary)" />
           </span>
           {option.label}
         </button>

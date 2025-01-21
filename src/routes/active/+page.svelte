@@ -13,17 +13,9 @@
   import { completeWorkout } from "$lib/mutations";
   import { activity } from "$lib/stores";
   import { goto } from "$app/navigation";
+  import { IconChecks } from "@tabler/icons-svelte";
 
   let { data } = $props();
-
-  let elapsedTime = $derived.by(() => {
-    let time = activity.restTimer.elapsedTime;
-    if (time < 10) {
-      return `0${time}`;
-    } else {
-      return time.toString();
-    }
-  });
 
   async function confirmEndWorkout() {
     const confirmEnd = await confirm(
@@ -43,7 +35,13 @@
 </script>
 
 <Page>
-  <PageHeader title={data.activeWorkout.workoutName} />
+  <PageHeader title={data.activeWorkout.workoutName}>
+    {#snippet right()}
+      <button onclick={confirmEndWorkout}>
+        <IconChecks color="var(--primary)" size={24} />
+      </button>
+    {/snippet}
+  </PageHeader>
   {#each data.workoutExercises as exercise}
     <Pressable href={`/active/${exercise.id}`}>
       <ActiveExerciseCard
@@ -67,16 +65,13 @@
     </NavbarActionItem>
   {/snippet}
   <TimerButton
-    width="50%"
+    width="100%"
     onclick={() => activity.restTimer.toggle()}
     elapsedTime={activity.restTimer.elapsedTime}
     runTimeSeconds={activity.restTimer.runTimeSeconds}
     isRunning={activity.restTimer.isRunning}
     isExpired={activity.restTimer.isExpired}
   />
-  <Button onclick={confirmEndWorkout} --width="50%" rounded="full">
-    End workout
-  </Button>
 </Navbar>
 
 <style>
