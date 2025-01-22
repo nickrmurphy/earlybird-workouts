@@ -84,8 +84,14 @@
 <Page>
   <PageHeader title={data.workout.name}>
     {#snippet right()}
-      <button onclick={() => goto(`/${data.workout.id}/reorder`)}>
-        <IconSwitchVertical color="var(--primary)" />
+      <button
+        onclick={() => goto(`/${data.workout.id}/reorder`)}
+        disabled={data.exercises.length === 0}
+      >
+        <IconSwitchVertical
+          color="var(--primary)"
+          style={data.exercises.length === 0 ? "opacity: 50%;" : ""}
+        />
       </button>
       <button onclick={() => goto(`/${data.workout.id}/exercises`)}>
         {#if data.exercises.length > 0}
