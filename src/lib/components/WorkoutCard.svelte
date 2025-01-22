@@ -35,9 +35,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-3);
-    border: 1px solid hsl(var(--yellow-hsl) / 20%);
+    border: 1px solid hsl(var(--yellow-hsl) / 10%);
     border-radius: var(--radius-3);
-    background-color: hsl(var(--yellow-hsl) / 10%);
+    background-color: hsl(var(--yellow-hsl) / 5%);
     padding: var(--size-1);
     padding: var(--size-3);
   }
