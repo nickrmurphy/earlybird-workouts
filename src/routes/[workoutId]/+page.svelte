@@ -32,6 +32,7 @@
   import { fade, fly } from "svelte/transition";
   import Input from "$lib/components/ui/Input.svelte";
   import { debounce } from "$lib/utils.js";
+  import { NavigationMonitor } from "$lib/assets";
   let { data } = $props();
   let dropdownToggle: HTMLElement | null = $state(null);
   let showDropdown = $state(false);
@@ -136,8 +137,9 @@
     {:else}
       <EmptyMessage
         header="No exercises yet."
-        message="Click the plus button to add one."
+        message="Tap the plus button to add an exercise."
       />
+      <NavigationMonitor />
     {/if}
   </section>
 </Page>

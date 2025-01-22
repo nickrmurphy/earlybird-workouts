@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { SportsJogging } from "$lib/assets";
 
   import {
     WorkoutCard,
@@ -13,7 +14,9 @@
   import { createWorkout } from "$lib/mutations";
 
   import { IconArrowRight, IconCirclePlus } from "@tabler/icons-svelte";
+  import { onMount } from "svelte";
 
+  let showIllustration = $state(false);
   let newWorkoutName = $state("");
   let createWorkoutModal: HTMLDialogElement | null = $state(null);
 
@@ -32,6 +35,10 @@
       goto(`/${newId}/exercises?complete=true`);
     }
   };
+
+  onMount(() => {
+    showIllustration = data.workouts.length === 0;
+  });
 </script>
 
 <Page>
@@ -54,11 +61,14 @@
       {/each}
     {:else}
       <EmptyMessage
-        header="No Workouts yet."
-        message="Click the plus button to add one."
+        header="No workouts yet."
+        message="Tap the plus button to add one."
       />
     {/if}
   </section>
+  {#if showIllustration}
+    <SportsJogging />
+  {/if}
 </Page>
 
 <dialog bind:this={createWorkoutModal}>

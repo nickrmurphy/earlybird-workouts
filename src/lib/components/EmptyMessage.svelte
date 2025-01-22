@@ -13,12 +13,12 @@
 
 <style>
   div {
-    border: 1px solid var(--border-color);
     border-radius: var(--radius-3);
+    background-color: var(--muted);
     padding: var(--size-7) var(--size-4);
 
     p {
-      color: hsl(var(--magnolia-hsl) / 80%);
+      color: var(--muted-foreground);
       text-align: center;
     }
 

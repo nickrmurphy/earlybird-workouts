@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { BusinessClipboard } from "$lib/assets";
   import { Navbar, EmptyMessage, Page, PageHeader } from "$lib/components";
   import { dateFormatter } from "$lib/utils";
   import { IconChevronRight } from "@tabler/icons-svelte";
@@ -19,6 +20,7 @@
         header="No history yet."
         message="Past workout details will appear here."
       />
+      <BusinessClipboard />
     {/if}
     {#each data.workoutHistory as history}
       <li>
