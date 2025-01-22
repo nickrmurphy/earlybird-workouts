@@ -29,7 +29,7 @@
     if (!newWorkoutName) return;
     const newId = await createWorkout(newWorkoutName);
     if (newId) {
-      goto(`/${newId}/exercises`);
+      goto(`/${newId}/exercises?complete=true`);
     }
   };
 </script>

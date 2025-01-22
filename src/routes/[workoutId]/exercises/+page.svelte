@@ -98,7 +98,10 @@
     }}
   />
 </Page>
-<Navbar backHref={`/${data.workout.id}`}>
+<Navbar
+  backHref={`/${data.workout.id}`}
+  backAsComplete={page.url.searchParams.has("complete")}
+>
   <select bind:value={equipmentFilter}>
     <option value={-1}>All equipment</option>
     {#each data.allEquipment as equipment}

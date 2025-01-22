@@ -3,26 +3,41 @@
   import { goto } from "$app/navigation";
   import type { Snippet } from "svelte";
   import NavbarActions from "./NavbarActions.svelte";
-  import { IconArrowLeft, IconDots, IconX } from "@tabler/icons-svelte";
+  import {
+    IconArrowLeft,
+    IconCheck,
+    IconDots,
+    IconX,
+  } from "@tabler/icons-svelte";
 
   type Props = SvelteHTMLElements["nav"] & {
     backHref?: string;
+    backAsComplete?: boolean;
     actions?: Snippet;
   };
 
-  let { children, backHref, actions }: Props = $props();
+  let { children, backHref, backAsComplete = false, actions }: Props = $props();
   let actionsOpen = $state(false);
 </script>
 
-{#snippet backButton(href: string)}
-  <button onclick={() => goto(href)}>
-    <IconArrowLeft />
+{#snippet backButton(href: string, asComplete?: boolean)}
+  <button
+    onclick={() => goto(href)}
+    style={asComplete
+      ? "background-color: var(--primary); color: var(--primary-foreground)"
+      : ""}
+  >
+    {#if asComplete}
+      <IconCheck />
+    {:else}
+      <IconArrowLeft />
+    {/if}
   </button>
 {/snippet}
 
 <nav>
   {#if backHref}
-    {@render backButton(backHref)}
+    {@render backButton(backHref, backAsComplete)}
   {/if}
   {#if actions}
     <button onclick={() => (actionsOpen = !actionsOpen)}>
