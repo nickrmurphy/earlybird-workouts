@@ -53,7 +53,7 @@
           {option.label}
         </button>
       {:else}
-        <button onclick={() => handleRemove(option)}>
+        <button onclick={() => handleSelect(option)}>
           <span>
             <IconCircle color="var(--primary)" />
           </span>
