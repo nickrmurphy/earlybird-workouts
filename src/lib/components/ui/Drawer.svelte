@@ -53,8 +53,10 @@
     background-color: var(--popover);
     padding-top: var(--size-2);
     padding-right: var(--size-2);
+    padding-bottom: env(safe-area-inset-bottom);
     padding-left: var(--size-2);
     height: 75%;
+    overflow-y: auto;
     color: var(--foreground);
 
     button {
@@ -64,8 +66,11 @@
     }
 
     h2 {
+      position: sticky;
+      top: 0;
+      background-color: var(--popover);
       padding: var(--size-2);
-      max-width: 90%;
+      max-width: 85%;
       font-weight: var(--font-weight-6);
       font-size: var(--font-size-3);
     }
