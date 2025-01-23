@@ -17,7 +17,7 @@ export class ExerciseService {
 
   async queryExercises(
     options: FilterOptions,
-  ): Promise<{ id: number; name: string }[]> {
+  ): Promise<{ id: number; name: string; description: string }[]> {
     const filterClauses: string[] = [];
     let params: (number | string)[] = [];
 
@@ -39,19 +39,14 @@ export class ExerciseService {
     }
 
     const query = `
-      SELECT e.id as id, e.name as name
+      SELECT e.id as id, e.name as name, e.description as description
       FROM exercises e
       ${filterClauses.length > 0 ? `WHERE ${filterClauses.join(" AND ")}` : ""}
       ORDER BY e.name
     `;
 
-    console.log("query", query);
-    console.log("params", params);
-
-    const exercises: { id: number; name: string }[] = await this.db.select(
-      query,
-      params,
-    );
+    const exercises: { id: number; name: string; description: string }[] =
+      await this.db.select(query, params);
     return exercises;
   }
 

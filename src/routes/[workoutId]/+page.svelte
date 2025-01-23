@@ -16,6 +16,7 @@
     Page,
     ExerciseItem,
     PageHeader,
+    Drawer,
   } from "$lib/components";
   import {
     IconDotsCircleHorizontal,
@@ -149,58 +150,52 @@
     {/if}
   </section>
 </Page>
-{#if showExerciseDialog}
-  <div
-    transition:fade={{ duration: 200 }}
-    class="overlay"
-    role="none"
-    onclick={(e) => {
-      e.stopPropagation();
-      showExerciseDialog = false;
-    }}
-  ></div>
-  <div role="dialog" transition:fly={{ y: 1000, duration: 200 }}>
-    <button onclick={() => (showExerciseDialog = false)}>
-      <IconX />
-    </button>
-    <h2>{exercise?.name}</h2>
-    <div style="display: flex; gap: var(--size-4); flex-direction: column;">
-      <label>
-        <span>Weight (lbs)</span>
-        <Input
-          defaultValue={data.exercise?.weight}
-          type="number"
-          step={0.5}
-          inputmode="decimal"
-          oninput={(e) =>
-            debouncedUpdateWeight(parseInt(e.currentTarget.value))}
-        />
-      </label>
-      <label>
-        <span>Sets</span>
-        <select
-          value={data.exercise?.sets}
-          onchange={(e) => debouncedUpdateSets(parseInt(e.currentTarget.value))}
-        >
-          {#each { length: 10 }, idx}
-            <option value={idx + 1}>{idx + 1}</option>
-          {/each}
-        </select>
-      </label>
-      <label>
-        <span>Reps</span>
-        <select
-          value={data.exercise?.reps}
-          onchange={(e) => debouncedUpdateReps(parseInt(e.currentTarget.value))}
-        >
-          {#each { length: 30 }, idx}
-            <option value={idx + 1}>{idx + 1}</option>
-          {/each}
-        </select>
-      </label>
-    </div>
+<Drawer bind:open={showExerciseDialog} title={exercise?.name}>
+  <div style="display: flex; gap: var(--size-4); flex-direction: column;">
+    <label>
+      <span>Weight (lbs)</span>
+      <Input
+        defaultValue={data.exercise?.weight}
+        type="number"
+        step={0.5}
+        inputmode="decimal"
+        oninput={(e) => debouncedUpdateWeight(parseInt(e.currentTarget.value))}
+      />
+    </label>
+    <label>
+      <span>Sets</span>
+      <select
+        value={data.exercise?.sets}
+        onchange={(e) => debouncedUpdateSets(parseInt(e.currentTarget.value))}
+      >
+        {#each { length: 10 }, idx}
+          <option value={idx + 1}>{idx + 1}</option>
+        {/each}
+      </select>
+    </label>
+    <label>
+      <span>Reps</span>
+      <select
+        value={data.exercise?.reps}
+        onchange={(e) => debouncedUpdateReps(parseInt(e.currentTarget.value))}
+      >
+        {#each { length: 30 }, idx}
+          <option value={idx + 1}>{idx + 1}</option>
+        {/each}
+      </select>
+    </label>
   </div>
-{/if}
+  <details style="display: flex; flex-direction: column; gap: var(--size-2);">
+    <summary style="color: var(--muted-foreground)">About this exercise</summary
+    >
+    <p
+      style="margin-top: var(--size-4); line-height: var(--font-lineheight-3); color: var(--muted-foreground);"
+    >
+      {data.exercise?.description}
+    </p>
+  </details>
+</Drawer>
+
 <Navbar backHref="/">
   <Button
     disabled={data.exercises.length === 0}
@@ -242,48 +237,6 @@
       width: 100%;
       min-width: 200px;
     }
-  }
-
-  div[role="dialog"] {
-    display: flex;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    flex-direction: column;
-    gap: var(--size-6);
-    z-index: 99;
-    border-top-right-radius: var(--radius-3);
-    border-top-left-radius: var(--radius-3);
-    background-color: var(--popover);
-    padding-top: var(--size-2);
-    padding-right: var(--size-2);
-    padding-left: var(--size-2);
-    height: 75%;
-    color: var(--foreground);
-
-    button {
-      position: absolute;
-      top: var(--size-2);
-      right: var(--size-2);
-    }
-
-    h2 {
-      padding: var(--size-2);
-      max-width: 90%;
-      font-weight: var(--font-weight-6);
-      font-size: var(--font-size-3);
-    }
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 98;
-    background-color: hsl(var(--black-hsl) / 70%);
   }
 
   label {
