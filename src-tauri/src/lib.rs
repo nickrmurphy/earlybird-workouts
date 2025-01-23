@@ -34,6 +34,18 @@ pub fn run() {
             sql: include_str!("../../scripts/nullable_workout_history_workout_id.sql"),
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 5,
+            description: "truncate_data",
+            sql: include_str!("../../scripts/new_init_truncate.sql"),
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 6,
+            description: "new_exercises_schema",
+            sql: include_str!("../../scripts/new_init.sql"),
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()

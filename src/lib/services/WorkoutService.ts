@@ -87,6 +87,8 @@ export class WorkoutService {
   }
 
   async addExercise(workoutId: number, exerciseId: number) {
+    console.log("workoutId", workoutId);
+    console.log("exerciseId", exerciseId);
     const result = await this.db.execute(
       `
         INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, weight) VALUES ($1, $2, $3, $4, $5)

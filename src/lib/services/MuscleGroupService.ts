@@ -11,9 +11,9 @@ export class MuscleGroupService {
   getMuscleGroups(): Promise<MuscleGroup[]> {
     return this.db.select(
       `
-        SELECT mg.id as id, mg.name as name
-        FROM muscle_groups mg
-        ORDER BY mg.name
+        SELECT m.id as id, m.name as name
+        FROM muscles m
+        ORDER BY m.name
         `,
     );
   }

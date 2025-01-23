@@ -6,11 +6,11 @@ export const load: PageLoad = async ({ url }) => {
   const allMuscleGroups = await services.muscleGroup.getMuscleGroups();
 
   const equipmentId = url.searchParams.get("equipmentId");
-  const muscleGroupId = url.searchParams.get("muscleGroupId");
+  const muscleId = url.searchParams.get("muscleId");
   const queriedExercises = await services.exercise.queryExercises({
     name: url.searchParams.get("name") || undefined,
     equipmentId: equipmentId ? parseInt(equipmentId) : undefined,
-    muscleGroupId: muscleGroupId ? parseInt(muscleGroupId) : undefined,
+    muscleId: muscleId ? parseInt(muscleId) : undefined,
   });
 
   return { queriedExercises, allEquipment, allMuscleGroups };

@@ -1,12 +1,12 @@
 import Database from "@tauri-apps/plugin-sql";
 type FilterOptions = {
   name?: string;
-  muscleGroupId?: number;
+  muscleId?: number;
   equipmentId?: number;
 };
 
 const hasFilter = (options: FilterOptions): boolean =>
-  (options.name || options.equipmentId || options.muscleGroupId) !== undefined;
+  (options.name || options.equipmentId || options.muscleId) !== undefined;
 
 export class ExerciseService {
   db: Database;
@@ -27,17 +27,13 @@ export class ExerciseService {
         params.push(`%${options.name}%`);
       }
 
-      if (options.muscleGroupId) {
-        filterClauses.push(`e.muscle_group_id = $${params.length + 1}`);
-        params.push(options.muscleGroupId);
+      if (options.muscleId) {
+        filterClauses.push(`e.muscle_id = $${params.length + 1}`);
+        params.push(options.muscleId);
       }
 
       if (options.equipmentId) {
-        filterClauses.push(
-          `(e.primary_equipment_id = $${
-            params.length + 1
-          } OR e.secondary_equipment_id = $${params.length + 1})`,
-        );
+        filterClauses.push(`(e.equipment_id = $${params.length + 1})`);
         params.push(options.equipmentId);
       }
     }

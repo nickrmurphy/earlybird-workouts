@@ -31,9 +31,9 @@
 
   $effect(() => {
     if (muscleGroupFilter > 0) {
-      searchParams.set("muscleGroupId", muscleGroupFilter.toString());
+      searchParams.set("muscleId", muscleGroupFilter.toString());
     } else {
-      searchParams.delete("muscleGroupId");
+      searchParams.delete("muscleId");
     }
     goto(`?${searchParams.toString()}`);
   });

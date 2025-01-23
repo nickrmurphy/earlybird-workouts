@@ -3,7 +3,228 @@
 --
 -- Text encoding used: UTF-8
 --
-BEGIN TRANSACTION;
+
+
+-- Table: levels
+DROP TABLE IF EXISTS levels;
+
+CREATE TABLE IF NOT EXISTS levels (
+    id   INTEGER PRIMARY KEY AUTOINCREMENT,
+    key  TEXT    UNIQUE
+                 NOT NULL
+                 DEFAULT (lower(hex(randomblob(16) ) ) ),
+    name TEXT    NOT NULL
+);
+
+INSERT INTO levels (
+                       id,
+                       key,
+                       name
+                   )
+                   VALUES (
+                       1,
+                       '5ee177ea3719e4fa820ba6342f79d71c',
+                       'Intermediate'
+                   );
+
+INSERT INTO levels (
+                       id,
+                       key,
+                       name
+                   )
+                   VALUES (
+                       2,
+                       '8ecbc37b37af55c6e235d12faffe95e7',
+                       'Beginner'
+                   );
+
+
+-- Table: muscles
+DROP TABLE IF EXISTS muscles;
+
+CREATE TABLE IF NOT EXISTS muscles (
+    id   INTEGER PRIMARY KEY AUTOINCREMENT,
+    key  TEXT    UNIQUE
+                 NOT NULL
+                 DEFAULT (lower(hex(randomblob(16) ) ) ),
+    name TEXT    NOT NULL
+);
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        1,
+                        '7f2801d599dc190756949883f9254f4d',
+                        'Abdominals'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        2,
+                        '114db4e696036f5b974082c532d4a2c6',
+                        'Adductors'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        3,
+                        '0d17749a0768889772e8303beb06b87d',
+                        'Abductors'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        4,
+                        '390d76ee3f7b2d6a06fd0c0338816420',
+                        'Biceps'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        5,
+                        'aeb640e5c94e1e8408a5daa9b946c365',
+                        'Calves'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        6,
+                        'a66808d2a9bf4ccdb9a9338d5948b4dd',
+                        'Chest'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        7,
+                        '8519e6ef981ea54af72e363c1e16e1c4',
+                        'Forearms'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        8,
+                        '7119e352e84c4add950d2b539250f209',
+                        'Glutes'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        9,
+                        'e4bf826aa19c25e305f2e152b7326370',
+                        'Hamstrings'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        10,
+                        '54ba088cedde9da0c81cc7f4d02ff73a',
+                        'Lats'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        11,
+                        '72a641975c346d56efd3d4b8f952a2b0',
+                        'Lower Back'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        12,
+                        '0f98a141c021ae339107f4f010d5459c',
+                        'Middle Back'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        13,
+                        '59e1cace7c7bc6ead94e173563a386e0',
+                        'Traps'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        14,
+                        '6052cc6dfe4e67497be3f493d9e02886',
+                        'Quadriceps'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        15,
+                        'e8482ef432dc0164a7a67a27ee3fdf79',
+                        'Shoulders'
+                    );
+
+INSERT INTO muscles (
+                        id,
+                        key,
+                        name
+                    )
+                    VALUES (
+                        16,
+                        'fb0084c3f58237f619c197f88239e31a',
+                        'Triceps'
+                    );
 
 -- Table: equipment
 DROP TABLE IF EXISTS equipment;
@@ -16524,229 +16745,6 @@ INSERT INTO exercises (
                           1
                       );
 
-
--- Table: levels
-DROP TABLE IF EXISTS levels;
-
-CREATE TABLE IF NOT EXISTS levels (
-    id   INTEGER PRIMARY KEY AUTOINCREMENT,
-    key  TEXT    UNIQUE
-                 NOT NULL
-                 DEFAULT (lower(hex(randomblob(16) ) ) ),
-    name TEXT    NOT NULL
-);
-
-INSERT INTO levels (
-                       id,
-                       key,
-                       name
-                   )
-                   VALUES (
-                       1,
-                       '5ee177ea3719e4fa820ba6342f79d71c',
-                       'Intermediate'
-                   );
-
-INSERT INTO levels (
-                       id,
-                       key,
-                       name
-                   )
-                   VALUES (
-                       2,
-                       '8ecbc37b37af55c6e235d12faffe95e7',
-                       'Beginner'
-                   );
-
-
--- Table: muscles
-DROP TABLE IF EXISTS muscles;
-
-CREATE TABLE IF NOT EXISTS muscles (
-    id   INTEGER PRIMARY KEY AUTOINCREMENT,
-    key  TEXT    UNIQUE
-                 NOT NULL
-                 DEFAULT (lower(hex(randomblob(16) ) ) ),
-    name TEXT    NOT NULL
-);
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        1,
-                        '7f2801d599dc190756949883f9254f4d',
-                        'Abdominals'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        2,
-                        '114db4e696036f5b974082c532d4a2c6',
-                        'Adductors'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        3,
-                        '0d17749a0768889772e8303beb06b87d',
-                        'Abductors'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        4,
-                        '390d76ee3f7b2d6a06fd0c0338816420',
-                        'Biceps'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        5,
-                        'aeb640e5c94e1e8408a5daa9b946c365',
-                        'Calves'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        6,
-                        'a66808d2a9bf4ccdb9a9338d5948b4dd',
-                        'Chest'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        7,
-                        '8519e6ef981ea54af72e363c1e16e1c4',
-                        'Forearms'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        8,
-                        '7119e352e84c4add950d2b539250f209',
-                        'Glutes'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        9,
-                        'e4bf826aa19c25e305f2e152b7326370',
-                        'Hamstrings'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        10,
-                        '54ba088cedde9da0c81cc7f4d02ff73a',
-                        'Lats'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        11,
-                        '72a641975c346d56efd3d4b8f952a2b0',
-                        'Lower Back'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        12,
-                        '0f98a141c021ae339107f4f010d5459c',
-                        'Middle Back'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        13,
-                        '59e1cace7c7bc6ead94e173563a386e0',
-                        'Traps'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        14,
-                        '6052cc6dfe4e67497be3f493d9e02886',
-                        'Quadriceps'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        15,
-                        'e8482ef432dc0164a7a67a27ee3fdf79',
-                        'Shoulders'
-                    );
-
-INSERT INTO muscles (
-                        id,
-                        key,
-                        name
-                    )
-                    VALUES (
-                        16,
-                        'fb0084c3f58237f619c197f88239e31a',
-                        'Triceps'
-                    );
-
-
 -- Table: workout_exercises
 DROP TABLE IF EXISTS workout_exercises;
 
@@ -16822,12 +16820,11 @@ BEGIN
     UPDATE workout_exercises
        SET position = (
                SELECT COUNT( * ) 
-                 FROM workout_exercises we
-                GROUP BY we.workout_id,
-                         e.exercise_id
+                FROM workout_exercises we
+                WHERE we.workout_id = NEW.workout_id
+                GROUP BY we.workout_id
            )
      WHERE id = NEW.id;
 END;
 
-
-COMMIT TRANSACTION;
+DROP TABLE IF EXISTS muscle_groups;
