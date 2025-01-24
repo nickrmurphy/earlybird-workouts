@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:appstore": "tauri ios build --export-method app-store-connect",
+    "upload:appstore": "xcrun altool --upload-app --type ios --file \"src-tauri/gen/apple/build/arm64/Workouts.ipa\" --apiKey APP_STORE_API_KEY --apiIssuer APP_STORE_API_ISSUER",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
