@@ -6,54 +6,60 @@
     ExerciseSelectList,
     Page,
     PageHeader,
-    Drawer,
   } from "$lib/components";
-  import { goto } from "$app/navigation";
   import { page } from "$app/state";
-  import { debounce } from "$lib/utils";
+  import { services } from "$lib/stores/services.svelte.js";
+  import { IconFilter, IconFilterEdit } from "@tabler/icons-svelte";
+
+  type Exercise = {
+    id: number;
+    name: string;
+    description: string;
+  };
 
   let { data } = $props();
-
   let filterQuery = $state("");
   let selectedOnly = $state(false);
   let selectedOptions = $derived(data.exercises.map((exercise) => exercise.id));
-  let searchParams = $state(page.url.searchParams);
-  let equipmentFilter = $state(-1);
-  let muscleGroupFilter = $state(-1);
+  let searchFilters: string[] = $state([]);
+  let queriedExercises: Exercise[] = $state([]);
+
+  function getFilters(): { muscleIds: number[]; equipmentIds: number[] } {
+    if (searchFilters.length === 0) {
+      return { muscleIds: [], equipmentIds: [] };
+    }
+
+    let muscleIds: number[] = [];
+    let equipmentIds: number[] = [];
+
+    for (const filter of searchFilters) {
+      if (filter.startsWith("muscle-")) {
+        muscleIds.push(parseInt(filter.replace("muscle-", "")));
+      } else if (filter.startsWith("equipment-")) {
+        equipmentIds.push(parseInt(filter.replace("equipment-", "")));
+      }
+    }
+
+    return { muscleIds, equipmentIds };
+  }
 
   $effect(() => {
-    if (equipmentFilter > 0) {
-      searchParams.set("equipmentId", equipmentFilter.toString());
-    } else {
-      searchParams.delete("equipmentId");
-    }
-    goto(`?${searchParams.toString()}`);
+    services.exercise
+      .queryExercises({
+        name: filterQuery,
+        ...getFilters(),
+      })
+      .then((exercises) => {
+        queriedExercises = exercises;
+      });
   });
-
-  $effect(() => {
-    if (muscleGroupFilter > 0) {
-      searchParams.set("muscleId", muscleGroupFilter.toString());
-    } else {
-      searchParams.delete("muscleId");
-    }
-    goto(`?${searchParams.toString()}`);
-  });
-
-  const updateFilterQuery = debounce(function updateFilterQuery(name?: string) {
-    if (name) {
-      searchParams.set("name", name);
-    } else {
-      searchParams.delete("name");
-    }
-    goto(`?${searchParams.toString()}`);
-  }, 750);
 
   let exerciseOptions = $derived.by(() => {
     let filteredExercises = selectedOnly
-      ? data.queriedExercises?.filter((exercise) =>
+      ? queriedExercises?.filter((exercise) =>
           selectedOptions.includes(exercise.id),
         ) || []
-      : data.queriedExercises;
+      : queriedExercises;
 
     return (
       filteredExercises?.map((exercise) => ({
@@ -70,7 +76,6 @@
     <Input
       bind:value={filterQuery}
       type="search"
-      oninput={(e) => updateFilterQuery(e.currentTarget.value)}
       placeholder="Search for an exercise..."
       enterkeyhint="search"
     />
@@ -105,18 +110,27 @@
   backHref={`/${data.workout.id}`}
   backAsComplete={page.url.searchParams.has("complete")}
 >
-  <select bind:value={equipmentFilter}>
-    <option value={-1}>All equipment</option>
-    {#each data.allEquipment as equipment}
-      <option value={equipment.id}>{equipment.name}</option>
-    {/each}
-  </select>
-  <select bind:value={muscleGroupFilter}>
-    <option value={-1}>All muscle groups</option>
-    {#each data.allMuscleGroups as muscleGroup}
-      <option value={muscleGroup.id}>{muscleGroup.name}</option>
-    {/each}
-  </select>
+  <label>
+    <span>
+      {#if searchFilters.length > 0}
+        <IconFilterEdit />
+      {:else}
+        <IconFilter />
+      {/if}
+    </span>
+    <select bind:value={searchFilters} multiple>
+      <optgroup label="Muscles">
+        {#each data.allMuscleGroups as muscleGroup}
+          <option value="muscle-{muscleGroup.id}">{muscleGroup.name}</option>
+        {/each}
+      </optgroup>
+      <optgroup label="Equipment">
+        {#each data.allEquipment as equipment}
+          <option value="equipment-{equipment.id}">{equipment.name}</option>
+        {/each}
+      </optgroup>
+    </select>
+  </label>
 </Navbar>
 
 <style>
@@ -152,7 +166,7 @@
   }
 
   select {
-    border: 1px solid var(--border-color);
+    border: none;
     border-radius: var(--radius-round);
     background: none;
     padding: var(--size-2) var(--size-3);
@@ -165,5 +179,24 @@
   select:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: var(--size-3);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-round);
+    background: none;
+    padding: var(--size-2) var(--size-3);
+    width: 100%;
+    min-height: 44px;
+    color: var(--black);
+    font-size: var(--font-size-0);
+
+    :global(svg) {
+      width: var(--size-4);
+      height: var(--size-4);
+    }
   }
 </style>

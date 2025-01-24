@@ -1,12 +1,12 @@
 import Database from "@tauri-apps/plugin-sql";
 type FilterOptions = {
   name?: string;
-  muscleId?: number;
-  equipmentId?: number;
+  muscleIds?: number[];
+  equipmentIds?: number[];
 };
 
 const hasFilter = (options: FilterOptions): boolean =>
-  (options.name || options.equipmentId || options.muscleId) !== undefined;
+  (options.name || options.equipmentIds || options.muscleIds) !== undefined;
 
 export class ExerciseService {
   db: Database;
@@ -21,21 +21,23 @@ export class ExerciseService {
     const filterClauses: string[] = [];
     let params: (number | string)[] = [];
 
-    if (hasFilter(options)) {
-      if (options.name) {
-        filterClauses.push(`e.name LIKE $${params.length + 1}`);
-        params.push(`%${options.name}%`);
-      }
+    if (options.name) {
+      filterClauses.push(`e.name LIKE $${params.length + 1}`);
+      params.push(`%${options.name}%`);
+    }
 
-      if (options.muscleId) {
-        filterClauses.push(`e.muscle_id = $${params.length + 1}`);
-        params.push(options.muscleId);
-      }
+    if (options.muscleIds && options.muscleIds.length > 0) {
+      filterClauses.push(
+        `e.muscle_id IN (${options.muscleIds.map((_, idx) => `$${params.length + 1 + idx}`)})`,
+      );
+      params.push(...options.muscleIds);
+    }
 
-      if (options.equipmentId) {
-        filterClauses.push(`(e.equipment_id = $${params.length + 1})`);
-        params.push(options.equipmentId);
-      }
+    if (options.equipmentIds && options.equipmentIds.length > 0) {
+      filterClauses.push(
+        `e.equipment_id IN (${options.equipmentIds.map((_, idx) => `$${params.length + 1 + idx}`)})`,
+      );
+      params.push(...options.equipmentIds);
     }
 
     const query = `
@@ -44,6 +46,8 @@ export class ExerciseService {
       ${filterClauses.length > 0 ? `WHERE ${filterClauses.join(" AND ")}` : ""}
       ORDER BY e.name
     `;
+
+    console.log(query, params);
 
     const exercises: { id: number; name: string; description: string }[] =
       await this.db.select(query, params);
