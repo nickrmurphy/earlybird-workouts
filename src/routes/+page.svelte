@@ -85,16 +85,16 @@
       type="text"
       enterkeyhint="next"
     />
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; flex-direction: column; gap: var(--size-3);">
+      <Button type="submit">
+        Create
+        <IconArrowRight />
+      </Button>
       <Button
         type="button"
         variant="ghost"
         onclick={() => createWorkoutModal?.close()}>Cancel</Button
       >
-      <Button type="submit">
-        Create
-        <IconArrowRight />
-      </Button>
     </div>
   </form>
 </dialog>
@@ -119,6 +119,7 @@
     border: none;
     border-radius: var(--radius-3);
     background-color: var(--popover);
+    width: 90%;
     color: var(--foreground);
   }
 

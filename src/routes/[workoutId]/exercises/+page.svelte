@@ -46,7 +46,7 @@
   $effect(() => {
     services.exercise
       .queryExercises({
-        name: filterQuery,
+        name: filterQuery.trim(),
         ...getFilters(),
       })
       .then((exercises) => {
@@ -77,7 +77,6 @@
       bind:value={filterQuery}
       type="search"
       placeholder="Search for an exercise..."
-      enterkeyhint="search"
     />
     <div class="tab-group">
       <button

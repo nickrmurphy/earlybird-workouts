@@ -66,6 +66,7 @@
   }
 
   .overflow-count {
+    margin-top: var(--size-2);
     border: 1px solid;
     border-radius: var(--radius-round);
     padding: var(--size-1) var(--size-2);
