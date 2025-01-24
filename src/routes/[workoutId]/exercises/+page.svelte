@@ -188,7 +188,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius-round);
     background: none;
-    padding: var(--size-2) var(--size-3);
+    padding-left: var(--size-3);
     width: 100%;
     min-height: 44px;
     color: var(--black);

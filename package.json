@@ -1,10 +1,11 @@
 {
   "name": "earlybird-workout",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
+    "dev:ios": "tauri ios dev \"iPhone 16 Pro\"",
     "build": "vite build",
     "build:appstore": "tauri ios build --export-method app-store-connect",
     "upload:appstore": "xcrun altool --upload-app --type ios --file \"src-tauri/gen/apple/build/arm64/Workouts.ipa\" --apiKey APP_STORE_API_KEY --apiIssuer APP_STORE_API_ISSUER",
