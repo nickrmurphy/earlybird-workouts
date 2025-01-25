@@ -14,7 +14,7 @@ export const init: ClientInit = async () => {
   const dbConnection = await Database.load("sqlite:earlybirdworkouts.db");
 
   services.exercise = new ExerciseService(dbConnection);
-  services.workout = new WorkoutService(dbConnection);
+  services.workouts = new WorkoutService(dbConnection);
   services.workoutHistory = new WorkoutHistoryService(dbConnection);
   services.equipment = new EquipmentService(dbConnection);
   services.muscleGroup = new MuscleGroupService(dbConnection);

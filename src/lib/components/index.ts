@@ -5,6 +5,7 @@ export { default as ExerciseItem } from "./ExerciseItem.svelte";
 export { default as ExerciseList } from "./ExerciseList.svelte";
 export { default as ExerciseSelectList } from "./ExerciseSelectList.svelte";
 export { default as ExerciseSetTable } from "./ExerciseSetTable.svelte";
+export { default as InputDialog } from "./InputDialog.svelte";
 export * from "./page";
 export { default as TimerButton } from "./TimerButton.svelte";
 export * from "./ui";

@@ -53,8 +53,6 @@ export class WorkoutHistoryService {
 
     const exercises = await this.workoutService.getExercises(workoutId);
 
-    const pending = await this.getPendingWorkoutHistory();
-
     // Build DB Command
     exercises.forEach(async (exercise) => {
       for (let i = 0; i < exercise.sets; i++) {
@@ -82,7 +80,7 @@ export class WorkoutHistoryService {
     return true;
   }
 
-  async getPendingWorkoutHistory(): Promise<WorkoutHistory | undefined> {
+  async getActive(): Promise<WorkoutHistory | undefined> {
     const result: WorkoutHistory[] = await this.db.select(
       `
         SELECT wh.id as id, w.id as workoutId, w.name as workoutName, wh.start_time as startTime

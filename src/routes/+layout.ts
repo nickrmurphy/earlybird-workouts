@@ -9,8 +9,7 @@ import { services } from "$lib/stores";
 import type { LayoutLoad } from "./$types";
 
 export const load: LayoutLoad = async ({ url }) => {
-  const activeWorkout =
-    await services.workoutHistory.getPendingWorkoutHistory();
+  const activeWorkout = await services.workoutHistory.getActive();
 
   if (activeWorkout && !url.pathname.startsWith("/active")) {
     goto("/active");

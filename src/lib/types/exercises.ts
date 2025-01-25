@@ -7,11 +7,6 @@ export type Exercise = {
   position: number;
 };
 
-export type Workout = {
-  id: string;
-  name: string;
-};
-
 export type Equipment = {
   id: string;
   name: string;

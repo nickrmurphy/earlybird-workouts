@@ -2,6 +2,7 @@
   import { confirm } from "@tauri-apps/plugin-dialog";
   import {
     deleteWorkout,
+    renameWorkout,
     startWorkout,
     updateReps,
     updateSets,
@@ -17,8 +18,10 @@
     ExerciseItem,
     PageHeader,
     Drawer,
+    InputDialog,
   } from "$lib/components";
   import {
+    IconCheck,
     IconDotsCircleHorizontal,
     IconHistory,
     IconPencil,
@@ -35,6 +38,7 @@
   import { NavigationMonitor } from "$lib/assets";
   let { data } = $props();
   let dropdownToggle: HTMLElement | null = $state(null);
+  let showEditDialog = $state(false);
   let showDropdown = $state(false);
   let showExerciseDialog = $state(false);
 
@@ -115,7 +119,7 @@
             onClickOutside: () => (showDropdown = false),
           }}
         >
-          <button onclick={() => goto(`/${data.workout.id}/edit`)}>
+          <button onclick={() => (showEditDialog = true)}>
             Rename <IconPencil />
           </button>
           <button onclick={() => goto(`/${data.workout.id}/history`)}>
@@ -201,6 +205,16 @@
     </details>
   {/if}
 </Drawer>
+<InputDialog
+  bind:open={showEditDialog}
+  title="Rename exercise"
+  defaultValue={data.workout.name}
+  onSubmit={async (name) => {
+    if (!name) return;
+    await renameWorkout(data.workout.id, name);
+  }}
+  submitText="Save"
+/>
 
 <Navbar backHref="/">
   <Button

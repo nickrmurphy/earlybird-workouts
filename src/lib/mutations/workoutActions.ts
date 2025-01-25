@@ -3,35 +3,35 @@ import { services } from "$lib/stores";
 import { mutation } from "$lib/utils";
 
 export const createWorkout = async (name: string) =>
-  mutation(services.workout.createWorkout(name));
+  mutation(services.workouts.createWorkout(name));
 
 export const addExercise = async (workoutId: string, exerciseId: string) =>
-  mutation(services.workout.addExercise(workoutId, exerciseId));
+  mutation(services.workouts.addExercise(workoutId, exerciseId));
 
 export const removeExercise = async (workoutId: string, exerciseId: string) =>
-  mutation(services.workout.removeExercise(workoutId, exerciseId));
+  mutation(services.workouts.removeExercise(workoutId, exerciseId));
 
 export const deleteWorkout = async (workoutId: string) =>
-  mutation(services.workout.deleteWorkout(workoutId));
+  mutation(services.workouts.deleteWorkout(workoutId));
 
 export const updateWeight = async (
   workoutId: string,
   exerciseId: string,
   weight: number,
 ) =>
-  mutation(services.workout.setExerciseWeight(workoutId, exerciseId, weight));
+  mutation(services.workouts.setExerciseWeight(workoutId, exerciseId, weight));
 
 export const updateSets = async (
   workoutId: string,
   exerciseId: string,
   sets: number,
-) => mutation(services.workout.setExerciseSets(workoutId, exerciseId, sets));
+) => mutation(services.workouts.setExerciseSets(workoutId, exerciseId, sets));
 
 export const updateReps = async (
   workoutId: string,
   exerciseId: string,
   reps: number,
-) => mutation(services.workout.setExerciseReps(workoutId, exerciseId, reps));
+) => mutation(services.workouts.setExerciseReps(workoutId, exerciseId, reps));
 
 export const startWorkout = async (workoutId: string) => {
   await mutation(
@@ -41,7 +41,7 @@ export const startWorkout = async (workoutId: string) => {
 };
 
 export const renameWorkout = async (workoutId: string, name: string) =>
-  await mutation(services.workout.renameWorkout(workoutId, name));
+  await mutation(services.workouts.renameWorkout(workoutId, name));
 
 export const updatePosition = async (
   workoutId: string,
@@ -49,5 +49,5 @@ export const updatePosition = async (
   position: number,
 ) =>
   mutation(
-    services.workout.setExercisePosition(workoutId, exerciseId, position),
+    services.workouts.setExercisePosition(workoutId, exerciseId, position),
   );

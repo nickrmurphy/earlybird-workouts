@@ -3,8 +3,7 @@ import { redirect } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ params }) => {
-  const activeWorkout =
-    await services.workoutHistory.getPendingWorkoutHistory();
+  const activeWorkout = await services.workoutHistory.getActive();
 
   if (!activeWorkout) {
     redirect(303, "/");

@@ -5,10 +5,9 @@
     IconCircleCheckFilled,
     IconInfoCircle,
   } from "@tabler/icons-svelte";
-  import { Button, Drawer } from "./ui";
 
   type Props = {
-    options: { value: string; label: string; description: string }[];
+    options: { value: string; label: string }[];
     onAdd?: (value: string) => void;
     onRemove?: (value: string) => void;
     onSelectInfo?: (value: string) => void;
@@ -22,22 +21,6 @@
     onSelectInfo,
     selected = $bindable([]),
   }: Props = $props();
-
-  let focusedExercise = $state<{
-    label: string;
-    value: string;
-    description: string;
-  } | null>(null);
-
-  let showDrawer = $state(false);
-
-  $effect(() => {
-    if (focusedExercise) {
-      showDrawer = true;
-    } else {
-      showDrawer = false;
-    }
-  });
 
   function handleSelect(option: Props["options"][0]) {
     selected.push(option.value);

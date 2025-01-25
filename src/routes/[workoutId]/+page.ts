@@ -6,7 +6,7 @@ export const load: PageLoad = async ({ params, url }) => {
   const exerciseIdParam = url.searchParams.get("exerciseId");
 
   const exercise = exerciseIdParam
-    ? await services.workout.getExercise(workoutId, exerciseIdParam)
+    ? await services.workouts.getExercise(workoutId, exerciseIdParam)
     : undefined;
 
   const instructions = exerciseIdParam

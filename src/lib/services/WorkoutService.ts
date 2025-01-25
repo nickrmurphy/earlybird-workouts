@@ -1,5 +1,5 @@
 import Database from "@tauri-apps/plugin-sql";
-import type { Exercise, Workout } from "../types";
+import type { Exercise, PopulatedWorkout, Workout } from "../types";
 
 export class WorkoutService {
   db: Database;
@@ -8,13 +8,37 @@ export class WorkoutService {
     this.db = db;
   }
 
-  async getWorkouts(): Promise<Workout[]> {
-    return this.db.select(
+  async all(): Promise<PopulatedWorkout[]> {
+    const rows: {
+      id: string;
+      name: string;
+      exerciseId: string;
+      exerciseName: string;
+    }[] = await this.db.select(
       `
-            SELECT w.id as id, w.name as name
-            FROM workouts w
-        `,
+      SELECT w.id as id, w.name as name, e.id as exerciseId, e.name as exerciseName
+      FROM workouts w
+      INNER JOIN workout_exercises we on w.id = we.workout_id
+      INNER JOIN exercises e on we.exercise_id = e.id
+      `,
     );
+
+    const workouts: PopulatedWorkout[] = [];
+
+    for (const row of rows) {
+      const workout = workouts.find((w) => w.id === row.id);
+      if (workout) {
+        workout.exercises.push({ id: row.exerciseId, name: row.exerciseName });
+      } else {
+        workouts.push({
+          id: row.id,
+          name: row.name,
+          exercises: [{ id: row.exerciseId, name: row.exerciseName }],
+        });
+      }
+    }
+
+    return workouts;
   }
 
   async createWorkout(name: string): Promise<string> {
