@@ -27,7 +27,6 @@
     IconRocket,
     IconSwitchVertical,
     IconTrashFilled,
-    IconX,
   } from "@tabler/icons-svelte";
   import { popover } from "$lib/actions/index.js";
   import { fade } from "svelte/transition";
@@ -185,15 +184,22 @@
       </select>
     </label>
   </div>
-  <details style="display: flex; flex-direction: column; gap: var(--size-2);">
-    <summary style="color: var(--muted-foreground)">About this exercise</summary
-    >
-    <p
-      style="margin-top: var(--size-4); line-height: var(--font-lineheight-3); color: var(--muted-foreground);"
-    >
-      {data.exercise?.description}
-    </p>
-  </details>
+  {#if data.instructions}
+    <details style="display: flex; flex-direction: column; gap: var(--size-2);">
+      <summary style="color: var(--muted-foreground)">View instructions</summary
+      >
+      <ol
+        style="margin-top: var(--size-4); line-height: var(--font-lineheight-3); color: var(--muted-foreground);"
+      >
+        {#each data.instructions as instruction, idx}
+          <li>
+            <span>{idx + 1}.</span>
+            {instruction.instruction}
+          </li>
+        {/each}
+      </ol>
+    </details>
+  {/if}
 </Drawer>
 
 <Navbar backHref="/">
@@ -258,5 +264,20 @@
     transition: all;
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
+  }
+
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    padding: var(--size-2);
+
+    li {
+      font-size: var(--font-size-2);
+      line-height: var(--font-lineheight-4);
+      span {
+        font-weight: var(--font-weight-7);
+      }
+    }
   }
 </style>

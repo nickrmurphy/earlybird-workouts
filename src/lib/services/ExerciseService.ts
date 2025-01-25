@@ -69,6 +69,23 @@ export class ExerciseService {
     return allExercises;
   }
 
+  async getExerciseInstructions(
+    exerciseId: string,
+  ): Promise<{ instruction: string }[]> {
+    const instructions: { instruction: string }[] = await this.db.select(
+      `
+            SELECT i.instruction as instruction
+            FROM exercises e
+            INNER JOIN exercise_instructions ei ON e.id = ei.exercise_id 
+            INNER JOIN instructions i ON i.id = ei.instruction_id
+            WHERE e.id = $1
+        `,
+      [exerciseId],
+    );
+    console.log(instructions);
+    return instructions;
+  }
+
   async getExercise(exerciseId: string): Promise<{ id: string; name: string }> {
     const exerciseResult: { id: string; name: string }[] = await this.db.select(
       `

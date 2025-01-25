@@ -74,13 +74,10 @@ export class WorkoutService {
     );
   }
 
-  async getExercise(
-    workoutId: string,
-    exerciseId: string,
-  ): Promise<Exercise & { description: string }> {
-    const result: (Exercise & { description: string })[] = await this.db.select(
+  async getExercise(workoutId: string, exerciseId: string): Promise<Exercise> {
+    const result: Exercise[] = await this.db.select(
       `
-          SELECT e.id as id, e.name as name, e.description as description, we.sets as sets, we.reps as reps, we.weight as weight, we.position as position
+          SELECT e.id as id, e.name as name, we.sets as sets, we.reps as reps, we.weight as weight, we.position as position
           FROM workout_exercises we
           INNER JOIN exercises e on e.id = we.exercise_id
           WHERE we.exercise_id = $1 AND we.workout_id = $2

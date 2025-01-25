@@ -9,8 +9,13 @@ export const load: PageLoad = async ({ params, url }) => {
     ? await services.workout.getExercise(workoutId, exerciseIdParam)
     : undefined;
 
+  const instructions = exerciseIdParam
+    ? await services.exercise.getExerciseInstructions(exerciseIdParam)
+    : undefined;
+
   return {
     exercise,
+    instructions,
     workoutId,
   };
 };

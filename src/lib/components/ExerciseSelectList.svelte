@@ -11,10 +11,17 @@
     options: { value: string; label: string; description: string }[];
     onAdd?: (value: string) => void;
     onRemove?: (value: string) => void;
+    onSelectInfo?: (value: string) => void;
     selected?: string[];
   };
 
-  let { options, onAdd, onRemove, selected = $bindable([]) }: Props = $props();
+  let {
+    options,
+    onAdd,
+    onRemove,
+    onSelectInfo,
+    selected = $bindable([]),
+  }: Props = $props();
 
   let focusedExercise = $state<{
     label: string;
@@ -65,41 +72,13 @@
       {/if}
       <button
         style="margin-left: auto; width: fit-content; color: var(--muted-foreground)"
-        onclick={() => (focusedExercise = option)}
+        onclick={() => onSelectInfo?.(option.value)}
       >
         <IconInfoCircle />
       </button>
     </li>
   {/each}
 </ul>
-<Drawer bind:open={showDrawer} title={focusedExercise?.label}>
-  <p>{focusedExercise?.description}</p>
-  <div style="margin-top: auto; margin-bottom: env(safe-area-inset-bottom)">
-    {#if focusedExercise && selected.includes(focusedExercise.value)}
-      <Button
-        variant="outline"
-        style="width: 100%"
-        onclick={() => {
-          handleRemove(focusedExercise!);
-          showDrawer = false;
-        }}
-      >
-        Remove
-      </Button>
-    {:else}
-      <Button
-        variant="outline"
-        style="width: 100%"
-        onclick={() => {
-          handleSelect(focusedExercise!);
-          showDrawer = false;
-        }}
-      >
-        Select
-      </Button>
-    {/if}
-  </div>
-</Drawer>
 
 <style>
   li:not(:first-child) {
@@ -123,10 +102,5 @@
       width: 100%;
       color: var(--foreground);
     }
-  }
-
-  p {
-    padding: var(--size-2);
-    line-height: var(--font-lineheight-4);
   }
 </style>

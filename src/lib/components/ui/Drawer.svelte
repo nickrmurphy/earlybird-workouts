@@ -51,7 +51,6 @@
     border-top-right-radius: var(--radius-3);
     border-top-left-radius: var(--radius-3);
     background-color: var(--popover);
-    padding-top: var(--size-2);
     padding-right: var(--size-2);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: var(--size-2);
