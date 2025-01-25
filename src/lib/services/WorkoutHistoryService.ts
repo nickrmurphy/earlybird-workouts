@@ -3,15 +3,15 @@ import { WorkoutService } from "./WorkoutService";
 
 // TODO: Move to types.ts when stabilized
 type WorkoutHistory = {
-  id: number;
-  workoutId: number;
+  id: string;
+  workoutId: string;
   workoutName: string;
   startTime: string;
 };
 
 // TODO: Move to types.ts when stabilized
 type WorkoutHistoryExercise = {
-  id: number;
+  id: string;
   name: string;
   completeSets: number;
   sets: number;
@@ -19,10 +19,10 @@ type WorkoutHistoryExercise = {
 };
 
 type WorkoutHistorySet = {
-  id: number;
+  id: string;
   reps: number;
   weight: number;
-  exerciseId: number;
+  exerciseId: string;
   exerciseName: string;
   isComplete: number;
 };
@@ -36,7 +36,7 @@ export class WorkoutHistoryService {
     this.workoutService = new WorkoutService(db);
   }
 
-  async createWorkoutHistoryAndSets(workoutId: number) {
+  async createWorkoutHistoryAndSets(workoutId: string) {
     // TODO: Implement transaction
     // https://github.com/tauri-apps/plugins-workspace/issues/886
     const createHistoryResult = await this.db.execute(
@@ -49,7 +49,9 @@ export class WorkoutHistoryService {
     if (createHistoryResult.lastInsertId) {
       const exercises = await this.workoutService.getExercises(workoutId);
       const dbStatements: string[] = [];
-      const queryValues = [createHistoryResult.lastInsertId];
+      const queryValues: (string | number)[] = [
+        createHistoryResult.lastInsertId,
+      ];
 
       // Build DB Command
       exercises.forEach((exercise) => {
@@ -57,14 +59,19 @@ export class WorkoutHistoryService {
 
         for (let i = 0; i < exercise.sets; i++) {
           insertStatement.push(`
-            INSERT INTO workout_history_sets (workout_history_id, exercise_id, reps, weight)
-            VALUES($1, $${queryValues.length + 1}, $${
-              queryValues.length + 2
-            }, $${queryValues.length + 3});
+            INSERT INTO workout_history_sets (id, workout_history_id, exercise_id, reps, weight)
+            VALUES($${queryValues.length + 1}, $${queryValues.length + 2}, $${
+              queryValues.length + 3
+            }, $${queryValues.length + 4});
           `);
         }
 
-        queryValues.push(exercise.id, exercise.reps, exercise.weight);
+        queryValues.push(
+          crypto.randomUUID(),
+          exercise.id,
+          exercise.reps,
+          exercise.weight,
+        );
         dbStatements.push(insertStatement.join(" "));
       });
 
@@ -95,7 +102,7 @@ export class WorkoutHistoryService {
   }
 
   async getWorkoutHistoryExercises(
-    workoutHistoryId: number,
+    workoutHistoryId: string,
   ): Promise<WorkoutHistoryExercise[]> {
     const result: WorkoutHistoryExercise[] = await this.db.select(
       `
@@ -129,7 +136,7 @@ export class WorkoutHistoryService {
     return result;
   }
 
-  async setWorkoutHistoryEndTime(workoutHistoryId: number) {
+  async setWorkoutHistoryEndTime(workoutHistoryId: string) {
     await this.db.execute(
       `
         UPDATE workout_history
@@ -141,8 +148,8 @@ export class WorkoutHistoryService {
   }
 
   async getExerciseWorkoutHistorySets(
-    workoutHistoryId: number,
-    exerciseId: number,
+    workoutHistoryId: string,
+    exerciseId: string,
   ): Promise<WorkoutHistorySet[]> {
     const result: WorkoutHistorySet[] = await this.db.select(
       `
@@ -157,7 +164,7 @@ export class WorkoutHistoryService {
     return result;
   }
 
-  async setWorkoutHistorySetReps(workoutHistorySetId: number, reps: number) {
+  async setWorkoutHistorySetReps(workoutHistorySetId: string, reps: number) {
     await this.db.execute(
       `
       UPDATE workout_history_sets
@@ -169,7 +176,7 @@ export class WorkoutHistoryService {
   }
 
   async setWorkoutHistorySetWeight(
-    workoutHistorySetId: number,
+    workoutHistorySetId: string,
     weight: number,
   ) {
     await this.db.execute(
@@ -183,7 +190,7 @@ export class WorkoutHistoryService {
   }
 
   async setWorkoutHistorySetComplete(
-    workoutHistorySetId: number,
+    workoutHistorySetId: string,
     isComplete: boolean,
   ) {
     await this.db.execute(
@@ -196,7 +203,7 @@ export class WorkoutHistoryService {
     );
   }
 
-  async getWorkoutHistories(workoutId: number): Promise<WorkoutHistory[]> {
+  async getWorkoutHistories(workoutId: string): Promise<WorkoutHistory[]> {
     const result: WorkoutHistory[] = await this.db.select(
       `
         SELECT wh.id as id, w.id as workoutId, w.name as workoutName, wh.start_time as startTime
@@ -211,7 +218,7 @@ export class WorkoutHistoryService {
   }
 
   async getWorkoutHistorySets(
-    workoutHistoryId: number,
+    workoutHistoryId: string,
   ): Promise<WorkoutHistorySet[]> {
     const result: WorkoutHistorySet[] = await this.db.select(
       `

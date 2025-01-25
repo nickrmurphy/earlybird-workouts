@@ -36,14 +36,14 @@ pub fn run() {
         },
         Migration {
             version: 5,
-            description: "truncate_data",
-            sql: include_str!("../../scripts/new_init_truncate.sql"),
+            description: "reset_data",
+            sql: include_str!("../../scripts/reset_data.sql"),
             kind: MigrationKind::Up,
         },
         Migration {
             version: 6,
-            description: "new_exercises_schema",
-            sql: include_str!("../../scripts/new_init.sql"),
+            description: "new_exercise_schema",
+            sql: include_str!("../../scripts/init_workouts_db.sql"),
             kind: MigrationKind::Up,
         },
     ];

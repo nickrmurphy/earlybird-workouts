@@ -2,7 +2,7 @@ import { services } from "$lib/stores";
 import type { PageLoad } from "./$types";
 
 type ExerciseHistory = {
-  exerciseId: number;
+  exerciseId: string;
   exerciseName: string;
   sets: {
     reps: number;
@@ -12,11 +12,9 @@ type ExerciseHistory = {
 };
 
 export const load: PageLoad = async ({ params }) => {
-  const exerciseHistoryMap: Record<number, ExerciseHistory> = {};
+  const exerciseHistoryMap: Record<string, ExerciseHistory> = {};
   const workoutHistorySets =
-    await services.workoutHistory.getWorkoutHistorySets(
-      Number(params.historyId),
-    );
+    await services.workoutHistory.getWorkoutHistorySets(params.historyId);
 
   workoutHistorySets.forEach((set) => {
     if (!exerciseHistoryMap[set.exerciseId]) {
@@ -38,6 +36,6 @@ export const load: PageLoad = async ({ params }) => {
 
   return {
     exerciseHistory,
-    historyId: Number(params.historyId),
+    historyId: params.historyId,
   };
 };

@@ -8,17 +8,17 @@
   import { Button, Drawer } from "./ui";
 
   type Props = {
-    options: { value: number; label: string; description: string }[];
-    onAdd?: (value: number) => void;
-    onRemove?: (value: number) => void;
-    selected?: number[];
+    options: { value: string; label: string; description: string }[];
+    onAdd?: (value: string) => void;
+    onRemove?: (value: string) => void;
+    selected?: string[];
   };
 
   let { options, onAdd, onRemove, selected = $bindable([]) }: Props = $props();
 
   let focusedExercise = $state<{
     label: string;
-    value: number;
+    value: string;
     description: string;
   } | null>(null);
 

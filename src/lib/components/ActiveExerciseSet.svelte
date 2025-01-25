@@ -3,7 +3,7 @@
   import { IconCheck } from "@tabler/icons-svelte";
 
   type Props = {
-    setId: number;
+    setId: string;
     reps: number;
     weight: number;
     isComplete: boolean;

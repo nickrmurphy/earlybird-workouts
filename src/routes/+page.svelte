@@ -22,7 +22,7 @@
 
   const { data } = $props();
 
-  function getExercises(workoutId: number) {
+  function getExercises(workoutId: string) {
     const exercises = data.workoutExercises[workoutId] || [];
     return exercises.map((exercise) => exercise.name);
   }

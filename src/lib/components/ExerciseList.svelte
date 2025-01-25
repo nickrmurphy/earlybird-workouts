@@ -4,7 +4,7 @@
 
   type Props = {
     exercises: Exercise[];
-    workoutId: number;
+    workoutId: string;
   };
 
   let { exercises, workoutId }: Props = $props();

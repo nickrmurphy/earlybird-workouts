@@ -30,7 +30,7 @@
     IconX,
   } from "@tabler/icons-svelte";
   import { popover } from "$lib/actions/index.js";
-  import { fade, fly } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import Input from "$lib/components/ui/Input.svelte";
   import { debounce } from "$lib/utils.js";
   import { NavigationMonitor } from "$lib/assets";

@@ -1,11 +1,11 @@
 import { services } from "../stores";
 import { mutation } from "../utils";
 
-export const completeWorkout = async (workoutHistoryId: number) =>
+export const completeWorkout = async (workoutHistoryId: string) =>
   mutation(services.workoutHistory.setWorkoutHistoryEndTime(workoutHistoryId));
 
 export const completeWorkoutSet = async (
-  workoutHistorySetId: number,
+  workoutHistorySetId: string,
   isComplete: boolean,
 ) =>
   mutation(
@@ -16,7 +16,7 @@ export const completeWorkoutSet = async (
   );
 
 export const setWorkoutHistorySetReps = async (
-  workoutHistorySetId: number,
+  workoutHistorySetId: string,
   reps: number,
 ) =>
   mutation(
@@ -24,7 +24,7 @@ export const setWorkoutHistorySetReps = async (
   );
 
 export const setWorkoutHistorySetWeight = async (
-  workoutHistorySetId: number,
+  workoutHistorySetId: string,
   weight: number,
 ) =>
   mutation(

@@ -12,7 +12,7 @@
   import { IconFilter, IconFilterEdit } from "@tabler/icons-svelte";
 
   type Exercise = {
-    id: number;
+    id: string;
     name: string;
     description: string;
   };
@@ -24,19 +24,19 @@
   let searchFilters: string[] = $state([]);
   let queriedExercises: Exercise[] = $state([]);
 
-  function getFilters(): { muscleIds: number[]; equipmentIds: number[] } {
+  function getFilters(): { muscleIds: string[]; equipmentIds: string[] } {
     if (searchFilters.length === 0) {
       return { muscleIds: [], equipmentIds: [] };
     }
 
-    let muscleIds: number[] = [];
-    let equipmentIds: number[] = [];
+    let muscleIds: string[] = [];
+    let equipmentIds: string[] = [];
 
     for (const filter of searchFilters) {
       if (filter.startsWith("muscle-")) {
-        muscleIds.push(parseInt(filter.replace("muscle-", "")));
+        muscleIds.push(filter.replace("muscle-", ""));
       } else if (filter.startsWith("equipment-")) {
-        equipmentIds.push(parseInt(filter.replace("equipment-", "")));
+        equipmentIds.push(filter.replace("equipment-", ""));
       }
     }
 
@@ -124,6 +124,7 @@
         {/each}
       </optgroup>
       <optgroup label="Equipment">
+        <option value="equipment-NULL">None</option>
         {#each data.allEquipment as equipment}
           <option value="equipment-{equipment.id}">{equipment.name}</option>
         {/each}

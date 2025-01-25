@@ -17,17 +17,19 @@ export class WorkoutService {
     );
   }
 
-  async createWorkout(name: string) {
-    const result = await this.db.execute(
+  async createWorkout(name: string): Promise<string> {
+    const newId = crypto.randomUUID();
+    await this.db.execute(
       `
-        INSERT INTO workouts (name) VALUES ($1)
+        INSERT INTO workouts (id, name) VALUES ($1, $2)
+        RETURNING *
       `,
-      [name],
+      [newId, name],
     );
-    return result.lastInsertId;
+    return newId;
   }
 
-  async renameWorkout(workoutId: number, name: string) {
+  async renameWorkout(workoutId: string, name: string) {
     const result = await this.db.execute(
       `
         UPDATE workouts SET name = $1 WHERE id = $2
@@ -37,7 +39,7 @@ export class WorkoutService {
     return result.rowsAffected;
   }
 
-  async getWorkout(workoutId: number): Promise<Workout> {
+  async getWorkout(workoutId: string): Promise<Workout> {
     const result: Workout[] = await this.db.select(
       `
         SELECT w.id as id, w.name as name
@@ -49,7 +51,7 @@ export class WorkoutService {
     return result[0];
   }
 
-  async deleteWorkout(workoutId: number) {
+  async deleteWorkout(workoutId: string) {
     const result = await this.db.execute(
       `
         DELETE FROM workouts WHERE id = $1
@@ -59,7 +61,7 @@ export class WorkoutService {
     return result.rowsAffected;
   }
 
-  async getExercises(workoutId: number): Promise<Exercise[]> {
+  async getExercises(workoutId: string): Promise<Exercise[]> {
     return this.db.select(
       `
             SELECT e.id as id, e.name as name, we.sets as sets, we.reps as reps, we.weight as weight, we.position as position
@@ -73,8 +75,8 @@ export class WorkoutService {
   }
 
   async getExercise(
-    workoutId: number,
-    exerciseId: number,
+    workoutId: string,
+    exerciseId: string,
   ): Promise<Exercise & { description: string }> {
     const result: (Exercise & { description: string })[] = await this.db.select(
       `
@@ -89,19 +91,18 @@ export class WorkoutService {
     return result[0];
   }
 
-  async addExercise(workoutId: number, exerciseId: number) {
-    console.log("workoutId", workoutId);
-    console.log("exerciseId", exerciseId);
-    const result = await this.db.execute(
+  async addExercise(workoutId: string, exerciseId: string) {
+    const newId: string = crypto.randomUUID();
+    await this.db.execute(
       `
-        INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, weight) VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO workout_exercises (id, workout_id, exercise_id, sets, reps, weight) VALUES ($1, $2, $3, $4, $5, $6)
       `,
-      [workoutId, exerciseId, 4, 10, 40],
+      [newId, workoutId, exerciseId, 4, 10, 40],
     );
-    return result.lastInsertId;
+    return newId;
   }
 
-  async removeExercise(workoutId: number, exerciseId: number) {
+  async removeExercise(workoutId: string, exerciseId: string) {
     const result = await this.db.execute(
       `
         DELETE FROM workout_exercises WHERE workout_id = $1 AND exercise_id = $2
@@ -112,8 +113,8 @@ export class WorkoutService {
   }
 
   async setExerciseWeight(
-    workoutId: number,
-    exerciseId: number,
+    workoutId: string,
+    exerciseId: string,
     weight: number,
   ) {
     const result = await this.db.execute(
@@ -125,7 +126,7 @@ export class WorkoutService {
     return result.rowsAffected;
   }
 
-  async setExerciseSets(workoutId: number, exerciseId: number, sets: number) {
+  async setExerciseSets(workoutId: string, exerciseId: string, sets: number) {
     const result = await this.db.execute(
       `
         UPDATE workout_exercises SET sets = $1 WHERE workout_id = $2 AND exercise_id = $3
@@ -135,7 +136,7 @@ export class WorkoutService {
     return result.rowsAffected;
   }
 
-  async setExerciseReps(workoutId: number, exerciseId: number, reps: number) {
+  async setExerciseReps(workoutId: string, exerciseId: string, reps: number) {
     const result = await this.db.execute(
       `
         UPDATE workout_exercises SET reps = $1 WHERE workout_id = $2 AND exercise_id = $3
@@ -146,8 +147,8 @@ export class WorkoutService {
   }
 
   async setExercisePosition(
-    workoutId: number,
-    exerciseId: number,
+    workoutId: string,
+    exerciseId: string,
     position: number,
   ) {
     const result = await this.db.execute(

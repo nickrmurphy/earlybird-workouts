@@ -1,5 +1,5 @@
 export type Exercise = {
-  id: number;
+  id: string;
   name: string;
   sets: number;
   reps: number;
@@ -8,16 +8,16 @@ export type Exercise = {
 };
 
 export type Workout = {
-  id: number;
+  id: string;
   name: string;
 };
 
 export type Equipment = {
-  id: number;
+  id: string;
   name: string;
 };
 
-export type MuscleGroup = {
-  id: number;
+export type Muscle = {
+  id: string;
   name: string;
 };

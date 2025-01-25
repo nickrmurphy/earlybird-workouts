@@ -1,5 +1,5 @@
 import Database from "@tauri-apps/plugin-sql";
-import type { MuscleGroup } from "../types";
+import type { Muscle } from "../types";
 
 export class MuscleGroupService {
   db: Database;
@@ -8,7 +8,7 @@ export class MuscleGroupService {
     this.db = db;
   }
 
-  getMuscleGroups(): Promise<MuscleGroup[]> {
+  getMuscleGroups(): Promise<Muscle[]> {
     return this.db.select(
       `
         SELECT m.id as id, m.name as name
