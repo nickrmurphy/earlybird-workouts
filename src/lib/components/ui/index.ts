@@ -3,3 +3,5 @@ export { default as Dialog } from "./Dialog.svelte";
 export { default as Drawer } from "./Drawer.svelte";
 export { default as Input } from "./Input.svelte";
 export { default as Pressable } from "./Pressable.svelte";
+
+export * from "./Dropdown";

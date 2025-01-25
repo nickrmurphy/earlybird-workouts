@@ -8,7 +8,7 @@ import {
 import type { Action } from "svelte/action";
 
 export const popover: Action<
-  HTMLDivElement,
+  HTMLElement,
   {
     anchorElement: HTMLElement;
     placement?: ComputePositionConfig["placement"];

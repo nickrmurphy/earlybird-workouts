@@ -19,9 +19,9 @@
     PageHeader,
     Drawer,
     InputDialog,
+    Dropdown,
   } from "$lib/components";
   import {
-    IconCheck,
     IconDotsCircleHorizontal,
     IconHistory,
     IconPencil,
@@ -31,15 +31,13 @@
     IconSwitchVertical,
     IconTrashFilled,
   } from "@tabler/icons-svelte";
-  import { popover } from "$lib/actions/index.js";
-  import { fade } from "svelte/transition";
   import Input from "$lib/components/ui/Input.svelte";
   import { debounce } from "$lib/utils.js";
   import { NavigationMonitor } from "$lib/assets";
+  import DropdownItem from "$lib/components/Dropdown/DropdownItem.svelte";
   let { data } = $props();
   let dropdownToggle: HTMLElement | null = $state(null);
   let showEditDialog = $state(false);
-  let showDropdown = $state(false);
   let showExerciseDialog = $state(false);
 
   const debouncedUpdateWeight = debounce((weight: number) => {
@@ -104,33 +102,21 @@
           <IconPlus color="var(--primary)" />
         {/if}
       </button>
-      <button
-        bind:this={dropdownToggle}
-        onclick={() => (showDropdown = !showDropdown)}
-      >
+      <button bind:this={dropdownToggle}>
         <IconDotsCircleHorizontal size={24} color="var(--primary)" />
       </button>
-      {#if showDropdown}
-        <div
-          class="dropdown"
-          transition:fade={{ duration: 100 }}
-          use:popover={{
-            anchorElement: dropdownToggle,
-            onClickOutside: () => (showDropdown = false),
-          }}
-        >
-          <button onclick={() => (showEditDialog = true)}>
-            Rename <IconPencil />
-          </button>
-          <button onclick={() => goto(`/${data.workout.id}/history`)}>
-            View history
-            <IconHistory />
-          </button>
-          <button onclick={confirmDelete} style="color: var(--destructive)">
-            Delete <IconTrashFilled />
-          </button>
-        </div>
-      {/if}
+      <Dropdown anchor={dropdownToggle}>
+        <DropdownItem onclick={() => (showEditDialog = true)}>
+          Rename <IconPencil />
+        </DropdownItem>
+        <DropdownItem onclick={() => goto(`/${data.workout.id}/history`)}>
+          View history
+          <IconHistory />
+        </DropdownItem>
+        <DropdownItem onclick={confirmDelete} style="color: var(--destructive)">
+          Delete <IconTrashFilled />
+        </DropdownItem>
+      </Dropdown>
     {/snippet}
   </PageHeader>
   <section>
@@ -238,25 +224,6 @@
     align-items: center;
     width: 40px;
     height: 40px;
-  }
-
-  div.dropdown {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    border-radius: var(--radius-3);
-    background-color: var(--licorice);
-
-    button {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: var(--size-2);
-      box-shadow: var(--shadow-5);
-      padding: var(--size-2) var(--size-3);
-      width: 100%;
-      min-width: 200px;
-    }
   }
 
   label {
