@@ -31,7 +31,6 @@ export class ExerciseService {
     }
 
     if (options.equipmentIds && options.equipmentIds.length > 0) {
-      console.log(options.equipmentIds);
       const equipmentIds = options.equipmentIds.filter((e) => e != "NULL");
       let filterEquipmentClauses: string[] = [];
 
@@ -55,8 +54,6 @@ export class ExerciseService {
       ${filterClauses.length > 0 ? `WHERE ${filterClauses.join(" AND ")}` : ""}
       ORDER BY e.name
     `;
-
-    console.log(query, params);
 
     const exercises: { id: string; name: string; description: string }[] =
       await this.db.select(query, params);

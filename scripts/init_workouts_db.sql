@@ -10269,7 +10269,7 @@ CREATE TABLE IF NOT EXISTS workouts (id TEXT PRIMARY KEY, name TEXT NOT NULL);
 
 -- Table: workout_exercises
 DROP TABLE IF EXISTS workout_exercises;
-CREATE TABLE IF NOT EXISTS workout_exercises (id TEXT PRIMARY KEY UNIQUE NOT NULL, workout_id INTEGER REFERENCES workouts (id) ON DELETE CASCADE NOT NULL, exercise_id INTEGER REFERENCES exercises (id) ON DELETE RESTRICT, sets INTEGER NOT NULL, reps INTEGER, weight REAL, position REAL NOT NULL DEFAULT (0), "");
+CREATE TABLE IF NOT EXISTS workout_exercises (id TEXT PRIMARY KEY UNIQUE NOT NULL, workout_id TEXT REFERENCES workouts (id) ON DELETE CASCADE NOT NULL, exercise_id TEXT REFERENCES exercises (id) ON DELETE RESTRICT, sets INTEGER NOT NULL, reps INTEGER, weight REAL, position REAL NOT NULL DEFAULT (0), "");
 
 -- Trigger: workout_exercises_deleted
 DROP TRIGGER IF EXISTS workout_exercises_deleted;
@@ -10281,8 +10281,8 @@ CREATE TRIGGER IF NOT EXISTS workout_exercises_inserted AFTER INSERT ON workout_
 
 -- Table: workout_history
 DROP TABLE IF EXISTS workout_history;
-CREATE TABLE IF NOT EXISTS workout_history (id TEXT PRIMARY KEY UNIQUE NOT NULL, workout_id REFERENCES workouts (id), start_time TEXT NOT NULL DEFAULT (datetime('now')), end_time TEXT);
+CREATE TABLE IF NOT EXISTS workout_history (id TEXT PRIMARY KEY UNIQUE NOT NULL, workout_id TEXT REFERENCES workouts (id), start_time TEXT NOT NULL DEFAULT (datetime('now')), end_time TEXT);
 
 -- Table: workout_history_sets
 DROP TABLE IF EXISTS workout_history_sets;
-CREATE TABLE IF NOT EXISTS workout_history_sets (id TEXT PRIMARY KEY UNIQUE NOT NULL, exercise_id INTEGER REFERENCES exercises (id) NOT NULL, workout_history_id INTEGER REFERENCES workout_history_sets (id) NOT NULL, reps INTEGER NOT NULL, weight REAL, is_complete NUMERIC NOT NULL DEFAULT (0));
+CREATE TABLE IF NOT EXISTS workout_history_sets (id TEXT PRIMARY KEY UNIQUE NOT NULL, exercise_id TEXT REFERENCES exercises (id) NOT NULL, workout_history_id TEXT REFERENCES workout_history (id) NOT NULL, reps INTEGER NOT NULL, weight REAL, is_complete NUMERIC NOT NULL DEFAULT (0));
