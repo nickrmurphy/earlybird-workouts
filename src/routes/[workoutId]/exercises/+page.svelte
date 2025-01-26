@@ -12,6 +12,7 @@
   import { page } from "$app/state";
   import { services } from "$lib/stores/services.svelte.js";
   import { IconFilter, IconFilterEdit } from "@tabler/icons-svelte";
+  import InstructionsDrawer from "$lib/components/InstructionsDrawer.svelte";
 
   type Exercise = {
     id: string;
@@ -156,41 +157,31 @@
     </select>
   </label>
 </Navbar>
-<Drawer bind:open={showDrawer} title={exerciseDetails.name}>
-  <ol>
-    {#each exerciseDetails.instructions as instruction, idx}
-      <li>
-        <span>{idx + 1}.</span>
-        {instruction}
-      </li>
-    {/each}
-  </ol>
-  <div style="margin-top: auto; margin-bottom: env(safe-area-inset-bottom)">
-    {#if selectedOptions.includes(exerciseDetails.id)}
-      <Button
-        variant="outline"
-        style="width: 100%"
-        onclick={async () => {
-          await removeExercise(data.workout.id, exerciseDetails.id);
-          showDrawer = false;
-        }}
-      >
+
+<InstructionsDrawer
+  bind:open={showDrawer}
+  name={exerciseDetails.name}
+  instructions={exerciseDetails.instructions}
+>
+  {#snippet footer()}
+    <Button
+      variant="outline"
+      style="width: 100%"
+      onclick={async () => {
+        selectedOptions.includes(exerciseDetails.id)
+          ? await removeExercise(data.workout.id, exerciseDetails.id)
+          : await addExercise(data.workout.id, exerciseDetails.id);
+        showDrawer = false;
+      }}
+    >
+      {#if selectedOptions.includes(exerciseDetails.id)}
         Remove
-      </Button>
-    {:else}
-      <Button
-        variant="outline"
-        style="width: 100%"
-        onclick={async () => {
-          await addExercise(data.workout.id, exerciseDetails.id);
-          showDrawer = false;
-        }}
-      >
+      {:else}
         Select
-      </Button>
-    {/if}
-  </div>
-</Drawer>
+      {/if}
+    </Button>
+  {/snippet}
+</InstructionsDrawer>
 
 <style>
   .selected-count {
@@ -256,21 +247,6 @@
     :global(svg) {
       width: var(--size-4);
       height: var(--size-4);
-    }
-  }
-
-  ol {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2);
-    padding: var(--size-2);
-
-    li {
-      font-size: var(--font-size-2);
-      line-height: var(--font-lineheight-4);
-      span {
-        font-weight: var(--font-weight-7);
-      }
     }
   }
 </style>

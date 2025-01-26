@@ -20,6 +20,7 @@
     Drawer,
     InputDialog,
     Dropdown,
+    ExerciseDrawer,
   } from "$lib/components";
   import {
     IconDotsCircleHorizontal,
@@ -31,10 +32,9 @@
     IconSwitchVertical,
     IconTrashFilled,
   } from "@tabler/icons-svelte";
-  import Input from "$lib/components/ui/Input.svelte";
   import { debounce } from "$lib/utils.js";
   import { NavigationMonitor } from "$lib/assets";
-  import DropdownItem from "$lib/components/Dropdown/DropdownItem.svelte";
+  import DropdownItem from "$lib/components/ui/Dropdown/DropdownItem.svelte";
   let { data } = $props();
   let dropdownToggle: HTMLElement | null = $state(null);
   let showEditDialog = $state(false);
@@ -139,58 +139,19 @@
     {/if}
   </section>
 </Page>
-<Drawer bind:open={showExerciseDialog} title={exercise?.name}>
-  <div style="display: flex; gap: var(--size-4); flex-direction: column;">
-    <label>
-      <span>Weight (lbs)</span>
-      <Input
-        defaultValue={data.exercise?.weight}
-        type="number"
-        step={0.5}
-        inputmode="decimal"
-        oninput={(e) => debouncedUpdateWeight(parseInt(e.currentTarget.value))}
-      />
-    </label>
-    <label>
-      <span>Sets</span>
-      <select
-        value={data.exercise?.sets}
-        onchange={(e) => debouncedUpdateSets(parseInt(e.currentTarget.value))}
-      >
-        {#each { length: 10 }, idx}
-          <option value={idx + 1}>{idx + 1}</option>
-        {/each}
-      </select>
-    </label>
-    <label>
-      <span>Reps</span>
-      <select
-        value={data.exercise?.reps}
-        onchange={(e) => debouncedUpdateReps(parseInt(e.currentTarget.value))}
-      >
-        {#each { length: 30 }, idx}
-          <option value={idx + 1}>{idx + 1}</option>
-        {/each}
-      </select>
-    </label>
-  </div>
-  {#if data.instructions}
-    <details style="display: flex; flex-direction: column; gap: var(--size-2);">
-      <summary style="color: var(--muted-foreground)">View instructions</summary
-      >
-      <ol
-        style="margin-top: var(--size-4); line-height: var(--font-lineheight-3); color: var(--muted-foreground);"
-      >
-        {#each data.instructions as instruction, idx}
-          <li>
-            <span>{idx + 1}.</span>
-            {instruction.instruction}
-          </li>
-        {/each}
-      </ol>
-    </details>
-  {/if}
-</Drawer>
+{#if data.exercise}
+  <ExerciseDrawer
+    bind:open={showExerciseDialog}
+    name={data.exercise.name}
+    onWeightChange={debouncedUpdateWeight}
+    onSetsChange={debouncedUpdateSets}
+    onRepsChange={debouncedUpdateReps}
+    defaultWeight={data.exercise.weight}
+    defaultSets={data.exercise.sets}
+    defaultReps={data.exercise.reps}
+    instructions={data.instructions?.map((i) => i.instruction)}
+  />
+{/if}
 <InputDialog
   bind:open={showEditDialog}
   title="Rename exercise"
@@ -224,41 +185,5 @@
     align-items: center;
     width: 40px;
     height: 40px;
-  }
-
-  label {
-    display: grid;
-    gap: var(--size-2);
-  }
-
-  select {
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-3);
-    background-color: transparent;
-    padding: 12px 10px;
-    color: var(--magnolia);
-    font-weight: var(--font-weight);
-    font-size: var(--font-size, var(--font-size-2));
-  }
-
-  select:focus {
-    transition: all;
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-  }
-
-  ol {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2);
-    padding: var(--size-2);
-
-    li {
-      font-size: var(--font-size-2);
-      line-height: var(--font-lineheight-4);
-      span {
-        font-weight: var(--font-weight-7);
-      }
-    }
   }
 </style>

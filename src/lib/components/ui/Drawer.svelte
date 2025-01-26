@@ -2,11 +2,21 @@
   import { IconX } from "@tabler/icons-svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import { fade, fly } from "svelte/transition";
+  import type { Snippet } from "svelte";
+
   type Props = HTMLAttributes<HTMLDivElement> & {
     open: boolean;
     title?: string;
+    footer?: Snippet;
   };
-  let { open = $bindable(), title, children, ...props }: Props = $props();
+
+  let {
+    open = $bindable(),
+    title,
+    children,
+    footer,
+    ...props
+  }: Props = $props();
 </script>
 
 {#if open}
@@ -20,25 +30,26 @@
     }}
   ></div>
   <div role="dialog" transition:fly={{ y: 1000, duration: 200 }} {...props}>
-    <button onclick={() => (open = false)}>
-      <IconX />
-    </button>
-    {#if title}
-      <h2>{title}</h2>
+    <header>
+      {#if title}
+        <h2>{title}</h2>
+      {/if}
+      <button onclick={() => (open = false)}>
+        <IconX />
+      </button>
+    </header>
+    <section>
+      {@render children?.()}
+    </section>
+    {#if footer}
+      <footer>
+        {@render footer()}
+      </footer>
     {/if}
-    {@render children?.()}
   </div>
 {/if}
 
 <style>
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-  }
-
   div[role="dialog"] {
     display: flex;
     position: fixed;
@@ -51,28 +62,55 @@
     border-top-right-radius: var(--radius-3);
     border-top-left-radius: var(--radius-3);
     background-color: var(--popover);
-    padding-right: var(--size-2);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: var(--size-2);
     height: 75%;
     overflow-y: auto;
     color: var(--foreground);
 
-    button {
-      position: absolute;
-      top: var(--size-2);
-      right: var(--size-2);
+    header {
+      display: flex;
+      position: sticky;
+      top: 0;
+
+      background-color: var(--popover);
+      padding: var(--size-2);
+
+      button {
+        display: flex;
+        position: absolute;
+        top: var(--size-2);
+        right: var(--size-2);
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+      }
     }
 
     h2 {
-      position: sticky;
-      top: 0;
-      background-color: var(--popover);
       padding: var(--size-2);
       max-width: 85%;
       font-weight: var(--font-weight-6);
       font-size: var(--font-size-3);
     }
+  }
+
+  footer {
+    display: flex;
+    position: fixed;
+    right: calc(env(safe-area-inset-right) + var(--size-2));
+    bottom: 0px;
+    left: calc(env(safe-area-inset-right) + var(--size-2));
+    background-color: var(--popover);
+    padding-bottom: env(safe-area-inset-bottom);
+    height: 44px;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+    padding: var(--size-2);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 44px);
   }
 
   .overlay {
