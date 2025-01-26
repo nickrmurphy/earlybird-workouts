@@ -8,6 +8,7 @@
     PageHeader,
     Drawer,
     Button,
+    Tabs,
   } from "$lib/components";
   import { page } from "$app/state";
   import { services } from "$lib/stores/services.svelte.js";
@@ -99,19 +100,20 @@
       type="search"
       placeholder="Search for an exercise..."
     />
-    <div class="tab-group">
-      <button
-        onclick={() => (selectedOnly = false)}
-        data-selected={!selectedOnly}>All</button
-      >
-      <button
-        onclick={() => (selectedOnly = true)}
-        data-selected={selectedOnly}
-      >
-        Selected
-        <span class="selected-count">({selectedOptions.length})</span>
-      </button>
-    </div>
+    <Tabs
+      defaultValue={selectedOnly}
+      onChange={(value) => (selectedOnly = value)}
+      options={[
+        {
+          label: "All",
+          value: false,
+        },
+        {
+          label: `Selected (${selectedOptions.length})`,
+          value: true,
+        },
+      ]}
+    />
   </PageHeader>
 
   <ExerciseSelectList
@@ -184,37 +186,6 @@
 </InstructionsDrawer>
 
 <style>
-  .selected-count {
-    font-size: var(--font-size-0);
-  }
-
-  .tab-group {
-    display: flex;
-    gap: var(--size-1);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-3);
-    padding: var(--size-1);
-
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--size-3);
-      border-radius: var(--radius-round);
-      padding: var(--size-1) var(--size-2);
-      width: 100%;
-      color: hsl(var(--white-hsl) / 70%);
-      font-weight: var(--font-weight-5);
-      text-align: center;
-    }
-
-    button[data-selected="true"] {
-      background-color: var(--secondary);
-      color: var(--foreground);
-      font-weight: var(--font-weight-7);
-    }
-  }
-
   select {
     border: none;
     border-radius: var(--radius-round);

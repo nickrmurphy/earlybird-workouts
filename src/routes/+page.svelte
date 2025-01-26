@@ -41,7 +41,7 @@
       </button>
     {/snippet}
   </PageHeader>
-  <section class="workouts">
+  <section>
     {#if data.workouts.length > 0}
       {#each data.workouts as workout}
         <Pressable href={`/${workout.id}`}>
@@ -71,7 +71,7 @@
 />
 
 <style>
-  section.workouts {
+  section {
     display: flex;
     flex-direction: column;
     gap: var(--size-4);
