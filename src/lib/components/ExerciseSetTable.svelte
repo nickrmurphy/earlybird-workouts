@@ -15,55 +15,49 @@
 
 <section>
   <h4>{exerciseName}</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Weight</th>
-        <th>Reps</th>
-        <th>Complete</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each sets as set}
+  <div>
+    <table>
+      <thead>
         <tr>
-          <td>{set.weight}</td>
-          <td>{set.reps}</td>
-          <td>
-            {#if set.isComplete}
-              <span><IconCircleCheck color="var(--foreground)" /></span>
-            {:else}
-              <span><IconCircle color="var(--foreground)" /></span>
-            {/if}
-          </td>
+          <th>Weight</th>
+          <th>Reps</th>
+          <th>Complete</th>
         </tr>
-      {/each}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {#each sets as set}
+          <tr>
+            <td>{set.weight}</td>
+            <td>{set.reps}</td>
+            <td>
+              {#if set.isComplete}
+                <span><IconCircleCheck color="var(--foreground)" /></span>
+              {:else}
+                <span><IconCircle color="var(--foreground)" /></span>
+              {/if}
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <style>
   h4 {
-    background-color: hsl(var(--yellow-hsl) / 70%);
     padding: var(--size-3) var(--size-2);
-    color: hsl(var(--black-hsl) / 80%);
-    font-weight: var(--font-weight-7);
+    color: var(--foreground);
+    font-weight: var(--font-weight-6);
     font-size: var(--font-size-2);
-  }
-
-  section {
-    display: flex;
-    flex-direction: column;
-
-    border: 1px solid var(--border-color);
-    border-radius: var(--size-3);
-    overflow: hidden;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   thead {
     text-align: left;
 
     tr {
-      background-color: hsl(var(--yellow-hsl) / 10%);
+      background-color: var(--popover);
 
       :first-child {
         padding-left: var(--size-2);
@@ -81,6 +75,8 @@
   }
 
   th {
+    color: var(--muted-foreground);
+    font-weight: var(--font-weight-6);
     font-size: var(--font-size-1);
   }
 
@@ -92,6 +88,17 @@
       :first-child {
         padding-left: var(--size-2);
       }
+    }
+  }
+
+  div {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-3);
+    width: 100%;
+    overflow: hidden;
+
+    table {
+      width: 100%;
     }
   }
 </style>
