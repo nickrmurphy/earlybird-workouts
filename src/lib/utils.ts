@@ -19,3 +19,13 @@ export function debounce(callback: Function, wait = 300) {
     timeout = setTimeout(() => callback(...args), wait);
   };
 }
+
+export function arraymove(
+  arr: Array<unknown>,
+  fromIndex: number,
+  toIndex: number,
+) {
+  var element = arr[fromIndex];
+  arr.splice(fromIndex, 1);
+  arr.splice(toIndex, 0, element);
+}

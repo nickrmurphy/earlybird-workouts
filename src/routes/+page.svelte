@@ -6,9 +6,7 @@
     EmptyMessage,
     Pressable,
     Page,
-    Input,
     PageHeader,
-    Button,
     InputDialog,
   } from "$lib/components";
   import { IconCirclePlus } from "@tabler/icons-svelte";

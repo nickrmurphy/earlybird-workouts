@@ -4,6 +4,7 @@
   import { updatePosition } from "$lib/mutations";
   import { goto } from "$app/navigation";
   import { IconChevronDown, IconChevronUp } from "@tabler/icons-svelte";
+  import { arraymove } from "$lib/utils.js";
 
   let { data } = $props();
 
@@ -18,12 +19,6 @@
 
     return isChanged;
   });
-
-  function arraymove(arr: Array<unknown>, fromIndex: number, toIndex: number) {
-    var element = arr[fromIndex];
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, element);
-  }
 </script>
 
 <Page>

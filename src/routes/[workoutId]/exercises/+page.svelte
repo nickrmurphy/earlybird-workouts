@@ -6,7 +6,6 @@
     ExerciseSelectList,
     Page,
     PageHeader,
-    Drawer,
     Button,
     Tabs,
   } from "$lib/components";
