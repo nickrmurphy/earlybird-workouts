@@ -11,7 +11,7 @@
   let currentValue = $state(defaultValue);
 
   $effect(() => {
-    if (currentValue) {
+    if (currentValue !== undefined) {
       onChange?.(currentValue);
     }
   });

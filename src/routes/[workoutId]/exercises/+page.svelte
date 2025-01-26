@@ -56,7 +56,6 @@
   async function getExerciseDetailsFromId(id: string) {
     const details = await services.exercise.getExercise(id);
     const instructions = await services.exercise.getExerciseInstructions(id);
-    console.log(details, instructions);
 
     exerciseDetails = {
       id: details.id,
