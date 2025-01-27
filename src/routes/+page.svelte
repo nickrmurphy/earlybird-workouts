@@ -44,7 +44,6 @@
       {#each data.workouts as workout}
         <Pressable href={`/${workout.id}`}>
           <WorkoutCard
-            workoutId={workout.id}
             workoutName={workout.name}
             exercises={workout.exercises.map((e) => e.name)}
           />

@@ -58,7 +58,7 @@
     left: 0;
     flex-direction: column;
     gap: var(--size-6);
-    z-index: 99;
+    z-index: var(--layer-5);
     border-top-right-radius: var(--radius-3);
     border-top-left-radius: var(--radius-3);
     background-color: var(--popover);
@@ -119,7 +119,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 98;
+    z-index: var(--layer-4);
     background-color: hsl(var(--black-hsl) / 70%);
   }
 </style>

@@ -56,24 +56,19 @@
 
 <style>
   nav {
-    /* layout */
     display: flex;
-
-    /* positioning */
     position: fixed;
-    right: var(--size-2);
+    right: calc(8px + env(safe-area-inset-right));
     bottom: env(safe-area-inset-bottom);
-    left: var(--size-2);
+    left: calc(8px + env(safe-area-inset-left));
     align-items: center;
     gap: var(--size-2);
+    z-index: var(--layer-3);
     backdrop-filter: blur(8px);
     box-shadow: var(--shadow-6);
     border-radius: var(--radius-round);
     background-color: hsl(var(--white-hsl) / 5%);
-    /* styling for background */
     padding: 5px;
-
-    /* view-transition-name: nav-bar; */
   }
 
   button {

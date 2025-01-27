@@ -84,7 +84,7 @@
     left: 0;
     flex-direction: column;
     gap: var(--size-5);
-    z-index: 100;
+    z-index: var(--layer-5);
     border: none;
     border-radius: var(--radius-3);
     background-color: var(--popover);
@@ -108,6 +108,7 @@
 
   .overlay {
     position: fixed;
+    z-index: var(--layer-4);
     backdrop-filter: blur(0px);
     inset: 0;
     background-color: hsl(var(--black-hsl) / 60%);
