@@ -10281,7 +10281,7 @@ CREATE TRIGGER IF NOT EXISTS workout_exercises_inserted AFTER INSERT ON workout_
 
 -- Table: workout_history
 DROP TABLE IF EXISTS workout_history;
-CREATE TABLE IF NOT EXISTS workout_history (id TEXT PRIMARY KEY UNIQUE NOT NULL, workout_id TEXT REFERENCES workouts (id), start_time TEXT NOT NULL DEFAULT (datetime('now')), end_time TEXT);
+CREATE TABLE IF NOT EXISTS workout_history (id TEXT PRIMARY KEY UNIQUE NOT NULL, workout_id TEXT REFERENCES workouts (id) ON DELETE SET NULL, start_time TEXT NOT NULL DEFAULT (datetime('now')), end_time TEXT);
 
 -- Table: workout_history_sets
 DROP TABLE IF EXISTS workout_history_sets;
