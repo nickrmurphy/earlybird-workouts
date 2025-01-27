@@ -31,7 +31,6 @@
     IconSwitchVertical,
     IconTrashFilled,
   } from "@tabler/icons-svelte";
-  import { debounce } from "$lib/utils.js";
   import { NavigationMonitor } from "$lib/assets";
   import DropdownItem from "$lib/components/ui/Dropdown/DropdownItem.svelte";
   let { data } = $props();
@@ -39,25 +38,10 @@
   let showEditDialog = $state(false);
   let showExerciseDialog = $state(false);
 
-  const debouncedUpdateWeight = debounce((weight: number) => {
-    if (!data.exercise) return;
-    updateWeight(data.workoutId, data.exercise.id, weight);
-  }, 500);
-
-  const debouncedUpdateSets = debounce((sets: number) => {
-    if (!data.exercise) return;
-    updateSets(data.workoutId, data.exercise.id, sets);
-  }, 500);
-
-  const debouncedUpdateReps = debounce((reps: number) => {
-    if (!data.exercise) return;
-    updateReps(data.workoutId, data.exercise.id, reps);
-  }, 500);
-
-  let exercise = $derived(data.exercise);
+  let selectedExercise = $derived(data.exercise);
 
   $effect(() => {
-    if (exercise) {
+    if (selectedExercise) {
       showExerciseDialog = true;
     }
   });
@@ -136,16 +120,22 @@
     {/if}
   </section>
 </Page>
-{#if data.exercise}
+{#if selectedExercise}
   <ExerciseDrawer
     bind:open={showExerciseDialog}
-    name={data.exercise.name}
-    onWeightChange={debouncedUpdateWeight}
-    onSetsChange={debouncedUpdateSets}
-    onRepsChange={debouncedUpdateReps}
-    defaultWeight={data.exercise.weight}
-    defaultSets={data.exercise.sets}
-    defaultReps={data.exercise.reps}
+    name={selectedExercise.name}
+    onWeightChange={(weight) => {
+      updateWeight(data.workoutId, selectedExercise.id, weight);
+    }}
+    onSetsChange={(sets) => {
+      updateSets(data.workoutId, selectedExercise.id, sets);
+    }}
+    onRepsChange={(reps) => {
+      updateReps(data.workoutId, selectedExercise.id, reps);
+    }}
+    defaultWeight={selectedExercise.weight}
+    defaultSets={selectedExercise.sets}
+    defaultReps={selectedExercise.reps}
     instructions={data.instructions}
     onOpenChange={(open) => {
       if (!open) {
