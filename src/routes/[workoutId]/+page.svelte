@@ -17,7 +17,6 @@
     Page,
     ExerciseItem,
     PageHeader,
-    Drawer,
     InputDialog,
     Dropdown,
     ExerciseDrawer,
@@ -84,22 +83,26 @@
 </script>
 
 <Page>
-  <PageHeader title={data.workout.name}>
+  <PageHeader
+    title={data.workout.name}
+    viewTransitionName="workout-header-{data.workout.id}"
+  >
     {#snippet right()}
       <button
         onclick={() => goto(`/${data.workout.id}/reorder`)}
         disabled={data.exercises.length === 0}
       >
         <IconSwitchVertical
+          size={24}
           color="var(--primary)"
           style={data.exercises.length === 0 ? "opacity: 50%;" : ""}
         />
       </button>
       <button onclick={() => goto(`/${data.workout.id}/exercises`)}>
         {#if data.exercises.length > 0}
-          <IconPlusMinus color="var(--primary)" />
+          <IconPlusMinus size={24} color="var(--primary)" />
         {:else}
-          <IconPlus color="var(--primary)" />
+          <IconPlus size={24} color="var(--primary)" />
         {/if}
       </button>
       <button bind:this={dropdownToggle}>
@@ -149,7 +152,7 @@
     defaultWeight={data.exercise.weight}
     defaultSets={data.exercise.sets}
     defaultReps={data.exercise.reps}
-    instructions={data.instructions?.map((i) => i.instruction)}
+    instructions={data.instructions}
   />
 {/if}
 <InputDialog
@@ -183,7 +186,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
   }
 </style>

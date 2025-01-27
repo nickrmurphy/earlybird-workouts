@@ -69,9 +69,7 @@ export class ExerciseService {
     return allExercises;
   }
 
-  async getExerciseInstructions(
-    exerciseId: string,
-  ): Promise<{ instruction: string }[]> {
+  async getExerciseInstructions(exerciseId: string): Promise<string[]> {
     const instructions: { instruction: string }[] = await this.db.select(
       `
             SELECT i.instruction as instruction
@@ -82,8 +80,7 @@ export class ExerciseService {
         `,
       [exerciseId],
     );
-    console.log(instructions);
-    return instructions;
+    return instructions.map((i) => i.instruction);
   }
 
   async getExercise(exerciseId: string): Promise<{ id: string; name: string }> {

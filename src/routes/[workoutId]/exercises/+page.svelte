@@ -60,7 +60,7 @@
     exerciseDetails = {
       id: details.id,
       name: details.name,
-      instructions: instructions.map((instruction) => instruction.instruction),
+      instructions: instructions,
     };
   }
 
