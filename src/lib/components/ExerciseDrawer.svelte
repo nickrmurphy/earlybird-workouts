@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { Drawer, Input } from "./ui";
 
   type Props = {
@@ -11,6 +12,7 @@
     instructions?: string[];
     name: string;
     open: boolean;
+    onOpenChange?: (open: boolean) => void;
   };
 
   let {
@@ -23,7 +25,18 @@
     instructions,
     name,
     open = $bindable(false),
+    onOpenChange,
   }: Props = $props();
+  let init = $state(false);
+
+  $effect(() => {
+    if (!init) return;
+    onOpenChange?.(open);
+  });
+
+  onMount(() => {
+    init = true;
+  });
 </script>
 
 <Drawer bind:open title={name}>

@@ -62,12 +62,6 @@
     }
   });
 
-  $effect(() => {
-    if (!showExerciseDialog) {
-      goto(`?`);
-    }
-  });
-
   async function confirmDelete() {
     const confirmDelete = await confirm(
       "This action cannot be reverted. Are you sure?",
@@ -153,6 +147,11 @@
     defaultSets={data.exercise.sets}
     defaultReps={data.exercise.reps}
     instructions={data.instructions}
+    onOpenChange={(open) => {
+      if (!open) {
+        goto(`?`);
+      }
+    }}
   />
 {/if}
 <InputDialog
