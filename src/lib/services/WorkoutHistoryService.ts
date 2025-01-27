@@ -52,30 +52,31 @@ export class WorkoutHistoryService {
     }
 
     const exercises = await this.workoutService.getExercises(workoutId);
+    const queryParams: (number | string)[] = [newHistoryId];
+    const statements: string[] = [];
 
     // Build DB Command
     exercises.forEach(async (exercise) => {
       for (let i = 0; i < exercise.sets; i++) {
-        try {
-          await this.db.execute(
-            `
-            INSERT INTO workout_history_sets (id, workout_history_id, exercise_id, reps, weight)
-            VALUES ($1, $2, $3, $4, $5);
-          `,
-            [
-              crypto.randomUUID(),
-              newHistoryId,
-              exercise.id,
-              exercise.reps,
-              exercise.weight,
-            ],
-          );
-        } catch (e) {
-          console.error(e);
-          throw e;
-        }
+        statements.push(`
+          INSERT INTO workout_history_sets (id, workout_history_id, exercise_id, reps, weight)
+          VALUES ($${queryParams.length + 1}, $1, $${queryParams.length + 2}, $${queryParams.length + 3}, $${queryParams.length + 4});
+        `);
+        queryParams.push(
+          crypto.randomUUID(),
+          exercise.id,
+          exercise.reps,
+          exercise.weight,
+        );
       }
     });
+
+    try {
+      await this.db.execute(statements.join(" "), queryParams);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
 
     return true;
   }

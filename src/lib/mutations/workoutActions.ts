@@ -36,8 +36,7 @@ export const updateReps = async (
 export const startWorkout = async (workoutId: string) => {
   await mutation(
     services.workoutHistory.createWorkoutHistoryAndSets(workoutId),
-  );
-  goto("/active");
+  ).then(() => goto("/active"));
 };
 
 export const renameWorkout = async (workoutId: string, name: string) =>
