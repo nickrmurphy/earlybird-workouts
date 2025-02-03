@@ -1,109 +1,98 @@
 <script lang="ts">
   import { Button, Navbar, Page, PageHeader } from "$lib/components";
+  import { page } from "$app/state";
   import { flip } from "svelte/animate";
-  import { updatePosition } from "$lib/mutations";
-  import { goto } from "$app/navigation";
-  import { IconChevronDown, IconChevronUp } from "@tabler/icons-svelte";
-  import { arraymove } from "$lib/utils.js";
+  import {
+    IconCheck,
+    IconChevronDown,
+    IconChevronUp,
+  } from "@tabler/icons-svelte";
+  import { liveQuery } from "dexie";
+  import { db } from "$lib/db";
+  import { arraymove } from "$lib/utils";
+  import NavbarButton from "$lib/components/page/NavbarButton.svelte";
 
-  let { data } = $props();
+  const workout = liveQuery(() =>
+    db.workouts.where("id").equals(parseInt(page.params.workoutId)).first(),
+  );
 
-  let orderedExercises = $state(data.exercises);
-  let isChanged = $derived.by(() => {
-    let isChanged = false;
-    data.exercises.forEach((exercise, idx) => {
-      if (orderedExercises[idx].id !== exercise.id) {
-        isChanged = true;
+  // TODO: Implement reordering
+
+  const workoutExercises = liveQuery(() =>
+    db.workoutExercises
+      .where("workoutId")
+      .equals(parseInt(page.params.workoutId))
+      .sortBy("order"),
+  );
+
+  let orderedExercises = $state(
+    $workoutExercises ? [...$workoutExercises] : [],
+  );
+
+  let changed = $derived.by(() => {
+    let changed = false;
+    if (!$workoutExercises) return changed;
+
+    for (let i = 0; i < orderedExercises.length; i++) {
+      if (orderedExercises[i].id !== $workoutExercises[i].id) {
+        changed = true;
+        break;
+      }
+    }
+
+    return changed;
+  });
+
+  $effect(() => {
+    orderedExercises = $workoutExercises ? [...$workoutExercises] : [];
+  });
+
+  async function saveChanges() {
+    if (!changed) return;
+
+    await db.transaction("rw", [db.workoutExercises], async (tx) => {
+      for (let i = 0; i < orderedExercises.length; i++) {
+        await tx.workoutExercises.update(orderedExercises[i].id, {
+          order: i + 1,
+        });
       }
     });
-
-    return isChanged;
-  });
+  }
 </script>
 
 <Page>
-  <PageHeader title={data.workout.name} />
-  <form
-    id="reorder-exercises"
-    onsubmit={async (e) => {
-      e.preventDefault();
-      const promises: Promise<unknown>[] = [];
-      orderedExercises.forEach((exercise, idx) => {
-        promises.push(updatePosition(data.workout.id, exercise.id, idx + 1));
-      });
-      await Promise.all(promises).then(() => {
-        goto(`/${data.workout.id}`);
-      });
-    }}
-  >
-    <ul>
-      {#each orderedExercises as exercise, idx (exercise.id)}
-        <li animate:flip={{ duration: 300 }}>
-          {exercise.name}
-          <div>
-            <Button
-              rounded="full"
-              disabled={idx === 0}
-              variant="outline"
-              type="button"
-              onclick={() => arraymove(orderedExercises, idx, idx - 1)}
-            >
-              <IconChevronUp />
-            </Button>
-            <Button
-              rounded="full"
-              variant="outline"
-              disabled={idx === orderedExercises.length - 1}
-              type="button"
-              onclick={() => arraymove(orderedExercises, idx, idx + 1)}
-            >
-              <IconChevronDown />
-            </Button>
-          </div>
-        </li>
-      {/each}
-    </ul>
-  </form>
-  <Navbar backHref="/{data.workout.id}">
-    <Button
-      form="reorder-exercises"
-      --width="100%"
-      rounded="full"
-      disabled={!isChanged}
-    >
-      Save changes
-    </Button>
+  <PageHeader title={$workout?.name} />
+  <ol class="divide-divide divide-y">
+    {#each orderedExercises as exercise, idx (exercise.id)}
+      <li
+        animate:flip={{ duration: 300 }}
+        class="flex items-center justify-between px-4 py-5 font-bold"
+      >
+        {exercise.name}
+        <div class="flex gap-3">
+          <Button
+            disabled={idx === 0}
+            variant="outline"
+            type="button"
+            onclick={() => arraymove(orderedExercises, idx, idx - 1)}
+          >
+            <IconChevronUp />
+          </Button>
+          <Button
+            variant="outline"
+            disabled={idx === $workoutExercises?.length - 1}
+            type="button"
+            onclick={() => arraymove(orderedExercises, idx, idx + 1)}
+          >
+            <IconChevronDown />
+          </Button>
+        </div>
+      </li>
+    {/each}
+  </ol>
+  <Navbar backHref="/{page.params.workoutId}">
+    <NavbarButton class="w-full" disabled={!changed} onclick={saveChanges}>
+      Save changes <IconCheck />
+    </NavbarButton>
   </Navbar>
 </Page>
-
-<style>
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2);
-    padding: var(--size-2);
-  }
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    :not(:first-child) {
-      border-top: 1px solid var(--border-color);
-    }
-  }
-
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--size-2);
-    padding: var(--size-4) 0;
-    font-weight: var(--font-weight-7);
-    font-size: var(--font-size-2);
-
-    div {
-      display: flex;
-      gap: var(--size-2);
-    }
-  }
-</style>

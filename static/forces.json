@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Pull",
+    "value": "pull"
+  },
+  {
+    "label": "Push",
+    "value": "push"
+  },
+  {
+    "label": "Static",
+    "value": "static"
+  }
+]

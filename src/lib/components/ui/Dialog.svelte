@@ -33,7 +33,7 @@
   dialog {
     border: none;
     border-radius: var(--radius-3);
-    background-color: var(--raisin-black);
+    background-color: var(--color-background);
     padding: var(--padding, 0);
     width: 100%;
     max-width: var(--max-width, var(--size-xs));
@@ -62,7 +62,7 @@
     justify-content: flex-end;
     gap: var(--size-2);
     gap: var(--size-3);
-    background-color: var(--raisin-black);
+    background-color: var(--color-background);
     padding: var(--size-2);
   }
 
@@ -81,7 +81,7 @@
     flex-direction: column;
     align-self: flex-start;
     gap: var(--size-3);
-    background-color: var(--raisin-black);
+    background-color: var(--color-background);
     padding: var(--size-4);
     font-weight: var(--font-weight-6);
     font-size: var(--font-size-3);

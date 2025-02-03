@@ -20,43 +20,21 @@
 {#snippet tab(label: string, value: T)}
   <button
     data-selected={currentValue === value}
+    class={[
+      "text-muted-foreground flex w-full items-center justify-center rounded px-2 py-1 text-sm font-medium",
+      "data-[selected=true]:bg-surface data-[selected=true]:text-foreground data-[selected=true]:font-bold",
+    ]}
     onclick={() => (currentValue = value)}
   >
     {label}
   </button>
 {/snippet}
 
-<div {...props}>
+<div
+  {...props}
+  class={[props.class, "border-border flex gap-1 rounded-sm border p-1"]}
+>
   {#each options as option}
     {@render tab(option.label, option.value)}
   {/each}
 </div>
-
-<style>
-  div {
-    display: flex;
-    gap: var(--size-1);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-3);
-    padding: var(--size-1);
-  }
-
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--size-3);
-    border-radius: var(--radius-round);
-    padding: var(--size-1) var(--size-2);
-    width: 100%;
-    color: hsl(var(--white-hsl) / 70%);
-    font-weight: var(--font-weight-5);
-    text-align: center;
-  }
-
-  button[data-selected="true"] {
-    background-color: var(--secondary);
-    color: var(--foreground);
-    font-weight: var(--font-weight-7);
-  }
-</style>

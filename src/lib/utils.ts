@@ -10,6 +10,12 @@ export const dateFormatter = new Intl.DateTimeFormat("en-US", {
   dateStyle: "long",
 });
 
+export function dateDifferenceInMinutes(date1: Date, date2: Date) {
+  const diffMs = date2.getTime() - date1.getTime();
+  const diffMins = Math.round(diffMs / (1000 * 60));
+  return diffMins;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function debounce(callback: Function, wait = 300) {
   let timeout: ReturnType<typeof setTimeout>;

@@ -29,10 +29,15 @@
       open = false;
     }}
   ></div>
-  <div role="dialog" transition:fly={{ y: 1000, duration: 200 }} {...props}>
+  <div
+    role="dialog"
+    transition:fly={{ y: 1000, duration: 200 }}
+    {...props}
+    class={["rounded-t-sm", props.class]}
+  >
     <header>
       {#if title}
-        <h2>{title}</h2>
+        <h2 class="max-w-[85%] p-2 text-xl font-bold">{title}</h2>
       {/if}
       <button onclick={() => (open = false)}>
         <IconX />
@@ -59,19 +64,16 @@
     flex-direction: column;
     gap: var(--size-6);
     z-index: var(--layer-5);
-    border-top-right-radius: var(--radius-3);
-    border-top-left-radius: var(--radius-3);
-    background-color: var(--popover);
+    background-color: var(--color-surface);
     height: 75%;
     overflow-y: auto;
-    color: var(--foreground);
+    color: var(--color-foreground);
 
     header {
       display: flex;
       position: sticky;
       top: 0;
-
-      background-color: var(--popover);
+      background-color: var(--color-surface);
       padding: var(--size-2);
 
       button {
@@ -85,13 +87,6 @@
         height: 44px;
       }
     }
-
-    h2 {
-      padding: var(--size-2);
-      max-width: 85%;
-      font-weight: var(--font-weight-6);
-      font-size: var(--font-size-3);
-    }
   }
 
   footer {
@@ -100,9 +95,8 @@
     right: calc(env(safe-area-inset-right) + var(--size-2));
     bottom: 0px;
     left: calc(env(safe-area-inset-right) + var(--size-2));
-    background-color: var(--popover);
-    padding-bottom: env(safe-area-inset-bottom);
-    height: 44px;
+    background-color: var(--color-surface);
+    padding-bottom: calc(env(safe-area-inset-bottom) + var(--size-2));
   }
 
   section {
@@ -119,7 +113,8 @@
     right: 0;
     bottom: 0;
     left: 0;
+    opacity: 0.7;
     z-index: var(--layer-4);
-    background-color: hsl(var(--black-hsl) / 70%);
+    background-color: black;
   }
 </style>

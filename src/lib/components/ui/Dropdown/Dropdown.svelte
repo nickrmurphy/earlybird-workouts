@@ -26,6 +26,10 @@
       onClickOutside: () => (open = false),
     }}
     {...props}
+    class={[
+      props.class,
+      "bg-surface divide-y divide-white/10 rounded-sm shadow-2xl",
+    ]}
   >
     {@render children?.()}
   </menu>
@@ -36,7 +40,5 @@
     display: flex;
     position: absolute;
     flex-direction: column;
-    border-radius: var(--radius-3);
-    background-color: var(--licorice);
   }
 </style>

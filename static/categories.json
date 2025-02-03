@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Strength",
+    "value": "strength"
+  },
+  {
+    "label": "Stretching",
+    "value": "stretching"
+  },
+  {
+    "label": "Plyometrics",
+    "value": "plyometrics"
+  },
+  {
+    "label": "Strongman",
+    "value": "strongman"
+  },
+  {
+    "label": "Powerlifting",
+    "value": "powerlifting"
+  },
+  {
+    "label": "Cardio",
+    "value": "cardio"
+  },
+  {
+    "label": "Olympic Weightlifting",
+    "value": "olympic weightlifting"
+  }
+]

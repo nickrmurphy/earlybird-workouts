@@ -1,0 +1,70 @@
+[
+  {
+    "label": "Abdominals",
+    "value": "abdominals"
+  },
+  {
+    "label": "Hamstrings",
+    "value": "hamstrings"
+  },
+  {
+    "label": "Calves",
+    "value": "calves"
+  },
+  {
+    "label": "Shoulders",
+    "value": "shoulders"
+  },
+  {
+    "label": "Adductors",
+    "value": "adductors"
+  },
+  {
+    "label": "Glutes",
+    "value": "glutes"
+  },
+  {
+    "label": "Quadriceps",
+    "value": "quadriceps"
+  },
+  {
+    "label": "Biceps",
+    "value": "biceps"
+  },
+  {
+    "label": "Forearms",
+    "value": "forearms"
+  },
+  {
+    "label": "Abductors",
+    "value": "abductors"
+  },
+  {
+    "label": "Triceps",
+    "value": "triceps"
+  },
+  {
+    "label": "Chest",
+    "value": "chest"
+  },
+  {
+    "label": "Lower Back",
+    "value": "lower back"
+  },
+  {
+    "label": "Traps",
+    "value": "traps"
+  },
+  {
+    "label": "Middle Back",
+    "value": "middle back"
+  },
+  {
+    "label": "Lats",
+    "value": "lats"
+  },
+  {
+    "label": "Neck",
+    "value": "neck"
+  }
+]

@@ -9,7 +9,7 @@
 </script>
 
 {#if level === 1}
-  <h1 {...props}>
+  <h1 {...props} class="font-display">
     {@render children?.()}
   </h1>
 {:else if level === 2}

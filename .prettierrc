@@ -2,9 +2,12 @@
   "plugins": [
     "prettier-plugin-svelte",
     "prettier-plugin-css-order",
-    "prettier-plugin-organize-imports"
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
   ],
-  "pluginSearchDirs": ["."],
+  "pluginSearchDirs": [
+    "."
+  ],
   "overrides": [
     {
       "files": "*.svelte",

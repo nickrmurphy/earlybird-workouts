@@ -1,0 +1,46 @@
+[
+  {
+    "label": "Machine",
+    "value": "machine"
+  },
+  {
+    "label": "Other",
+    "value": "other"
+  },
+  {
+    "label": "Foam Roll",
+    "value": "foam roll"
+  },
+  {
+    "label": "Kettlebells",
+    "value": "kettlebells"
+  },
+  {
+    "label": "Dumbbell",
+    "value": "dumbbell"
+  },
+  {
+    "label": "Cable",
+    "value": "cable"
+  },
+  {
+    "label": "Barbell",
+    "value": "barbell"
+  },
+  {
+    "label": "Bands",
+    "value": "bands"
+  },
+  {
+    "label": "Medicine Ball",
+    "value": "medicine ball"
+  },
+  {
+    "label": "Exercise Ball",
+    "value": "exercise ball"
+  },
+  {
+    "label": "E-Z Curl Bar",
+    "value": "e-z curl bar"
+  }
+]

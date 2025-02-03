@@ -2,14 +2,12 @@
   import type { HTMLButtonAttributes } from "svelte/elements";
 
   type Props = HTMLButtonAttributes & {
-    rounded?: "default" | "full";
     variant?: "primary" | "ghost" | "outline";
-    size?: "md" | "lg";
+    size?: "md" | "sm";
   };
 
   let {
     children,
-    rounded = "default",
     variant = "primary",
     size = "md",
     ...props
@@ -20,65 +18,14 @@
   {...props}
   data-variant={variant}
   data-size={size}
-  data-rounded={rounded}
+  class={[
+    props.class,
+    "flex min-h-11 w-full min-w-11 items-center justify-center gap-2 rounded-sm px-3 py-2 font-semibold disabled:opacity-50 [&>svg]:size-4",
+    "data-[size=sm]:min-h-9 data-[size=sm]:px-2 data-[size=sm]:py-1 data-[size=sm]:text-sm",
+    "data-[variant=primary]:bg-primary data-[variant=primary]:text-primary-foreground",
+    "data-[variant=ghost]:text-foreground data-[variant=ghost]:bg-transparent",
+    "data-[variant=outline]:border-muted-foreground data-[variant=outline]:text-muted-foreground data-[variant=outline]:border",
+  ]}
 >
   {@render children?.()}
 </button>
-
-<style>
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--size-2);
-    width: var(--width);
-    font-weight: var(--font-weight-6);
-    text-align: center;
-
-    :global(svg) {
-      width: var(--size-4);
-      height: var(--size-4);
-    }
-  }
-
-  button[data-variant="primary"] {
-    background-color: var(--primary-color);
-    color: hsla(var(--black-hsl) / 70%);
-  }
-
-  button[data-variant="ghost"] {
-    background-color: transparent;
-  }
-
-  button[data-variant="outline"] {
-    border: 1px solid var(--primary-color);
-    background-color: transparent;
-    color: var(--primary-color);
-  }
-
-  button[data-size="md"] {
-    padding: var(--size-1) var(--size-2);
-
-    min-width: 44px;
-    min-height: 44px;
-    font-size: var(--font-size-2);
-  }
-
-  button[data-size="lg"] {
-    padding: var(--size-1) var(--size-2);
-    font-size: var(--font-size-3);
-  }
-
-  button[data-rounded="default"] {
-    border-radius: var(--radius-3);
-    padding: var(--size-2) var(--size-3);
-  }
-
-  button[data-rounded="full"] {
-    border-radius: var(--radius-round);
-  }
-
-  button:disabled {
-    opacity: 0.5;
-  }
-</style>

@@ -1,67 +1,67 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { page } from "$app/state";
   import { BusinessClipboard } from "$lib/assets";
-  import { Navbar, EmptyMessage, Page, PageHeader } from "$lib/components";
-  import { dateFormatter } from "$lib/utils";
-  import { IconChevronRight } from "@tabler/icons-svelte";
+  import { EmptyMessage, HistoryCard, Page, PageHeader } from "$lib/components";
+  import Navbar from "$lib/components/page/Navbar.svelte";
+  import { db, type History, type HistorySet } from "$lib/db";
+  import { liveQuery } from "dexie";
 
-  let { data } = $props();
+  let workout = liveQuery(() =>
+    db.workouts.get(parseInt(page.params.workoutId)),
+  );
+  let history = liveQuery(() => {
+    return db.history
+      .where("workoutId")
+      .equals(parseInt(page.params.workoutId))
+      .reverse()
+      .sortBy("startTime");
+  });
+  let historyIds = $derived($history?.map((h) => h.id) || []);
+  let successSets = liveQuery(() => {
+    return db.historySets
+      .filter((set) => historyIds.includes(set.historyId) && set.isSuccess)
+      .toArray();
+  });
+
+  let historyExerciseCount: Map<number, number> = $derived.by(() => {
+    let map = new Map<number, number>();
+    $successSets?.forEach((s) => {
+      if (map.has(s.historyId)) {
+        map.set(s.historyId, map.get(s.historyId)! + 1);
+      } else {
+        map.set(s.historyId, 1);
+      }
+    });
+
+    return map;
+  });
 </script>
 
 <Page>
-  <PageHeader title={data.workout.name}>
+  <PageHeader title={$workout?.name}>
     {#snippet right()}
-      <h3>History</h3>
+      <span>History</span>
     {/snippet}
   </PageHeader>
-  <ol>
-    {#if data.workoutHistory.length === 0}
-      <EmptyMessage
-        header="No history yet."
-        message="Past workout details will appear here."
+  {#if $history?.length === 0}
+    <EmptyMessage
+      header="No history yet."
+      message="Past workout details will appear here."
+    />
+    <BusinessClipboard />
+  {/if}
+  <div class="space-y-8">
+    {#each $history || [] as item}
+      <HistoryCard
+        onclick={() => {
+          goto(`/${page.params.workoutId}/history/${item.id}`);
+        }}
+        startTime={item.startTime}
+        endTime={item.endTime || undefined}
+        exerciseCount={historyExerciseCount.get(item.id) || 0}
       />
-      <BusinessClipboard />
-    {/if}
-    {#each data.workoutHistory as history}
-      <li>
-        <button
-          onclick={() => goto(`/${data.workout.id}/history/${history.id}`)}
-        >
-          {dateFormatter.format(new Date(history.startTime))}
-          <IconChevronRight />
-        </button>
-      </li>
     {/each}
-  </ol>
+  </div>
+  <Navbar backHref="/{page.params.workoutId}" />
 </Page>
-<Navbar backHref={`/${data.workout.id}`} />
-
-<style>
-  h3 {
-    font-weight: var(--font-weight-7);
-    font-size: var(--font-size-2);
-  }
-
-  ol {
-    display: grid;
-
-    :not(:first-child) {
-      border-top: 1px solid var(--border-color);
-    }
-
-    li {
-      width: 100%;
-
-      button {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--size-4) var(--size-2);
-        width: 100%;
-        color: var(--foreground);
-        font-weight: var(--font-weight-6);
-        font-size: var(--font-size-2);
-      }
-    }
-  }
-</style>

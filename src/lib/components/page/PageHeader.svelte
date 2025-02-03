@@ -8,14 +8,18 @@
     right?: Snippet;
   };
 
-  let { level = 1, title, children, right }: Props = $props();
+  let { title, children, right }: Props = $props();
 </script>
 
-<header>
+<header class="bg-background border-divide border-b shadow">
   {#if title || right}
     <div class="top-content">
       {#if title}
-        <h1 data-level={level}>{title}</h1>
+        <h1
+          class="font-display text-foreground text-3xl font-bold tracking-wide"
+        >
+          {title}
+        </h1>
       {/if}
       {#if right}
         <div class="right">{@render right()}</div>
@@ -36,21 +40,15 @@
     backdrop-filter: blur(10px);
     margin-right: var(--size-000);
     margin-left: var(--size-000);
-    background-color: hsla(var(--background-hsl) / 90%);
     padding-top: calc(env(safe-area-inset-top) + var(--size-2));
     padding-right: var(--size-3);
     padding-bottom: var(--size-2);
     padding-left: var(--size-3);
   }
 
-  h1[data-level="1"] {
-    font-weight: var(--font-weight-7);
-    font-size: var(--font-size-4);
-  }
-
   .top-content {
     display: flex;
-    align-items: center;
+    align-items: baseline;
   }
 
   .bottom-content {
@@ -62,7 +60,7 @@
 
   .right {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: var(--size-4);
     margin-left: auto;
   }

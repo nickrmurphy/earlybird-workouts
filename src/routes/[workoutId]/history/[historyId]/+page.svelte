@@ -1,40 +1,47 @@
-<script lang="ts">
-  import { Navbar, ExerciseSetTable, Page, PageHeader } from "$lib/components";
+<script>
+  import { page } from "$app/state";
+  import { Page, PageHeader, Navbar, ExerciseSetsTable } from "$lib/components";
+  import { db } from "$lib/db";
   import { dateFormatter } from "$lib/utils";
+  import { liveQuery } from "dexie";
 
-  let { data } = $props();
-  let historyDate = $derived.by(() => {
-    const startTime = data.workoutHistory.find(
-      (history) => history.id === data.historyId,
-    )?.startTime;
-    if (startTime) {
-      return dateFormatter.format(new Date(startTime));
-    } else {
-      console.error("History not found");
-      return "";
-    }
+  let history = liveQuery(() => {
+    return db.history
+      .where("id")
+      .equals(parseInt(page.params.historyId))
+      .first();
   });
+
+  let exercises = liveQuery(() =>
+    db.historyExercises
+      .where("historyId")
+      .equals(parseInt(page.params.historyId))
+      .toArray(),
+  );
+
+  let historySets = liveQuery(() =>
+    db.historySets
+      .where("historyId")
+      .equals(parseInt(page.params.historyId))
+      .toArray(),
+  );
 </script>
 
 <Page>
-  <PageHeader title={data.workout.name}>
+  <PageHeader title={$history?.workoutName}>
     {#snippet right()}
-      <time>{historyDate}</time>
+      <span>{dateFormatter.format($history?.startTime)}</span>
     {/snippet}
   </PageHeader>
-
-  {#each data.exerciseHistory as exercise}
-    <ExerciseSetTable
+  {#each $exercises as exercise}
+    <ExerciseSetsTable
       exerciseName={exercise.exerciseName}
-      sets={exercise.sets}
+      sets={$historySets?.filter((s) => s.exerciseId === exercise.exerciseId)}
     />
   {/each}
+  <Navbar
+    backHref={page.url.searchParams.has("from")
+      ? page.url.searchParams.get("from") || undefined
+      : `/${page.params.workoutId}/history`}
+  />
 </Page>
-<Navbar backHref={`/${data.workout.id}/history`}></Navbar>
-
-<style>
-  time {
-    font-weight: var(--font-weight-7);
-    font-size: var(--font-size-2);
-  }
-</style>

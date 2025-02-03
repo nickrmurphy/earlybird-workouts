@@ -1,16 +1,12 @@
-import { services } from "$lib/stores";
-import { redirect } from "@sveltejs/kit";
 import type { LayoutLoad } from "../$types";
+import { exerciseSchema } from "$lib/schema";
+import { z } from "zod";
 
 export const load: LayoutLoad = async () => {
-  const activeWorkout = await services.workoutHistory.getActive();
+  const exerciseJson = await fetch("/exercises.json").then((data) =>
+    data.json(),
+  );
+  const allExercises = z.array(exerciseSchema).safeParse(exerciseJson);
 
-  if (!activeWorkout) {
-    redirect(303, "/");
-  }
-
-  const workoutExercises =
-    await services.workoutHistory.getWorkoutHistoryExercises(activeWorkout.id);
-
-  return { activeWorkout, workoutExercises };
+  return { allExercises: allExercises.success ? allExercises.data : [] };
 };
