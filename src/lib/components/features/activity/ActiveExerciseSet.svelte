@@ -23,7 +23,7 @@
   }: Props = $props();
 </script>
 
-<section class="grid grid-cols-8 gap-2">
+<section class="grid grid-cols-8 gap-2 pr-2 pl-1">
   <div
     class="text-muted-foreground col-span-3 text-xs tracking-wider uppercase"
   >
@@ -50,7 +50,7 @@
   <Input
     class="col-span-4"
     id={`weight-${setIndex}`}
-    inputmode="numeric"
+    inputmode="decimal"
     min={0}
     disabled={isComplete}
     type="number"

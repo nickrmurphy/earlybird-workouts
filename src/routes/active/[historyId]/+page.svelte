@@ -11,10 +11,15 @@
     Drawer,
   } from "$lib/components";
   import { activity } from "$lib/stores";
-  import { IconAdjustmentsHorizontal, IconChecks } from "@tabler/icons-svelte";
+  import {
+    IconAdjustmentsHorizontal,
+    IconChecks,
+    IconStopwatch,
+  } from "@tabler/icons-svelte";
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
   import { goto } from "$app/navigation";
+  import { onMount } from "svelte";
 
   let { data } = $props();
 
@@ -30,6 +35,20 @@
     db.historySets.where("historyId").equals(data.historyId).toArray(),
   );
 
+  let elapsedSeconds = $state(0);
+  let minutes = $derived(Math.floor(elapsedSeconds / 60));
+  let seconds = $derived(elapsedSeconds % 60);
+
+  onMount(() => {
+    setInterval(() => {
+      elapsedSeconds = $activeWorkout
+        ? Math.floor(
+            (new Date().getTime() - $activeWorkout.startTime.getTime()) / 1000,
+          )
+        : 0;
+    }, 1000);
+  }); // 1000 milliseconds = 1 second
+
   async function confirmEndWorkout() {
     const confirmEnd = await confirm(
       "This action cannot be reverted. Are you sure?",
@@ -40,7 +59,7 @@
       activity.restTimer.stop();
       localStorage.removeItem("activeHistoryId");
       db.history.update(data.historyId, { endTime: new Date() }).then(() => {
-        goto("/");
+        goto(`/${$activeWorkout?.workoutId}/history/${data.historyId}`);
       });
     }
   }
@@ -49,9 +68,27 @@
 <Page>
   <PageHeader title={$activeWorkout?.workoutName}>
     {#snippet right()}
-      <button onclick={confirmEndWorkout}>
-        <IconChecks color="var(--color-accent)" size={24} />
-      </button>
+      <div class="flex items-center gap-8">
+        {#if $activeWorkout}
+          <div
+            class="flex items-baseline justify-center gap-1 font-mono text-lg font-semibold"
+          >
+            <span class="my-auto">
+              <IconStopwatch class="size-4" />
+            </span>
+            <span>
+              {minutes}
+            </span>
+            <span>:</span>
+            <span>
+              {seconds < 10 ? `0${seconds}` : seconds}
+            </span>
+          </div>
+        {/if}
+        <button onclick={confirmEndWorkout}>
+          <IconChecks color="var(--color-accent)" size={24} />
+        </button>
+      </div>
     {/snippet}
   </PageHeader>
   {#each $exercises || [] as exercise}

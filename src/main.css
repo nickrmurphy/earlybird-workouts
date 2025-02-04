@@ -40,7 +40,5 @@
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  @apply border-border bg-background text-foreground h-screen font-sans antialiased select-none;
 }

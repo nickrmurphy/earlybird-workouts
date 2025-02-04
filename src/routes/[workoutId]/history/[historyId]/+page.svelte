@@ -2,7 +2,8 @@
   import { page } from "$app/state";
   import { Page, PageHeader, Navbar, ExerciseSetsTable } from "$lib/components";
   import { db } from "$lib/db";
-  import { dateFormatter } from "$lib/utils";
+  import { dateDifferenceInMinutes, dateFormatter } from "$lib/utils";
+  import { IconClock, IconWeight } from "@tabler/icons-svelte";
   import { liveQuery } from "dexie";
 
   let history = liveQuery(() => {
@@ -25,6 +26,18 @@
       .equals(parseInt(page.params.historyId))
       .toArray(),
   );
+
+  let runTime = $derived(
+    $history && $history.endTime
+      ? dateDifferenceInMinutes($history?.startTime, $history.endTime)
+      : undefined,
+  );
+
+  let volume = $derived(
+    $historySets
+      ? $historySets.reduce((acc, set) => acc + set.count * set.weight, 0)
+      : undefined,
+  );
 </script>
 
 <Page>
@@ -33,6 +46,20 @@
       <span>{dateFormatter.format($history?.startTime)}</span>
     {/snippet}
   </PageHeader>
+  <div
+    class="font-display flex items-center justify-between gap-2 rounded-sm p-1 text-lg font-semibold"
+  >
+    <div class="flex items-center gap-2">
+      <IconClock class="size-5" />
+      <span>{runTime}</span>
+      min.
+    </div>
+    <div class="flex items-center gap-2">
+      <IconWeight class="size-5" />
+      <span>{volume}</span>
+      lbs
+    </div>
+  </div>
   {#each $exercises as exercise}
     <ExerciseSetsTable
       exerciseName={exercise.exerciseName}

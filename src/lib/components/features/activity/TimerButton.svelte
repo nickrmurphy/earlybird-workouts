@@ -39,9 +39,9 @@
   {:else}
     <IconPlayerPlay />
   {/if}
-  <time data-expired={isExpired}>
-    {formattedElapsedTime}/{runTimeSeconds} s.</time
-  >
+  <time class="font-mono" data-expired={isExpired}
+    >{formattedElapsedTime}/{runTimeSeconds} s.
+  </time>
 </NavbarButton>
 
 <style>
