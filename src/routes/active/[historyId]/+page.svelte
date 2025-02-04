@@ -77,7 +77,7 @@
               <IconStopwatch class="size-4" />
             </span>
             <span>
-              {minutes}
+              {minutes < 10 ? `0${minutes}` : minutes}
             </span>
             <span>:</span>
             <span>

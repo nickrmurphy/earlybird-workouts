@@ -14,7 +14,9 @@
 </script>
 
 <section>
-  <h4 class="px-1 pb-3 text-lg font-semibold tracking-wider uppercase">
+  <h4
+    class="text-muted-foreground px-1 pb-3 text-lg font-semibold tracking-wider uppercase"
+  >
     {exerciseName}
   </h4>
   <div class="border-border w-full overflow-hidden rounded-sm border">
