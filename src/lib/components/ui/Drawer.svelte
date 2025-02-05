@@ -62,7 +62,7 @@
     bottom: 0;
     left: 0;
     flex-direction: column;
-    gap: var(--size-6);
+    gap: var(--size-2);
     z-index: var(--layer-5);
     background-color: var(--color-surface);
     height: 75%;
