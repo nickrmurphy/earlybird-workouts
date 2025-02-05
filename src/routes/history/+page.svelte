@@ -10,6 +10,7 @@
     PageHeader,
   } from "$lib/components";
   import { db } from "$lib/db";
+  import { calculateTonnagePerAttribute } from "$lib/utils";
   import { IconLoader } from "@tabler/icons-svelte";
   import { liveQuery } from "dexie";
 
@@ -20,19 +21,9 @@
     return db.historySets.filter((set) => set.isSuccess).toArray();
   });
 
-  let tonnage: Map<number, number> = $derived.by(() => {
-    // TODO: Move this to it's own query (repeated in /history/[historyId]/+page.svelte)
-    let map = new Map<number, number>();
-    $successSets?.forEach((s) => {
-      if (map.has(s.historyId)) {
-        map.set(s.historyId, map.get(s.historyId)! + s.count * s.weight);
-      } else {
-        map.set(s.historyId, s.count * s.weight);
-      }
-    });
-
-    return map;
-  });
+  let tonnage: Map<number, number> = $derived(
+    calculateTonnagePerAttribute($successSets || [], (set) => set.historyId),
+  );
 </script>
 
 <Page>

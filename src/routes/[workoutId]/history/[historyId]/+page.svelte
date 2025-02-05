@@ -10,7 +10,11 @@
     DropdownItem,
   } from "$lib/components";
   import { db } from "$lib/db";
-  import { dateDifferenceInMinutes, dateFormatter } from "$lib/utils";
+  import {
+    calculateTonnage,
+    dateDifferenceInMinutes,
+    dateFormatter,
+  } from "$lib/utils";
   import {
     IconClock,
     IconDotsCircleHorizontal,
@@ -47,14 +51,8 @@
       : undefined,
   );
 
-  // TODO: Move this to it's own query
-  let volume = $derived(
-    $historySets
-      ? $historySets.reduce(
-          (acc, set) => acc + (set.isSuccess ? set.count * set.weight : 0),
-          0,
-        )
-      : undefined,
+  let tonnage = $derived(
+    $historySets ? calculateTonnage($historySets) : undefined,
   );
 
   let dropdownToggle: HTMLElement | null = $state(null);
@@ -110,7 +108,7 @@
     </div>
     <div class="flex items-center gap-2">
       <IconWeight class="size-5" />
-      <span>{volume}</span>
+      <span>{tonnage}</span>
       lbs
     </div>
   </div>
