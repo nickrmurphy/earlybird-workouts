@@ -16,8 +16,6 @@
     db.workouts.where("id").equals(parseInt(page.params.workoutId)).first(),
   );
 
-  // TODO: Implement reordering
-
   const workoutExercises = liveQuery(() =>
     db.workoutExercises
       .where("workoutId")

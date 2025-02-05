@@ -11,17 +11,21 @@
   import { page } from "$app/state";
   import { IconFilter, IconFilterEdit } from "@tabler/icons-svelte";
   import { InstructionsDrawer } from "$lib/components";
-  import type { Exercise } from "$lib/schema";
   import { liveQuery } from "dexie";
   import { db } from "$lib/db/index.js";
+  import { ExerciseSearch } from "$lib/stores";
+  import {
+    equipmentSchema,
+    muscleSchema,
+    type Equipment,
+    type Muscle,
+  } from "$lib/schema";
 
   let { data } = $props();
 
-  // TODO: Move all this search state into a separate store / class / function
-
-  let filterQuery = $state("");
   let selectedOnly = $state(false);
   let searchFilters: string[] = $state([]);
+
   let exerciseDetails: { id: string; name: string; instructions: string[] } =
     $state({
       id: "",
@@ -37,24 +41,50 @@
       .toArray();
   });
 
-  function getFilters(): { muscleIds: string[]; equipmentIds: string[] } {
+  const exerciseSearch = new ExerciseSearch(data.allExercises);
+  let selectedExerciseDetails = $derived.by(() => {
+    return data.allExercises.filter((exercise) =>
+      $workoutExercises?.map((e) => e.exerciseId).includes(exercise.id),
+    );
+  });
+
+  function getFilters(): { muscleIds: Muscle[]; equipmentIds: Equipment[] } {
     if (searchFilters.length === 0) {
       return { muscleIds: [], equipmentIds: [] };
     }
 
-    let muscleIds: string[] = [];
-    let equipmentIds: string[] = [];
+    let muscleIds: Muscle[] = [];
+    let equipmentIds: Equipment[] = [];
 
     for (const filter of searchFilters) {
       if (filter.startsWith("muscle-")) {
-        muscleIds.push(filter.replace("muscle-", ""));
+        muscleIds.push(muscleSchema.parse(filter.replace("muscle-", "")));
       } else if (filter.startsWith("equipment-")) {
-        equipmentIds.push(filter.replace("equipment-", ""));
+        equipmentIds.push(
+          equipmentSchema.parse(filter.replace("equipment-", "")),
+        );
       }
     }
 
     return { muscleIds, equipmentIds };
   }
+
+  let exerciseOptions = $derived.by(() => {
+    const options = selectedOnly
+      ? selectedExerciseDetails
+      : exerciseSearch.filteredOptions;
+
+    return options.map((exercise) => ({
+      value: exercise.id,
+      label: exercise.name,
+    }));
+  });
+
+  $effect(() => {
+    const { muscleIds, equipmentIds } = getFilters();
+    exerciseSearch.equipmentIdFilters = equipmentIds;
+    exerciseSearch.muscleIdFilters = muscleIds;
+  });
 
   function getExerciseDetailsFromId(id: string) {
     const exercise = data.allExercises.find((exercise) => exercise.id === id);
@@ -62,52 +92,6 @@
     // TODO: Handle undefined better
     exerciseDetails = exercise ?? { id: "", name: "", instructions: [] };
   }
-
-  let exerciseOptions = $derived.by(() => {
-    if (selectedOnly) {
-      return data.allExercises.filter((exercise) =>
-        $workoutExercises?.map((e) => e.exerciseId).includes(exercise.id),
-      );
-    }
-
-    return data.allExercises.filter((exercise) => {
-      const nameFilter = filterQuery.trim();
-      let nameMatch = true;
-      let muscleMatch = true;
-      let equipmentMatch = true;
-
-      if (nameFilter) {
-        nameMatch = exercise.name
-          .toLowerCase()
-          .includes(nameFilter.toLowerCase());
-      }
-
-      if (searchFilters.length > 0) {
-        const { muscleIds, equipmentIds } = getFilters();
-
-        if (muscleIds.length > 0) {
-          muscleMatch = muscleIds.some(
-            (muscleId) =>
-              // TODO: Remove type casting
-              exercise.primaryMuscles.includes(
-                muscleId as Exercise["primaryMuscles"][0],
-              ) ||
-              exercise.secondaryMuscles.includes(
-                muscleId as Exercise["secondaryMuscles"][0],
-              ),
-          );
-        }
-
-        if (equipmentIds.length > 0) {
-          equipmentMatch = equipmentIds.some((equipmentId) =>
-            exercise.equipment?.includes(equipmentId),
-          );
-        }
-      }
-
-      return nameMatch && muscleMatch && equipmentMatch;
-    });
-  });
 
   const handleAddExercise = (value: string) => {
     const exercise = data.allExercises.find(
@@ -135,7 +119,7 @@
 <Page>
   <PageHeader>
     <Input
-      bind:value={filterQuery}
+      bind:value={exerciseSearch.searchTerm}
       type="search"
       placeholder="Search for an exercise..."
     />
@@ -157,10 +141,7 @@
 
   <ExerciseSelectList
     selected={$workoutExercises?.map((exercise) => exercise.exerciseId)}
-    options={exerciseOptions.map((exercise) => ({
-      value: exercise.id,
-      label: exercise.name,
-    }))}
+    options={exerciseOptions}
     onAdd={(value) => {
       handleAddExercise(value);
     }}
