@@ -10,6 +10,7 @@
     NavbarButton,
     Drawer,
     Input,
+    TimerDisplay,
   } from "$lib/components";
   import { activity } from "$lib/stores";
   import {
@@ -115,21 +116,11 @@
     {#snippet right()}
       <div class="flex items-center gap-8">
         {#if $activeWorkout}
-          <!-- TODO: Move this timer to a separate component -->
-          <div
-            class="flex items-baseline justify-center gap-1 font-mono text-lg font-semibold"
-          >
-            <span class="my-auto">
+          <TimerDisplay {elapsedSeconds}>
+            {#snippet icon()}
               <IconStopwatch class="size-4" />
-            </span>
-            <span>
-              {minutes < 10 ? `0${minutes}` : minutes}
-            </span>
-            <span>:</span>
-            <span>
-              {seconds < 10 ? `0${seconds}` : seconds}
-            </span>
-          </div>
+            {/snippet}
+          </TimerDisplay>
         {/if}
         <button onclick={confirmEndWorkout}>
           <IconChecks color="var(--color-accent)" size={24} />
