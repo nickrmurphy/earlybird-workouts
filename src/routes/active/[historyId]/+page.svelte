@@ -41,8 +41,6 @@
   );
 
   let elapsedSeconds = $state(0);
-  let minutes = $derived(Math.floor(elapsedSeconds / 60));
-  let seconds = $derived(elapsedSeconds % 60);
 
   let exercisesFilter = $state("");
   let displayExercises = $derived.by(() => {

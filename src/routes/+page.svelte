@@ -53,7 +53,7 @@
       </button>
     {/snippet}
   </PageHeader>
-  <section>
+  <section class="flex flex-col gap-4 overflow-scroll">
     {#if $workouts?.length > 0}
       {#each $workouts as workout}
         <Pressable href={`/${workout.id}`}>
@@ -88,6 +88,7 @@
     </NavbarButton>
   </Navbar>
 </Page>
+
 <InputDialog
   title="Create a workout"
   onSubmit={createWorkout}
@@ -95,12 +96,3 @@
   placeholder="e.g. Upper Body"
   bind:open={showModal}
 />
-
-<style>
-  section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-4);
-    overflow: scroll;
-  }
-</style>

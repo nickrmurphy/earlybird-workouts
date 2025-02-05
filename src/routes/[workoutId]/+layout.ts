@@ -26,7 +26,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
   const parsedMuscles = z.array(discreteMuscle).safeParse(muscleJson);
 
   let allEquipment: DiscreteEquipment[] = [];
-  let allMuscleGroups: DiscreteMuscle[] = [];
+  let allMuscles: DiscreteMuscle[] = [];
   let allExercises: Exercise[] = [];
 
   if (!parsedEquipment.success) {
@@ -38,7 +38,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
   if (!parsedMuscles.success) {
     console.error(parsedMuscles.error);
   } else {
-    allMuscleGroups = parsedMuscles.data;
+    allMuscles = parsedMuscles.data;
   }
 
   if (!parsedExercises.success) {
@@ -49,7 +49,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
 
   return {
     allEquipment,
-    allMuscleGroups,
+    allMuscles,
     allExercises,
   };
 };

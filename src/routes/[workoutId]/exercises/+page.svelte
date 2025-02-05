@@ -25,6 +25,7 @@
     name: "",
     instructions: [],
   });
+
   let showDrawer = $state(false);
 
   let workoutExercises = liveQuery(() => {
@@ -123,7 +124,7 @@
   backAsComplete={page.url.searchParams.has("complete")}
 >
   <ExerciseSelectFilters
-    muscleOptions={data.allMuscleGroups}
+    muscleOptions={data.allMuscles}
     equipmentOptions={data.allEquipment}
     bind:selectedMuscles={exerciseSearch.muscleIdFilters}
     bind:selectedEquipment={exerciseSearch.equipmentIdFilters}

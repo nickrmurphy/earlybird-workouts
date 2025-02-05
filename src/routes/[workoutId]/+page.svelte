@@ -35,6 +35,7 @@
   let workout = liveQuery(() =>
     db.workouts.where("id").equals(parseInt(page.params.workoutId)).first(),
   );
+
   let workoutExercises = liveQuery(() =>
     db.workoutExercises
       .where("workoutId")

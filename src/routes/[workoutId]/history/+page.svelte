@@ -5,11 +5,13 @@
   import { EmptyMessage, HistoryCard, Page, PageHeader } from "$lib/components";
   import Navbar from "$lib/components/page/Navbar.svelte";
   import { db, type History, type HistorySet } from "$lib/db";
+  import { calculateTonnagePerAttribute } from "$lib/utils";
   import { liveQuery } from "dexie";
 
   let workout = liveQuery(() =>
     db.workouts.get(parseInt(page.params.workoutId)),
   );
+
   let history = liveQuery(() => {
     return db.history
       .where("workoutId")
@@ -17,25 +19,17 @@
       .reverse()
       .sortBy("startTime");
   });
-  let historyIds = $derived($history?.map((h) => h.id) || []);
   let successSets = liveQuery(() => {
     return db.historySets
-      .filter((set) => historyIds.includes(set.historyId) && set.isSuccess)
+      .filter(
+        (set) => $history.some((h) => h.id === set.historyId) && set.isSuccess,
+      )
       .toArray();
   });
 
-  let historyExerciseVolume: Map<number, number> = $derived.by(() => {
-    let map = new Map<number, number>();
-    $successSets?.forEach((s) => {
-      if (map.has(s.historyId)) {
-        map.set(s.historyId, map.get(s.historyId)! + s.count * s.weight);
-      } else {
-        map.set(s.historyId, s.count * s.weight);
-      }
-    });
-
-    return map;
-  });
+  let tonnage: Map<number, number> = $derived(
+    calculateTonnagePerAttribute($successSets || [], (set) => set.historyId),
+  );
 </script>
 
 <Page>
@@ -59,7 +53,7 @@
         }}
         startTime={item.startTime}
         endTime={item.endTime || undefined}
-        tonnage={historyExerciseVolume.get(item.id) || 0}
+        tonnage={tonnage.get(item.id) || 0}
       />
     {/each}
   </div>
