@@ -49,7 +49,10 @@
 
   let volume = $derived(
     $historySets
-      ? $historySets.reduce((acc, set) => acc + set.count * set.weight, 0)
+      ? $historySets.reduce(
+          (acc, set) => acc + (set.isSuccess ? set.count * set.weight : 0),
+          0,
+        )
       : undefined,
   );
 
