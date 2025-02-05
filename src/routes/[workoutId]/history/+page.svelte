@@ -24,13 +24,13 @@
       .toArray();
   });
 
-  let historyExerciseCount: Map<number, number> = $derived.by(() => {
+  let historyExerciseVolume: Map<number, number> = $derived.by(() => {
     let map = new Map<number, number>();
     $successSets?.forEach((s) => {
       if (map.has(s.historyId)) {
-        map.set(s.historyId, map.get(s.historyId)! + 1);
+        map.set(s.historyId, map.get(s.historyId)! + s.count * s.weight);
       } else {
-        map.set(s.historyId, 1);
+        map.set(s.historyId, s.count * s.weight);
       }
     });
 
@@ -59,7 +59,7 @@
         }}
         startTime={item.startTime}
         endTime={item.endTime || undefined}
-        exerciseCount={historyExerciseCount.get(item.id) || 0}
+        tonnage={historyExerciseVolume.get(item.id) || 0}
       />
     {/each}
   </div>

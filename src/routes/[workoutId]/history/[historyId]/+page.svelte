@@ -47,6 +47,7 @@
       : undefined,
   );
 
+  // TODO: Move this to it's own query
   let volume = $derived(
     $historySets
       ? $historySets.reduce(

@@ -20,13 +20,14 @@
     return db.historySets.filter((set) => set.isSuccess).toArray();
   });
 
-  let historyExerciseCount: Map<number, number> = $derived.by(() => {
+  let tonnage: Map<number, number> = $derived.by(() => {
+    // TODO: Move this to it's own query (repeated in /history/[historyId]/+page.svelte)
     let map = new Map<number, number>();
     $successSets?.forEach((s) => {
       if (map.has(s.historyId)) {
-        map.set(s.historyId, map.get(s.historyId)! + 1);
+        map.set(s.historyId, map.get(s.historyId)! + s.count * s.weight);
       } else {
-        map.set(s.historyId, 1);
+        map.set(s.historyId, s.count * s.weight);
       }
     });
 
@@ -53,7 +54,7 @@
           workoutName={item.workoutName}
           startTime={item.startTime}
           endTime={item.endTime}
-          exerciseCount={historyExerciseCount.get(item.id) || 0}
+          tonnage={tonnage.get(item.id) || 0}
         />
       {/each}
     {:else}
