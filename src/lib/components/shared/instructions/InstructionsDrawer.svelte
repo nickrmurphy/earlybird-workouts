@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Drawer } from "../ui";
+  import { Drawer } from "../../ui";
   import type { Snippet } from "svelte";
 
   type Props = {
