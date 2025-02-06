@@ -36,6 +36,7 @@
   });
 
   const exerciseSearch = new ExerciseSearch(data.allExercises);
+
   let selectedExerciseDetails = $derived.by(() => {
     return data.allExercises.filter((exercise) =>
       $workoutExercises?.map((e) => e.exerciseId).includes(exercise.id),
@@ -83,7 +84,7 @@
 <Page>
   <PageHeader>
     <Input
-      bind:value={exerciseSearch.searchTerm}
+      bind:value={exerciseSearch.term}
       type="search"
       placeholder="Search for an exercise..."
     />
@@ -126,8 +127,8 @@
   <ExerciseSelectFilters
     muscleOptions={data.allMuscles}
     equipmentOptions={data.allEquipment}
-    bind:selectedMuscles={exerciseSearch.muscleIdFilters}
-    bind:selectedEquipment={exerciseSearch.equipmentIdFilters}
+    bind:selectedMuscles={exerciseSearch.muscleIds}
+    bind:selectedEquipment={exerciseSearch.equipmentIds}
   />
 </Navbar>
 {#if exerciseDetails}

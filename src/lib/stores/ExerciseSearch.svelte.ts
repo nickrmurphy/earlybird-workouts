@@ -1,39 +1,55 @@
 import type { Equipment, Exercise, Muscle } from "$lib/schema";
 
+type FilterOptions = {
+  term: string;
+  equipmentIds: Equipment[];
+  muscleIds: Muscle[];
+};
+
+function isNameMatch(exercise: Exercise, term: string) {
+  return exercise.name.toLowerCase().includes(term.trim().toLowerCase());
+}
+
+function isMuscleMatch(exercise: Exercise, muscleIds: Muscle[]) {
+  return (
+    muscleIds.length === 0 ||
+    muscleIds.some(
+      (id) =>
+        exercise.primaryMuscles?.includes(id) ||
+        exercise.secondaryMuscles?.includes(id),
+    )
+  );
+}
+
+function isEquipmentMatch(exercise: Exercise, equipmentIds: Equipment[]) {
+  return (
+    equipmentIds.length === 0 ||
+    equipmentIds.some((id) => exercise.equipment?.includes(id))
+  );
+}
+
+function filterExercise(exercise: Exercise, filters: FilterOptions) {
+  const nameMatch = isNameMatch(exercise, filters.term);
+  const muscleMatch = isMuscleMatch(exercise, filters.muscleIds);
+  const equipmentMatch = isEquipmentMatch(exercise, filters.equipmentIds);
+  return nameMatch && muscleMatch && equipmentMatch;
+}
+
+function getFilteredExercises(options: Exercise[], filters: FilterOptions) {
+  return options.filter((exercise) => filterExercise(exercise, filters));
+}
+
 export class ExerciseSearch {
-  #options: Exercise[] = [];
-  searchTerm = $state("");
-  equipmentIdFilters = $state<Equipment[]>([]);
-  muscleIdFilters = $state<Muscle[]>([]);
+  #options: Exercise[];
+  term = $state("");
+  equipmentIds = $state<Equipment[]>([]);
+  muscleIds = $state<Muscle[]>([]);
 
   filteredOptions = $derived.by(() => {
-    return this.#options.filter((exercise) => {
-      const nameFilter = this.searchTerm.trim();
-      let nameMatch = true;
-      let muscleMatch = true;
-      let equipmentMatch = true;
-
-      if (nameFilter) {
-        nameMatch = exercise.name
-          .toLowerCase()
-          .includes(nameFilter.toLowerCase());
-      }
-
-      if (this.equipmentIdFilters.length > 0) {
-        equipmentMatch = this.equipmentIdFilters.some((equipmentId) =>
-          exercise.equipment?.includes(equipmentId),
-        );
-      }
-
-      if (this.muscleIdFilters.length > 0) {
-        muscleMatch = this.muscleIdFilters.some(
-          (muscleId) =>
-            exercise.primaryMuscles.includes(muscleId) ||
-            exercise.secondaryMuscles.includes(muscleId),
-        );
-      }
-
-      return nameMatch && muscleMatch && equipmentMatch;
+    return getFilteredExercises(this.#options, {
+      term: this.term,
+      equipmentIds: this.equipmentIds,
+      muscleIds: this.muscleIds,
     });
   });
 
