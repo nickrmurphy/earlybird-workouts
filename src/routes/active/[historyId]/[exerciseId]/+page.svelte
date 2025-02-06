@@ -6,7 +6,7 @@
     PageHeader,
     Page,
   } from "$lib/components";
-  import { activity } from "$lib/stores";
+  import { ActivityStore } from "$lib/stores";
   import { IconExposurePlus1, IconInfoCircle } from "@tabler/icons-svelte";
   import { InstructionsDrawer } from "$lib/components";
   import { liveQuery } from "dexie";
@@ -55,8 +55,8 @@
       isComplete={set.isSuccess}
       onToggleComplete={(isComplete) => {
         if (isComplete) {
-          activity.restTimer.stop();
-          activity.restTimer.start();
+          ActivityStore.restTimer.stop();
+          ActivityStore.restTimer.start();
         }
         db.historySets.update(set.id, { isSuccess: isComplete });
       }}
@@ -71,11 +71,11 @@
 </Page>
 <Navbar backHref={`/active/${data.historyId}`}>
   <TimerButton
-    onclick={() => activity.restTimer.toggle()}
-    elapsedTime={activity.restTimer.elapsedTime}
-    runTimeSeconds={activity.restTimer.runTimeSeconds}
-    isRunning={activity.restTimer.isRunning}
-    isExpired={activity.restTimer.isExpired}
+    onclick={() => ActivityStore.restTimer.toggle()}
+    elapsedTime={ActivityStore.restTimer.elapsedTime}
+    runTimeSeconds={ActivityStore.restTimer.runTimeSeconds}
+    isRunning={ActivityStore.restTimer.isRunning}
+    isExpired={ActivityStore.restTimer.isExpired}
   />
   <NavbarButton variant="secondary" onclick={addSet}>
     <IconExposurePlus1 />

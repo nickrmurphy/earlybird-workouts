@@ -1,15 +1,20 @@
-import { RestTimer } from "$lib/models";
-import { activity } from "$lib/stores";
+import { RestTimer, Timer } from "$lib/state";
+import { ActivityStore } from "$lib/stores";
 import type { ClientInit } from "@sveltejs/kit";
 
+function loadRestTimer() {
+  const restTimer = localStorage.getItem("restTimer");
+  return restTimer ? parseInt(restTimer, 10) : 60;
+}
+
+function persistRestTimer(value: number) {
+  localStorage.setItem("restTimer", value.toString());
+}
+
 export const init: ClientInit = async () => {
-  activity.restTimer = new RestTimer({
-    loader: () => {
-      const restTimer = localStorage.getItem("restTimer");
-      return restTimer ? parseInt(restTimer, 10) : 60;
-    },
-    persister: (value) => {
-      localStorage.setItem("restTimer", value.toString());
-    },
+  ActivityStore.activityTimer = new Timer();
+  ActivityStore.restTimer = new RestTimer({
+    loader: loadRestTimer,
+    persister: persistRestTimer,
   });
 };

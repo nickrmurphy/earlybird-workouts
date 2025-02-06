@@ -1,6 +1,6 @@
 export class RestTimer {
   #startTime: Date | undefined = undefined;
-  #intervalId: number | undefined = $state(undefined);
+  #intervalId: NodeJS.Timeout | undefined = $state(undefined);
   #runTimeSeconds = $state(0);
   #persister: (value: number) => void = () => {};
 

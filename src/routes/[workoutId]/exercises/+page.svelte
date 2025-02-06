@@ -12,7 +12,7 @@
   import { InstructionsDrawerSelect } from "$lib/components";
   import { liveQuery } from "dexie";
   import { db } from "$lib/db/index.js";
-  import { ExerciseSearch } from "$lib/stores";
+  import { ExerciseSearch } from "$lib/state";
 
   let { data } = $props();
 
