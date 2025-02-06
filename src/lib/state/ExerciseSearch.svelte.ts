@@ -4,6 +4,7 @@ type FilterOptions = {
   term: string;
   equipmentIds: Equipment[];
   muscleIds: Muscle[];
+  custom?: (exercise: Exercise) => boolean;
 };
 
 function isNameMatch(exercise: Exercise, term: string) {
@@ -44,12 +45,14 @@ export class ExerciseSearch {
   term = $state("");
   equipmentIds = $state<Equipment[]>([]);
   muscleIds = $state<Muscle[]>([]);
+  customFilter: (exercise: Exercise) => boolean = $state(() => true);
 
   filteredOptions = $derived.by(() => {
     return getFilteredExercises(this.#options, {
       term: this.term,
       equipmentIds: this.equipmentIds,
       muscleIds: this.muscleIds,
+      custom: this.customFilter,
     });
   });
 

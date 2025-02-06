@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { ActivityStore } from "$lib/stores";
 
   $effect.pre(() => {
     const activeWorkout = parseInt(
@@ -9,6 +10,8 @@
     if (!Number.isNaN(activeWorkout)) {
       goto("/");
     }
+
+    ActivityStore.currentId = activeWorkout;
 
     goto(`/active/${activeWorkout}`);
   });

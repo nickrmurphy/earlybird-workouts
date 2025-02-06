@@ -16,7 +16,6 @@
     IconSettings,
   } from "@tabler/icons-svelte";
 
-  let showIllustration = $state(false);
   let showModal = $state(false);
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
@@ -24,10 +23,6 @@
 
   let workouts = liveQuery(() => db.workouts.toArray());
   let workoutExercises = liveQuery(() => db.workoutExercises.toArray());
-
-  $effect(() => {
-    showIllustration = $workouts?.length === 0;
-  });
 
   const createWorkout = async (name: string) => {
     if (!name) return;
@@ -70,7 +65,7 @@
       />
     {/if}
   </section>
-  {#if showIllustration}
+  {#if $workouts?.length === 0}
     <SportsJogging />
   {/if}
   <Navbar>
@@ -90,9 +85,9 @@
 </Page>
 
 <InputDialog
+  bind:open={showModal}
   title="Create a workout"
   onSubmit={createWorkout}
   submitText="Create"
   placeholder="e.g. Upper Body"
-  bind:open={showModal}
 />

@@ -20,10 +20,10 @@
     IconStopwatch,
   } from "@tabler/icons-svelte";
   import { liveQuery } from "dexie";
-  import { db, type HistoryExercise } from "$lib/db";
+  import { db } from "$lib/db";
   import { goto } from "$app/navigation";
-  import { onMount } from "svelte";
   import type { Exercise } from "$lib/schema";
+  import { ExerciseSearch } from "$lib/state/ExerciseSearch.svelte.js";
 
   let { data } = $props();
 
@@ -40,23 +40,7 @@
     db.historySets.where("historyId").equals(data.historyId).toArray(),
   );
 
-  let exercisesFilter = $state("");
-  let displayExercises = $derived.by(() => {
-    let filteredBySelected = data.allExercises.filter(
-      (exercise) => !$exercises?.some((e) => e.exerciseId === exercise.id),
-    );
-    return exercisesFilter
-      ? filteredBySelected.filter(
-          (exercise) =>
-            !$exercises?.some(
-              (e: HistoryExercise) => e.exerciseId === exercise.id,
-            ) &&
-            exercise.name
-              .toLowerCase()
-              .includes(exercisesFilter.toLowerCase().trim()),
-        )
-      : filteredBySelected;
-  });
+  const exerciseSearch = new ExerciseSearch(data.allExercises);
 
   $effect(() => {
     if (!ActivityStore.activityTimer.isRunning && $activeWorkout?.startTime) {
@@ -81,6 +65,11 @@
   }
 
   async function addExercise(exercise: Exercise) {
+    // Check if the exercise is already in the workout
+    if ($exercises.some((e) => e.exerciseId === exercise.id)) {
+      return;
+    }
+
     await db.transaction(
       "rw",
       [db.historyExercises, db.historySets],
@@ -176,12 +165,12 @@
     <div class="bg-surface sticky top-14 w-full p-2">
       <Input
         class="w-full"
-        bind:value={exercisesFilter}
+        bind:value={exerciseSearch.term}
         placeholder="Search exercises..."
       />
     </div>
     <ul class="divide-divide divide-y">
-      {#each displayExercises as exercise}
+      {#each exerciseSearch.filteredOptions as exercise}
         <li>
           <button
             class="w-full p-3 text-start text-lg font-semibold"

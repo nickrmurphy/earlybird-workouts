@@ -10,7 +10,7 @@
   import { IconExposurePlus1, IconInfoCircle } from "@tabler/icons-svelte";
   import { InstructionsDrawer } from "$lib/components";
   import { liveQuery } from "dexie";
-  import { db, type HistorySet } from "$lib/db/index.js";
+  import { db } from "$lib/db/index.js";
   import { page } from "$app/state";
   import NavbarButton from "$lib/components/page/NavbarButton.svelte";
 
