@@ -11,7 +11,7 @@
   import { page } from "$app/state";
   import { InstructionsDrawerSelect } from "$lib/components";
   import { liveQuery } from "dexie";
-  import { db } from "$lib/db/index.js";
+  import { db } from "$lib/db";
   import { ExerciseSearch } from "$lib/state";
 
   let { data } = $props();

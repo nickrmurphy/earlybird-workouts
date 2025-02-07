@@ -11,6 +11,7 @@
     Dropdown,
     ExerciseDrawer,
     NavbarButton,
+    DropdownItem,
   } from "$lib/components";
   import {
     IconDotsCircleHorizontal,
@@ -23,8 +24,7 @@
     IconTrash,
   } from "@tabler/icons-svelte";
   import { NavigationMonitor } from "$lib/assets";
-  import DropdownItem from "$lib/components/ui/Dropdown/DropdownItem.svelte";
-  import { db } from "$lib/db/index.js";
+  import { db } from "$lib/db";
   import { liveQuery } from "dexie";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";

@@ -2,8 +2,13 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/state";
   import { BusinessClipboard } from "$lib/assets";
-  import { EmptyMessage, HistoryCard, Page, PageHeader } from "$lib/components";
-  import Navbar from "$lib/components/page/Navbar.svelte";
+  import {
+    EmptyMessage,
+    HistoryCard,
+    Page,
+    PageHeader,
+    Navbar,
+  } from "$lib/components";
   import { db } from "$lib/db";
   import { calculateTonnagePerAttribute } from "$lib/utils";
   import { liveQuery } from "dexie";

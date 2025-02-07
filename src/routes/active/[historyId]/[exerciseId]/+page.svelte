@@ -10,7 +10,7 @@
   } from "$lib/components";
   import { IconExposurePlus1, IconInfoCircle } from "@tabler/icons-svelte";
   import { liveQuery } from "dexie";
-  import { db } from "$lib/db/index.js";
+  import { db } from "$lib/db";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
 

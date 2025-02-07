@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { Button, Navbar, Page, PageHeader } from "$lib/components";
+  import {
+    Button,
+    Navbar,
+    Page,
+    PageHeader,
+    NavbarButton,
+  } from "$lib/components";
   import { page } from "$app/state";
   import { flip } from "svelte/animate";
   import {
@@ -10,7 +16,6 @@
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
   import { arraymove } from "$lib/utils";
-  import NavbarButton from "$lib/components/page/NavbarButton.svelte";
 
   const workout = liveQuery(() =>
     db.workouts.where("id").equals(page.params.workoutId).first(),
