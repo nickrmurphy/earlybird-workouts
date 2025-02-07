@@ -1,1 +1,1 @@
-export * from "./ActivityStore.svelte";
+export * from "./GlobalStore.svelte";

@@ -5,14 +5,14 @@
     TimerButton,
     PageHeader,
     Page,
+    InstructionsDrawer,
+    NavbarButton,
   } from "$lib/components";
-  import { ActivityStore } from "$lib/stores";
   import { IconExposurePlus1, IconInfoCircle } from "@tabler/icons-svelte";
-  import { InstructionsDrawer } from "$lib/components";
   import { liveQuery } from "dexie";
   import { db } from "$lib/db/index.js";
   import { page } from "$app/state";
-  import NavbarButton from "$lib/components/page/NavbarButton.svelte";
+  import { GlobalStore } from "$lib/stores";
 
   let { data } = $props();
 
@@ -55,8 +55,8 @@
       isComplete={set.isSuccess}
       onToggleComplete={(isComplete) => {
         if (isComplete) {
-          ActivityStore.restTimer.stop();
-          ActivityStore.restTimer.start();
+          GlobalStore.Activity.restTimer.stop();
+          GlobalStore.Activity.restTimer.start();
         }
         db.historySets.update(set.id, { isSuccess: isComplete });
       }}
@@ -71,11 +71,11 @@
 </Page>
 <Navbar backHref={`/active/${data.historyId}`}>
   <TimerButton
-    onclick={() => ActivityStore.restTimer.toggle()}
-    elapsedTime={ActivityStore.restTimer.elapsedTime}
-    runTimeSeconds={ActivityStore.restTimer.runTimeSeconds}
-    isRunning={ActivityStore.restTimer.isRunning}
-    isExpired={ActivityStore.restTimer.isExpired}
+    onclick={() => GlobalStore.Activity.restTimer.toggle()}
+    elapsedTime={GlobalStore.Activity.restTimer.elapsedTime}
+    runTimeSeconds={GlobalStore.Activity.restTimer.runTimeSeconds}
+    isRunning={GlobalStore.Activity.restTimer.isRunning}
+    isExpired={GlobalStore.Activity.restTimer.isExpired}
   />
   <NavbarButton variant="secondary" onclick={addSet}>
     <IconExposurePlus1 />

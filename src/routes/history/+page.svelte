@@ -21,7 +21,7 @@
     return db.historySets.filter((set) => set.isSuccess).toArray();
   });
 
-  let tonnage: Map<number, number> = $derived(
+  let tonnage: Map<string, number> = $derived(
     calculateTonnagePerAttribute($successSets || [], (set) => set.historyId),
   );
 </script>

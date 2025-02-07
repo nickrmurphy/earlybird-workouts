@@ -12,7 +12,6 @@
     Input,
     TimerDisplay,
   } from "$lib/components";
-  import { ActivityStore } from "$lib/stores";
   import {
     IconAdjustmentsHorizontal,
     IconChecks,
@@ -23,7 +22,8 @@
   import { db } from "$lib/db";
   import { goto } from "$app/navigation";
   import type { Exercise } from "$lib/schema";
-  import { ExerciseSearch } from "$lib/state/ExerciseSearch.svelte.js";
+  import { ExerciseSearch } from "$lib/state";
+  import { GlobalStore } from "$lib/stores";
 
   let { data } = $props();
 
@@ -43,8 +43,8 @@
   const exerciseSearch = new ExerciseSearch(data.allExercises);
 
   $effect(() => {
-    if (!ActivityStore.activityTimer.isRunning && $activeWorkout?.startTime) {
-      ActivityStore.activityTimer.start($activeWorkout.startTime);
+    if (!GlobalStore.Activity.timer.isRunning && $activeWorkout?.startTime) {
+      GlobalStore.Activity.timer.start($activeWorkout.startTime);
     }
   });
 
@@ -55,10 +55,8 @@
     );
 
     if (confirmEnd) {
-      ActivityStore.restTimer.stop();
-      ActivityStore.activityTimer.stop();
-      localStorage.removeItem("activeHistoryId");
       db.history.update(data.historyId, { endTime: new Date() }).then(() => {
+        GlobalStore.Activity.clearCurrentId();
         goto(`/${$activeWorkout?.workoutId}/history/${data.historyId}`);
       });
     }
@@ -98,7 +96,7 @@
     {#snippet right()}
       <div class="flex items-center gap-8">
         {#if $activeWorkout}
-          <TimerDisplay elapsedSeconds={ActivityStore.activityTimer.seconds}>
+          <TimerDisplay elapsedSeconds={GlobalStore.Activity.timer.seconds}>
             {#snippet icon()}
               <IconStopwatch class="size-4" />
             {/snippet}
@@ -131,11 +129,11 @@
     <IconAdjustmentsHorizontal />
   </NavbarButton>
   <TimerButton
-    onclick={() => ActivityStore.restTimer.toggle()}
-    elapsedTime={ActivityStore.restTimer.elapsedTime}
-    runTimeSeconds={ActivityStore.restTimer.runTimeSeconds}
-    isRunning={ActivityStore.restTimer.isRunning}
-    isExpired={ActivityStore.restTimer.isExpired}
+    onclick={() => GlobalStore.Activity.restTimer.toggle()}
+    elapsedTime={GlobalStore.Activity.restTimer.elapsedTime}
+    runTimeSeconds={GlobalStore.Activity.restTimer.runTimeSeconds}
+    isRunning={GlobalStore.Activity.restTimer.isRunning}
+    isExpired={GlobalStore.Activity.restTimer.isExpired}
   />
   <NavbarButton variant="secondary" onclick={() => (exerciseDrawerOpen = true)}>
     <IconPlus />
@@ -152,7 +150,7 @@
     >
     <select
       class="rounded-sm border px-3 py-2"
-      bind:value={ActivityStore.restTimer.runTimeSeconds}
+      bind:value={GlobalStore.Activity.restTimer.runTimeSeconds}
     >
       {#each [10, 20, 30, 45, 60, 90, 120, 180] as time}
         <option value={time}>{time}s</option>

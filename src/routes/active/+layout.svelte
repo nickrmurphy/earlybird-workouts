@@ -1,14 +1,12 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { ActivityStore } from "$lib/stores";
+  import { GlobalStore } from "$lib/stores";
 
   $effect.pre(() => {
-    const activeWorkout = localStorage.getItem("activeHistoryId");
+    const activeWorkout = GlobalStore.Activity.currentId;
 
     if (!activeWorkout) {
       goto("/");
-    } else {
-      ActivityStore.currentId = activeWorkout;
     }
   });
 
