@@ -27,7 +27,7 @@
   import { db } from "$lib/db/index.js";
   import { liveQuery } from "dexie";
   import { page } from "$app/state";
-  import { GlobalStore } from "$lib/stores";
+  import { globalState } from "$lib/state";
   let { data } = $props();
   let dropdownToggle: HTMLElement | null = $state(null);
   let showEditDialog = $state(false);
@@ -125,7 +125,7 @@
         },
       )
       .then((historyId) => {
-        GlobalStore.Activity.currentId = historyId;
+        globalState.activity.currentId = historyId;
         goto(`/active/${historyId}`);
       });
   }

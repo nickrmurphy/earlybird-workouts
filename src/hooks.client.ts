@@ -1,7 +1,6 @@
-import { Activity } from "$lib/state";
-import { GlobalStore } from "$lib/stores";
+import { Activity, globalState } from "$lib/state";
 import type { ClientInit } from "@sveltejs/kit";
 
 export const init: ClientInit = async () => {
-  GlobalStore.Activity = new Activity();
+  globalState.activity = new Activity();
 };

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { GlobalStore } from "$lib/stores";
+  import { globalState } from "$lib/state";
 
   $effect.pre(() => {
-    const activeWorkout = GlobalStore.Activity.currentId;
+    const activeWorkout = globalState.activity.currentId;
 
     if (!activeWorkout) {
       goto("/");

@@ -12,7 +12,7 @@
   import { liveQuery } from "dexie";
   import { db } from "$lib/db/index.js";
   import { page } from "$app/state";
-  import { GlobalStore } from "$lib/stores";
+  import { globalState } from "$lib/state";
 
   let { data } = $props();
 
@@ -55,8 +55,8 @@
       isComplete={set.isSuccess}
       onToggleComplete={(isComplete) => {
         if (isComplete) {
-          GlobalStore.Activity.restTimer.stop();
-          GlobalStore.Activity.restTimer.start();
+          globalState.activity.restTimer.stop();
+          globalState.activity.restTimer.start();
         }
         db.historySets.update(set.id, { isSuccess: isComplete });
       }}
@@ -71,11 +71,11 @@
 </Page>
 <Navbar backHref={`/active/${data.historyId}`}>
   <TimerButton
-    onclick={() => GlobalStore.Activity.restTimer.toggle()}
-    elapsedTime={GlobalStore.Activity.restTimer.elapsedTime}
-    runTimeSeconds={GlobalStore.Activity.restTimer.runTimeSeconds}
-    isRunning={GlobalStore.Activity.restTimer.isRunning}
-    isExpired={GlobalStore.Activity.restTimer.isExpired}
+    onclick={() => globalState.activity.restTimer.toggle()}
+    elapsedTime={globalState.activity.restTimer.elapsedTime}
+    runTimeSeconds={globalState.activity.restTimer.runTimeSeconds}
+    isRunning={globalState.activity.restTimer.isRunning}
+    isExpired={globalState.activity.restTimer.isExpired}
   />
   <NavbarButton variant="secondary" onclick={addSet}>
     <IconExposurePlus1 />

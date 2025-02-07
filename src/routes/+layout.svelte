@@ -6,7 +6,7 @@
   import { IconArrowRight } from "@tabler/icons-svelte";
   import { fade } from "svelte/transition";
   import { onMount } from "svelte";
-  import { GlobalStore } from "$lib/stores/GlobalStore.svelte";
+  import { globalState } from "$lib/state";
 
   let { children } = $props();
 
@@ -14,7 +14,7 @@
   let mounted = $state(false);
 
   $effect.pre(() => {
-    const activeWorkout = GlobalStore.Activity.currentId;
+    const activeWorkout = globalState.activity.currentId;
     if (activeWorkout) {
       goto(`/active/${activeWorkout}`);
     }
