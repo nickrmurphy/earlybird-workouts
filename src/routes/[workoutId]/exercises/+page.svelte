@@ -31,7 +31,7 @@
   let workoutExercises = liveQuery(() => {
     return db.workoutExercises
       .where("workoutId")
-      .equals(parseInt(page.params.workoutId))
+      .equals(page.params.workoutId)
       .toArray();
   });
 
@@ -67,7 +67,7 @@
 
     db.workoutExercises.add({
       name: exercise.name,
-      workoutId: parseInt(page.params.workoutId),
+      workoutId: page.params.workoutId,
       exerciseId: exercise.id,
       weight: 40,
       sets: 3,

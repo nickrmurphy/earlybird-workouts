@@ -8,14 +8,12 @@
   import { calculateTonnagePerAttribute } from "$lib/utils";
   import { liveQuery } from "dexie";
 
-  let workout = liveQuery(() =>
-    db.workouts.get(parseInt(page.params.workoutId)),
-  );
+  let workout = liveQuery(() => db.workouts.get(page.params.workoutId));
 
   let history = liveQuery(() => {
     return db.history
       .where("workoutId")
-      .equals(parseInt(page.params.workoutId))
+      .equals(page.params.workoutId)
       .reverse()
       .sortBy("startTime");
   });

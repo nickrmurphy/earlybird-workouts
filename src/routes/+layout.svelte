@@ -14,7 +14,7 @@
 
   $effect.pre(() => {
     const activeWorkout = localStorage.getItem("activeHistoryId");
-    if (activeWorkout && !Number.isNaN(parseInt(activeWorkout))) {
+    if (activeWorkout) {
       goto(`/active/${activeWorkout}`);
     }
   });

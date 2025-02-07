@@ -33,13 +33,13 @@
   let showExerciseDialog = $state(false);
 
   let workout = liveQuery(() =>
-    db.workouts.where("id").equals(parseInt(page.params.workoutId)).first(),
+    db.workouts.where("id").equals(page.params.workoutId).first(),
   );
 
   let workoutExercises = liveQuery(() =>
     db.workoutExercises
       .where("workoutId")
-      .equals(parseInt(page.params.workoutId))
+      .equals(page.params.workoutId)
       .toArray(),
   );
 
@@ -70,7 +70,7 @@
     );
 
     if (confirmDelete) {
-      db.workouts.delete(parseInt(page.params.workoutId));
+      db.workouts.delete(page.params.workoutId);
       goto("/");
     }
   }
@@ -87,9 +87,7 @@
           db.historySets,
         ],
         async (tx) => {
-          const workout = await tx.workouts.get(
-            parseInt(page.params.workoutId),
-          );
+          const workout = await tx.workouts.get(page.params.workoutId);
           if (!workout) throw new Error("Workout not found");
 
           const exercises = await tx.workoutExercises
@@ -224,7 +222,7 @@
   defaultValue={$workout?.name}
   onSubmit={async (name) => {
     if (!name) return;
-    db.workouts.update(parseInt(page.params.workoutId), { name });
+    db.workouts.update(page.params.workoutId, { name });
   }}
   submitText="Save"
 />

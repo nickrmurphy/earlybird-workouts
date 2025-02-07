@@ -1,13 +1,14 @@
 import Dexie, { type EntityTable } from "dexie";
+import dexieCloud from "dexie-cloud-addon";
 
 interface Workout {
-  id: number;
+  id: string;
   name: string;
 }
 
 interface WorkoutExercise {
-  id: number;
-  workoutId: number;
+  id: string;
+  workoutId: string;
   exerciseId: string;
   name: string;
   sets: number;
@@ -17,31 +18,33 @@ interface WorkoutExercise {
 }
 
 interface History {
-  id: number;
-  workoutId: number;
+  id: string;
+  workoutId: string;
   workoutName: string;
   startTime: Date;
   endTime?: Date;
 }
 
 interface HistoryExercise {
-  id: number;
-  historyId: number;
+  id: string;
+  historyId: string;
   exerciseId: string;
   exerciseName: string;
 }
 
 interface HistorySet {
-  id: number;
-  historyId: number;
-  historyExerciseId: number;
+  id: string;
+  historyId: string;
+  historyExerciseId: string;
   exerciseId: string;
   count: number;
   weight: number;
   isSuccess: boolean;
 }
 
-const db = new Dexie("earlybird-workouts") as Dexie & {
+const db = new Dexie("earlybird-workouts", {
+  addons: [dexieCloud],
+}) as Dexie & {
   workouts: EntityTable<Workout, "id">;
   workoutExercises: EntityTable<WorkoutExercise, "id">;
   history: EntityTable<History, "id">;
@@ -51,11 +54,15 @@ const db = new Dexie("earlybird-workouts") as Dexie & {
 
 // Schema declaration:
 db.version(1).stores({
-  workouts: "++id, name", // primary key "id" (for the runtime!)
-  workoutExercises: "++id, workoutId, exerciseId, name, sets, count",
-  history: "++id, workoutId, workoutName, startTime, endTime",
-  historyExercises: "++id, historyId, exerciseId, exerciseName",
-  historySets: "++id, historyId, historyExerciseId, count, weight, isSuccess",
+  workouts: "@id, name", // primary key "id" (for the runtime!)
+  workoutExercises: "@id, workoutId, exerciseId",
+  history: "@id, workoutId, startTime, endTime",
+  historyExercises: "@id, historyId, exerciseId",
+  historySets: "@id, historyId, historyExerciseId, isSuccess",
+});
+
+db.cloud.configure({
+  databaseUrl: "https://zxyluhdai.dexie.cloud",
 });
 
 export { db };

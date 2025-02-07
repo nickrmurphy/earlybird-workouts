@@ -3,7 +3,7 @@ import type { RestTimer, Timer } from "$lib/state";
 type ActivityStore = {
   restTimer: RestTimer;
   activityTimer: Timer;
-  currentId?: number;
+  currentId?: string;
 };
 
 export const ActivityStore = $state<ActivityStore>({

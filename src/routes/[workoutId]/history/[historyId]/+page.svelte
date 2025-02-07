@@ -25,24 +25,18 @@
   import { goto } from "$app/navigation";
 
   let history = liveQuery(() => {
-    return db.history
-      .where("id")
-      .equals(parseInt(page.params.historyId))
-      .first();
+    return db.history.where("id").equals(page.params.historyId).first();
   });
 
   let exercises = liveQuery(() =>
     db.historyExercises
       .where("historyId")
-      .equals(parseInt(page.params.historyId))
+      .equals(page.params.historyId)
       .toArray(),
   );
 
   let historySets = liveQuery(() =>
-    db.historySets
-      .where("historyId")
-      .equals(parseInt(page.params.historyId))
-      .toArray(),
+    db.historySets.where("historyId").equals(page.params.historyId).toArray(),
   );
 
   let runTime = $derived(
@@ -68,7 +62,7 @@
         "rw",
         [db.history, db.historySets, db.historyExercises],
         async () => {
-          const historyId = parseInt(page.params.historyId);
+          const historyId = page.params.historyId;
           await db.historySets.where("historyId").equals(historyId).delete();
           await db.historyExercises
             .where("historyId")

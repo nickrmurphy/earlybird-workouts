@@ -3,17 +3,15 @@
   import { ActivityStore } from "$lib/stores";
 
   $effect.pre(() => {
-    const activeWorkout = parseInt(
-      localStorage.getItem("activeHistoryId") ?? "",
-    );
+    const activeWorkout = localStorage.getItem("activeHistoryId");
 
-    if (!Number.isNaN(activeWorkout)) {
+    if (!activeWorkout) {
       goto("/");
+    } else {
+      ActivityStore.currentId = activeWorkout;
+
+      goto(`/active/${activeWorkout}`);
     }
-
-    ActivityStore.currentId = activeWorkout;
-
-    goto(`/active/${activeWorkout}`);
   });
 
   let { children } = $props();

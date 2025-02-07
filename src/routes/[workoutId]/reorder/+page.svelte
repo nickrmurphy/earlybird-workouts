@@ -13,13 +13,13 @@
   import NavbarButton from "$lib/components/page/NavbarButton.svelte";
 
   const workout = liveQuery(() =>
-    db.workouts.where("id").equals(parseInt(page.params.workoutId)).first(),
+    db.workouts.where("id").equals(page.params.workoutId).first(),
   );
 
   const workoutExercises = liveQuery(() =>
     db.workoutExercises
       .where("workoutId")
-      .equals(parseInt(page.params.workoutId))
+      .equals(page.params.workoutId)
       .sortBy("order"),
   );
 
