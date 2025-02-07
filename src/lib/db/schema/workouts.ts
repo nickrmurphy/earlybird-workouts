@@ -1,42 +1,31 @@
-interface Workout {
-  id: string;
-  name: string;
-}
+import { z } from "zod";
 
-interface WorkoutExercise {
-  id: string;
-  workoutId: string;
-  exerciseId: string;
-  name: string;
-  sets: number;
-  weight: number;
-  count: number;
-  order: number;
-}
+const workoutSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
 
-interface History {
-  id: string;
-  workoutId: string;
-  workoutName: string;
-  startTime: Date;
-  endTime?: Date;
-}
+const unitSchema = z.union([
+  z.literal("kg"),
+  z.literal("lbs"),
+  z.literal("sec"),
+]);
 
-interface HistoryExercise {
-  id: string;
-  historyId: string;
-  exerciseId: string;
-  exerciseName: string;
-}
+const workoutExerciseSchema = z.object({
+  id: z.string(),
+  workoutId: z.string(),
+  exerciseId: z.string(),
+  name: z.string(),
+  sets: z.number(),
+  weight: z.number(),
+  count: z.number(),
+  unit: unitSchema,
+  order: z.number(),
+});
 
-interface HistorySet {
-  id: string;
-  historyId: string;
-  historyExerciseId: string;
-  exerciseId: string;
-  count: number;
-  weight: number;
-  isSuccess: boolean;
-}
+type Workout = z.infer<typeof workoutSchema>;
+type WorkoutExercise = z.infer<typeof workoutExerciseSchema>;
+type Unit = z.infer<typeof unitSchema>;
 
-export type { History, HistoryExercise, HistorySet, Workout, WorkoutExercise };
+export { unitSchema, workoutExerciseSchema, workoutSchema };
+export type { Unit, Workout, WorkoutExercise };

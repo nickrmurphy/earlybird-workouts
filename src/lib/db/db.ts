@@ -6,7 +6,7 @@ import type {
   HistorySet,
   Workout,
   WorkoutExercise,
-} from "./schema/workouts";
+} from "./schema";
 
 const db = new Dexie("earlybird-workouts", {
   addons: [dexieCloud],
