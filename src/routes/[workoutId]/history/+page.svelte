@@ -4,7 +4,7 @@
   import { BusinessClipboard } from "$lib/assets";
   import { EmptyMessage, HistoryCard, Page, PageHeader } from "$lib/components";
   import Navbar from "$lib/components/page/Navbar.svelte";
-  import { db, type History, type HistorySet } from "$lib/db";
+  import { db } from "$lib/db";
   import { calculateTonnagePerAttribute } from "$lib/utils";
   import { liveQuery } from "dexie";
 
@@ -25,7 +25,7 @@
       .toArray();
   });
 
-  let tonnage: Map<number, number> = $derived(
+  let tonnage: Map<string, number> = $derived(
     calculateTonnagePerAttribute($successSets || [], (set) => set.historyId),
   );
 </script>

@@ -9,8 +9,6 @@
       goto("/");
     } else {
       ActivityStore.currentId = activeWorkout;
-
-      goto(`/active/${activeWorkout}`);
     }
   });
 

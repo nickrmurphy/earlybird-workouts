@@ -124,7 +124,7 @@
         },
       )
       .then((historyId) => {
-        localStorage.setItem("activeHistoryId", historyId.toString());
+        localStorage.setItem("activeHistoryId", historyId);
         goto(`/active/${historyId}`);
       });
   }
