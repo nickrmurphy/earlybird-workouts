@@ -19,9 +19,8 @@
     IconStopwatch,
   } from "@tabler/icons-svelte";
   import { liveQuery } from "dexie";
-  import { db } from "$lib/db";
+  import { db, type Exercise } from "$lib/db";
   import { goto } from "$app/navigation";
-  import type { Exercise } from "$lib/db";
   import { ExerciseSearch, globalState } from "$lib/state";
 
   let { data } = $props();
