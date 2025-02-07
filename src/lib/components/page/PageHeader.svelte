@@ -40,7 +40,7 @@
     backdrop-filter: blur(10px);
     margin-right: var(--size-000);
     margin-left: var(--size-000);
-    padding-top: calc(env(safe-area-inset-top) + var(--size-2));
+    padding-top: calc(var(--safe-top) + var(--size-2));
     padding-right: var(--size-3);
     padding-bottom: var(--size-2);
     padding-left: var(--size-3);

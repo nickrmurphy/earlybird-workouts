@@ -44,13 +44,13 @@
     gap: var(--size-3);
     z-index: var(--layer-3);
     padding-top: var(--size-2);
-    padding-right: calc(var(--size-3) + env(safe-area-inset-right));
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: calc(var(--size-3) + env(safe-area-inset-left));
+    padding-right: calc(var(--size-3) + var(--safe-right));
+    padding-bottom: var(--safe-bottom);
+    padding-left: calc(var(--size-3) + var(--safe-left));
   }
 
   :global(:root) {
     /* safe area + button height + padding-bottom + padding-top */
-    --navbar-height: calc(env(safe-area-inset-bottom) + 44px + 5px + 5px);
+    --navbar-height: calc(var(--safe-bottom) + 44px + 5px + 5px);
   }
 </style>

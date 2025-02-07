@@ -38,8 +38,7 @@
     width: 100%;
     max-width: var(--max-width, var(--size-xs));
     max-height: calc(
-      100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) -
-        var(--size-4)
+      100vh - var(--safe-top) - var(--safe-bottom) - var(--size-4)
     );
     color: var(--magnolia);
     /* display: flex;

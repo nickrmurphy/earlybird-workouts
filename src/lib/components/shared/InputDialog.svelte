@@ -90,7 +90,7 @@
     gap: var(--size-5);
     z-index: var(--layer-5);
     border: none;
-    padding-top: env(safe-area-inset-top);
+    padding-top: var(--safe-top);
     padding-right: var(--size-4);
     padding-bottom: var(--size-4);
     padding-left: var(--size-4);

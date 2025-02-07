@@ -92,11 +92,11 @@
   footer {
     display: flex;
     position: fixed;
-    right: calc(env(safe-area-inset-right) + var(--size-2));
+    right: calc(var(--safe-right) + var(--size-2));
     bottom: 0px;
-    left: calc(env(safe-area-inset-right) + var(--size-2));
+    left: calc(var(--safe-right) + var(--size-2));
     background-color: var(--color-surface);
-    padding-bottom: calc(env(safe-area-inset-bottom) + var(--size-2));
+    padding-bottom: calc(var(--safe-bottom) + var(--size-2));
   }
 
   section {
@@ -104,7 +104,7 @@
     flex-direction: column;
     gap: var(--size-4);
     padding: var(--size-2);
-    padding-bottom: calc(env(safe-area-inset-bottom) + 44px);
+    padding-bottom: calc(var(--safe-bottom) + 44px);
   }
 
   .overlay {
