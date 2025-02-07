@@ -9,6 +9,7 @@
     PageHeader,
     InputDialog,
     Navbar,
+    NavbarButton,
   } from "$lib/components";
   import {
     IconCirclePlus,
@@ -19,7 +20,6 @@
   let showModal = $state(false);
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
-  import NavbarButton from "$lib/components/page/NavbarButton.svelte";
 
   let workouts = liveQuery(() => db.workouts.toArray());
   let workoutExercises = liveQuery(() => db.workoutExercises.toArray());
@@ -31,7 +31,7 @@
     });
   };
 
-  function getWorkoutExercises(workoutId: number) {
+  function getWorkoutExercises(workoutId: string) {
     return (
       $workoutExercises
         ?.filter((exercise) => exercise.workoutId === workoutId)

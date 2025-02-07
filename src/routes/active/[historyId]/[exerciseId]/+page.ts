@@ -1,6 +1,6 @@
+import type { Exercise } from "$lib/db";
 import { redirect } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
-import type { Exercise } from "$lib/schema";
 
 export const load: PageLoad = async ({ parent, params }) => {
   const parentData = await parent();

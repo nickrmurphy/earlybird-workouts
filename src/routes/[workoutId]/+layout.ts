@@ -9,7 +9,7 @@ import {
   type DiscreteEquipment,
   type DiscreteMuscle,
   type Exercise,
-} from "$lib/schema";
+} from "$lib/db";
 import { z } from "zod";
 
 export const load: LayoutLoad = async ({ fetch }) => {

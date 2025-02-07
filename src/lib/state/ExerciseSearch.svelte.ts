@@ -1,4 +1,4 @@
-import type { Equipment, Exercise, Muscle } from "$lib/schema";
+import type { Equipment, Exercise, Muscle } from "$lib/db";
 
 type FilterOptions = {
   term: string;

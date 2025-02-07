@@ -1,6 +1,6 @@
-import type { LayoutLoad } from "../$types";
-import { exerciseSchema } from "$lib/schema";
+import { exerciseSchema } from "$lib/db";
 import { z } from "zod";
+import type { LayoutLoad } from "../$types";
 
 export const load: LayoutLoad = async () => {
   const exerciseJson = await fetch("/exercises.json").then((data) =>

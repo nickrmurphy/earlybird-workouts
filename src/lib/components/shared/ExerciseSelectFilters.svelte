@@ -7,7 +7,7 @@
     type Muscle,
     type DiscreteMuscle,
     type DiscreteEquipment,
-  } from "$lib/schema";
+  } from "$lib/db";
 
   let {
     muscleOptions,

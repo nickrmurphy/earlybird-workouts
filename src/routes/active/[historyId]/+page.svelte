@@ -21,7 +21,7 @@
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
   import { goto } from "$app/navigation";
-  import type { Exercise } from "$lib/schema";
+  import type { Exercise } from "$lib/db";
   import { ExerciseSearch, globalState } from "$lib/state";
 
   let { data } = $props();
