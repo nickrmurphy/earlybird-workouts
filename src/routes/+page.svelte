@@ -18,11 +18,19 @@
   } from "@tabler/icons-svelte";
 
   let showModal = $state(false);
-  import { liveQuery } from "dexie";
+  import { liveQuery, type Observable } from "dexie";
   import { db } from "$lib/db";
+  import { getWorkoutsInfo } from "$lib/db/queries";
 
-  let workouts = liveQuery(() => db.workouts.toArray());
-  let workoutExercises = liveQuery(() => db.workoutExercises.toArray());
+  type WorkoutInfo = {
+    id: string;
+    name: string;
+    exercises: string[];
+  };
+
+  let workoutInfo: Observable<WorkoutInfo[]> = liveQuery(() =>
+    getWorkoutsInfo(),
+  );
 
   const createWorkout = async (name: string) => {
     if (!name) return;
@@ -30,44 +38,35 @@
       goto(`/${newId}/exercises?complete=true`);
     });
   };
-
-  function getWorkoutExercises(workoutId: string) {
-    return (
-      $workoutExercises
-        ?.filter((exercise) => exercise.workoutId === workoutId)
-        .map((e) => e.name) || []
-    );
-  }
 </script>
 
 <Page>
   <PageHeader title="Workouts">
     {#snippet right()}
       <button onclick={() => (showModal = true)}>
-        <IconCirclePlus color="var(--color-accent)" size={24} />
+        <IconCirclePlus class="text-accent" size={24} />
       </button>
     {/snippet}
   </PageHeader>
   <section class="flex flex-col gap-4 overflow-scroll">
-    {#if $workouts?.length > 0}
-      {#each $workouts as workout}
-        <Pressable href={`/${workout.id}`}>
-          <WorkoutCard
-            workoutName={workout.name}
-            exercises={getWorkoutExercises(workout.id)}
-          />
-        </Pressable>
-      {/each}
-    {:else}
+    {#if $workoutInfo?.length === 0}
       <EmptyMessage
         header="No workouts yet."
         message="Tap the plus button to add one."
       />
+      <SportsJogging />
+    {:else}
+      {#each $workoutInfo as workout}
+        <Pressable href={`/${workout.id}`}>
+          <WorkoutCard
+            workoutName={workout.name}
+            exercises={workout.exercises}
+          />
+        </Pressable>
+      {/each}
     {/if}
   </section>
-  {#if $workouts?.length === 0}
-    <SportsJogging />
-  {/if}
+
   <Navbar>
     <NavbarButton class="invisible"></NavbarButton>
     <NavbarButton

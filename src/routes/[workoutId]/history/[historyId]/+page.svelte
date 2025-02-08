@@ -9,7 +9,7 @@
     Dropdown,
     DropdownItem,
   } from "$lib/components";
-  import { db } from "$lib/db";
+  import { db, deleteHistory } from "$lib/db";
   import {
     calculateTonnage,
     dateDifferenceInMinutes,
@@ -24,9 +24,7 @@
   import { liveQuery } from "dexie";
   import { goto } from "$app/navigation";
 
-  let history = liveQuery(() => {
-    return db.history.where("id").equals(page.params.historyId).first();
-  });
+  let history = liveQuery(() => db.history.get(page.params.historyId));
 
   let exercises = liveQuery(() =>
     db.historyExercises
@@ -58,20 +56,9 @@
     );
 
     if (confirmDelete) {
-      await db.transaction(
-        "rw",
-        [db.history, db.historySets, db.historyExercises],
-        async () => {
-          const historyId = page.params.historyId;
-          await db.historySets.where("historyId").equals(historyId).delete();
-          await db.historyExercises
-            .where("historyId")
-            .equals(historyId)
-            .delete();
-          await db.history.delete(historyId);
-        },
-      );
-      goto(`/${page.params.workoutId}/history`);
+      await deleteHistory(page.params.historyId).then(() => {
+        goto(`/${page.params.workoutId}/history`);
+      });
     }
   }
 </script>

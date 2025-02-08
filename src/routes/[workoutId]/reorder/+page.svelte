@@ -17,9 +17,7 @@
   import { db } from "$lib/db";
   import { arraymove } from "$lib/utils";
 
-  const workout = liveQuery(() =>
-    db.workouts.where("id").equals(page.params.workoutId).first(),
-  );
+  const workout = liveQuery(() => db.workouts.get(page.params.workoutId));
 
   const workoutExercises = liveQuery(() =>
     db.workoutExercises
@@ -33,17 +31,10 @@
   );
 
   let changed = $derived.by(() => {
-    let changed = false;
-    if (!$workoutExercises) return changed;
-
-    for (let i = 0; i < orderedExercises.length; i++) {
-      if (orderedExercises[i].id !== $workoutExercises[i].id) {
-        changed = true;
-        break;
-      }
-    }
-
-    return changed;
+    if (!$workoutExercises) return false;
+    return (
+      JSON.stringify($workoutExercises) !== JSON.stringify(orderedExercises)
+    );
   });
 
   $effect(() => {

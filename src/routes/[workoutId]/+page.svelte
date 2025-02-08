@@ -24,7 +24,7 @@
     IconTrash,
   } from "@tabler/icons-svelte";
   import { NavigationMonitor } from "$lib/assets";
-  import { db } from "$lib/db";
+  import { db, createWorkoutHistoryAndExerciseSets } from "$lib/db";
   import { liveQuery } from "dexie";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
@@ -33,9 +33,7 @@
   let showEditDialog = $state(false);
   let showExerciseDialog = $state(false);
 
-  let workout = liveQuery(() =>
-    db.workouts.where("id").equals(page.params.workoutId).first(),
-  );
+  let workout = liveQuery(() => db.workouts.get(page.params.workoutId));
 
   let workoutExercises = liveQuery(() =>
     db.workoutExercises
@@ -46,8 +44,8 @@
 
   let selectedExerciseId = $state<string | null>(null);
   let selectedExercise = $derived.by(() => {
-    if (!selectedExerciseId) return null;
-    return $workoutExercises?.find(
+    if (!selectedExerciseId || !$workoutExercises) return null;
+    return $workoutExercises.find(
       (exercise) => exercise.exerciseId === selectedExerciseId,
     );
   });
@@ -77,62 +75,17 @@
   }
 
   async function startWorkout() {
-    await db
-      .transaction(
-        "rw",
-        [
-          db.workoutExercises,
-          db.workouts,
-          db.history,
-          db.historyExercises,
-          db.historySets,
-        ],
-        async (tx) => {
-          const workout = await tx.workouts.get(page.params.workoutId);
-          if (!workout) throw new Error("Workout not found");
-
-          const exercises = await tx.workoutExercises
-            .where("workoutId")
-            .equals(workout.id)
-            .sortBy("order");
-
-          const historyId = await tx.history.add({
-            workoutId: workout.id,
-            startTime: new Date(),
-            workoutName: workout.name,
-          });
-
-          for (const exercise of exercises) {
-            const historyExerciseId = await tx.historyExercises.add({
-              historyId,
-              exerciseId: exercise.exerciseId,
-              exerciseName: exercise.name,
-            });
-
-            await tx.historySets.bulkAdd(
-              Array.from({ length: exercise.sets }, () => ({
-                historyId,
-                historyExerciseId,
-                weight: exercise.weight,
-                count: exercise.count,
-                exerciseId: exercise.exerciseId,
-                isSuccess: false,
-              })),
-            );
-          }
-
-          return historyId;
-        },
-      )
-      .then((historyId) => {
+    await createWorkoutHistoryAndExerciseSets(page.params.workoutId).then(
+      (historyId) => {
         globalState.activity.currentId = historyId;
         goto(`/active/${historyId}`);
-      });
+      },
+    );
   }
 </script>
 
-{#if $workout}
-  <Page>
+<Page>
+  {#if $workout}
     <PageHeader
       title={$workout.name}
       viewTransitionName="workout-header-{$workout.id}"
@@ -140,20 +93,20 @@
       {#snippet right()}
         <button
           class="disabled:opacity-50"
-          onclick={() => goto(`/${$workout.id}/reorder`)}
+          onclick={() => goto(`/${page.params.workoutId}/reorder`)}
           disabled={$workoutExercises?.length === 0}
         >
-          <IconSwitchVertical color="var(--color-accent)" />
+          <IconSwitchVertical class="text-accent" />
         </button>
-        <button onclick={() => goto(`/${$workout.id}/exercises`)}>
+        <button onclick={() => goto(`/${page.params.workoutId}/exercises`)}>
           {#if $workoutExercises?.length > 0}
-            <IconPlusMinus color="var(--color-accent)" />
+            <IconPlusMinus class="text-accent" />
           {:else}
-            <IconPlus color="var(--color-accent)" />
+            <IconPlus class="text-accent" />
           {/if}
         </button>
         <button bind:this={dropdownToggle}>
-          <IconDotsCircleHorizontal color="var(--color-accent)" />
+          <IconDotsCircleHorizontal class="text-accent" />
         </button>
         <Dropdown anchor={dropdownToggle}>
           <DropdownItem onclick={() => (showEditDialog = true)}>
@@ -165,31 +118,31 @@
         </Dropdown>
       {/snippet}
     </PageHeader>
-    {#if $workoutExercises}
-      <section class="flex flex-col gap-5">
-        {#if $workoutExercises.length === 0}
-          <EmptyMessage
-            header="No exercises yet."
-            message="Tap the plus button to add an exercise."
+  {/if}
+  {#if $workoutExercises}
+    <section class="flex flex-col gap-5">
+      {#if $workoutExercises.length === 0}
+        <EmptyMessage
+          header="No exercises yet."
+          message="Tap the plus button to add an exercise."
+        />
+        <NavigationMonitor />
+      {:else}
+        {#each $workoutExercises as exercise}
+          <ExerciseItem
+            onclick={() => {
+              selectedExerciseId = exercise.exerciseId;
+            }}
+            name={exercise.name}
+            sets={exercise.sets}
+            reps={exercise.count}
+            weight={exercise.weight}
           />
-          <NavigationMonitor />
-        {:else}
-          {#each $workoutExercises as exercise}
-            <ExerciseItem
-              onclick={() => {
-                selectedExerciseId = exercise.exerciseId;
-              }}
-              name={exercise.name}
-              sets={exercise.sets}
-              reps={exercise.count}
-              weight={exercise.weight}
-            />
-          {/each}
-        {/if}
-      </section>
-    {/if}
-  </Page>
-{/if}
+        {/each}
+      {/if}
+    </section>
+  {/if}
+</Page>
 
 {#if selectedExercise}
   <ExerciseDrawer
