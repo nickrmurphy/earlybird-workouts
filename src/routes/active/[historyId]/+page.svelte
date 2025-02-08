@@ -83,6 +83,8 @@
           count: 10,
           weight: 40,
           isSuccess: false,
+          weightUnit: "lbs",
+          countUnit: "reps",
         });
       },
     );

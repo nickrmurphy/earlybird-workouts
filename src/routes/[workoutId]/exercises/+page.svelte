@@ -73,6 +73,8 @@
       sets: 3,
       count: 10,
       order: $workoutExercises?.length ?? 0,
+      weightUnit: "lbs",
+      countUnit: "reps",
     });
   };
 

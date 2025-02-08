@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { trackExerciseSchema } from "./workouts";
 
 const historySchema = z.object({
   id: z.string(),
@@ -15,13 +16,11 @@ const historyExerciseSchema = z.object({
   exerciseName: z.string(),
 });
 
-const historySetSchema = z.object({
+const historySetSchema = trackExerciseSchema.extend({
   id: z.string(),
   historyId: z.string(),
   historyExerciseId: z.string(),
   exerciseId: z.string(),
-  count: z.number(),
-  weight: z.number(),
   isSuccess: z.boolean(),
 });
 
