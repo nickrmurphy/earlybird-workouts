@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Drawer, Input, Select } from "../../ui";
+  import { Drawer, Field, Input, Label, Select } from "../../ui";
 
   type Props = {
     onWeightChange: (weight: number) => void;
@@ -41,19 +41,21 @@
 
 <Drawer bind:open title={name}>
   <div style="display: flex; gap: var(--size-4); flex-direction: column;">
-    <label>
-      <span class="text-sm tracking-wide uppercase">Weight (lbs)</span>
+    <Field>
+      <Label for="weight">Weight (lbs)</Label>
       <Input
+        id="weight"
         defaultValue={defaultWeight}
         type="number"
         step={0.5}
         inputmode="decimal"
         oninput={(e) => onWeightChange(parseInt(e.currentTarget.value))}
       />
-    </label>
-    <label>
-      <span class="text-sm tracking-wide uppercase">Sets</span>
+    </Field>
+    <Field>
+      <Label for="sets">Sets</Label>
       <Select
+        id="sets"
         value={defaultSets}
         onchange={(e) => onSetsChange(parseInt(e.currentTarget.value))}
       >
@@ -61,9 +63,9 @@
           <option value={idx + 1}>{idx + 1}</option>
         {/each}
       </Select>
-    </label>
-    <label>
-      <span class="text-sm tracking-wide uppercase">Reps</span>
+    </Field>
+    <Field>
+      <Label>Reps</Label>
       <Select
         value={defaultReps}
         onchange={(e) => onRepsChange(parseInt(e.currentTarget.value))}
@@ -72,7 +74,7 @@
           <option value={idx + 1}>{idx + 1}</option>
         {/each}
       </Select>
-    </label>
+    </Field>
   </div>
   {#if instructions && instructions.length > 0}
     <details style="display: flex; flex-direction: column; gap: var(--size-2);">
@@ -82,7 +84,7 @@
       >
       <ol class="flex flex-col gap-2 p-2">
         {#each instructions as instruction, idx}
-          <li class="">
+          <li class="text-lg">
             <span>{idx + 1}.</span>
             {instruction}
           </li>
@@ -91,25 +93,3 @@
     </details>
   {/if}
 </Drawer>
-
-<style>
-  label {
-    display: grid;
-    gap: var(--size-2);
-  }
-
-  ol {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2);
-    padding: var(--size-2);
-
-    li {
-      font-size: var(--font-size-2);
-      line-height: var(--font-lineheight-4);
-      span {
-        font-weight: var(--font-weight-7);
-      }
-    }
-  }
-</style>
