@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Drawer, Input } from "../../ui";
+  import { Drawer, Input, Select } from "../../ui";
 
   type Props = {
     onWeightChange: (weight: number) => void;
@@ -53,25 +53,25 @@
     </label>
     <label>
       <span class="text-sm tracking-wide uppercase">Sets</span>
-      <select
+      <Select
         value={defaultSets}
         onchange={(e) => onSetsChange(parseInt(e.currentTarget.value))}
       >
         {#each { length: 10 }, idx}
           <option value={idx + 1}>{idx + 1}</option>
         {/each}
-      </select>
+      </Select>
     </label>
     <label>
       <span class="text-sm tracking-wide uppercase">Reps</span>
-      <select
+      <Select
         value={defaultReps}
         onchange={(e) => onRepsChange(parseInt(e.currentTarget.value))}
       >
         {#each { length: 30 }, idx}
           <option value={idx + 1}>{idx + 1}</option>
         {/each}
-      </select>
+      </Select>
     </label>
   </div>
   {#if instructions && instructions.length > 0}
@@ -80,9 +80,9 @@
         style="color: var(--color-muted-foreground)"
         class="text-sm tracking-wide uppercase">instructions</summary
       >
-      <ol>
+      <ol class="flex flex-col gap-2 p-2">
         {#each instructions as instruction, idx}
-          <li>
+          <li class="">
             <span>{idx + 1}.</span>
             {instruction}
           </li>
@@ -96,21 +96,6 @@
   label {
     display: grid;
     gap: var(--size-2);
-  }
-
-  select {
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    background-color: transparent;
-    padding: 12px 10px;
-    font-weight: var(--font-weight);
-    font-size: var(--font-size, var(--font-size-2));
-  }
-
-  select:focus {
-    transition: all;
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
   }
 
   ol {

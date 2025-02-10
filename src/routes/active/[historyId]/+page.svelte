@@ -11,6 +11,7 @@
     Drawer,
     Input,
     TimerDisplay,
+    Select,
   } from "$lib/components";
   import {
     IconAdjustmentsHorizontal,
@@ -148,14 +149,14 @@
     <span class="text-muted-foreground text-sm tracking-wider uppercase"
       >Rest time</span
     >
-    <select
+    <Select
       class="rounded-sm border px-3 py-2"
       bind:value={globalState.activity.restTimer.runTimeSeconds}
     >
       {#each [10, 20, 30, 45, 60, 90, 120, 180] as time}
         <option value={time}>{time}s</option>
       {/each}
-    </select>
+    </Select>
   </label>
 </Drawer>
 <Drawer bind:open={exerciseDrawerOpen} title="Add an exercise">
