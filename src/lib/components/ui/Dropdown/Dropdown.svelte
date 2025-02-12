@@ -28,17 +28,9 @@
     {...props}
     class={[
       props.class,
-      "bg-surface divide-y divide-white/10 rounded-sm shadow-2xl",
+      "bg-surface absolute flex flex-col divide-y divide-white/10 rounded-sm shadow-2xl",
     ]}
   >
     {@render children?.()}
   </menu>
 {/if}
-
-<style>
-  menu {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-  }
-</style>

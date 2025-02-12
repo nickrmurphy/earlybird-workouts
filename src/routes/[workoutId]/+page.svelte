@@ -133,6 +133,7 @@
             onclick={() => {
               selectedExerciseId = exercise.exerciseId;
             }}
+            weightUnit={exercise.weightUnit}
             name={exercise.name}
             sets={exercise.sets}
             reps={exercise.count}
@@ -157,7 +158,11 @@
     onRepsChange={(reps) => {
       db.workoutExercises.update(selectedExercise.id, { count: reps });
     }}
+    onWeightUnitChange={(unit) => {
+      db.workoutExercises.update(selectedExercise.id, { weightUnit: unit });
+    }}
     defaultWeight={selectedExercise.weight}
+    defaultWeightUnit={selectedExercise.weightUnit}
     defaultSets={selectedExercise.sets}
     defaultReps={selectedExercise.count}
     instructions={data.allExercises.find(

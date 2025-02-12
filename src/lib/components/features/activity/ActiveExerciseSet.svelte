@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { WeightUnit } from "$lib/db";
   import { Button, Input } from "../../ui";
   import { IconCheck } from "@tabler/icons-svelte";
 
@@ -7,6 +8,7 @@
     reps: number;
     weight: number;
     isComplete: boolean;
+    weightUnit: WeightUnit;
     onToggleComplete?: (isComplete: boolean) => void;
     onRepsChange?: (reps: number) => void;
     onWeightChange?: (weight: number) => void;
@@ -15,6 +17,7 @@
   let {
     reps,
     weight,
+    weightUnit,
     isComplete,
     setIndex,
     onRepsChange,
@@ -33,7 +36,7 @@
     class="text-muted-foreground col-span-3 text-xs tracking-wider uppercase"
   >
     <label for={`weight-${setIndex}`}>
-      Weight <span class="unit">(lbs)</span>
+      Weight <span class="unit">({weightUnit})</span>
     </label>
   </div>
   <div class="col-span-2"></div>

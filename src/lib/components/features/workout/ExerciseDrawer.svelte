@@ -1,14 +1,18 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { Drawer, Field, Input, Label, Select } from "../../ui";
+  import { type WeightUnit } from "$lib/db";
+  import { WeightUnitSelect } from "$lib/components/shared";
 
   type Props = {
     onWeightChange: (weight: number) => void;
     onSetsChange: (sets: number) => void;
     onRepsChange: (reps: number) => void;
+    onWeightUnitChange: (unit: WeightUnit) => void;
     defaultWeight: number;
     defaultSets: number;
     defaultReps: number;
+    defaultWeightUnit: WeightUnit;
     instructions?: string[];
     name: string;
     open: boolean;
@@ -19,7 +23,9 @@
     onWeightChange,
     onSetsChange,
     onRepsChange,
+    onWeightUnitChange,
     defaultWeight,
+    defaultWeightUnit,
     defaultSets,
     defaultReps,
     instructions,
@@ -40,18 +46,28 @@
 </script>
 
 <Drawer bind:open title={name}>
-  <div style="display: flex; gap: var(--size-4); flex-direction: column;">
-    <Field>
-      <Label for="weight">Weight (lbs)</Label>
-      <Input
-        id="weight"
-        defaultValue={defaultWeight}
-        type="number"
-        step={0.5}
-        inputmode="decimal"
-        oninput={(e) => onWeightChange(parseInt(e.currentTarget.value))}
-      />
-    </Field>
+  <div class="flex flex-col gap-4">
+    <div class="flex w-full items-center gap-4">
+      <Field class="w-3/4">
+        <Label for="weight">Weight</Label>
+        <Input
+          id="weight"
+          defaultValue={defaultWeight}
+          type="number"
+          step={0.5}
+          inputmode="decimal"
+          oninput={(e) => onWeightChange(parseInt(e.currentTarget.value))}
+        />
+      </Field>
+      <Field class="w-1/4">
+        <Label for="unit">Unit</Label>
+        <WeightUnitSelect
+          id="unit"
+          value={defaultWeightUnit}
+          onchange={(unit) => onWeightUnitChange(unit)}
+        />
+      </Field>
+    </div>
     <Field>
       <Label for="sets">Sets</Label>
       <Select

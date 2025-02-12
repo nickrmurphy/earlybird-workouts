@@ -61,7 +61,7 @@
   .right {
     display: flex;
     align-items: baseline;
-    gap: var(--size-4);
+    gap: var(--size-5);
     margin-left: auto;
   }
 </style>
