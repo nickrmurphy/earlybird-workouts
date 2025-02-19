@@ -13,6 +13,7 @@
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
   import { ExerciseSearch } from "$lib/state";
+  import { getDefaultWeightUnit } from "$lib/utils";
 
   let { data } = $props();
 
@@ -73,7 +74,7 @@
       sets: 3,
       count: 10,
       order: $workoutExercises?.length ?? 0,
-      weightUnit: "lbs",
+      weightUnit: getDefaultWeightUnit(),
       countUnit: "reps",
     });
   };

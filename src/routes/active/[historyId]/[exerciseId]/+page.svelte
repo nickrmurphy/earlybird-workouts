@@ -8,7 +8,6 @@
     InstructionsDrawer,
     NavbarButton,
     Drawer,
-    Select,
     Input,
     WeightUnitSelect,
   } from "$lib/components";
@@ -111,27 +110,20 @@
   </NavbarButton>
 </Navbar>
 <Drawer bind:open={showEdit} title="Edit sets">
-  <p class="text-muted-foreground p-2">Edit units or remove sets.</p>
+  <p class="text-muted-foreground">Edit units or remove sets.</p>
   {#each $sets || [] as set, idx}
     <div class="space-y-4 p-2">
       <div class="text-muted-foreground tracking-wider uppercase">
         Set {idx + 1}
       </div>
       <div class="grid grid-cols-8 gap-2">
-        <div class="col-span-1 flex items-center">
-          {#if set.isSuccess}
-            <IconCircleCheck />
-          {:else}
-            <IconCircle />
-          {/if}
-        </div>
         <Input
           class="text-muted-foreground col-span-4"
           readonly
           value="{set.count} reps x {set.weight} {set.weightUnit}"
         />
         <WeightUnitSelect
-          class="col-span-2"
+          class="col-span-3"
           value={set.weightUnit}
           onchange={(unit) => updateSetUnit(set.id, unit)}
         />

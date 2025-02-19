@@ -103,7 +103,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-4);
-    padding: var(--size-2);
+    padding-inline: var(--size-3);
     padding-bottom: calc(var(--safe-bottom) + 44px);
   }
 

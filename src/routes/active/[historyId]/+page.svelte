@@ -23,6 +23,7 @@
   import { db, type Exercise } from "$lib/db";
   import { goto } from "$app/navigation";
   import { ExerciseSearch, globalState } from "$lib/state";
+  import { getDefaultWeightUnit } from "$lib/utils";
 
   let { data } = $props();
 
@@ -84,7 +85,7 @@
           count: 10,
           weight: 40,
           isSuccess: false,
-          weightUnit: "lbs",
+          weightUnit: getDefaultWeightUnit(),
           countUnit: "reps",
         });
       },
@@ -161,7 +162,7 @@
 </Drawer>
 <Drawer bind:open={exerciseDrawerOpen} title="Add an exercise">
   <section>
-    <div class="bg-surface sticky top-14 w-full p-2">
+    <div class="bg-surface sticky top-14 w-full">
       <Input
         class="w-full"
         bind:value={exerciseSearch.term}

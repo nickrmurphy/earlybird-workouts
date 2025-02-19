@@ -10,6 +10,7 @@
     InputDialog,
     Navbar,
     NavbarButton,
+    SettingsDrawer,
   } from "$lib/components";
   import {
     IconCirclePlus,
@@ -18,6 +19,7 @@
   } from "@tabler/icons-svelte";
 
   let showModal = $state(false);
+  let showSettings = $state(false);
   import { liveQuery, type Observable } from "dexie";
   import { db } from "$lib/db";
   import { getWorkoutsInfo } from "$lib/db/queries";
@@ -77,11 +79,13 @@
       History
       <IconReportAnalytics />
     </NavbarButton>
-    <NavbarButton class="invisible" variant="secondary">
+    <NavbarButton variant="secondary" onclick={() => (showSettings = true)}>
       <IconSettings />
     </NavbarButton>
   </Navbar>
 </Page>
+
+<SettingsDrawer bind:open={showSettings} />
 
 <InputDialog
   bind:open={showModal}
