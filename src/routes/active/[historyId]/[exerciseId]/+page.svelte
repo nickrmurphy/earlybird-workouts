@@ -12,20 +12,17 @@
     WeightUnitSelect,
   } from "$lib/components";
   import {
-    IconCheck,
-    IconCircle,
-    IconCircleCheck,
     IconExposurePlus1,
     IconInfoCircle,
     IconPencil,
     IconTrash,
   } from "@tabler/icons-svelte";
   import { liveQuery } from "dexie";
-  import { db, weightUnitSchema, type WeightUnit } from "$lib/db";
+  import { db, type WeightUnit } from "$lib/db";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
   import Button from "$lib/components/ui/Button.svelte";
-  import { parse } from "svelte/compiler";
+  import { getDefaultWeightUnit } from "$lib/utils/settings.js";
 
   let { data } = $props();
 
@@ -130,6 +127,7 @@
         <Button
           class="col-span-1 w-fit! text-red-500!"
           variant="outline"
+          disabled={$sets.length === 1}
           onclick={() => deleteSet(set.id)}
         >
           <IconTrash />
