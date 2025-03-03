@@ -5,7 +5,9 @@
     "prettier-plugin-organize-imports",
     "prettier-plugin-tailwindcss"
   ],
-  "pluginSearchDirs": ["."],
+  "pluginSearchDirs": [
+    "."
+  ],
   "overrides": [
     {
       "files": "*.svelte",
