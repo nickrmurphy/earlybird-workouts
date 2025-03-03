@@ -7,8 +7,8 @@ type WorkoutInfo = {
 };
 
 async function getWorkoutsInfo(): Promise<WorkoutInfo[]> {
-  let workoutsPromise = db.workouts.toArray();
-  let workoutExercisesPromise = db.workoutExercises.toArray();
+  const workoutsPromise = db.workouts.toArray();
+  const workoutExercisesPromise = db.workoutExercises.toArray();
   let workoutInfo: WorkoutInfo[] = [];
 
   await Promise.all([workoutsPromise, workoutExercisesPromise]).then(

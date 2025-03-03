@@ -22,7 +22,6 @@
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
   import Button from "$lib/components/ui/Button.svelte";
-  import { getDefaultWeightUnit } from "$lib/utils/settings.js";
 
   let { data } = $props();
 
@@ -71,7 +70,7 @@
       </button>
     {/snippet}
   </PageHeader>
-  {#each $sets || [] as set, idx}
+  {#each $sets || [] as set, idx (set.id)}
     <ActiveExerciseSet
       setIndex={idx}
       reps={set.count}
@@ -108,7 +107,7 @@
 </Navbar>
 <Drawer bind:open={showEdit} title="Edit sets">
   <p class="text-muted-foreground">Edit units or remove sets.</p>
-  {#each $sets || [] as set, idx}
+  {#each $sets || [] as set, idx (set.id)}
     <div class="space-y-4 p-2">
       <div class="text-muted-foreground tracking-wider uppercase">
         Set {idx + 1}
