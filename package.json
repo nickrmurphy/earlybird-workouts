@@ -24,6 +24,7 @@
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-dialog": "~2",
     "@tauri-apps/plugin-haptics": "^2.2.3",
+    "@tauri-apps/plugin-sql": "~2",
     "dexie": "^4.0.11",
     "dexie-cloud-addon": "^4.0.11",
     "zod": "^3.24.1"
