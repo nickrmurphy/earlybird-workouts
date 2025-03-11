@@ -32,6 +32,9 @@ importers:
       dexie-cloud-addon:
         specifier: ^4.0.11
         version: 4.0.11(dexie@4.0.11)
+      kysely:
+        specifier: ^0.27.6
+        version: 0.27.6
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -1059,6 +1062,10 @@ packages:
 
   known-css-properties@0.35.0:
     resolution: {integrity: sha512-a/RAk2BfKk+WFGhhOCAYqSiFLc34k8Mt/6NWRI4joER0EYUzXIcFivjjnoD3+XU1DggLn/tZc3DOAgke7l8a4A==}
+
+  kysely@0.27.6:
+    resolution: {integrity: sha512-FIyV/64EkKhJmjgC0g2hygpBv5RNWVPyNCqSAD7eTCv6eFWNIi4PN1UvdSJGicN/o35bnevgis4Y0UDC0qi8jQ==}
+    engines: {node: '>=14.0.0'}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -2396,6 +2403,8 @@ snapshots:
   kleur@4.1.5: {}
 
   known-css-properties@0.35.0: {}
+
+  kysely@0.27.6: {}
 
   levn@0.4.1:
     dependencies:

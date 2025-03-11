@@ -20,25 +20,13 @@
 
   let showModal = $state(false);
   let showSettings = $state(false);
-  import { liveQuery, type Observable } from "dexie";
-  import { db } from "$lib/db";
-  import { getWorkoutsInfo } from "$lib/db/queries";
+  import { createWorkout } from "$lib/resources";
 
-  type WorkoutInfo = {
-    id: string;
-    name: string;
-    exercises: string[];
-  };
+  let { data } = $props();
 
-  let workoutInfo: Observable<WorkoutInfo[]> = liveQuery(() =>
-    getWorkoutsInfo(),
-  );
-
-  const createWorkout = async (name: string) => {
+  const handleSave = async (name: string) => {
     if (!name) return;
-    db.workouts.add({ name }).then((newId) => {
-      goto(`/${newId}/exercises?complete=true`);
-    });
+    await createWorkout({ name });
   };
 </script>
 
@@ -51,14 +39,14 @@
     {/snippet}
   </PageHeader>
   <section class="flex flex-col gap-4 overflow-scroll">
-    {#if $workoutInfo?.length === 0}
+    {#if data.workouts.length === 0}
       <EmptyMessage
         header="No workouts yet."
         message="Tap the plus button to add one."
       />
       <SportsJogging />
     {:else}
-      {#each $workoutInfo as workout}
+      {#each data.workouts as workout (workout.id)}
         <Pressable href={`/${workout.id}`}>
           <WorkoutCard
             workoutName={workout.name}
@@ -90,7 +78,7 @@
 <InputDialog
   bind:open={showModal}
   title="Create a workout"
-  onSubmit={createWorkout}
+  onSubmit={handleSave}
   submitText="Create"
   placeholder="e.g. Upper Body"
 />
