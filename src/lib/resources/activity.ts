@@ -43,4 +43,30 @@ async function getActivities(workoutId?: string): Promise<{
   };
 }
 
-export { getActivities };
+async function getActivity(activityId: string): Promise<{
+  key: `${string}:${string}`;
+  activity: Activity;
+}> {
+  const client = await getClient();
+  const query = db
+    .selectFrom("activity")
+    .where("id", "=", activityId)
+    .select(["id", "workoutId", "workoutName", "startTime", "endTime"]);
+  const { sql, parameters } = query.compile();
+  const [activityData] = await client.select<InferResult<typeof query>>(sql, [
+    ...parameters,
+  ]);
+  return {
+    key,
+    activity: {
+      id: activityData.id,
+      workoutId: activityData.workoutId,
+      workoutName: activityData.workoutName,
+      startTime: new Date(activityData.startTime),
+      endTime: activityData.endTime
+        ? new Date(activityData.endTime)
+        : undefined,
+    },
+  };
+}
+export { getActivities, getActivity };

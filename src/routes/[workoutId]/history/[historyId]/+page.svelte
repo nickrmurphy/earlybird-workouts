@@ -9,7 +9,7 @@
     Dropdown,
     DropdownItem,
   } from "$lib/components";
-  import { db, deleteHistory } from "$lib/db";
+  import { deleteHistory } from "$lib/db";
   import {
     calculateTonnage,
     dateDifferenceInMinutes,
@@ -21,30 +21,42 @@
     IconTrash,
     IconWeight,
   } from "@tabler/icons-svelte";
-  import { liveQuery } from "dexie";
   import { goto } from "$app/navigation";
 
-  let history = liveQuery(() => db.history.get(page.params.historyId));
+  let { data } = $props();
 
-  let exercises = liveQuery(() =>
-    db.historyExercises
-      .where("historyId")
-      .equals(page.params.historyId)
-      .toArray(),
-  );
+  let exercises = $derived.by(() => {
+    const results: Map<
+      string,
+      {
+        id: string;
+        exerciseId: string;
+        exerciseName: string;
+        activityId: string;
+      }
+    > = new Map();
+    for (const set of data.activitySets || []) {
+      if (!results.has(set.exerciseId)) {
+        results.set(set.exerciseId, {
+          id: set.id,
+          exerciseId: set.exerciseId,
+          exerciseName: set.exerciseName,
+          activityId: set.activityId,
+        });
+      }
+    }
 
-  let historySets = liveQuery(() =>
-    db.historySets.where("historyId").equals(page.params.historyId).toArray(),
-  );
+    return Array.from(results.values());
+  });
 
   let runTime = $derived(
-    $history && $history.endTime
-      ? dateDifferenceInMinutes($history?.startTime, $history.endTime)
+    data.activity && data.activity.endTime
+      ? dateDifferenceInMinutes(data.activity.startTime, data.activity.endTime)
       : undefined,
   );
 
   let tonnage = $derived(
-    $historySets ? calculateTonnage($historySets) : undefined,
+    data.activitySets ? calculateTonnage(data.activitySets) : undefined,
   );
 
   let dropdownToggle: HTMLElement | null = $state(null);
@@ -64,7 +76,7 @@
 </script>
 
 <Page>
-  <PageHeader title={$history?.workoutName}>
+  <PageHeader title={data.activity.workoutName}>
     {#snippet right()}
       <button bind:this={dropdownToggle}>
         <IconDotsCircleHorizontal class="text-accent" />
@@ -77,7 +89,7 @@
     {/snippet}
   </PageHeader>
   <h2 class="font-display text-muted-foreground p-1 text-lg font-semibold">
-    {dateFormatter.format($history?.startTime)}
+    {dateFormatter.format(data.activity.startTime)}
   </h2>
   <div
     class="font-display flex items-center justify-between gap-2 rounded-sm p-1 text-lg font-semibold"
@@ -93,10 +105,12 @@
       lbs
     </div>
   </div>
-  {#each $exercises as exercise (exercise.exerciseId)}
+  {#each exercises as exercise (exercise.exerciseId)}
     <ExerciseSetsTable
       exerciseName={exercise.exerciseName}
-      sets={$historySets?.filter((s) => s.exerciseId === exercise.exerciseId)}
+      sets={data.activitySets?.filter(
+        (s) => s.exerciseId === exercise.exerciseId,
+      )}
     />
   {/each}
   <Navbar

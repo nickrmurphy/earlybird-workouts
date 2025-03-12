@@ -4,9 +4,10 @@
   type Props = {
     exerciseName: string;
     sets: {
+      id: string;
       weight: number;
       count: number;
-      isSuccess: boolean;
+      isComplete: 1 | 0;
     }[];
   };
 
@@ -29,12 +30,12 @@
         </tr>
       </thead>
       <tbody class="divide-divide divide-y">
-        {#each sets as set}
+        {#each sets as set (set)}
           <tr>
             <td><span class="pl-4">{set.weight}</span></td>
             <td>{set.count}</td>
             <td>
-              {#if set.isSuccess}
+              {#if set.isComplete}
                 <span><IconCircleCheck color="var(--color-accent)" /></span>
               {:else}
                 <span><IconCircle color="var(--color-foreground)" /></span>

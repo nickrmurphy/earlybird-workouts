@@ -31,9 +31,24 @@ type ActivititySetsResponse = {
   }[];
 };
 
-async function getActivitySets(
-  workoutId?: string,
-): Promise<ActivititySetsResponse> {
+type ActivitySetsWorkoutIdOption = {
+  workoutId: string;
+  activityId?: never;
+};
+
+type ActivitySetsActivityIdOption = {
+  workoutId?: never;
+  activityId: string;
+};
+
+type ActivitySetsOptions =
+  | ActivitySetsWorkoutIdOption
+  | ActivitySetsActivityIdOption;
+
+async function getActivitySets({
+  workoutId,
+  activityId,
+}: ActivitySetsOptions): Promise<ActivititySetsResponse> {
   const client = await getClient();
   let query = db
     .selectFrom("activitySet")
@@ -52,6 +67,10 @@ async function getActivitySets(
 
   if (workoutId) {
     query = query.where("workoutId", "=", workoutId);
+  }
+
+  if (activityId) {
+    query = query.where("activityId", "=", activityId);
   }
 
   const { sql, parameters } = query.compile();
