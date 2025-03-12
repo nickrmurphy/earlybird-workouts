@@ -1,4 +1,3 @@
-import type { Exercise } from "$lib/db";
 import { redirect } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 
@@ -11,7 +10,5 @@ export const load: PageLoad = async ({ parent, params }) => {
 
   return {
     details: details ? details : redirect(404, "/"),
-  } as {
-    details: Exercise;
   };
 };

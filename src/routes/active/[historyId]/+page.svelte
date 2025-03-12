@@ -110,7 +110,7 @@
       </div>
     {/snippet}
   </PageHeader>
-  {#each $exercises || [] as exercise}
+  {#each $exercises || [] as exercise (exercise.exerciseId)}
     {@const sets =
       $exerciseSets?.filter((s) => s.exerciseId === exercise.exerciseId) || []}
     <Pressable href={`/active/${data.historyId}/${exercise.exerciseId}`}>
@@ -154,7 +154,7 @@
       class="rounded-sm border px-3 py-2"
       bind:value={globalState.activity.restTimer.runTimeSeconds}
     >
-      {#each [10, 20, 30, 45, 60, 90, 120, 180] as time}
+      {#each [10, 20, 30, 45, 60, 90, 120, 180] as time (time)}
         <option value={time}>{time}s</option>
       {/each}
     </Select>
@@ -170,7 +170,7 @@
       />
     </div>
     <ul class="divide-divide divide-y">
-      {#each exerciseSearch.filteredOptions as exercise}
+      {#each exerciseSearch.filteredOptions as exercise (exercise.id)}
         <li>
           <button
             class="w-full p-3 text-start text-lg font-semibold"
@@ -179,7 +179,7 @@
               addExercise(exercise);
             }}
           >
-            {exercise.name}
+            {exercise.exerciseName}
           </button>
         </li>
       {/each}
