@@ -93,7 +93,7 @@
       lbs
     </div>
   </div>
-  {#each $exercises as exercise}
+  {#each $exercises as exercise (exercise.exerciseId)}
     <ExerciseSetsTable
       exerciseName={exercise.exerciseName}
       sets={$historySets?.filter((s) => s.exerciseId === exercise.exerciseId)}

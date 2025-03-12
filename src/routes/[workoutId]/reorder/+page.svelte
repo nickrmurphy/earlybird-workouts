@@ -17,7 +17,7 @@
   import { db } from "$lib/db";
   import { arraymove } from "$lib/utils";
 
-  const workout = liveQuery(() => db.workouts.get(page.params.workoutId));
+  const { data } = $props();
 
   const workoutExercises = liveQuery(() =>
     db.workoutExercises
@@ -55,7 +55,7 @@
 </script>
 
 <Page>
-  <PageHeader title={$workout?.name} />
+  <PageHeader title={data.workout.name} />
   <ol class="divide-divide divide-y">
     {#each orderedExercises as exercise, idx (exercise.id)}
       <li

@@ -13,7 +13,7 @@
   import { calculateTonnagePerAttribute } from "$lib/utils";
   import { liveQuery } from "dexie";
 
-  let workout = liveQuery(() => db.workouts.get(page.params.workoutId));
+  let { data } = $props();
 
   let history = liveQuery(() => {
     return db.history
@@ -36,7 +36,7 @@
 </script>
 
 <Page>
-  <PageHeader title={$workout?.name}>
+  <PageHeader title={data.workout.name}>
     {#snippet right()}
       <span>History</span>
     {/snippet}
@@ -49,7 +49,7 @@
     <BusinessClipboard />
   {/if}
   <div class="space-y-8">
-    {#each $history || [] as item}
+    {#each $history || [] as item (item.id)}
       <HistoryCard
         onclick={() => {
           goto(`/${page.params.workoutId}/history/${item.id}`);
