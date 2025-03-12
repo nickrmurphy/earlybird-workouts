@@ -28,12 +28,12 @@
   import { liveQuery } from "dexie";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
+
   let { data } = $props();
+
   let dropdownToggle: HTMLElement | null = $state(null);
   let showEditDialog = $state(false);
   let showExerciseDialog = $state(false);
-
-  let workout = liveQuery(() => db.workouts.get(page.params.workoutId));
 
   let workoutExercises = liveQuery(() =>
     db.workoutExercises
@@ -85,40 +85,38 @@
 </script>
 
 <Page>
-  {#if $workout}
-    <PageHeader
-      title={$workout.name}
-      viewTransitionName="workout-header-{$workout.id}"
-    >
-      {#snippet right()}
-        <button
-          class="disabled:opacity-50"
-          onclick={() => goto(`/${page.params.workoutId}/reorder`)}
-          disabled={$workoutExercises?.length === 0}
-        >
-          <IconSwitchVertical class="text-accent" />
-        </button>
-        <button onclick={() => goto(`/${page.params.workoutId}/exercises`)}>
-          {#if $workoutExercises?.length > 0}
-            <IconPlusMinus class="text-accent" />
-          {:else}
-            <IconPlus class="text-accent" />
-          {/if}
-        </button>
-        <button bind:this={dropdownToggle}>
-          <IconDotsCircleHorizontal class="text-accent" />
-        </button>
-        <Dropdown anchor={dropdownToggle}>
-          <DropdownItem onclick={() => (showEditDialog = true)}>
-            Rename <IconPencil />
-          </DropdownItem>
-          <DropdownItem onclick={confirmDelete}>
-            Delete <IconTrash color="var(--color-red-500)" />
-          </DropdownItem>
-        </Dropdown>
-      {/snippet}
-    </PageHeader>
-  {/if}
+  <PageHeader
+    title={data.workout.name}
+    viewTransitionName="workout-header-{data.workout.id}"
+  >
+    {#snippet right()}
+      <button
+        class="disabled:opacity-50"
+        onclick={() => goto(`/${page.params.workoutId}/reorder`)}
+        disabled={$workoutExercises?.length === 0}
+      >
+        <IconSwitchVertical class="text-accent" />
+      </button>
+      <button onclick={() => goto(`/${page.params.workoutId}/exercises`)}>
+        {#if $workoutExercises?.length > 0}
+          <IconPlusMinus class="text-accent" />
+        {:else}
+          <IconPlus class="text-accent" />
+        {/if}
+      </button>
+      <button bind:this={dropdownToggle}>
+        <IconDotsCircleHorizontal class="text-accent" />
+      </button>
+      <Dropdown anchor={dropdownToggle}>
+        <DropdownItem onclick={() => (showEditDialog = true)}>
+          Rename <IconPencil />
+        </DropdownItem>
+        <DropdownItem onclick={confirmDelete}>
+          Delete <IconTrash color="var(--color-red-500)" />
+        </DropdownItem>
+      </Dropdown>
+    {/snippet}
+  </PageHeader>
   {#if $workoutExercises}
     <section class="flex flex-col gap-5">
       {#if $workoutExercises.length === 0}
@@ -178,7 +176,7 @@
 <InputDialog
   bind:open={showEditDialog}
   title="Rename exercise"
-  defaultValue={$workout?.name}
+  defaultValue={data.workout.name}
   onSubmit={async (name) => {
     if (!name) return;
     db.workouts.update(page.params.workoutId, { name });
