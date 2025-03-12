@@ -5,9 +5,9 @@
     muscleSchema,
     type Equipment,
     type Muscle,
-    type DiscreteMuscle,
-    type DiscreteEquipment,
   } from "$lib/db";
+
+  type Option = { id: string; name: string };
 
   let {
     muscleOptions,
@@ -15,10 +15,10 @@
     selectedMuscles = $bindable([]),
     selectedEquipment = $bindable([]),
   }: {
-    muscleOptions: DiscreteMuscle[];
-    equipmentOptions: DiscreteEquipment[];
-    selectedMuscles: Muscle[];
-    selectedEquipment: Equipment[];
+    muscleOptions: Option[];
+    equipmentOptions: Option[];
+    selectedMuscles: string[];
+    selectedEquipment: string[];
   } = $props();
 
   let searchFilters: string[] = $state([]);
@@ -67,14 +67,14 @@
     class="min-h-11 w-full border-none bg-transparent focus-within:outline-none"
   >
     <optgroup label="Muscles">
-      {#each muscleOptions as muscle}
-        <option value="muscle-{muscle.value}">{muscle.label}</option>
+      {#each muscleOptions as muscle (muscle.id)}
+        <option value="muscle-{muscle.id}">{muscle.name}</option>
       {/each}
     </optgroup>
     <optgroup label="Equipment">
       <option value="equipment-NULL">None</option>
-      {#each equipmentOptions as equipment}
-        <option value="equipment-{equipment.value}">{equipment.label}</option>
+      {#each equipmentOptions as equipment (equipment.id)}
+        <option value="equipment-{equipment.id}">{equipment.name}</option>
       {/each}
     </optgroup>
   </select>

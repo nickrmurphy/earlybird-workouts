@@ -35,10 +35,6 @@ export const load: LayoutLoad = async ({ params, depends }) => {
     workoutExercises,
     allEquipment,
     allMuscles,
-    // TODO: Add instructions to exercises
-    allExercises: allExercises.map((exercise) => ({
-      ...exercise,
-      instructions: [],
-    })),
+    allExercises,
   };
 };

@@ -1,24 +1,22 @@
-import type { Equipment, Exercise, Muscle } from "$lib/db";
+import type { ExerciseDetail } from "$lib/resources";
 
-function isNameMatch(exercise: Exercise, term: string) {
-  return exercise.name.toLowerCase().includes(term.trim().toLowerCase());
+function isNameMatch(exercise: { exerciseName: string }, term: string) {
+  return exercise.exerciseName
+    .toLowerCase()
+    .includes(term.trim().toLowerCase());
 }
 
-function isMuscleMatch(exercise: Exercise, muscleIds: Muscle[]) {
+function isMuscleMatch(exercise: ExerciseDetail, muscleIds: string[]) {
   return (
     muscleIds.length === 0 ||
-    muscleIds.some(
-      (id) =>
-        exercise.primaryMuscles?.includes(id) ||
-        exercise.secondaryMuscles?.includes(id),
-    )
+    muscleIds.some((id) => exercise.muscles.some((m) => m.id === id))
   );
 }
 
-function isEquipmentMatch(exercise: Exercise, equipmentIds: Equipment[]) {
+function isEquipmentMatch(exercise: ExerciseDetail, equipmentIds: string[]) {
   return (
     equipmentIds.length === 0 ||
-    equipmentIds.some((id) => exercise.equipment?.includes(id))
+    equipmentIds.some((id) => exercise.equipment.id === id)
   );
 }
 

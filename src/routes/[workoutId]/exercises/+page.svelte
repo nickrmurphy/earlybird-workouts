@@ -10,37 +10,22 @@
   } from "$lib/components";
   import { page } from "$app/state";
   import { InstructionsDrawerSelect } from "$lib/components";
-  import { liveQuery } from "dexie";
   import { db } from "$lib/db";
   import { ExerciseSearch } from "$lib/state";
   import { getDefaultWeightUnit } from "$lib/utils";
+  import type { ExerciseDetail } from "$lib/resources/library.js";
 
   let { data } = $props();
 
-  let selectedOnly = $state(false);
-
-  let exerciseDetails:
-    | { id: string; name: string; instructions: string[] }
-    | undefined = $state({
-    id: "",
-    name: "",
-    instructions: [],
-  });
-
   let showDrawer = $state(false);
-
-  let workoutExercises = liveQuery(() => {
-    return db.workoutExercises
-      .where("workoutId")
-      .equals(page.params.workoutId)
-      .toArray();
-  });
+  let selectedOnly = $state(false);
+  let exerciseDetails: ExerciseDetail | undefined = $state(undefined);
 
   const exerciseSearch = new ExerciseSearch(data.allExercises);
 
   let selectedExerciseDetails = $derived.by(() => {
     return data.allExercises.filter((exercise) =>
-      $workoutExercises?.map((e) => e.exerciseId).includes(exercise.id),
+      data.workoutExercises.map((e) => e.exerciseId).includes(exercise.id),
     );
   });
 
@@ -50,8 +35,8 @@
       : exerciseSearch.filteredOptions;
 
     return options.map((exercise) => ({
-      value: exercise.id,
-      label: exercise.name,
+      id: exercise.id,
+      name: exercise.exerciseName,
     }));
   });
 
@@ -67,13 +52,13 @@
     if (!exercise) return;
 
     db.workoutExercises.add({
-      name: exercise.name,
+      name: exercise.exerciseName,
       workoutId: page.params.workoutId,
       exerciseId: exercise.id,
       weight: 40,
       sets: 3,
       count: 10,
-      order: $workoutExercises?.length ?? 0,
+      order: data.workoutExercises.length,
       weightUnit: getDefaultWeightUnit(),
       countUnit: "reps",
     });
@@ -100,7 +85,7 @@
           value: false,
         },
         {
-          label: `Selected (${$workoutExercises?.length})`,
+          label: `Selected (${data.workoutExercises.length})`,
           value: true,
         },
       ]}
@@ -108,7 +93,7 @@
   </PageHeader>
 
   <ExerciseSelectList
-    selected={$workoutExercises?.map((exercise) => exercise.exerciseId)}
+    selected={data.workoutExercises.map((exercise) => exercise.exerciseId)}
     options={exerciseOptions}
     onAdd={(value) => {
       handleAddExercise(value);
@@ -137,10 +122,10 @@
 {#if exerciseDetails}
   <InstructionsDrawerSelect
     bind:open={showDrawer}
-    name={exerciseDetails.name}
+    name={exerciseDetails.exerciseName}
     exerciseId={exerciseDetails.id}
-    isSelected={$workoutExercises
-      ?.map((e) => e.exerciseId)
+    isSelected={data.workoutExercises
+      .map((e) => e.exerciseId)
       .includes(exerciseDetails.id)}
     instructions={exerciseDetails.instructions}
     onAddExercise={handleAddExercise}

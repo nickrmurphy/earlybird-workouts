@@ -1,30 +1,33 @@
-import type { Equipment, Exercise, Muscle } from "$lib/db";
+import type { ExerciseDetail } from "$lib/resources";
 import { isEquipmentMatch, isMuscleMatch, isNameMatch } from "$lib/utils";
 
 type FilterOptions = {
   term: string;
-  equipmentIds: Equipment[];
-  muscleIds: Muscle[];
-  custom?: (exercise: Exercise) => boolean;
+  equipmentIds: string[];
+  muscleIds: string[];
+  custom?: (exercise: ExerciseDetail) => boolean;
 };
 
-function filterExercise(exercise: Exercise, filters: FilterOptions) {
+function filterExercise(exercise: ExerciseDetail, filters: FilterOptions) {
   const nameMatch = isNameMatch(exercise, filters.term);
   const muscleMatch = isMuscleMatch(exercise, filters.muscleIds);
   const equipmentMatch = isEquipmentMatch(exercise, filters.equipmentIds);
   return nameMatch && muscleMatch && equipmentMatch;
 }
 
-function getFilteredExercises(options: Exercise[], filters: FilterOptions) {
+function getFilteredExercises(
+  options: ExerciseDetail[],
+  filters: FilterOptions,
+) {
   return options.filter((exercise) => filterExercise(exercise, filters));
 }
 
 export class ExerciseSearch {
-  #options: Exercise[];
+  #options: ExerciseDetail[];
   term = $state("");
-  equipmentIds = $state<Equipment[]>([]);
-  muscleIds = $state<Muscle[]>([]);
-  customFilter: (exercise: Exercise) => boolean = $state(() => true);
+  equipmentIds = $state<string[]>([]);
+  muscleIds = $state<string[]>([]);
+  customFilter: (exercise: ExerciseDetail) => boolean = $state(() => true);
 
   filteredOptions = $derived.by(() => {
     return getFilteredExercises(this.#options, {
@@ -35,7 +38,7 @@ export class ExerciseSearch {
     });
   });
 
-  constructor(options: Exercise[]) {
+  constructor(options: ExerciseDetail[]) {
     this.#options = options;
   }
 }

@@ -7,7 +7,7 @@
   } from "@tabler/icons-svelte";
 
   type Props = {
-    options: { value: string; label: string }[];
+    options: { id: string; name: string }[];
     onAdd?: (value: string) => void;
     onRemove?: (value: string) => void;
     onSelectInfo?: (value: string) => void;
@@ -23,27 +23,27 @@
   }: Props = $props();
 
   function handleSelect(option: Props["options"][0]) {
-    selected.push(option.value);
-    onAdd?.(option.value);
+    selected.push(option.id);
+    onAdd?.(option.id);
     impactFeedback("soft");
   }
 
   function handleRemove(option: Props["options"][0]) {
-    selected = selected.filter((value) => value !== option.value);
-    onRemove?.(option.value);
+    selected = selected.filter((value) => value !== option.id);
+    onRemove?.(option.id);
     impactFeedback("soft");
   }
 </script>
 
 <ul>
-  {#each options as option}
+  {#each options as option (option.id)}
     <li>
-      {#if selected.includes(option.value)}
+      {#if selected.includes(option.id)}
         <button onclick={() => handleRemove(option)}>
           <span>
             <IconCircleCheckFilled color="var(--color-accent)" />
           </span>
-          {option.label}
+          {option.name}
         </button>
       {:else}
         <button onclick={() => handleSelect(option)}>
@@ -51,13 +51,13 @@
             <IconCircle color="var(--color-accent)" />
           </span>
           <span class="text-start">
-            {option.label}
+            {option.name}
           </span>
         </button>
       {/if}
       <button
         style="margin-left: auto; width: fit-content; color: var(--color-muted-foreground)"
-        onclick={() => onSelectInfo?.(option.value)}
+        onclick={() => onSelectInfo?.(option.id)}
       >
         <IconInfoCircle />
       </button>
