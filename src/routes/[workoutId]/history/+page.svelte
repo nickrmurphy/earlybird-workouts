@@ -9,29 +9,19 @@
     PageHeader,
     Navbar,
   } from "$lib/components";
-  import { db } from "$lib/db";
   import { calculateTonnagePerAttribute } from "$lib/utils";
-  import { liveQuery } from "dexie";
 
   let { data } = $props();
 
-  let history = liveQuery(() => {
-    return db.history
-      .where("workoutId")
-      .equals(page.params.workoutId)
-      .reverse()
-      .sortBy("startTime");
-  });
-  let successSets = liveQuery(() => {
-    return db.historySets
-      .filter(
-        (set) => $history.some((h) => h.id === set.historyId) && set.isSuccess,
-      )
-      .toArray();
-  });
+  let successSets = $derived(
+    data.activitySets.filter(
+      (set) =>
+        data.activities.some((h) => h.id === set.activityId) && set.isComplete,
+    ),
+  );
 
   let tonnage: Map<string, number> = $derived(
-    calculateTonnagePerAttribute($successSets || [], (set) => set.historyId),
+    calculateTonnagePerAttribute(successSets, (set) => set.activityId),
   );
 </script>
 
@@ -41,7 +31,7 @@
       <span>History</span>
     {/snippet}
   </PageHeader>
-  {#if $history?.length === 0}
+  {#if data.activities.length === 0}
     <EmptyMessage
       header="No history yet."
       message="Past workout details will appear here."
@@ -49,14 +39,14 @@
     <BusinessClipboard />
   {/if}
   <div class="space-y-8">
-    {#each $history || [] as item (item.id)}
+    {#each data.activities as activity (activity.id)}
       <HistoryCard
         onclick={() => {
-          goto(`/${page.params.workoutId}/history/${item.id}`);
+          goto(`/${page.params.workoutId}/history/${activity.id}`);
         }}
-        startTime={item.startTime}
-        endTime={item.endTime || undefined}
-        tonnage={tonnage.get(item.id) || 0}
+        startTime={activity.startTime}
+        endTime={activity.endTime || undefined}
+        tonnage={tonnage.get(activity.id) || 0}
       />
     {/each}
   </div>
