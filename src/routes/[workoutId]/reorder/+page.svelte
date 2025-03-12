@@ -13,32 +13,17 @@
     IconChevronDown,
     IconChevronUp,
   } from "@tabler/icons-svelte";
-  import { liveQuery } from "dexie";
   import { db } from "$lib/db";
   import { arraymove } from "$lib/utils";
 
   const { data } = $props();
 
-  const workoutExercises = liveQuery(() =>
-    db.workoutExercises
-      .where("workoutId")
-      .equals(page.params.workoutId)
-      .sortBy("order"),
-  );
-
-  let orderedExercises = $state(
-    $workoutExercises ? [...$workoutExercises] : [],
-  );
+  let orderedExercises = $state(data.workoutExercises);
 
   let changed = $derived.by(() => {
-    if (!$workoutExercises) return false;
     return (
-      JSON.stringify($workoutExercises) !== JSON.stringify(orderedExercises)
+      JSON.stringify(data.workoutExercises) !== JSON.stringify(orderedExercises)
     );
-  });
-
-  $effect(() => {
-    orderedExercises = $workoutExercises ? [...$workoutExercises] : [];
   });
 
   async function saveChanges() {
@@ -62,7 +47,7 @@
         animate:flip={{ duration: 300 }}
         class="flex items-center justify-between px-4 py-5 font-bold"
       >
-        {exercise.name}
+        {exercise.exerciseName}
         <div class="flex gap-3">
           <Button
             disabled={idx === 0}
@@ -74,7 +59,7 @@
           </Button>
           <Button
             variant="outline"
-            disabled={idx === $workoutExercises?.length - 1}
+            disabled={idx === data.workoutExercises.length - 1}
             type="button"
             onclick={() => arraymove(orderedExercises, idx, idx + 1)}
           >

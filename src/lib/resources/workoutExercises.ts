@@ -21,6 +21,7 @@ async function getWorkoutExercisesForWorkout(id: string) {
     .selectFrom("workoutExercise")
     .where("workoutExercise.exerciseId", "=", id)
     .innerJoin("exercise", "exercise.id", "workoutExercise.exerciseId")
+    .orderBy("workoutExercise.order")
     .select([
       "id",
       "sets",
