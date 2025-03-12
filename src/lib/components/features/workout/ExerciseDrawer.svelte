@@ -2,17 +2,18 @@
   import { onMount } from "svelte";
   import { Drawer, Field, Input, Label, Select } from "../../ui";
   import { type WeightUnit } from "$lib/db";
+  import type { WeightUnit as IWeightUnit } from "$lib/database/database";
   import { WeightUnitSelect } from "$lib/components/shared";
 
   type Props = {
     onWeightChange: (weight: number) => void;
     onSetsChange: (sets: number) => void;
     onRepsChange: (reps: number) => void;
-    onWeightUnitChange: (unit: WeightUnit) => void;
+    onWeightUnitChange: (unit: WeightUnit | IWeightUnit) => void;
     defaultWeight: number;
     defaultSets: number;
     defaultReps: number;
-    defaultWeightUnit: WeightUnit;
+    defaultWeightUnit: WeightUnit | IWeightUnit;
     instructions?: string[];
     name: string;
     open: boolean;
@@ -99,7 +100,7 @@
         class="text-sm tracking-wide uppercase">instructions</summary
       >
       <ol class="flex flex-col gap-2 p-2">
-        {#each instructions as instruction, idx}
+        {#each instructions as instruction, idx (idx)}
           <li class="text-lg">
             <span>{idx + 1}.</span>
             {instruction}

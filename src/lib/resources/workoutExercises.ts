@@ -15,4 +15,33 @@ async function getWorkoutExercises() {
   };
 }
 
-export { getWorkoutExercises };
+async function getWorkoutExercisesForWorkout(id: string) {
+  const client = await getClient();
+  const query = db
+    .selectFrom("workoutExercise")
+    .where("workoutExercise.exerciseId", "=", id)
+    .innerJoin("exercise", "exercise.id", "workoutExercise.exerciseId")
+    .select([
+      "id",
+      "sets",
+      "count",
+      "countUnit",
+      "weight",
+      "weightUnit",
+      "exerciseId",
+      "exercise.name as exerciseName",
+    ]);
+
+  const { sql, parameters } = query.compile();
+
+  const workoutExercises = await client.select<InferResult<typeof query>>(sql, [
+    ...parameters,
+  ]);
+
+  return {
+    key: KEY,
+    workoutExercises,
+  };
+}
+
+export { getWorkoutExercises, getWorkoutExercisesForWorkout };

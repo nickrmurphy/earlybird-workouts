@@ -25,7 +25,6 @@
   } from "@tabler/icons-svelte";
   import { NavigationMonitor } from "$lib/assets";
   import { db, createWorkoutHistoryAndExerciseSets } from "$lib/db";
-  import { liveQuery } from "dexie";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
 
@@ -35,17 +34,10 @@
   let showEditDialog = $state(false);
   let showExerciseDialog = $state(false);
 
-  let workoutExercises = liveQuery(() =>
-    db.workoutExercises
-      .where("workoutId")
-      .equals(page.params.workoutId)
-      .toArray(),
-  );
-
   let selectedExerciseId = $state<string | null>(null);
   let selectedExercise = $derived.by(() => {
-    if (!selectedExerciseId || !$workoutExercises) return null;
-    return $workoutExercises.find(
+    if (!selectedExerciseId || !data.workoutExercises) return null;
+    return data.workoutExercises.find(
       (exercise) => exercise.exerciseId === selectedExerciseId,
     );
   });
@@ -93,12 +85,12 @@
       <button
         class="disabled:opacity-50"
         onclick={() => goto(`/${page.params.workoutId}/reorder`)}
-        disabled={$workoutExercises?.length === 0}
+        disabled={data.workoutExercises.length === 0}
       >
         <IconSwitchVertical class="text-accent" />
       </button>
       <button onclick={() => goto(`/${page.params.workoutId}/exercises`)}>
-        {#if $workoutExercises?.length > 0}
+        {#if data.workoutExercises.length > 0}
           <IconPlusMinus class="text-accent" />
         {:else}
           <IconPlus class="text-accent" />
@@ -117,36 +109,34 @@
       </Dropdown>
     {/snippet}
   </PageHeader>
-  {#if $workoutExercises}
-    <section class="flex flex-col gap-5">
-      {#if $workoutExercises.length === 0}
-        <EmptyMessage
-          header="No exercises yet."
-          message="Tap the plus button to add an exercise."
+  <section class="flex flex-col gap-5">
+    {#if data.workoutExercises.length === 0}
+      <EmptyMessage
+        header="No exercises yet."
+        message="Tap the plus button to add an exercise."
+      />
+      <NavigationMonitor />
+    {:else}
+      {#each data.workoutExercises as exercise (exercise.id)}
+        <ExerciseItem
+          onclick={() => {
+            selectedExerciseId = exercise.exerciseId;
+          }}
+          weightUnit={exercise.weightUnit}
+          name={exercise.exerciseName}
+          sets={exercise.sets}
+          reps={exercise.count}
+          weight={exercise.weight}
         />
-        <NavigationMonitor />
-      {:else}
-        {#each $workoutExercises as exercise (exercise.id)}
-          <ExerciseItem
-            onclick={() => {
-              selectedExerciseId = exercise.exerciseId;
-            }}
-            weightUnit={exercise.weightUnit}
-            name={exercise.name}
-            sets={exercise.sets}
-            reps={exercise.count}
-            weight={exercise.weight}
-          />
-        {/each}
-      {/if}
-    </section>
-  {/if}
+      {/each}
+    {/if}
+  </section>
 </Page>
 
 {#if selectedExercise}
   <ExerciseDrawer
     bind:open={showExerciseDialog}
-    name={selectedExercise.name}
+    name={selectedExercise.exerciseName}
     onWeightChange={(weight) => {
       db.workoutExercises.update(selectedExercise.id, { weight });
     }}
@@ -157,7 +147,9 @@
       db.workoutExercises.update(selectedExercise.id, { count: reps });
     }}
     onWeightUnitChange={(unit) => {
-      db.workoutExercises.update(selectedExercise.id, { weightUnit: unit });
+      db.workoutExercises.update(selectedExercise.id, {
+        weightUnit: unit === "lb" ? "lbs" : unit,
+      });
     }}
     defaultWeight={selectedExercise.weight}
     defaultWeightUnit={selectedExercise.weightUnit}

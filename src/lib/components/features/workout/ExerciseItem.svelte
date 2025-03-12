@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { WeightUnit } from "$lib/db";
+  import type { WeightUnit as IWeightUnit } from "$lib/database/database";
   import type { HTMLAttributes } from "svelte/elements";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
@@ -7,7 +8,7 @@
     sets: number;
     reps: number;
     weight: number;
-    weightUnit: WeightUnit;
+    weightUnit: WeightUnit | IWeightUnit;
   };
 
   let { name, sets, reps, weight, weightUnit, ...props }: Props = $props();
