@@ -1,4 +1,5 @@
 import { getActivity, getActivitySets } from "$lib/resources";
+import { getDistinctExercises } from "$lib/utils";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ depends, params }) => {
@@ -14,5 +15,6 @@ export const load: PageLoad = async ({ depends, params }) => {
   return {
     activity,
     activitySets,
+    exercises: getDistinctExercises(activitySets),
   };
 };

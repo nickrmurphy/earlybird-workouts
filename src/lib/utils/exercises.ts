@@ -1,4 +1,4 @@
-import type { ExerciseDetail } from "$lib/resources";
+import type { ActivitySet, ExerciseDetail } from "$lib/resources";
 
 function isNameMatch(exercise: { exerciseName: string }, term: string) {
   return exercise.exerciseName
@@ -20,4 +20,29 @@ function isEquipmentMatch(exercise: ExerciseDetail, equipmentIds: string[]) {
   );
 }
 
-export { isEquipmentMatch, isMuscleMatch, isNameMatch };
+function getDistinctExercises(activitySets: ActivitySet[]) {
+  const exercisesMap: Map<
+    string,
+    {
+      id: string;
+      exerciseId: string;
+      exerciseName: string;
+      activityId: string;
+    }
+  > = new Map();
+
+  for (const set of activitySets || []) {
+    if (!exercisesMap.has(set.exerciseId)) {
+      exercisesMap.set(set.exerciseId, {
+        id: set.id,
+        exerciseId: set.exerciseId,
+        exerciseName: set.exerciseName,
+        activityId: set.activityId,
+      });
+    }
+  }
+
+  return Array.from(exercisesMap.values());
+}
+
+export { getDistinctExercises, isEquipmentMatch, isMuscleMatch, isNameMatch };

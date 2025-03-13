@@ -25,30 +25,6 @@
 
   let { data } = $props();
 
-  let exercises = $derived.by(() => {
-    const results: Map<
-      string,
-      {
-        id: string;
-        exerciseId: string;
-        exerciseName: string;
-        activityId: string;
-      }
-    > = new Map();
-    for (const set of data.activitySets || []) {
-      if (!results.has(set.exerciseId)) {
-        results.set(set.exerciseId, {
-          id: set.id,
-          exerciseId: set.exerciseId,
-          exerciseName: set.exerciseName,
-          activityId: set.activityId,
-        });
-      }
-    }
-
-    return Array.from(results.values());
-  });
-
   let runTime = $derived(
     data.activity && data.activity.endTime
       ? dateDifferenceInMinutes(data.activity.startTime, data.activity.endTime)
@@ -105,7 +81,7 @@
       lbs
     </div>
   </div>
-  {#each exercises as exercise (exercise.exerciseId)}
+  {#each data.exercises as exercise (exercise.exerciseId)}
     <ExerciseSetsTable
       exerciseName={exercise.exerciseName}
       sets={data.activitySets?.filter(
