@@ -10,10 +10,11 @@
   } from "$lib/components";
   import { page } from "$app/state";
   import { InstructionsDrawerSelect } from "$lib/components";
-  import { db } from "$lib/db";
   import { ExerciseSearch } from "$lib/state";
   import { getDefaultWeightUnit } from "$lib/utils";
   import type { ExerciseDetail } from "$lib/resources/library.js";
+  import { createWorkoutExercise } from "$lib/resources/workoutExercises.js";
+  import { deleteWorkout } from "$lib/resources/workouts.js";
 
   let { data } = $props();
 
@@ -44,29 +45,27 @@
     exerciseDetails = data.allExercises.find((exercise) => exercise.id === id);
   }
 
-  const handleAddExercise = (value: string) => {
-    const exercise = data.allExercises.find(
-      (exercise) => exercise.id === value,
-    );
+  const handleAddExercise = (id: string) => {
+    const exercise = data.allExercises.find((exercise) => exercise.id === id);
 
-    if (!exercise) return;
+    if (!exercise) {
+      console.error("Exercise not found");
+      return;
+    }
 
-    db.workoutExercises.add({
-      name: exercise.exerciseName,
+    createWorkoutExercise({
+      exerciseId: id,
       workoutId: page.params.workoutId,
-      exerciseId: exercise.id,
-      weight: 40,
-      sets: 3,
-      count: 10,
       order: data.workoutExercises.length,
+      sets: 3,
+      weight: 40,
       weightUnit: getDefaultWeightUnit(),
-      countUnit: "reps",
+      count: 10,
+      countUnit: "rep",
     });
   };
 
-  const handleRemoveExercise = (value: string) => {
-    db.workoutExercises.where("exerciseId").equals(value).delete();
-  };
+  const handleRemoveExercise = (id: string) => deleteWorkout(id);
 </script>
 
 <Page>

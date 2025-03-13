@@ -1,5 +1,7 @@
+import { invalidate } from "$app/navigation";
+import type { WorkoutExercise } from "$lib/database/database";
 import { db, getClient } from "$lib/database/db";
-import type { InferResult } from "kysely";
+import type { InferResult, InsertType } from "kysely";
 
 const KEY: `${string}:${string}` = "data:workout";
 
@@ -45,4 +47,34 @@ async function getWorkoutExercisesForWorkout(id: string) {
   };
 }
 
-export { getWorkoutExercises, getWorkoutExercisesForWorkout };
+async function createWorkoutExercise(
+  data: Omit<InsertType<WorkoutExercise>, "id">,
+) {
+  const id = crypto.randomUUID();
+  const client = await getClient();
+  const cmd = db.insertInto("workoutExercise").values({ ...data, id });
+  const { sql, parameters } = cmd.compile();
+
+  return await client.execute(sql, [...parameters]).then(() => {
+    invalidate(KEY);
+    return id;
+  });
+}
+
+async function deleteWorkoutExercise(id: string) {
+  const client = await getClient();
+  const cmd = db.deleteFrom("workoutExercise").where("id", "=", id);
+  const { sql, parameters } = cmd.compile();
+
+  return await client.execute(sql, [...parameters]).then(() => {
+    invalidate(KEY);
+    return id;
+  });
+}
+
+export {
+  createWorkoutExercise,
+  deleteWorkoutExercise,
+  getWorkoutExercises,
+  getWorkoutExercisesForWorkout,
+};

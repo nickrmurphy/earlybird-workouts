@@ -1,15 +1,21 @@
-import { weightUnitSchema, type WeightUnit } from "$lib/db";
+import type { WeightUnit } from "$lib/database/database";
+import { weightUnitSchema } from "$lib/db";
 
 function getDefaultWeightUnit(): WeightUnit {
   const def = localStorage.getItem("defaultWeightUnit");
   if (!def) {
-    setDefaultWeightUnit("lbs");
+    setDefaultWeightUnit("lb");
   }
 
-  return weightUnitSchema.parse(def || "lbs");
+  if (def === "lb" || def === "kg") {
+    return def;
+  } else {
+    console.error("Invalid default weight unit:", def);
+    return "lb";
+  }
 }
 
-function setDefaultWeightUnit(unit: "lbs" | "kg") {
+function setDefaultWeightUnit(unit: "lb" | "kg") {
   localStorage.setItem("defaultWeightUnit", weightUnitSchema.parse(unit));
 }
 
