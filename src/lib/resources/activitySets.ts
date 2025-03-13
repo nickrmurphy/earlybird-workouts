@@ -18,23 +18,13 @@ type ActivitySet = {
 
 type ActivititySetsResponse = {
   key: `${string}:${string}`;
-  activitySets: {
-    id: string;
-    exerciseId: string;
-    exerciseName: string;
-    weight: number;
-    weightUnit: WeightUnit;
-    count: number;
-    countUnit: CountUnit;
-    isComplete: 0 | 1;
-    activityId: string;
-  }[];
+  activitySets: ActivitySet[];
 };
 
 type ActivitySetsBaseOptions = {
   isComplete?: 0 | 1;
-  workoutId?: never;
-  activityId?: never;
+  workoutId?: string;
+  activityId?: string;
 };
 
 type ActivitySetsWorkoutIdOption = ActivitySetsBaseOptions & {

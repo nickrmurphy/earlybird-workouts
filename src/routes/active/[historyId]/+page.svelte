@@ -19,32 +19,22 @@
     IconPlus,
     IconStopwatch,
   } from "@tabler/icons-svelte";
-  import { liveQuery } from "dexie";
-  import { db, type Exercise } from "$lib/db";
+  import { db } from "$lib/db";
   import { goto } from "$app/navigation";
   import { ExerciseSearch, globalState } from "$lib/state";
   import { getDefaultWeightUnit } from "$lib/utils";
+  import type { ExerciseDetail } from "$lib/resources";
 
   let { data } = $props();
 
   let settingsDrawerOpen = $state(false);
   let exerciseDrawerOpen = $state(false);
 
-  let activeWorkout = liveQuery(() => db.history.get(data.historyId));
-
-  let exercises = liveQuery(() =>
-    db.historyExercises.where("historyId").equals(data.historyId).toArray(),
-  );
-
-  let exerciseSets = liveQuery(() =>
-    db.historySets.where("historyId").equals(data.historyId).toArray(),
-  );
-
   const exerciseSearch = new ExerciseSearch(data.allExercises);
 
   $effect(() => {
-    if (!globalState.activity.timer.isRunning && $activeWorkout?.startTime) {
-      globalState.activity.timer.start($activeWorkout.startTime);
+    if (!globalState.activity.timer.isRunning && data.activity.startTime) {
+      globalState.activity.timer.start(data.activity.startTime);
     }
   });
 
@@ -55,16 +45,16 @@
     );
 
     if (confirmEnd) {
-      db.history.update(data.historyId, { endTime: new Date() }).then(() => {
+      db.history.update(data.activity.id, { endTime: new Date() }).then(() => {
         globalState.activity.clearCurrentId();
-        goto(`/${$activeWorkout?.workoutId}/history/${data.historyId}`);
+        goto(`/${data.activity.workoutId}/history/${data.activity.id}`);
       });
     }
   }
 
-  async function addExercise(exercise: Exercise) {
+  async function addExercise(exercise: ExerciseDetail) {
     // Check if the exercise is already in the workout
-    if ($exercises.some((e) => e.exerciseId === exercise.id)) {
+    if (!data.exerciseIds.includes(exercise.id)) {
       return;
     }
 
@@ -73,13 +63,13 @@
       [db.historyExercises, db.historySets],
       async () => {
         let historyExerciseId = await db.historyExercises.add({
-          historyId: data.historyId,
-          exerciseName: exercise.name,
+          historyId: data.activity.id,
+          exerciseName: exercise.exerciseName,
           exerciseId: exercise.id,
         });
 
         await db.historySets.add({
-          historyId: data.historyId,
+          historyId: data.activity.id,
           historyExerciseId,
           exerciseId: exercise.id,
           count: 10,
@@ -94,31 +84,26 @@
 </script>
 
 <Page>
-  <PageHeader title={$activeWorkout?.workoutName}>
+  <PageHeader title={data.activity.workoutName}>
     {#snippet right()}
       <div class="flex items-center gap-8">
-        {#if $activeWorkout}
-          <TimerDisplay elapsedSeconds={globalState.activity.timer.seconds}>
-            {#snippet icon()}
-              <IconStopwatch class="size-4" />
-            {/snippet}
-          </TimerDisplay>
-        {/if}
+        <TimerDisplay elapsedSeconds={globalState.activity.timer.seconds}>
+          {#snippet icon()}
+            <IconStopwatch class="size-4" />
+          {/snippet}
+        </TimerDisplay>
         <button onclick={confirmEndWorkout}>
           <IconChecks color="var(--color-accent)" size={24} />
         </button>
       </div>
     {/snippet}
   </PageHeader>
-  {#each $exercises || [] as exercise (exercise.exerciseId)}
-    {@const sets =
-      $exerciseSets?.filter((s) => s.exerciseId === exercise.exerciseId) || []}
-    <Pressable href={`/active/${data.historyId}/${exercise.exerciseId}`}>
+  {#each Object.values(data.exerciseSets) as exercise (exercise.id)}
+    <Pressable href={`/active/${data.activity.id}/${exercise.id}`}>
       <ActiveExerciseCard
-        exerciseName={exercise.exerciseName}
-        setCount={sets.length}
-        completeSets={sets.filter((set) => set.isSuccess === true).length}
-        isComplete={sets.every((s) => s.isSuccess)}
+        exerciseName={exercise.name}
+        setCount={exercise.sets.length}
+        completeSets={exercise.sets.filter((set) => set.isComplete).length}
       />
     </Pressable>
   {/each}

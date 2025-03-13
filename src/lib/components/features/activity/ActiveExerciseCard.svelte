@@ -9,10 +9,11 @@
     exerciseName: string;
     setCount: number;
     completeSets: number;
-    isComplete: boolean;
   };
 
-  let { exerciseName, setCount, isComplete, completeSets }: Props = $props();
+  let { exerciseName, setCount, completeSets }: Props = $props();
+
+  let isComplete = $derived(setCount === completeSets);
 </script>
 
 <div class="border-border flex items-center gap-4 rounded-sm border p-2">
