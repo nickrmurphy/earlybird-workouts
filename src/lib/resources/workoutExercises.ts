@@ -120,8 +120,12 @@ async function updateWorkoutExercisesOrder(ids: string[]) {
     cmds.push(
       db
         .updateTable("workoutExercise")
-        .set("order", sql`$${params.length + 1}`)
-        .where("id", "=", sql`$${params.length + 2}` as unknown as string)
+        .set("order", sql`$${sql.raw((params.length + 1).toString())}`)
+        .where(
+          "id",
+          "=",
+          sql`$${sql.raw((params.length + 2).toString())}` as unknown as string,
+        )
         .compile().sql,
     );
     params.push(index, id);
@@ -129,7 +133,7 @@ async function updateWorkoutExercisesOrder(ids: string[]) {
 
   cmds.push("COMMIT");
 
-  return await client.execute(cmds.join("\n"), params).then(() => {
+  return await client.execute(cmds.join(";\n"), params).then(() => {
     invalidate(KEY);
   });
 }
