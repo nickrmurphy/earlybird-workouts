@@ -27,6 +27,7 @@
   import { db, createWorkoutHistoryAndExerciseSets } from "$lib/db";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
+  import { deleteWorkout, updateWorkout } from "$lib/resources/workouts.js";
 
   let { data } = $props();
 
@@ -61,9 +62,17 @@
     );
 
     if (confirmDelete) {
-      db.workouts.delete(page.params.workoutId);
-      goto("/");
+      deleteWorkout(page.params.workoutId).then(() => {
+        goto("/");
+      });
     }
+  }
+
+  async function updateName(name: string) {
+    if (!name) return;
+    updateWorkout(page.params.workoutId, { name }).then(() => {
+      showEditDialog = false;
+    });
   }
 
   async function startWorkout() {
@@ -169,10 +178,7 @@
   bind:open={showEditDialog}
   title="Rename exercise"
   defaultValue={data.workout.name}
-  onSubmit={async (name) => {
-    if (!name) return;
-    db.workouts.update(page.params.workoutId, { name });
-  }}
+  onSubmit={(name) => updateName(name)}
   submitText="Save"
 />
 

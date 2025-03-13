@@ -48,4 +48,29 @@ async function createWorkout(data: Omit<InsertType<Workout>, "id">) {
   });
 }
 
-export { createWorkout, getWorkout, getWorkouts };
+async function updateWorkout(id: string, data: Partial<InsertType<Workout>>) {
+  const client = await getClient();
+  let cmd = db.updateTable("workout").set(data).where("id", "=", id);
+
+  if (data.name !== undefined) {
+    cmd = cmd.set({ name: data.name });
+  }
+
+  const { sql, parameters } = cmd.compile();
+
+  return await client.execute(sql, [...parameters]).then(() => {
+    invalidate(WORKOUT_KEY);
+  });
+}
+
+async function deleteWorkout(id: string) {
+  const client = await getClient();
+  const cmd = db.deleteFrom("workout").where("id", "=", id);
+  const { sql, parameters } = cmd.compile();
+
+  return await client.execute(sql, [...parameters]).then(() => {
+    invalidate(WORKOUT_KEY);
+  });
+}
+
+export { createWorkout, deleteWorkout, getWorkout, getWorkouts, updateWorkout };
