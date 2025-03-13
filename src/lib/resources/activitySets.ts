@@ -31,23 +31,31 @@ type ActivititySetsResponse = {
   }[];
 };
 
-type ActivitySetsWorkoutIdOption = {
+type ActivitySetsBaseOptions = {
+  isComplete?: 0 | 1;
+  workoutId?: never;
+  activityId?: never;
+};
+
+type ActivitySetsWorkoutIdOption = ActivitySetsBaseOptions & {
   workoutId: string;
   activityId?: never;
 };
 
-type ActivitySetsActivityIdOption = {
+type ActivitySetsActivityIdOption = ActivitySetsBaseOptions & {
   workoutId?: never;
   activityId: string;
 };
 
 type ActivitySetsOptions =
+  | ActivitySetsBaseOptions
   | ActivitySetsWorkoutIdOption
   | ActivitySetsActivityIdOption;
 
 async function getActivitySets({
   workoutId,
   activityId,
+  isComplete,
 }: ActivitySetsOptions): Promise<ActivititySetsResponse> {
   const client = await getClient();
   let query = db
@@ -71,6 +79,10 @@ async function getActivitySets({
 
   if (activityId) {
     query = query.where("activityId", "=", activityId);
+  }
+
+  if (isComplete !== undefined) {
+    query = query.where("isComplete", "=", isComplete);
   }
 
   const { sql, parameters } = query.compile();

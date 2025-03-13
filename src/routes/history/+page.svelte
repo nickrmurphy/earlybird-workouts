@@ -9,48 +9,33 @@
     Page,
     PageHeader,
   } from "$lib/components";
-  import { db } from "$lib/db";
-  import { calculateTonnagePerAttribute } from "$lib/utils";
-  import { IconLoader } from "@tabler/icons-svelte";
-  import { liveQuery } from "dexie";
 
-  let history = liveQuery(() =>
-    db.history.orderBy("startTime").reverse().toArray(),
-  );
-  let successSets = liveQuery(() => {
-    return db.historySets.filter((set) => set.isSuccess).toArray();
-  });
-
-  let tonnage: Map<string, number> = $derived(
-    calculateTonnagePerAttribute($successSets || [], (set) => set.historyId),
-  );
+  let { data } = $props();
 </script>
 
 <Page>
   <PageHeader title="History" />
   <section class="space-y-8">
-    {#if $history}
-      {#if $history.length === 0}
-        <EmptyMessage
-          header="No history yet."
-          message="Past workout details will appear here."
-        />
-        <BusinessClipboard />
-      {/if}
-      {#each $history as item}
-        <HistoryCard
-          onclick={() => {
-            goto(`/${item.workoutId}/history/${item.id}?from=${page.url}`);
-          }}
-          workoutName={item.workoutName}
-          startTime={item.startTime}
-          endTime={item.endTime}
-          tonnage={tonnage.get(item.id) || 0}
-        />
-      {/each}
-    {:else}
-      <IconLoader class="mx-auto mt-30 animate-spin " />
+    {#if data.activities.length === 0}
+      <EmptyMessage
+        header="No history yet."
+        message="Past workout details will appear here."
+      />
+      <BusinessClipboard />
     {/if}
+    {#each data.activities as activity (activity.id)}
+      <HistoryCard
+        onclick={() => {
+          goto(
+            `/${activity.workoutId}/history/${activity.id}?from=${page.url}`,
+          );
+        }}
+        workoutName={activity.workoutName}
+        startTime={activity.startTime}
+        endTime={activity.endTime}
+        tonnage={data.tonnage.get(activity.id) || 0}
+      />
+    {/each}
   </section>
   <Navbar backHref="/" />
 </Page>
