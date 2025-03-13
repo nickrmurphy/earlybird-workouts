@@ -1,7 +1,7 @@
 import { invalidate } from "$app/navigation";
 import type { WorkoutExercise } from "$lib/database/database";
 import { db, getClient } from "$lib/database/db";
-import type { InferResult, InsertType } from "kysely";
+import { sql, type InferResult, type InsertType } from "kysely";
 
 const KEY: `${string}:${string}` = "data:workout";
 
@@ -119,8 +119,8 @@ async function updateWorkoutExercisesOrder(ids: string[]) {
     cmds.push(
       db
         .updateTable("workoutExercise")
-        .set("order", `$${params.length + 1}` as unknown as number)
-        .where("id", "=", `$${params.length + 2}`)
+        .set("order", sql`$${params.length + 1}`)
+        .where("id", "=", sql`$${params.length + 2}` as unknown as string)
         .compile().sql,
     );
     params.push(index, id);

@@ -1,6 +1,6 @@
 import { invalidate } from "$app/navigation";
 import { db, getClient } from "$lib/database/db";
-import type { InferResult } from "kysely";
+import { sql, type InferResult } from "kysely";
 
 type Activity = {
   id: string;
@@ -80,4 +80,76 @@ async function deleteActivity(id: string) {
   });
 }
 
-export { deleteActivity, getActivities, getActivity };
+async function createActivityAndSets({ workoutId }: { workoutId: string }) {
+  const id = crypto.randomUUID();
+  const client = await getClient();
+
+  const workoutQuery = db
+    .selectFrom("workout")
+    .where("id", "=", workoutId)
+    .select(["name"]);
+  const { sql: workoutSql, parameters: workoutParameters } =
+    workoutQuery.compile();
+  const [workout] = await client.select<InferResult<typeof workoutQuery>>(
+    workoutSql,
+    [...workoutParameters],
+  );
+
+  if (!workout) {
+    throw new Error("Workout not found");
+  }
+  const workoutExerciseQuery = db
+    .selectFrom("workoutExercise")
+    .where("workoutId", "=", workoutId)
+    .selectAll()
+    .innerJoin("exercise", "exercise.id", "workoutExercise.exerciseId")
+    .select("exercise.name as exerciseName");
+
+  const { sql: workoutExerciseSql, parameters: workoutExerciseParameters } =
+    workoutExerciseQuery.compile();
+
+  const workoutExercises = await client.select<
+    InferResult<typeof workoutExerciseQuery>
+  >(workoutExerciseSql, [...workoutExerciseParameters]);
+
+  const activityCmd = db.insertInto("activity").values({
+    id,
+    workoutId,
+    startTime: sql`CURRENT_TIMESTAMP`,
+    workoutName: workout.name,
+  });
+
+  const { sql: activitySql, parameters: activityParameters } =
+    activityCmd.compile();
+
+  await client.execute(activitySql, [...activityParameters]);
+
+  for (const exercise of workoutExercises) {
+    for (let i = 0; i < exercise.sets; i++) {
+      const activitySetId = crypto.randomUUID();
+
+      const setCmd = db.insertInto("activitySet").values({
+        id: activitySetId,
+        activityId: id,
+        workoutId: workoutId,
+        workoutName: workout.name,
+        exerciseId: exercise.exerciseId,
+        exerciseName: exercise.exerciseName,
+        count: exercise.count,
+        countUnit: exercise.countUnit,
+        weight: exercise.weight,
+        weightUnit: exercise.weightUnit,
+        order: i,
+        isComplete: 0,
+      });
+
+      const { sql: setSql, parameters: setParameters } = setCmd.compile();
+      await client.execute(setSql, [...setParameters]);
+    }
+  }
+
+  invalidate(KEY);
+  return id;
+}
+
+export { createActivityAndSets, deleteActivity, getActivities, getActivity };

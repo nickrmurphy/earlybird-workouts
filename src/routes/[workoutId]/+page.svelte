@@ -24,11 +24,13 @@
     IconTrash,
   } from "@tabler/icons-svelte";
   import { NavigationMonitor } from "$lib/assets";
-  import { createWorkoutHistoryAndExerciseSets } from "$lib/db";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
   import { deleteWorkout, updateWorkout } from "$lib/resources/workouts.js";
-  import { updateWorkoutExercise } from "$lib/resources/index.js";
+  import {
+    createActivityAndSets,
+    updateWorkoutExercise,
+  } from "$lib/resources/index.js";
 
   let { data } = $props();
 
@@ -77,7 +79,7 @@
   }
 
   async function startWorkout() {
-    await createWorkoutHistoryAndExerciseSets(page.params.workoutId).then(
+    await createActivityAndSets({ workoutId: page.params.workoutId }).then(
       (historyId) => {
         globalState.activity.currentId = historyId;
         goto(`/active/${historyId}`);
