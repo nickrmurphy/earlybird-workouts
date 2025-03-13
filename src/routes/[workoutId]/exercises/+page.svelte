@@ -17,7 +17,6 @@
     createWorkoutExercise,
     deleteWorkoutExercise,
   } from "$lib/resources/workoutExercises.js";
-  import { deleteWorkout } from "$lib/resources/workouts.js";
 
   let { data } = $props();
 
@@ -27,11 +26,11 @@
 
   const exerciseSearch = new ExerciseSearch(data.allExercises);
 
-  let selectedExerciseDetails = $derived.by(() => {
-    return data.allExercises.filter((exercise) =>
+  let selectedExerciseDetails = $derived.by(() =>
+    data.allExercises.filter((exercise) =>
       data.workoutExercises.map((e) => e.exerciseId).includes(exercise.id),
-    );
-  });
+    ),
+  );
 
   let exerciseOptions = $derived.by(() => {
     const options = selectedOnly
