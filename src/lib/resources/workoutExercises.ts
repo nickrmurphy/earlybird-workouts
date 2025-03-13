@@ -110,10 +110,34 @@ async function deleteWorkoutExercise(id: string) {
   });
 }
 
+async function updateWorkoutExercisesOrder(ids: string[]) {
+  const client = await getClient();
+  const cmds: string[] = ["BEGIN"];
+  const params: (string | number)[] = [];
+
+  ids.forEach((id, index) => {
+    cmds.push(
+      db
+        .updateTable("workoutExercise")
+        .set("order", `$${params.length + 1}` as unknown as number)
+        .where("id", "=", `$${params.length + 2}`)
+        .compile().sql,
+    );
+    params.push(index, id);
+  });
+
+  cmds.push("COMMIT");
+
+  return await client.execute(cmds.join("\n"), params).then(() => {
+    invalidate(KEY);
+  });
+}
+
 export {
   createWorkoutExercise,
   deleteWorkoutExercise,
   getWorkoutExercises,
   getWorkoutExercisesForWorkout,
   updateWorkoutExercise,
+  updateWorkoutExercisesOrder,
 };

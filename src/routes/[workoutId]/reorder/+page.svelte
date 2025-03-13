@@ -13,8 +13,8 @@
     IconChevronDown,
     IconChevronUp,
   } from "@tabler/icons-svelte";
-  import { db } from "$lib/db";
   import { arraymove } from "$lib/utils";
+  import { updateWorkoutExercisesOrder } from "$lib/resources/workoutExercises.js";
 
   const { data } = $props();
 
@@ -28,14 +28,7 @@
 
   async function saveChanges() {
     if (!changed) return;
-
-    await db.transaction("rw", [db.workoutExercises], async (tx) => {
-      for (let i = 0; i < orderedExercises.length; i++) {
-        await tx.workoutExercises.update(orderedExercises[i].id, {
-          order: i + 1,
-        });
-      }
-    });
+    await updateWorkoutExercisesOrder(orderedExercises.map((e) => e.id));
   }
 </script>
 
