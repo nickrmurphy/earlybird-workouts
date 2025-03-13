@@ -9,7 +9,6 @@
     Dropdown,
     DropdownItem,
   } from "$lib/components";
-  import { deleteHistory } from "$lib/db";
   import {
     calculateTonnage,
     dateDifferenceInMinutes,
@@ -22,6 +21,7 @@
     IconWeight,
   } from "@tabler/icons-svelte";
   import { goto } from "$app/navigation";
+  import { deleteActivity } from "$lib/resources/activity.js";
 
   let { data } = $props();
 
@@ -44,7 +44,7 @@
     );
 
     if (confirmDelete) {
-      await deleteHistory(page.params.historyId).then(() => {
+      await deleteActivity(page.params.historyId).then(() => {
         goto(`/${page.params.workoutId}/history`);
       });
     }

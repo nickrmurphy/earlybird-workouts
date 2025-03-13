@@ -61,6 +61,44 @@ async function createWorkoutExercise(
   });
 }
 
+async function updateWorkoutExercise(
+  id: string,
+  data: Partial<InsertType<WorkoutExercise>>,
+) {
+  const client = await getClient();
+  let cmd = db.updateTable("workoutExercise").set(data).where("id", "=", id);
+
+  if (data.count !== undefined) {
+    cmd = cmd.set("count", data.count);
+  }
+
+  if (data.countUnit !== undefined) {
+    cmd = cmd.set("countUnit", data.countUnit);
+  }
+
+  if (data.sets !== undefined) {
+    cmd = cmd.set("sets", data.sets);
+  }
+
+  if (data.weight !== undefined) {
+    cmd = cmd.set("weight", data.weight);
+  }
+
+  if (data.weightUnit !== undefined) {
+    cmd = cmd.set("weightUnit", data.weightUnit);
+  }
+
+  if (data.order !== undefined) {
+    cmd = cmd.set("order", data.order);
+  }
+
+  const { sql, parameters } = cmd.compile();
+
+  return await client.execute(sql, [...parameters]).then(() => {
+    invalidate(KEY);
+  });
+}
+
 async function deleteWorkoutExercise(id: string) {
   const client = await getClient();
   const cmd = db.deleteFrom("workoutExercise").where("id", "=", id);
@@ -77,4 +115,5 @@ export {
   deleteWorkoutExercise,
   getWorkoutExercises,
   getWorkoutExercisesForWorkout,
+  updateWorkoutExercise,
 };

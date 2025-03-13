@@ -24,10 +24,11 @@
     IconTrash,
   } from "@tabler/icons-svelte";
   import { NavigationMonitor } from "$lib/assets";
-  import { db, createWorkoutHistoryAndExerciseSets } from "$lib/db";
+  import { createWorkoutHistoryAndExerciseSets } from "$lib/db";
   import { page } from "$app/state";
   import { globalState } from "$lib/state";
   import { deleteWorkout, updateWorkout } from "$lib/resources/workouts.js";
+  import { updateWorkoutExercise } from "$lib/resources/index.js";
 
   let { data } = $props();
 
@@ -147,17 +148,17 @@
     bind:open={showExerciseDialog}
     name={selectedExercise.exerciseName}
     onWeightChange={(weight) => {
-      db.workoutExercises.update(selectedExercise.id, { weight });
+      updateWorkoutExercise(selectedExercise.id, { weight });
     }}
     onSetsChange={(sets) => {
-      db.workoutExercises.update(selectedExercise.id, { sets });
+      updateWorkoutExercise(selectedExercise.id, { sets });
     }}
     onRepsChange={(reps) => {
-      db.workoutExercises.update(selectedExercise.id, { count: reps });
+      updateWorkoutExercise(selectedExercise.id, { count: reps });
     }}
     onWeightUnitChange={(unit) => {
-      db.workoutExercises.update(selectedExercise.id, {
-        weightUnit: unit === "lb" ? "lbs" : unit,
+      updateWorkoutExercise(selectedExercise.id, {
+        weightUnit: unit,
       });
     }}
     defaultWeight={selectedExercise.weight}

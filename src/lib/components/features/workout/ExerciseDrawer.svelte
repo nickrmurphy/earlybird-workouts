@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { Drawer, Field, Input, Label, Select } from "../../ui";
-  import { type WeightUnit } from "$lib/db";
   import type { WeightUnit as IWeightUnit } from "$lib/database/database";
   import { WeightUnitSelect } from "$lib/components/shared";
 
@@ -9,11 +8,11 @@
     onWeightChange: (weight: number) => void;
     onSetsChange: (sets: number) => void;
     onRepsChange: (reps: number) => void;
-    onWeightUnitChange: (unit: WeightUnit | IWeightUnit) => void;
+    onWeightUnitChange: (unit: IWeightUnit) => void;
     defaultWeight: number;
     defaultSets: number;
     defaultReps: number;
-    defaultWeightUnit: WeightUnit | IWeightUnit;
+    defaultWeightUnit: IWeightUnit;
     instructions?: string[];
     name: string;
     open: boolean;

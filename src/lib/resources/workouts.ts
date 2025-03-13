@@ -48,7 +48,10 @@ async function createWorkout(data: Omit<InsertType<Workout>, "id">) {
   });
 }
 
-async function updateWorkout(id: string, data: Partial<InsertType<Workout>>) {
+type PartialWorkout = Partial<InsertType<Workout>> &
+  Omit<InsertType<Workout>, "id">;
+
+async function updateWorkout(id: string, data: PartialWorkout) {
   const client = await getClient();
   let cmd = db.updateTable("workout").set(data).where("id", "=", id);
 

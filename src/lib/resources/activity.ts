@@ -1,3 +1,4 @@
+import { invalidate } from "$app/navigation";
 import { db, getClient } from "$lib/database/db";
 import type { InferResult } from "kysely";
 
@@ -9,7 +10,7 @@ type Activity = {
   endTime?: Date | undefined;
 };
 
-const key: `${string}:${string}` = "data:activity";
+const KEY: `${string}:${string}` = "data:activity";
 
 async function getActivities(workoutId?: string): Promise<{
   key: `${string}:${string}`;
@@ -32,7 +33,7 @@ async function getActivities(workoutId?: string): Promise<{
   ]);
 
   return {
-    key,
+    key: KEY,
     activities: activitiesData.map((activity) => ({
       id: activity.id,
       workoutId: activity.workoutId,
@@ -57,7 +58,7 @@ async function getActivity(activityId: string): Promise<{
     ...parameters,
   ]);
   return {
-    key,
+    key: KEY,
     activity: {
       id: activityData.id,
       workoutId: activityData.workoutId,
@@ -69,4 +70,14 @@ async function getActivity(activityId: string): Promise<{
     },
   };
 }
-export { getActivities, getActivity };
+
+async function deleteActivity(id: string) {
+  const client = await getClient();
+  const query = db.deleteFrom("activity").where("id", "=", id);
+  const { sql, parameters } = query.compile();
+  return await client.execute(sql, [...parameters]).then(() => {
+    invalidate(KEY);
+  });
+}
+
+export { deleteActivity, getActivities, getActivity };
