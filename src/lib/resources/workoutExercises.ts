@@ -21,11 +21,11 @@ async function getWorkoutExercisesForWorkout(id: string) {
   const client = await getClient();
   const query = db
     .selectFrom("workoutExercise")
-    .where("workoutExercise.exerciseId", "=", id)
+    .where("workoutExercise.workoutId", "=", id)
     .innerJoin("exercise", "exercise.id", "workoutExercise.exerciseId")
     .orderBy("workoutExercise.order")
     .select([
-      "id",
+      "workoutExercise.id",
       "sets",
       "count",
       "countUnit",
@@ -99,14 +99,15 @@ async function updateWorkoutExercise(
   });
 }
 
-async function deleteWorkoutExercise(id: string) {
+async function deleteWorkoutExercise(exerciseId: string) {
   const client = await getClient();
-  const cmd = db.deleteFrom("workoutExercise").where("id", "=", id);
+  const cmd = db
+    .deleteFrom("workoutExercise")
+    .where("workoutExercise.exerciseId", "=", exerciseId);
   const { sql, parameters } = cmd.compile();
 
   return await client.execute(sql, [...parameters]).then(() => {
     invalidate(KEY);
-    return id;
   });
 }
 

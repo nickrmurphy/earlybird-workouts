@@ -13,7 +13,10 @@
   import { ExerciseSearch } from "$lib/state";
   import { getDefaultWeightUnit } from "$lib/utils";
   import type { ExerciseDetail } from "$lib/resources/library.js";
-  import { createWorkoutExercise } from "$lib/resources/workoutExercises.js";
+  import {
+    createWorkoutExercise,
+    deleteWorkoutExercise,
+  } from "$lib/resources/workoutExercises.js";
   import { deleteWorkout } from "$lib/resources/workouts.js";
 
   let { data } = $props();
@@ -65,7 +68,7 @@
     });
   };
 
-  const handleRemoveExercise = (id: string) => deleteWorkout(id);
+  const handleRemoveExercise = (id: string) => deleteWorkoutExercise(id);
 </script>
 
 <Page>
@@ -94,12 +97,8 @@
   <ExerciseSelectList
     selected={data.workoutExercises.map((exercise) => exercise.exerciseId)}
     options={exerciseOptions}
-    onAdd={(value) => {
-      handleAddExercise(value);
-    }}
-    onRemove={(value) => {
-      handleRemoveExercise(value);
-    }}
+    onAdd={handleAddExercise}
+    onRemove={handleRemoveExercise}
     onSelectInfo={(value) => {
       getExerciseDetailsFromId(value);
       showDrawer = true;
