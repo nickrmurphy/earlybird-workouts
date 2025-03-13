@@ -1,11 +1,5 @@
 <script lang="ts">
   import { IconFilter, IconFilterEdit } from "@tabler/icons-svelte";
-  import {
-    equipmentSchema,
-    muscleSchema,
-    type Equipment,
-    type Muscle,
-  } from "$lib/db";
 
   type Option = { id: string; name: string };
 
@@ -23,21 +17,19 @@
 
   let searchFilters: string[] = $state([]);
 
-  function getFilters(): { muscleIds: Muscle[]; equipmentIds: Equipment[] } {
+  function getFilters(): { muscleIds: string[]; equipmentIds: string[] } {
     if (searchFilters.length === 0) {
       return { muscleIds: [], equipmentIds: [] };
     }
 
-    let muscleIds: Muscle[] = [];
-    let equipmentIds: Equipment[] = [];
+    let muscleIds: string[] = [];
+    let equipmentIds: string[] = [];
 
     for (const filter of searchFilters) {
       if (filter.startsWith("muscle-")) {
-        muscleIds.push(muscleSchema.parse(filter.replace("muscle-", "")));
+        muscleIds.push(filter.replace("muscle-", ""));
       } else if (filter.startsWith("equipment-")) {
-        equipmentIds.push(
-          equipmentSchema.parse(filter.replace("equipment-", "")),
-        );
+        equipmentIds.push(filter.replace("equipment-", ""));
       }
     }
 
