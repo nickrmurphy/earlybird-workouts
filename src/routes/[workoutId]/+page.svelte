@@ -80,9 +80,9 @@
 
   async function startWorkout() {
     await createActivityAndSets({ workoutId: page.params.workoutId }).then(
-      (historyId) => {
-        globalState.activity.currentId = historyId;
-        goto(`/activity/${historyId}`);
+      (activityId) => {
+        globalState.activity.currentId = activityId;
+        goto(`/activity/${activityId}`);
       },
     );
   }

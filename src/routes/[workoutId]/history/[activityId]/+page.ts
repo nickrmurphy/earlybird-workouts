@@ -4,10 +4,10 @@ import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ depends, params }) => {
   const { activitySets, key } = await getActivitySets({
-    activityId: params.historyId,
+    activityId: params.activityId,
   });
 
-  const { activity, key: activityKey } = await getActivity(params.historyId);
+  const { activity, key: activityKey } = await getActivity(params.activityId);
 
   depends(key);
   depends(activityKey);

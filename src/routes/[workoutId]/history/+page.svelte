@@ -9,20 +9,8 @@
     PageHeader,
     Navbar,
   } from "$lib/components";
-  import { calculateTonnagePerAttribute } from "$lib/utils";
 
   let { data } = $props();
-
-  let successSets = $derived(
-    data.activitySets.filter(
-      (set) =>
-        data.activities.some((h) => h.id === set.activityId) && set.isComplete,
-    ),
-  );
-
-  let tonnage: Map<string, number> = $derived(
-    calculateTonnagePerAttribute(successSets, (set) => set.activityId),
-  );
 </script>
 
 <Page>
@@ -46,7 +34,7 @@
         }}
         startTime={activity.startTime}
         endTime={activity.endTime || undefined}
-        tonnage={tonnage.get(activity.id) || 0}
+        tonnage={data.tonnage.get(activity.id) || 0}
       />
     {/each}
   </div>

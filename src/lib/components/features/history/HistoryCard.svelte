@@ -29,7 +29,7 @@
   <div>
     <span>
       <IconWeight size={16} />
-      <span class="count">{tonnage}</span>
+      <span class="count">{tonnage.toFixed(2)}</span>
       lbs
     </span>
     {#if endTime}

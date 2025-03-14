@@ -44,7 +44,7 @@
     );
 
     if (confirmDelete) {
-      await deleteActivity(page.params.historyId).then(() => {
+      await deleteActivity(page.params.activityId).then(() => {
         goto(`/${page.params.workoutId}/history`);
       });
     }

@@ -1,24 +1,16 @@
 <script lang="ts">
   import "../main.css";
-  import { goto, onNavigate } from "$app/navigation";
+  import { onNavigate } from "$app/navigation";
   import { Waves } from "$lib/assets";
   import { Button } from "$lib/components";
   import { IconArrowRight } from "@tabler/icons-svelte";
   import { fade } from "svelte/transition";
   import { onMount } from "svelte";
-  import { globalState } from "$lib/state";
 
   let { children } = $props();
 
   let welcomed = $state(localStorage.getItem("welcomed") === "true");
   let mounted = $state(false);
-
-  $effect.pre(() => {
-    const activeWorkout = globalState.activity.currentId;
-    if (activeWorkout) {
-      goto(`/activity/${activeWorkout}`);
-    }
-  });
 
   onNavigate((navigation) => {
     if (!document.startViewTransition) return;

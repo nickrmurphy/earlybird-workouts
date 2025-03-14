@@ -15,7 +15,7 @@ class Activity {
   #currentId = $state<string | undefined>(undefined);
 
   constructor() {
-    this.#currentId = localStorage.getItem("activeHistoryId") || undefined;
+    this.#currentId = localStorage.getItem("currentActivityId") || undefined;
     this.timer = new Timer();
     this.restTimer = new RestTimer({
       loader: loadRestTimer,
@@ -31,14 +31,14 @@ class Activity {
     this.#currentId = id;
     this.timer.stop();
     this.restTimer.stop();
-    localStorage.setItem("activeHistoryId", id);
+    localStorage.setItem("currentActivityId", id);
   }
 
   clearCurrentId() {
     this.#currentId = undefined;
     this.timer.stop();
     this.restTimer.stop();
-    localStorage.removeItem("activeHistoryId");
+    localStorage.removeItem("currentActivityId");
   }
 }
 
