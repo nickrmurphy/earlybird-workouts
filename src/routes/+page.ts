@@ -9,7 +9,7 @@ export const load: PageLoad = async ({ depends }) => {
   depends(key);
   depends(workoutExerciseKey);
 
-  const workoutExerisesByWorkoutId = Object.groupBy(
+  const groupedExercises = Object.groupBy(
     workoutExercises,
     (we) => we.workoutId,
   );
@@ -19,8 +19,7 @@ export const load: PageLoad = async ({ depends }) => {
       id: workout.id,
       name: workout.name,
       exercises:
-        workoutExerisesByWorkoutId[workout.id]?.map((we) => we.exerciseName) ||
-        [],
+        groupedExercises[workout.id]?.map((we) => we.exerciseName) || [],
     })),
   };
 };

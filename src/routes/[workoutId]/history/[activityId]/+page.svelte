@@ -9,11 +9,7 @@
     Dropdown,
     DropdownItem,
   } from "$lib/components";
-  import {
-    calculateTonnage,
-    dateDifferenceInMinutes,
-    dateFormatter,
-  } from "$lib/utils";
+  import { dateFormatter } from "$lib/utils";
   import {
     IconClock,
     IconDotsCircleHorizontal,
@@ -24,16 +20,6 @@
   import { deleteActivity } from "$lib/resources/activity.js";
 
   let { data } = $props();
-
-  let runTime = $derived(
-    data.activity && data.activity.endTime
-      ? dateDifferenceInMinutes(data.activity.startTime, data.activity.endTime)
-      : undefined,
-  );
-
-  let tonnage = $derived(
-    data.activitySets ? calculateTonnage(data.activitySets) : undefined,
-  );
 
   let dropdownToggle: HTMLElement | null = $state(null);
 
@@ -72,12 +58,12 @@
   >
     <div class="flex items-center gap-2">
       <IconClock class="size-5" />
-      <span>{runTime}</span>
+      <span>{data.runTime}</span>
       min.
     </div>
     <div class="flex items-center gap-2">
       <IconWeight class="size-5" />
-      <span>{tonnage}</span>
+      <span>{data.tonnage}</span>
       lbs
     </div>
   </div>

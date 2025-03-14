@@ -26,15 +26,9 @@
 
   const exerciseSearch = new ExerciseSearch(data.allExercises);
 
-  let selectedExerciseDetails = $derived.by(() =>
-    data.allExercises.filter((exercise) =>
-      data.workoutExercises.map((e) => e.exerciseId).includes(exercise.id),
-    ),
-  );
-
   let exerciseOptions = $derived.by(() => {
     const options = selectedOnly
-      ? selectedExerciseDetails
+      ? data.selectedExercises
       : exerciseSearch.filteredOptions;
 
     return options.map((exercise) => ({
@@ -121,9 +115,7 @@
     bind:open={showDrawer}
     name={exerciseDetails.exerciseName}
     exerciseId={exerciseDetails.id}
-    isSelected={data.workoutExercises
-      .map((e) => e.exerciseId)
-      .includes(exerciseDetails.id)}
+    isSelected={data.selectedExerciseIds.has(exerciseDetails.id)}
     instructions={exerciseDetails.instructions}
     onAddExercise={handleAddExercise}
     onRemoveExercise={handleRemoveExercise}
