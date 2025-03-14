@@ -12,13 +12,13 @@ type Exercise = {
 type ExerciseSets = Record<Exercise["id"], Exercise & { sets: ActivitySet[] }>;
 
 export const load: LayoutLoad = async ({ params, depends }) => {
-  if (!params.historyId) {
+  if (!params.activityId) {
     redirect(303, "/");
   }
 
-  const { key: activityKey, activity } = await getActivity(params.historyId);
+  const { key: activityKey, activity } = await getActivity(params.activityId);
   const { key: activitySetsKey, activitySets } = await getActivitySets({
-    activityId: params.historyId,
+    activityId: params.activityId,
   });
 
   depends(activityKey);

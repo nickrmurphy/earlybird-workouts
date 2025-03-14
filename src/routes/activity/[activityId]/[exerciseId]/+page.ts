@@ -11,7 +11,7 @@ export const load: PageLoad = async ({ parent, params, depends }) => {
 
   const { key, activitySets } = await getActivitySets({
     exerciseId: params.exerciseId,
-    activityId: params.historyId,
+    activityId: params.activityId,
   });
 
   depends(key);
