@@ -9,7 +9,7 @@ export const load: PageLoad = async ({ depends }) => {
     { key: completeActivitySetsKey, activitySets: completeActivitySets },
   ] = await Promise.all([
     getActivities(),
-    getActivitySets({}),
+    getActivitySets(),
     getActivitySets({ isComplete: 1 }),
   ]);
 

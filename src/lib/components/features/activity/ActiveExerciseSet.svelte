@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { WeightUnit } from "$lib/db";
+  import type { WeightUnit } from "$lib/database/database";
   import { Button, Input } from "../../ui";
   import { IconCheck } from "@tabler/icons-svelte";
 
@@ -7,9 +7,9 @@
     setIndex: number;
     reps: number;
     weight: number;
-    isComplete: boolean;
+    isComplete: 1 | 0;
     weightUnit: WeightUnit;
-    onToggleComplete?: (isComplete: boolean) => void;
+    onToggleComplete?: (isComplete: 1 | 0) => void;
     onRepsChange?: (reps: number) => void;
     onWeightChange?: (weight: number) => void;
   };
@@ -45,7 +45,7 @@
     id={`reps-${setIndex}`}
     inputmode="numeric"
     min={0}
-    disabled={isComplete}
+    disabled={isComplete === 1}
     type="number"
     defaultValue={reps}
     onchange={(e) => onRepsChange?.(Number(e.currentTarget.value))}
@@ -55,7 +55,7 @@
     id={`weight-${setIndex}`}
     inputmode="decimal"
     min={0}
-    disabled={isComplete}
+    disabled={isComplete === 1}
     type="number"
     defaultValue={weight}
     onchange={(e) => onWeightChange?.(Number(e.currentTarget.value))}
@@ -63,7 +63,7 @@
   <Button
     class="col-span-1"
     variant={isComplete ? "primary" : "outline"}
-    onclick={() => onToggleComplete?.(!isComplete)}
+    onclick={() => onToggleComplete?.(0)}
   >
     {#if isComplete}
       <IconCheck />

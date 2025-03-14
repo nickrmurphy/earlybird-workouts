@@ -17,23 +17,16 @@
     IconPencil,
     IconTrash,
   } from "@tabler/icons-svelte";
-  import { liveQuery } from "dexie";
-  import { db, type WeightUnit } from "$lib/db";
-  import { page } from "$app/state";
+  import { db } from "$lib/db";
   import { globalState } from "$lib/state";
   import Button from "$lib/components/ui/Button.svelte";
+  import type { WeightUnit } from "$lib/database/database.js";
 
   let { data } = $props();
 
   let showInstructions = $state(false);
   let showEdit = $state(false);
   let instructions = $derived(data.details.instructions);
-
-  let sets = liveQuery(() =>
-    db.historySets
-      .where({ historyId: data.historyId, exerciseId: page.params.exerciseId })
-      .toArray(),
-  );
 
   function updateSetUnit(setId: string, unit: WeightUnit) {
     db.historySets.update(setId, { weightUnit: unit });
@@ -44,23 +37,23 @@
   }
 
   async function addSet() {
-    if ($sets?.length === 0) return;
+    if (data.activitySets.length === 0) return;
 
     await db.historySets.add({
-      historyId: $sets[0].historyId,
-      exerciseId: $sets[0].exerciseId,
-      count: $sets[0].count,
-      weight: $sets[0].weight,
-      historyExerciseId: $sets[0].historyExerciseId,
-      weightUnit: $sets[0].weightUnit,
-      countUnit: $sets[0].countUnit,
+      historyId: data.activitySets[0].activityId,
+      exerciseId: data.activitySets[0].exerciseId,
+      count: data.activitySets[0].count,
+      weight: data.activitySets[0].weight,
+      historyExerciseId: "",
+      weightUnit: "lbs",
+      countUnit: "reps",
       isSuccess: false,
     });
   }
 </script>
 
 <Page>
-  <PageHeader title={data.details.name}>
+  <PageHeader title={data.details.exerciseName}>
     {#snippet right()}
       <button onclick={() => (showEdit = true)}>
         <IconPencil class="text-muted-foreground size-6" />
@@ -70,19 +63,19 @@
       </button>
     {/snippet}
   </PageHeader>
-  {#each $sets || [] as set, idx (set.id)}
+  {#each data.activitySets as set, idx (set.id)}
     <ActiveExerciseSet
       setIndex={idx}
       reps={set.count}
       weight={set.weight}
-      isComplete={set.isSuccess}
+      isComplete={set.isComplete}
       weightUnit={set.weightUnit}
       onToggleComplete={(isComplete) => {
         if (isComplete) {
           globalState.activity.restTimer.stop();
           globalState.activity.restTimer.start();
         }
-        db.historySets.update(set.id, { isSuccess: isComplete });
+        db.historySets.update(set.id, { isSuccess: !!isComplete });
       }}
       onRepsChange={(reps) => {
         db.historySets.update(set.id, { count: reps });
@@ -93,7 +86,7 @@
     />
   {/each}
 </Page>
-<Navbar backHref={`/active/${data.historyId}`}>
+<Navbar backHref={`/active/${data.activity.id}`}>
   <TimerButton
     onclick={() => globalState.activity.restTimer.toggle()}
     elapsedTime={globalState.activity.restTimer.elapsedTime}
@@ -107,7 +100,7 @@
 </Navbar>
 <Drawer bind:open={showEdit} title="Edit sets">
   <p class="text-muted-foreground">Edit units or remove sets.</p>
-  {#each $sets || [] as set, idx (set.id)}
+  {#each data.activitySets as set, idx (set.id)}
     <div class="space-y-4 p-2">
       <div class="text-muted-foreground tracking-wider uppercase">
         Set {idx + 1}
@@ -126,7 +119,7 @@
         <Button
           class="col-span-1 w-fit! text-red-500!"
           variant="outline"
-          disabled={$sets.length === 1}
+          disabled={data.activitySets.length === 1}
           onclick={() => deleteSet(set.id)}
         >
           <IconTrash />

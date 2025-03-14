@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { ComponentProps } from "svelte";
-  import type { WeightUnit as IWeightUnit } from "$lib/database/database";
+  import type { WeightUnit as WeightUnit } from "$lib/database/database";
   import { Select } from "../ui";
   type Props = Omit<ComponentProps<typeof Select>, "value" | "onchange"> & {
-    value: IWeightUnit;
-    onchange: (unit: IWeightUnit) => void;
+    value: WeightUnit;
+    onchange: (unit: WeightUnit) => void;
   };
 
   let { value = $bindable(), onchange, ...props }: Props = $props();
@@ -13,7 +13,7 @@
 <Select
   bind:value
   onchange={(e) => {
-    onchange?.(e.currentTarget.value as IWeightUnit);
+    onchange?.(e.currentTarget.value as WeightUnit);
   }}
   {...props}
 >
