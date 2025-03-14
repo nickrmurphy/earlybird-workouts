@@ -7,7 +7,22 @@ const KEY: `${string}:${string}` = "data:workout";
 
 async function getWorkoutExercises() {
   const client = await getClient();
-  const query = db.selectFrom("workoutExercise").selectAll();
+  const query = db
+    .selectFrom("workoutExercise")
+    .innerJoin("exercise", "workoutExercise.exerciseId", "exercise.id")
+    .select([
+      "workoutExercise.id",
+      "workoutExercise.workoutId",
+      "workoutExercise.exerciseId",
+      "exercise.name as exerciseName",
+      "workoutExercise.weight",
+      "workoutExercise.weightUnit",
+      "workoutExercise.count",
+      "workoutExercise.countUnit",
+      "workoutExercise.order",
+      "workoutExercise.sets",
+    ]);
+
   const { sql } = query.compile();
   const workoutExercises = await client.select<InferResult<typeof query>>(sql);
 

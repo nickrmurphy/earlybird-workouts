@@ -1,17 +1,26 @@
-import { getWorkouts } from "$lib/resources";
+import { getWorkoutExercises, getWorkouts } from "$lib/resources";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ depends }) => {
   const { workouts, key } = await getWorkouts();
+  const { workoutExercises, key: workoutExerciseKey } =
+    await getWorkoutExercises();
 
   depends(key);
+  depends(workoutExerciseKey);
+
+  const workoutExerisesByWorkoutId = Object.groupBy(
+    workoutExercises,
+    (we) => we.workoutId,
+  );
 
   return {
-    // TODO: return exercise names
     workouts: workouts.map((workout) => ({
       id: workout.id,
       name: workout.name,
-      exercises: [],
+      exercises:
+        workoutExerisesByWorkoutId[workout.id]?.map((we) => we.exerciseName) ||
+        [],
     })),
   };
 };
