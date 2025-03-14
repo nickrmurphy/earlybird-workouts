@@ -20,11 +20,9 @@
 
   let orderedExercises = $state(data.workoutExercises);
 
-  let changed = $derived.by(() => {
-    return (
-      JSON.stringify(data.workoutExercises) !== JSON.stringify(orderedExercises)
-    );
-  });
+  let changed = $derived(
+    JSON.stringify(data.workoutExercises) !== JSON.stringify(orderedExercises),
+  );
 
   async function saveChanges() {
     if (!changed) return;

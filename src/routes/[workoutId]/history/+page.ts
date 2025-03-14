@@ -7,17 +7,14 @@ export const load: PageLoad = async ({ depends, params }) => {
   const { activities, key } = await getActivities(params.workoutId);
   const { activitySets, key: activitySetsKey } = await getActivitySets({
     workoutId: params.workoutId,
+    isComplete: 1,
   });
 
   depends(key);
   depends(activitySetsKey);
 
-  const successSets = activitySets.filter(
-    (set) => activities.some((h) => h.id === set.activityId) && set.isComplete,
-  );
-
   const tonnage: Map<string, number> = calculateTonnagePerAttribute(
-    successSets,
+    activitySets,
     (set) => set.activityId,
   );
 
