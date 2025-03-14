@@ -1,5 +1,4 @@
 import type { WeightUnit } from "$lib/database/database";
-import { weightUnitSchema } from "$lib/db";
 
 function getDefaultWeightUnit(): WeightUnit {
   const def = localStorage.getItem("defaultWeightUnit");
@@ -16,7 +15,7 @@ function getDefaultWeightUnit(): WeightUnit {
 }
 
 function setDefaultWeightUnit(unit: "lb" | "kg") {
-  localStorage.setItem("defaultWeightUnit", weightUnitSchema.parse(unit));
+  localStorage.setItem("defaultWeightUnit", unit);
 }
 
 export { getDefaultWeightUnit, setDefaultWeightUnit };

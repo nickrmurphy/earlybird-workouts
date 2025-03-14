@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS workout (
 CREATE TABLE IF NOT EXISTS workoutExercise (
     id         TEXT    NOT NULL,
     workoutId  TEXT    NOT NULL
-                       REFERENCES workout (id),
+                       REFERENCES workout (id) ON DELETE CASCADE,
     exerciseId TEXT    NOT NULL
                        REFERENCES exercise (id),
     sets       INTEGER NOT NULL
