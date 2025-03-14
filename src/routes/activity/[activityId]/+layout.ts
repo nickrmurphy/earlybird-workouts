@@ -1,15 +1,9 @@
-import { getActivity, getActivitySets, type ActivitySet } from "$lib/resources";
+import { getActivity, getActivitySets } from "$lib/resources";
+import { groupExerciseSets } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 import type { LayoutLoad } from "../$types";
 
 export const prerender = false;
-
-type Exercise = {
-  id: string;
-  name: string;
-};
-
-type ExerciseSets = Record<Exercise["id"], Exercise & { sets: ActivitySet[] }>;
 
 export const load: LayoutLoad = async ({ params, depends }) => {
   if (!params.activityId) {
@@ -24,24 +18,11 @@ export const load: LayoutLoad = async ({ params, depends }) => {
   depends(activityKey);
   depends(activitySetsKey);
 
-  const exerciseIds = new Set<string>();
-  const exerciseSets: ExerciseSets = {};
-
-  for (const set of activitySets) {
-    if (!exerciseSets[set.exerciseId]) {
-      exerciseSets[set.exerciseId] = {
-        id: set.exerciseId,
-        name: set.exerciseName,
-        sets: [set],
-      };
-    }
-    exerciseSets[set.exerciseId].sets.push(set);
-    exerciseIds.add(set.exerciseId);
-  }
+  const { exerciseIds, exerciseSets } = groupExerciseSets(activitySets);
 
   return {
     activity,
     exerciseSets,
-    exerciseIds: Array.from(exerciseIds),
+    exerciseIds,
   };
 };

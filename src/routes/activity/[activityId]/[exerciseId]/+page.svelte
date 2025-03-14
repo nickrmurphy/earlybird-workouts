@@ -19,12 +19,14 @@
   } from "@tabler/icons-svelte";
   import { globalState } from "$lib/state";
   import Button from "$lib/components/ui/Button.svelte";
-  import type { WeightUnit } from "$lib/database/database.js";
   import {
     createActivitySet,
     deleteActivitySet,
     updateActivitySet,
   } from "$lib/resources";
+  import { page } from "$app/state";
+  import { getDefaultWeightUnit } from "$lib/utils/settings";
+  import type { CountUnit } from "$lib/database/database";
 
   let { data } = $props();
 
@@ -32,29 +34,26 @@
   let showEdit = $state(false);
   let instructions = $derived(data.details.instructions);
 
-  function updateSetUnit(setId: string, unit: WeightUnit) {
-    updateActivitySet(setId, { weightUnit: unit });
-  }
-
-  function deleteSet(setId: string) {
-    deleteActivitySet(setId);
-  }
-
   async function addSet() {
-    if (data.activitySets.length === 0) return;
+    let exampleSet =
+      data.activitySets.length > 0
+        ? data.activitySets[data.activitySets.length - 1]
+        : {
+            count: 10,
+            weight: 40,
+            weightUnit: getDefaultWeightUnit(),
+            countUnit: "rep" as CountUnit,
+          };
 
     createActivitySet({
+      ...exampleSet,
       activityId: data.activity.id,
-      exerciseId: data.activitySets[0].exerciseId,
-      count: data.activitySets[0].count,
-      weight: data.activitySets[0].weight,
-      weightUnit: data.activitySets[0].weightUnit,
-      countUnit: data.activitySets[0].countUnit,
+      exerciseId: page.params.exerciseId,
       workoutId: data.activity.workoutId,
       workoutName: data.activity.workoutName,
-      exerciseName: data.activitySets[0].exerciseName,
       isComplete: 0,
       order: Object.keys(data.exerciseSets).length,
+      exerciseName: "",
     });
   }
 </script>
@@ -82,13 +81,20 @@
           globalState.activity.restTimer.stop();
           globalState.activity.restTimer.start();
         }
-        updateActivitySet(set.id, { isComplete });
+
+        updateActivitySet(set.id, {
+          isComplete,
+        });
       }}
       onRepsChange={(reps) => {
-        updateActivitySet(set.id, { count: reps });
+        updateActivitySet(set.id, {
+          count: reps,
+        });
       }}
       onWeightChange={(weight) => {
-        updateActivitySet(set.id, { weight });
+        updateActivitySet(set.id, {
+          weight,
+        });
       }}
     />
   {/each}
@@ -121,13 +127,16 @@
         <WeightUnitSelect
           class="col-span-3"
           value={set.weightUnit}
-          onchange={(unit) => updateSetUnit(set.id, unit)}
+          onchange={(unit) =>
+            updateActivitySet(set.id, {
+              weightUnit: unit,
+            })}
         />
         <Button
           class="col-span-1 w-fit! text-red-500!"
           variant="outline"
           disabled={data.activitySets.length === 1}
-          onclick={() => deleteSet(set.id)}
+          onclick={() => deleteActivitySet(set.id)}
         >
           <IconTrash />
         </Button>

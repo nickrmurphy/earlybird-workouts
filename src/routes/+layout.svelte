@@ -9,6 +9,7 @@
 
   let { children } = $props();
 
+  // TODO: Implement a better way to handle this
   let welcomed = $state(localStorage.getItem("welcomed") === "true");
   let mounted = $state(false);
 
