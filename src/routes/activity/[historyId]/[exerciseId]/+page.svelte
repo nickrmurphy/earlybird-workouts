@@ -93,7 +93,7 @@
     />
   {/each}
 </Page>
-<Navbar backHref={`/active/${data.activity.id}`}>
+<Navbar backHref={`/activity/${data.activity.id}`}>
   <TimerButton
     onclick={() => globalState.activity.restTimer.toggle()}
     elapsedTime={globalState.activity.restTimer.elapsedTime}

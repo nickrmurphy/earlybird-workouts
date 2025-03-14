@@ -94,7 +94,7 @@
     {/snippet}
   </PageHeader>
   {#each Object.values(data.exerciseSets) as exercise (exercise.id)}
-    <Pressable href={`/active/${data.activity.id}/${exercise.id}`}>
+    <Pressable href={`/activity/${data.activity.id}/${exercise.id}`}>
       <ActiveExerciseCard
         exerciseName={exercise.name}
         setCount={exercise.sets.length}

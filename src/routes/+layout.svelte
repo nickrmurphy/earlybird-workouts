@@ -16,7 +16,7 @@
   $effect.pre(() => {
     const activeWorkout = globalState.activity.currentId;
     if (activeWorkout) {
-      goto(`/active/${activeWorkout}`);
+      goto(`/activity/${activeWorkout}`);
     }
   });
 

@@ -82,7 +82,7 @@
     await createActivityAndSets({ workoutId: page.params.workoutId }).then(
       (historyId) => {
         globalState.activity.currentId = historyId;
-        goto(`/active/${historyId}`);
+        goto(`/activity/${historyId}`);
       },
     );
   }
