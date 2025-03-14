@@ -17,10 +17,14 @@
     IconPencil,
     IconTrash,
   } from "@tabler/icons-svelte";
-  import { db } from "$lib/db";
   import { globalState } from "$lib/state";
   import Button from "$lib/components/ui/Button.svelte";
   import type { WeightUnit } from "$lib/database/database.js";
+  import {
+    createActivitySet,
+    deleteActivitySet,
+    updateActivitySet,
+  } from "$lib/resources";
 
   let { data } = $props();
 
@@ -29,25 +33,28 @@
   let instructions = $derived(data.details.instructions);
 
   function updateSetUnit(setId: string, unit: WeightUnit) {
-    db.historySets.update(setId, { weightUnit: unit });
+    updateActivitySet(setId, { weightUnit: unit });
   }
 
   function deleteSet(setId: string) {
-    db.historySets.delete(setId);
+    deleteActivitySet(setId);
   }
 
   async function addSet() {
     if (data.activitySets.length === 0) return;
 
-    await db.historySets.add({
-      historyId: data.activitySets[0].activityId,
+    createActivitySet({
+      activityId: data.activity.id,
       exerciseId: data.activitySets[0].exerciseId,
       count: data.activitySets[0].count,
       weight: data.activitySets[0].weight,
-      historyExerciseId: "",
-      weightUnit: "lbs",
-      countUnit: "reps",
-      isSuccess: false,
+      weightUnit: data.activitySets[0].weightUnit,
+      countUnit: data.activitySets[0].countUnit,
+      workoutId: data.activity.workoutId,
+      workoutName: data.activity.workoutName,
+      exerciseName: data.activitySets[0].exerciseName,
+      isComplete: 0,
+      order: Object.keys(data.exerciseSets).length,
     });
   }
 </script>
@@ -75,13 +82,13 @@
           globalState.activity.restTimer.stop();
           globalState.activity.restTimer.start();
         }
-        db.historySets.update(set.id, { isSuccess: !!isComplete });
+        updateActivitySet(set.id, { isComplete });
       }}
       onRepsChange={(reps) => {
-        db.historySets.update(set.id, { count: reps });
+        updateActivitySet(set.id, { count: reps });
       }}
       onWeightChange={(weight) => {
-        db.historySets.update(set.id, { weight });
+        updateActivitySet(set.id, { weight });
       }}
     />
   {/each}

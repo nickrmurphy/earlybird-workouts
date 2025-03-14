@@ -152,4 +152,22 @@ async function createActivityAndSets({ workoutId }: { workoutId: string }) {
   return id;
 }
 
-export { createActivityAndSets, deleteActivity, getActivities, getActivity };
+async function updateActivity(id: string, data: { endTime: string }) {
+  const client = await getClient();
+  const query = db
+    .updateTable("activity")
+    .set("endTime", data.endTime)
+    .where("id", "=", id);
+  const { sql, parameters } = query.compile();
+  return await client.execute(sql, [...parameters]).then(() => {
+    invalidate(KEY);
+  });
+}
+
+export {
+  createActivityAndSets,
+  deleteActivity,
+  getActivities,
+  getActivity,
+  updateActivity,
+};

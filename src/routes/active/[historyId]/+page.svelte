@@ -19,11 +19,14 @@
     IconPlus,
     IconStopwatch,
   } from "@tabler/icons-svelte";
-  import { db } from "$lib/db";
   import { goto } from "$app/navigation";
   import { ExerciseSearch, globalState } from "$lib/state";
   import { getDefaultWeightUnit } from "$lib/utils";
-  import type { ExerciseDetail } from "$lib/resources";
+  import {
+    createActivitySet,
+    updateActivity,
+    type ExerciseDetail,
+  } from "$lib/resources";
 
   let { data } = $props();
 
@@ -45,8 +48,9 @@
     );
 
     if (confirmEnd) {
-      db.history.update(data.activity.id, { endTime: new Date() }).then(() => {
-        globalState.activity.clearCurrentId();
+      updateActivity(data.activity.id, {
+        endTime: new Date().toUTCString(),
+      }).then(() => {
         goto(`/${data.activity.workoutId}/history/${data.activity.id}`);
       });
     }
@@ -58,28 +62,19 @@
       return;
     }
 
-    await db.transaction(
-      "rw",
-      [db.historyExercises, db.historySets],
-      async () => {
-        let historyExerciseId = await db.historyExercises.add({
-          historyId: data.activity.id,
-          exerciseName: exercise.exerciseName,
-          exerciseId: exercise.id,
-        });
-
-        await db.historySets.add({
-          historyId: data.activity.id,
-          historyExerciseId,
-          exerciseId: exercise.id,
-          count: 10,
-          weight: 40,
-          isSuccess: false,
-          weightUnit: getDefaultWeightUnit(),
-          countUnit: "reps",
-        });
-      },
-    );
+    createActivitySet({
+      activityId: data.activity.id,
+      exerciseId: exercise.id,
+      count: 10,
+      weight: 40,
+      isComplete: 0,
+      weightUnit: getDefaultWeightUnit(),
+      countUnit: "rep",
+      workoutId: "",
+      workoutName: "",
+      exerciseName: "",
+      order: 0,
+    });
   }
 </script>
 
