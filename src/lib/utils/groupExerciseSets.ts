@@ -18,9 +18,11 @@ function groupExerciseSets(sets: ActivitySet[]) {
         name: set.exerciseName,
         sets: [set],
       };
+    } else {
+      exerciseSets[set.exerciseId].sets.push(set);
     }
+
     exerciseIds.add(set.exerciseId);
-    exerciseSets[set.exerciseId].sets.push(set);
   }
 
   return { exerciseSets, exerciseIds: Array.from(exerciseIds) };
