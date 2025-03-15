@@ -51,6 +51,7 @@
       updateActivity(data.activity.id, {
         endTime: new Date().toUTCString(),
       }).then(() => {
+        globalState.activity.clearCurrentId();
         goto(`/${data.activity.workoutId}/history/${data.activity.id}`);
       });
     }

@@ -9,9 +9,12 @@ import type { LayoutLoad } from "./$types";
 export const prerender = true;
 export const ssr = false;
 
-export const load: LayoutLoad = () => {
+export const load: LayoutLoad = ({ url }) => {
   const activeWorkout = globalState.activity.currentId;
-  if (activeWorkout) {
+
+  if (url.pathname.includes("/activity") && !activeWorkout) {
+    return redirect(303, "/");
+  } else if (!url.pathname.includes("/activity") && activeWorkout) {
     return redirect(303, `/activity/${activeWorkout}`);
   }
 };
