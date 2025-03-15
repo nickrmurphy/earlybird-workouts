@@ -32,7 +32,6 @@
 
   let showInstructions = $state(false);
   let showEdit = $state(false);
-  let instructions = $derived(data.details.instructions);
 
   async function addSet() {
     let exampleSet =
@@ -81,7 +80,6 @@
           globalState.activity.restTimer.stop();
           globalState.activity.restTimer.start();
         }
-
         updateActivitySet(set.id, {
           isComplete,
         });
@@ -146,6 +144,6 @@
 </Drawer>
 <InstructionsDrawer
   name="Instructions"
-  instructions={instructions || []}
+  instructions={data.details.instructions}
   bind:open={showInstructions}
 />

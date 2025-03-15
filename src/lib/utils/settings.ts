@@ -18,4 +18,12 @@ function setDefaultWeightUnit(unit: "lb" | "kg") {
   localStorage.setItem("defaultWeightUnit", unit);
 }
 
-export { getDefaultWeightUnit, setDefaultWeightUnit };
+function getWelcomed() {
+  return localStorage.getItem("welcomed") === "true";
+}
+
+function setWelcomed(value: boolean) {
+  localStorage.setItem("welcomed", value.toString());
+}
+
+export { getDefaultWeightUnit, getWelcomed, setDefaultWeightUnit, setWelcomed };

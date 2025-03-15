@@ -5,13 +5,16 @@
   import { Button } from "$lib/components";
   import { IconArrowRight } from "@tabler/icons-svelte";
   import { fade } from "svelte/transition";
-  import { onMount } from "svelte";
+  import { getWelcomed, setWelcomed } from "$lib/utils";
 
   let { children } = $props();
 
-  // TODO: Implement a better way to handle this
-  let welcomed = $state(localStorage.getItem("welcomed") === "true");
-  let mounted = $state(false);
+  let welcomed = $state(getWelcomed());
+
+  function handleStart() {
+    setWelcomed(true);
+    welcomed = true;
+  }
 
   onNavigate((navigation) => {
     if (!document.startViewTransition) return;
@@ -23,19 +26,13 @@
       });
     });
   });
-
-  onMount(() => {
-    mounted = true;
-  });
 </script>
 
 {#if welcomed}
-  {#if mounted}
-    <div in:fade={{ delay: 100, duration: 500 }}>
-      {@render children?.()}
-    </div>
-  {/if}
-{:else if mounted}
+  <div in:fade={{ delay: 100, duration: 500 }}>
+    {@render children?.()}
+  </div>
+{:else}
   <div
     in:fade={{ delay: 100, duration: 1000 }}
     out:fade={{ duration: 1000 }}
@@ -45,12 +42,7 @@
       <Waves />
     </div>
     <div class="fixed inset-x-10">
-      <Button
-        onclick={() => {
-          welcomed = true;
-          localStorage.setItem("welcomed", "true");
-        }}
-      >
+      <Button onclick={handleStart}>
         Get Started
         <IconArrowRight />
       </Button>
