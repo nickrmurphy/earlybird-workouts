@@ -63,7 +63,7 @@
   <Button
     class="col-span-1"
     variant={isComplete ? "primary" : "outline"}
-    onclick={() => onToggleComplete?.(0)}
+    onclick={() => onToggleComplete?.(isComplete ? 0 : 1)}
   >
     {#if isComplete}
       <IconCheck />

@@ -82,6 +82,7 @@
           globalState.activity.restTimer.start();
         }
 
+        console.log("isComplete", isComplete);
         updateActivitySet(set.id, {
           isComplete,
         });
