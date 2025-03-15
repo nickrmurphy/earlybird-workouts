@@ -30,8 +30,7 @@ CREATE TABLE IF NOT EXISTS muscle (
 -- Table: activity
 CREATE TABLE IF NOT EXISTS activity (
     id          TEXT NOT NULL,
-    startTime   TEXT DEFAULT CURRENT_TIMESTAMP
-                     NOT NULL,
+    startTime   TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
     endTime     TEXT DEFAULT NULL,
     workoutId   TEXT NOT NULL
                      REFERENCES workout (id) ON DELETE CASCADE,

@@ -115,7 +115,7 @@ async function createActivityAndSets({ workoutId }: { workoutId: string }) {
   const activityCmd = db.insertInto("activity").values({
     id,
     workoutId,
-    startTime: sql`CURRENT_TIMESTAMP`,
+    startTime: sql`(strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))`,
     workoutName: workout.name,
   });
 
