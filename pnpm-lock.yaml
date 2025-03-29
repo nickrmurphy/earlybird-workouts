@@ -23,9 +23,6 @@ importers:
       '@tauri-apps/plugin-haptics':
         specifier: ^2.2.3
         version: 2.2.3
-      '@tauri-apps/plugin-sql':
-        specifier: ~2
-        version: 2.2.0
       kysely:
         specifier: ^0.27.6
         version: 0.27.6
@@ -648,9 +645,6 @@ packages:
 
   '@tauri-apps/plugin-haptics@2.2.3':
     resolution: {integrity: sha512-tHWAOR0TSOuWIdJ4Fh/4z+L8CvSfHdg5i7XfCqjErPu63PMf+2n856VIGcC6fjF29hf/vq+BiGApWt38n66Gvg==}
-
-  '@tauri-apps/plugin-sql@2.2.0':
-    resolution: {integrity: sha512-yGdybpaMENe/p6lTXslvDHYNNvD9qB7palaBBF5fJHdYSkwd3vrLiYU9dFfLwUAwnsBylND55EiivWsjhazejA==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -1974,10 +1968,6 @@ snapshots:
       '@tauri-apps/api': 2.1.1
 
   '@tauri-apps/plugin-haptics@2.2.3':
-    dependencies:
-      '@tauri-apps/api': 2.1.1
-
-  '@tauri-apps/plugin-sql@2.2.0':
     dependencies:
       '@tauri-apps/api': 2.1.1
 

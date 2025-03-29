@@ -8,8 +8,6 @@
   "permissions": [
     "core:default",
     "dialog:default",
-    "haptics:allow-impact-feedback",
-    "sql:default",
-    "sql:allow-execute"
+    "haptics:allow-impact-feedback"
   ]
 }
