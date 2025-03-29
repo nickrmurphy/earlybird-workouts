@@ -20,9 +20,6 @@ importers:
       '@tauri-apps/plugin-dialog':
         specifier: ~2
         version: 2.2.0
-      '@tauri-apps/plugin-haptics':
-        specifier: ^2.2.3
-        version: 2.2.3
       kysely:
         specifier: ^0.27.6
         version: 0.27.6
@@ -642,9 +639,6 @@ packages:
 
   '@tauri-apps/plugin-dialog@2.2.0':
     resolution: {integrity: sha512-6bLkYK68zyK31418AK5fNccCdVuRnNpbxquCl8IqgFByOgWFivbiIlvb79wpSXi0O+8k8RCSsIpOquebusRVSg==}
-
-  '@tauri-apps/plugin-haptics@2.2.3':
-    resolution: {integrity: sha512-tHWAOR0TSOuWIdJ4Fh/4z+L8CvSfHdg5i7XfCqjErPu63PMf+2n856VIGcC6fjF29hf/vq+BiGApWt38n66Gvg==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -1964,10 +1958,6 @@ snapshots:
       '@tauri-apps/cli-win32-x64-msvc': 2.1.0
 
   '@tauri-apps/plugin-dialog@2.2.0':
-    dependencies:
-      '@tauri-apps/api': 2.1.1
-
-  '@tauri-apps/plugin-haptics@2.2.3':
     dependencies:
       '@tauri-apps/api': 2.1.1
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { impactFeedback } from "@tauri-apps/plugin-haptics";
   import {
     IconCircle,
     IconCircleCheckFilled,
@@ -25,13 +24,11 @@
   function handleSelect(option: Props["options"][0]) {
     selected.push(option.id);
     onAdd?.(option.id);
-    impactFeedback("soft");
   }
 
   function handleRemove(option: Props["options"][0]) {
     selected = selected.filter((value) => value !== option.id);
     onRemove?.(option.id);
-    impactFeedback("soft");
   }
 </script>
 
