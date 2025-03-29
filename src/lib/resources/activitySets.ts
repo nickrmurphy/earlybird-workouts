@@ -1,11 +1,11 @@
 import { invalidate } from "$app/navigation";
 import type {
-  CountUnit,
   ActivitySet as IActivitySet,
+  CountUnit,
   WeightUnit,
 } from "$lib/database/database";
-import { db, getClient } from "$lib/database/db";
-import type { InferResult, InsertType } from "kysely";
+import { db } from "$lib/database/db";
+import type { InsertType } from "kysely";
 
 const key: `${string}:${string}` = "data:activitySets";
 
@@ -39,7 +39,6 @@ async function getActivitySets({
   exerciseId,
   isComplete,
 }: ActivitySetsOptions | undefined = {}): Promise<ActivititySetsResponse> {
-  const client = await getClient();
   let query = db
     .selectFrom("activitySet")
     .orderBy("order", "asc")
@@ -71,35 +70,24 @@ async function getActivitySets({
     query = query.where("isComplete", "=", isComplete);
   }
 
-  const { sql, parameters } = query.compile();
-
-  const activitySets = await client.select<InferResult<typeof query>>(sql, [
-    ...parameters,
-  ]);
+  const activitySets = await query.execute();
 
   return {
     key,
     activitySets,
   };
 }
-
 async function createActivitySet(data: Omit<InsertType<IActivitySet>, "id">) {
   const id = crypto.randomUUID();
-  const client = await getClient();
-  const cmd = db.insertInto("activitySet").values({ ...data, id });
-  const { sql, parameters } = cmd.compile();
-
-  return await client.execute(sql, [...parameters]).then(() => {
-    invalidate(key);
-    return id;
-  });
+  await db.insertInto("activitySet").values({ ...data, id }).execute();
+  invalidate(key);
+  return id;
 }
 
 async function updateActivitySet(
   id: string,
   data: Omit<Partial<InsertType<IActivitySet>>, "id">,
 ) {
-  const client = await getClient();
   let cmd = db.updateTable("activitySet");
 
   if (data.weightUnit !== undefined) {
@@ -122,20 +110,13 @@ async function updateActivitySet(
     cmd = cmd.set("isComplete", data.isComplete);
   }
 
-  const { sql, parameters } = cmd.where("id", "=", id).compile();
-
-  return await client.execute(sql, [...parameters]).then(() => {
-    invalidate(key);
-  });
+  await cmd.where("id", "=", id).execute();
+  invalidate(key);
 }
 
 async function deleteActivitySet(id: string) {
-  const client = await getClient();
-  const query = db.deleteFrom("activitySet").where("id", "=", id);
-  const { sql, parameters } = query.compile();
-  return await client.execute(sql, [...parameters]).then(() => {
-    invalidate(key);
-  });
+  await db.deleteFrom("activitySet").where("id", "=", id).execute();
+  invalidate(key);
 }
 
 export {

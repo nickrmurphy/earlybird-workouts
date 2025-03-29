@@ -1,5 +1,4 @@
-import { db, getClient } from "$lib/database/db";
-import type { InferResult } from "kysely";
+import { db } from "$lib/database/db";
 
 type ExerciseDetail = {
   id: string;
@@ -16,8 +15,7 @@ type ExerciseDetail = {
 };
 
 async function getExercises(): Promise<ExerciseDetail[]> {
-  const client = await getClient();
-  const query = db
+  const data = await db
     .selectFrom("exercise")
     .innerJoin("equipment", "equipment.id", "exercise.equipmentId")
     .innerJoin("exerciseMuscle", "exerciseMuscle.exerciseId", "exercise.id")
@@ -31,12 +29,7 @@ async function getExercises(): Promise<ExerciseDetail[]> {
       "equipment.name as equipmentName",
       "muscle.id as muscleId",
       "muscle.name as muscleName",
-    ]);
-
-  const { sql, parameters } = query.compile();
-  const data = await client.select<InferResult<typeof query>>(sql, [
-    ...parameters,
-  ]);
+    ]).execute();
 
   const exercisesMap = new Map<string, ExerciseDetail>();
 
@@ -65,17 +58,11 @@ async function getExercises(): Promise<ExerciseDetail[]> {
 }
 
 async function getEquipment() {
-  const client = await getClient();
-  const query = db.selectFrom("equipment").select(["id", "name"]);
-  const { sql } = query.compile();
-  return await client.select<InferResult<typeof query>>(sql);
+  return await db.selectFrom("equipment").select(["id", "name"]).execute();
 }
 
 async function getMuscles() {
-  const client = await getClient();
-  const query = db.selectFrom("muscle").select(["id", "name"]);
-  const { sql } = query.compile();
-  return await client.select<InferResult<typeof query>>(sql);
+  return await db.selectFrom("muscle").select(["id", "name"]).execute();
 }
 
 export { getEquipment, getExercises, getMuscles };

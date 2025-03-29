@@ -1,6 +1,6 @@
 import { invalidate } from "$app/navigation";
-import { db, getClient } from "$lib/database/db";
-import { sql, type InferResult } from "kysely";
+import { db } from "$lib/database/db";
+import { sql } from "kysely";
 
 type Activity = {
   id: string;
@@ -16,7 +16,6 @@ async function getActivities(workoutId?: string): Promise<{
   key: `${string}:${string}`;
   activities: Activity[];
 }> {
-  const client = await getClient();
   let query = db
     .selectFrom("activity")
     .orderBy("startTime", "desc")
@@ -26,11 +25,7 @@ async function getActivities(workoutId?: string): Promise<{
     query = query.where("workoutId", "=", workoutId);
   }
 
-  const { sql, parameters } = query.compile();
-
-  const activitiesData = await client.select<InferResult<typeof query>>(sql, [
-    ...parameters,
-  ]);
+  const activitiesData = await query.execute();
 
   return {
     key: KEY,
@@ -48,15 +43,12 @@ async function getActivity(activityId: string): Promise<{
   key: `${string}:${string}`;
   activity: Activity;
 }> {
-  const client = await getClient();
-  const query = db
+  const activityData = await db
     .selectFrom("activity")
     .where("id", "=", activityId)
-    .select(["id", "workoutId", "workoutName", "startTime", "endTime"]);
-  const { sql, parameters } = query.compile();
-  const [activityData] = await client.select<InferResult<typeof query>>(sql, [
-    ...parameters,
-  ]);
+    .select(["id", "workoutId", "workoutName", "startTime", "endTime"])
+    .executeTakeFirstOrThrow();
+
   return {
     key: KEY,
     activity: {
@@ -72,96 +64,75 @@ async function getActivity(activityId: string): Promise<{
 }
 
 async function deleteActivity(id: string) {
-  const client = await getClient();
-  const query = db.deleteFrom("activity").where("id", "=", id);
-  const { sql, parameters } = query.compile();
-  return await client.execute(sql, [...parameters]).then(() => {
-    invalidate(KEY);
-  });
+  return db
+    .deleteFrom("activity")
+    .where("id", "=", id)
+    .execute().then(() => {
+      invalidate(KEY);
+    });
 }
 
 async function createActivityAndSets({ workoutId }: { workoutId: string }) {
   const id = crypto.randomUUID();
-  const client = await getClient();
 
-  const workoutQuery = db
+  const workout = await db
     .selectFrom("workout")
     .where("id", "=", workoutId)
-    .select(["name"]);
-  const { sql: workoutSql, parameters: workoutParameters } =
-    workoutQuery.compile();
-  const [workout] = await client.select<InferResult<typeof workoutQuery>>(
-    workoutSql,
-    [...workoutParameters],
-  );
+    .select(["name"])
+    .executeTakeFirstOrThrow();
 
-  if (!workout) {
-    throw new Error("Workout not found");
-  }
-  const workoutExerciseQuery = db
+  const workoutExercises = await db
     .selectFrom("workoutExercise")
     .where("workoutId", "=", workoutId)
     .selectAll()
     .innerJoin("exercise", "exercise.id", "workoutExercise.exerciseId")
-    .select("exercise.name as exerciseName");
+    .select("exercise.name as exerciseName")
+    .execute();
 
-  const { sql: workoutExerciseSql, parameters: workoutExerciseParameters } =
-    workoutExerciseQuery.compile();
-
-  const workoutExercises = await client.select<
-    InferResult<typeof workoutExerciseQuery>
-  >(workoutExerciseSql, [...workoutExerciseParameters]);
-
-  const activityCmd = db.insertInto("activity").values({
-    id,
-    workoutId,
-    startTime: sql`(strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))`,
-    workoutName: workout.name,
-  });
-
-  const { sql: activitySql, parameters: activityParameters } =
-    activityCmd.compile();
-
-  await client.execute(activitySql, [...activityParameters]);
-
-  for (const exercise of workoutExercises) {
-    for (let i = 0; i < exercise.sets; i++) {
-      const activitySetId = crypto.randomUUID();
-
-      const setCmd = db.insertInto("activitySet").values({
-        id: activitySetId,
-        activityId: id,
-        workoutId: workoutId,
+  db.transaction().execute(async (trx) => {
+    trx.insertInto("activity")
+      .values({
+        id,
+        workoutId,
+        startTime: sql`(strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))`,
         workoutName: workout.name,
-        exerciseId: exercise.exerciseId,
-        exerciseName: exercise.exerciseName,
-        count: exercise.count,
-        countUnit: exercise.countUnit,
-        weight: exercise.weight,
-        weightUnit: exercise.weightUnit,
-        order: i,
-        isComplete: 0,
-      });
+      })
+      .execute();
 
-      const { sql: setSql, parameters: setParameters } = setCmd.compile();
-      await client.execute(setSql, [...setParameters]);
+    for (const exercise of workoutExercises) {
+      for (let i = 0; i < exercise.sets; i++) {
+        const activitySetId = crypto.randomUUID();
+        await trx.insertInto("activitySet").values({
+          id: activitySetId,
+          activityId: id,
+          workoutId: workoutId,
+          workoutName: workout.name,
+          exerciseId: exercise.exerciseId,
+          exerciseName: exercise.exerciseName,
+          count: exercise.count,
+          countUnit: exercise.countUnit,
+          weight: exercise.weight,
+          weightUnit: exercise.weightUnit,
+          order: i,
+          isComplete: 0,
+        }).execute();
+      }
     }
-  }
+  });
 
   invalidate(KEY);
   return id;
 }
 
 async function updateActivity(id: string, data: { endTime: string }) {
-  const client = await getClient();
-  const query = db
+  await db
     .updateTable("activity")
     .set("endTime", data.endTime)
-    .where("id", "=", id);
-  const { sql, parameters } = query.compile();
-  return await client.execute(sql, [...parameters]).then(() => {
-    invalidate(KEY);
-  });
+    .where("id", "=", id)
+    .execute()
+    .then(() => {
+      invalidate(KEY);
+    });
 }
 
 export {

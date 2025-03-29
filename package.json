@@ -26,6 +26,7 @@
     "@tauri-apps/plugin-haptics": "^2.2.3",
     "@tauri-apps/plugin-sql": "~2",
     "kysely": "^0.27.6",
+    "sqlocal": "^0.14.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
