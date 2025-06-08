@@ -29,7 +29,7 @@
         </tr>
       </thead>
       <tbody class="divide-divide divide-y">
-        {#each sets as set}
+        {#each sets as set, index (index)}
           <tr>
             <td><span class="pl-4">{set.weight}</span></td>
             <td>{set.count}</td>

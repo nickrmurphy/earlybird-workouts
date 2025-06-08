@@ -128,7 +128,7 @@
         />
         <NavigationMonitor />
       {:else}
-        {#each $workoutExercises as exercise}
+        {#each $workoutExercises as exercise (exercise.id)}
           <ExerciseItem
             onclick={() => {
               selectedExerciseId = exercise.exerciseId;

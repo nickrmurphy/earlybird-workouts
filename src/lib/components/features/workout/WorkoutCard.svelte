@@ -13,7 +13,7 @@
     {workoutName}
   </h3>
   <ul class="text-muted-foreground flex list-inside flex-col gap-2.5">
-    {#each exercises.slice(0, DISPLAY_COUNT) as exercise}
+    {#each exercises.slice(0, DISPLAY_COUNT) as exercise (exercise)}
       <li class="font-medium">
         {exercise}
       </li>

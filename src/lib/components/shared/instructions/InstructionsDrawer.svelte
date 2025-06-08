@@ -14,7 +14,7 @@
 
 <Drawer bind:open title={name} {footer}>
   <ol>
-    {#each instructions as instruction, idx}
+    {#each instructions as instruction, idx (idx)}
       <li>
         <span>{idx + 1}.</span>
         {instruction}

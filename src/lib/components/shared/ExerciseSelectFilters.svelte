@@ -67,13 +67,13 @@
     class="min-h-11 w-full border-none bg-transparent focus-within:outline-none"
   >
     <optgroup label="Muscles">
-      {#each muscleOptions as muscle}
+      {#each muscleOptions as muscle (muscle.value)}
         <option value="muscle-{muscle.value}">{muscle.label}</option>
       {/each}
     </optgroup>
     <optgroup label="Equipment">
       <option value="equipment-NULL">None</option>
-      {#each equipmentOptions as equipment}
+      {#each equipmentOptions as equipment (equipment.value)}
         <option value="equipment-{equipment.value}">{equipment.label}</option>
       {/each}
     </optgroup>

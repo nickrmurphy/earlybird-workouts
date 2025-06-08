@@ -34,7 +34,7 @@
   {...props}
   class={[props.class, "border-border flex gap-1 rounded-sm border p-1"]}
 >
-  {#each options as option}
+  {#each options as option (option.value)}
     {@render tab(option.label, option.value)}
   {/each}
 </div>

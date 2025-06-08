@@ -49,7 +49,7 @@
     <BusinessClipboard />
   {/if}
   <div class="space-y-8">
-    {#each $history || [] as item}
+    {#each $history || [] as item (item.id)}
       <HistoryCard
         onclick={() => {
           goto(`/${page.params.workoutId}/history/${item.id}`);

@@ -1,8 +1,18 @@
 import { readJson, writeJson } from "https://deno.land/x/jsonfile/mod.ts";
 
+interface Exercise {
+  force?: string;
+  level?: string;
+  mechanic?: string;
+  equipment?: string;
+  primaryMuscles: string[];
+  secondaryMuscles: string[];
+  category?: string;
+}
+
 async function extractProperties(filePath: string) {
   try {
-    const exercises = (await readJson(filePath)) as Array<any>;
+    const exercises = (await readJson(filePath)) as Exercise[];
 
     const uniqueForces = new Set<string>();
     const uniqueLevels = new Set<string>();
@@ -11,7 +21,7 @@ async function extractProperties(filePath: string) {
     const uniqueMuscles = new Set<string>();
     const uniqueCategories = new Set<string>();
 
-    exercises.forEach((exercise) => {
+    exercises.forEach((exercise: Exercise) => {
       if (exercise.force) uniqueForces.add(exercise.force);
       if (exercise.level) uniqueLevels.add(exercise.level);
       if (exercise.mechanic) uniqueMechanics.add(exercise.mechanic);
@@ -28,7 +38,7 @@ async function extractProperties(filePath: string) {
     const toTitleCase = (str: string) =>
       str.replace(
         /\w\S*/g,
-        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
+        (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase(),
       );
 
     const formatToLabelValue = (set: Set<string>) =>

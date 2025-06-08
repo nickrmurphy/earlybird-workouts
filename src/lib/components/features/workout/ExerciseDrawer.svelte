@@ -99,7 +99,7 @@
         class="text-sm tracking-wide uppercase">instructions</summary
       >
       <ol class="flex flex-col gap-2 p-2">
-        {#each instructions as instruction, idx}
+        {#each instructions as instruction, idx (idx)}
           <li class="text-lg">
             <span>{idx + 1}.</span>
             {instruction}

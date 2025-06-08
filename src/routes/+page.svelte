@@ -58,7 +58,7 @@
       />
       <SportsJogging />
     {:else}
-      {#each $workoutInfo as workout}
+      {#each $workoutInfo as workout (workout.id)}
         <Pressable href={`/${workout.id}`}>
           <WorkoutCard
             workoutName={workout.name}

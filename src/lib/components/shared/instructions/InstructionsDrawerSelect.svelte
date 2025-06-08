@@ -25,7 +25,11 @@
     <Button
       variant="outline"
       onclick={async () => {
-        isSelected ? onRemoveExercise(exerciseId) : onAddExercise(exerciseId);
+        if (isSelected) {
+          onRemoveExercise(exerciseId);
+        } else {
+          onAddExercise(exerciseId);
+        }
         open = false;
       }}
     >

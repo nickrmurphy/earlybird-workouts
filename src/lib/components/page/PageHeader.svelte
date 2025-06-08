@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import type { SvelteHTMLElements } from "svelte/elements";
 
-  type Props = SvelteHTMLElements["HTMLHeadingElement"] & {
+  type Props = {
     title?: string | string[];
-    level?: 1 | 2;
     right?: Snippet;
+    children?: Snippet;
   };
 
   let { title, children, right }: Props = $props();

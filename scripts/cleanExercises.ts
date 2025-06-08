@@ -1,10 +1,16 @@
 import { readJson, writeJson } from "https://deno.land/x/jsonfile/mod.ts";
 
+interface Exercise {
+  images?: string[];
+  equipment: string | null;
+  [key: string]: unknown;
+}
+
 async function cleanExercises(filePath: string) {
   try {
-    const exercises = (await readJson(filePath)) as Array<any>;
+    const exercises = (await readJson(filePath)) as Exercise[];
 
-    const cleanedExercises = exercises.map((exercise) => {
+    const cleanedExercises = exercises.map((exercise: Exercise) => {
       delete exercise.images;
       if (exercise.equipment === "body only") {
         exercise.equipment = null;

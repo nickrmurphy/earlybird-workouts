@@ -3,7 +3,6 @@
   import { IconPlayerPlay, IconPlayerStop } from "@tabler/icons-svelte";
 
   type Props = {
-    width?: string;
     elapsedTime: number;
     runTimeSeconds: number;
     onclick?: () => void;

@@ -31,8 +31,9 @@ pnpm tauri            # Access Tauri CLI commands
 **Earlybird Workouts** is a cross-platform fitness tracking app built with Tauri + SvelteKit + TypeScript.
 
 ### Tech Stack
+
 - **Frontend**: SvelteKit with Svelte 5 runes (`$state`, `$effect`)
-- **Backend**: Tauri (Rust) for native desktop/mobile functionality  
+- **Backend**: Tauri (Rust) for native desktop/mobile functionality
 - **Database**: Dexie (IndexedDB) with Dexie Cloud synchronization
 - **Styling**: Tailwind CSS v4
 - **Type Safety**: TypeScript + Zod schemas
@@ -50,6 +51,7 @@ historySets: { id, historyId, historyExerciseId, ... }   // Individual sets perf
 ```
 
 **Key patterns:**
+
 - All entities use string UUIDs for primary keys
 - Zod schemas define types and runtime validation (`src/lib/db/schema/`)
 - Cloud sync via Dexie Cloud addon
@@ -91,6 +93,7 @@ SvelteKit file-based routing with nested layouts:
 ## Exercise Data
 
 Static JSON files in `/static/` contain 15,785+ exercises with metadata:
+
 - `exercises.json` - Complete exercise database
 - `categories.json`, `muscles.json`, etc. - Classification data
 

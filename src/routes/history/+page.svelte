@@ -37,7 +37,7 @@
         />
         <BusinessClipboard />
       {/if}
-      {#each $history as item}
+      {#each $history as item (item.id)}
         <HistoryCard
           onclick={() => {
             goto(`/${item.workoutId}/history/${item.id}?from=${page.url}`);

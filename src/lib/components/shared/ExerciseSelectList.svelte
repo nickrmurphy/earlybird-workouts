@@ -36,7 +36,7 @@
 </script>
 
 <ul>
-  {#each options as option}
+  {#each options as option (option.value)}
     <li>
       {#if selected.includes(option.value)}
         <button onclick={() => handleRemove(option)}>
