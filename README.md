@@ -1,7 +1,30 @@
-# Tauri + SvelteKit + TypeScript
+# Workouts by Early Bird
 
-This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
+Cross-platform fitness tracking app built with Tauri, SvelteKit, and TypeScript.
 
-## Recommended IDE Setup
+## Features
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
+- Create custom workouts with 15,000+ exercises
+- Track sets, weights, and rest periods
+- Offline-first with cloud sync
+- Desktop and iOS support
+
+## Development
+
+```bash
+pnpm dev              # Start development server
+pnpm dev:ios          # iOS simulator
+pnpm build            # Build for production
+pnpm lint             # Code quality checks
+```
+
+## Tech Stack
+
+- **Frontend**: SvelteKit + Svelte 5 + TypeScript
+- **Backend**: Tauri (Rust)
+- **Database**: Dexie + Dexie Cloud
+- **Styling**: Tailwind CSS
+
+## Project Status
+
+⏸️ On hold to focus on [Early Bird SDK](https://github.com/nickrmurphy/earlybird-sdk), to build the tools I wish I had for local first development
