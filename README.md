@@ -9,6 +9,16 @@ Cross-platform fitness tracking app built with Tauri, SvelteKit, and TypeScript.
 - Offline-first with cloud sync
 - Desktop and iOS support
 
+## Screenshots
+
+<div align="center">
+  <img src="images/home-workouts-list.png" width="200" alt="Home - Workouts List" />
+  <img src="images/workout-detail-start.png" width="200" alt="Workout Detail" />
+  <img src="images/active-workout-progress.png" width="200" alt="Active Workout" />
+  <img src="images/exercise-entry-logging.png" width="200" alt="Exercise Entry" />
+  <img src="images/workout-history-completed.png" width="200" alt="Workout History" />
+</div>
+
 ## Development
 
 ```bash
@@ -25,6 +35,6 @@ pnpm lint             # Code quality checks
 - **Database**: Dexie + Dexie Cloud
 - **Styling**: Tailwind CSS
 
-## Project Status
+## Known Issues
 
-⏸️ On hold to focus on [Early Bird SDK](https://github.com/nickrmurphy/earlybird-sdk), to build the tools I wish I had for local first development
+- **iOS 26 Liquid Glass Redesign**: Some pages have excessive scroll distance that may cause interactivity issues with elements in the lowest section of the screen. This affects user interaction with buttons and form controls near the bottom of certain views.
