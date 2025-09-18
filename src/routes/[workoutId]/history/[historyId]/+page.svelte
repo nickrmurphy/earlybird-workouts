@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { confirm } from "@tauri-apps/plugin-dialog";
+  import { confirm } from "$lib/utils";
   import {
     Page,
     PageHeader,

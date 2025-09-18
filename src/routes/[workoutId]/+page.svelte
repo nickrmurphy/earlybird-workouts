@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { confirm } from "@tauri-apps/plugin-dialog";
+  import { confirm } from "$lib/utils";
   import { goto } from "$app/navigation";
   import {
     Navbar,

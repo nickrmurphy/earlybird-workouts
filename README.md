@@ -4,10 +4,17 @@ Cross-platform fitness tracking app built with Tauri, SvelteKit, and TypeScript.
 
 ## Features
 
-- Create custom workouts with 15,000+ exercises
-- Track sets, weights, and rest periods
-- Offline-first with cloud sync
-- Desktop and iOS support
+- **Custom Workouts**: Create personalized routines from 873 exercises
+- **Comprehensive Tracking**: Log sets, weights, reps, and rest periods
+- **Offline-First**: Full functionality without internet, syncs when connected
+- **Cross-Platform**: Native desktop, iOS, and Web apps from a single codebase
+
+## Try it Out
+
+- **iOS (TestFlight)**: https://testflight.apple.com/join/C9Fc3eSe
+- **Web**: https://workouts-e5j.pages.dev
+
+*This app was developed for and tested primarily on iOS.*
 
 ## Screenshots
 
