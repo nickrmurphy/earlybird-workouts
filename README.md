@@ -11,7 +11,7 @@ Cross-platform fitness tracking app built with Tauri, SvelteKit, and TypeScript.
 
 ## Try it Out
 
-- **iOS (TestFlight)**: https://testflight.apple.com/join/C9Fc3eSe
+- **iOS (TestFlight)**: [https://testflight.apple.com/join/C9Fc3eSe](https://testflight.apple.com/join/E5JYBpSY)
 - **Web**: https://workouts-e5j.pages.dev
 
 *This app was developed for and tested primarily on iOS.*
