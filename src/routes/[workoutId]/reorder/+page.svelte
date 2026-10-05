@@ -8,11 +8,7 @@
   } from "$lib/components";
   import { page } from "$app/state";
   import { flip } from "svelte/animate";
-  import {
-    IconCheck,
-    IconChevronDown,
-    IconChevronUp,
-  } from "@tabler/icons-svelte";
+  import { CaretDownIcon, CaretUpIcon, CheckIcon } from "phosphor-svelte";
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
   import { arraymove } from "$lib/utils";
@@ -70,7 +66,7 @@
             type="button"
             onclick={() => arraymove(orderedExercises, idx, idx - 1)}
           >
-            <IconChevronUp />
+            <CaretUpIcon />
           </Button>
           <Button
             variant="outline"
@@ -78,7 +74,7 @@
             type="button"
             onclick={() => arraymove(orderedExercises, idx, idx + 1)}
           >
-            <IconChevronDown />
+            <CaretDownIcon />
           </Button>
         </div>
       </li>
@@ -86,7 +82,7 @@
   </ol>
   <Navbar backHref="/{page.params.workoutId}">
     <NavbarButton class="w-full" disabled={!changed} onclick={saveChanges}>
-      Save changes <IconCheck />
+      Save changes <CheckIcon />
     </NavbarButton>
   </Navbar>
 </Page>

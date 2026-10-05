@@ -11,9 +11,6 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.7.4
         version: 1.7.4
-      '@tabler/icons-svelte':
-        specifier: ^3.35.0
-        version: 3.35.0(svelte@5.38.10)
       '@tauri-apps/api':
         specifier: ^2.12.1
         version: 2.12.1
@@ -29,6 +26,9 @@ importers:
       dexie-cloud-addon:
         specifier: ^4.2.0
         version: 4.2.0(dexie@4.2.0)
+      phosphor-svelte:
+        specifier: ^3.1.0
+        version: 3.1.0(svelte@5.38.10)(vite@6.3.6(@types/node@22.12.0)(jiti@2.5.1)(lightningcss@1.30.1))
       zod:
         specifier: ^3.25.76
         version: 3.25.76
@@ -514,14 +514,6 @@ packages:
       svelte: ^5.0.0
       vite: ^6.0.0
 
-  '@tabler/icons-svelte@3.35.0':
-    resolution: {integrity: sha512-Y4J3RuKv7Ogs3Wk3Gc+Lm249QGHeTI9wjAIqGzszxiEkOyhKwXP54VIVQW2M0LRwDi589EHnMkKH+cXQjCulHg==}
-    peerDependencies:
-      svelte: '>=3 <6 || >=5.0.0-next.0'
-
-  '@tabler/icons@3.35.0':
-    resolution: {integrity: sha512-yYXe+gJ56xlZFiXwV9zVoe3FWCGuZ/D7/G4ZIlDtGxSx5CGQK110wrnT29gUj52kEZoxqF7oURTk97GQxELOFQ==}
-
   '@tailwindcss/node@4.1.13':
     resolution: {integrity: sha512-eq3ouolC1oEFOAvOMOBAmfCIqZBJuvWvvYWh5h5iOYfe1HFC6+GZ6EIL0JdM3/niGRJmnrOc+8gl9/HGUaaptw==}
 
@@ -967,6 +959,9 @@ packages:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
     engines: {node: '>=4.0'}
 
+  estree-walker@3.0.3:
+    resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
+
   esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
@@ -1270,6 +1265,15 @@ packages:
   path-key@3.1.1:
     resolution: {integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==}
     engines: {node: '>=8'}
+
+  phosphor-svelte@3.1.0:
+    resolution: {integrity: sha512-nldtxx+XCgNREvrb7O5xgDsefytXpSkPTx8Rnu3f2qQCUZLDV1rLxYSd2Jcwckuo9lZB1qKMqGR17P4UDC0PrA==}
+    peerDependencies:
+      svelte: ^5.0.0 || ^5.0.0-next.96
+      vite: '>=5'
+    peerDependenciesMeta:
+      vite:
+        optional: true
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -1949,13 +1953,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tabler/icons-svelte@3.35.0(svelte@5.38.10)':
-    dependencies:
-      '@tabler/icons': 3.35.0
-      svelte: 5.38.10
-
-  '@tabler/icons@3.35.0': {}
-
   '@tailwindcss/node@4.1.13':
     dependencies:
       '@jridgewell/remapping': 2.3.5
@@ -2423,6 +2420,10 @@ snapshots:
 
   estraverse@5.3.0: {}
 
+  estree-walker@3.0.3:
+    dependencies:
+      '@types/estree': 1.0.8
+
   esutils@2.0.3: {}
 
   fast-deep-equal@3.1.3: {}
@@ -2660,6 +2661,14 @@ snapshots:
   path-exists@4.0.0: {}
 
   path-key@3.1.1: {}
+
+  phosphor-svelte@3.1.0(svelte@5.38.10)(vite@6.3.6(@types/node@22.12.0)(jiti@2.5.1)(lightningcss@1.30.1)):
+    dependencies:
+      estree-walker: 3.0.3
+      magic-string: 0.30.19
+      svelte: 5.38.10
+    optionalDependencies:
+      vite: 6.3.6(@types/node@22.12.0)(jiti@2.5.1)(lightningcss@1.30.1)
 
   picocolors@1.1.1: {}
 

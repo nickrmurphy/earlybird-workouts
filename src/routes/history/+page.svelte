@@ -11,7 +11,7 @@
   } from "$lib/components";
   import { db } from "$lib/db";
   import { calculateTonnagePerAttribute } from "$lib/utils";
-  import { IconLoader } from "@tabler/icons-svelte";
+  import { SpinnerIcon } from "phosphor-svelte";
   import { liveQuery } from "dexie";
 
   let history = liveQuery(() =>
@@ -49,7 +49,7 @@
         />
       {/each}
     {:else}
-      <IconLoader class="mx-auto mt-30 animate-spin " />
+      <SpinnerIcon class="mx-auto mt-30 animate-spin " />
     {/if}
   </section>
   <Navbar backHref="/" />

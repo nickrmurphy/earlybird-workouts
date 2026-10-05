@@ -1,5 +1,6 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
+import { sveltePhosphorOptimize } from "phosphor-svelte/vite";
 import { defineConfig } from "vite";
 
 // @ts-expect-error process is a nodejs global
@@ -7,7 +8,7 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [sveltekit(), tailwindcss()],
+  plugins: [sveltePhosphorOptimize(), sveltekit(), tailwindcss()],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

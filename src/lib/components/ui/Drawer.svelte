@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { IconX } from "@tabler/icons-svelte";
+  import { XIcon } from "phosphor-svelte";
   import type { HTMLAttributes } from "svelte/elements";
   import { fade, fly } from "svelte/transition";
   import type { Snippet } from "svelte";
@@ -40,7 +40,7 @@
         <h2 class="max-w-[85%] p-2 text-xl font-bold">{title}</h2>
       {/if}
       <button onclick={() => (open = false)}>
-        <IconX />
+        <XIcon />
       </button>
     </header>
     <section>

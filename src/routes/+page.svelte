@@ -13,10 +13,10 @@
     SettingsDrawer,
   } from "$lib/components";
   import {
-    IconCirclePlus,
-    IconReportAnalytics,
-    IconSettings,
-  } from "@tabler/icons-svelte";
+    ClockCounterClockwiseIcon,
+    GearIcon,
+    PlusCircleIcon,
+  } from "phosphor-svelte";
 
   let showModal = $state(false);
   let showSettings = $state(false);
@@ -46,7 +46,7 @@
   <PageHeader title="Workouts">
     {#snippet right()}
       <button onclick={() => (showModal = true)}>
-        <IconCirclePlus class="text-accent" size={24} />
+        <PlusCircleIcon class="text-accent" size={24} />
       </button>
     {/snippet}
   </PageHeader>
@@ -77,10 +77,10 @@
       onclick={() => goto("/history")}
     >
       History
-      <IconReportAnalytics />
+      <ClockCounterClockwiseIcon />
     </NavbarButton>
     <NavbarButton variant="secondary" onclick={() => (showSettings = true)}>
-      <IconSettings />
+      <GearIcon />
     </NavbarButton>
   </Navbar>
 </Page>

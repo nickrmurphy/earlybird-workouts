@@ -1,10 +1,6 @@
 <script lang="ts">
   import { impactFeedback } from "@tauri-apps/plugin-haptics";
-  import {
-    IconCircle,
-    IconCircleCheckFilled,
-    IconInfoCircle,
-  } from "@tabler/icons-svelte";
+  import { CheckCircleIcon, CircleIcon, InfoIcon } from "phosphor-svelte";
 
   type Props = {
     options: { value: string; label: string }[];
@@ -41,14 +37,14 @@
       {#if selected.includes(option.value)}
         <button onclick={() => handleRemove(option)}>
           <span>
-            <IconCircleCheckFilled color="var(--color-accent)" />
+            <CheckCircleIcon weight="fill" color="var(--color-accent)" />
           </span>
           {option.label}
         </button>
       {:else}
         <button onclick={() => handleSelect(option)}>
           <span>
-            <IconCircle color="var(--color-accent)" />
+            <CircleIcon color="var(--color-accent)" />
           </span>
           <span class="text-start">
             {option.label}
@@ -59,7 +55,7 @@
         style="margin-left: auto; width: fit-content; color: var(--color-muted-foreground)"
         onclick={() => onSelectInfo?.(option.value)}
       >
-        <IconInfoCircle />
+        <InfoIcon />
       </button>
     </li>
   {/each}

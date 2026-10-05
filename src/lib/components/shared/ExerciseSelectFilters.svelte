@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { IconFilter, IconFilterEdit } from "@tabler/icons-svelte";
+  import { FunnelIcon } from "phosphor-svelte";
   import {
     equipmentSchema,
     muscleSchema,
@@ -56,9 +56,9 @@
 >
   <span>
     {#if searchFilters.length > 0}
-      <IconFilterEdit />
+      <FunnelIcon weight="fill" />
     {:else}
-      <IconFilter />
+      <FunnelIcon />
     {/if}
   </span>
   <select

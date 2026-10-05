@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { SvelteHTMLElements } from "svelte/elements";
   import { goto } from "$app/navigation";
-  import { IconArrowLeft, IconCheck } from "@tabler/icons-svelte";
+  import { ArrowLeftIcon, CheckIcon } from "phosphor-svelte";
 
   type Props = SvelteHTMLElements["nav"] & {
     backHref?: string;
@@ -20,9 +20,9 @@
       : ""}
   >
     {#if asComplete}
-      <IconCheck />
+      <CheckIcon />
     {:else}
-      <IconArrowLeft />
+      <ArrowLeftIcon />
     {/if}
   </button>
 {/snippet}

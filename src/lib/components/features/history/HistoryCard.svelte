@@ -1,6 +1,6 @@
 <script lang="ts">
   import { dateDifferenceInMinutes, dateFormatter } from "$lib/utils";
-  import { IconClock, IconWeight } from "@tabler/icons-svelte";
+  import { BarbellIcon, ClockIcon } from "phosphor-svelte";
   import type { HTMLAttributes } from "svelte/elements";
 
   type Props = HTMLAttributes<HTMLElement> & {
@@ -28,13 +28,13 @@
   </header>
   <div>
     <span>
-      <IconWeight size={16} />
+      <BarbellIcon size={16} />
       <span class="count">{tonnage}</span>
       lbs
     </span>
     {#if endTime}
       <span>
-        <IconClock size={16} />
+        <ClockIcon size={16} />
         <time class="count">{dateDifferenceInMinutes(startTime, endTime)}</time>
         min.
       </span>

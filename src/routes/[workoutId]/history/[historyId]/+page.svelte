@@ -16,11 +16,11 @@
     dateFormatter,
   } from "$lib/utils";
   import {
-    IconClock,
-    IconDotsCircleHorizontal,
-    IconTrash,
-    IconWeight,
-  } from "@tabler/icons-svelte";
+    BarbellIcon,
+    ClockIcon,
+    DotsThreeCircleIcon,
+    TrashIcon,
+  } from "phosphor-svelte";
   import { liveQuery } from "dexie";
   import { goto } from "$app/navigation";
 
@@ -67,11 +67,11 @@
   <PageHeader title={$history?.workoutName}>
     {#snippet right()}
       <button bind:this={dropdownToggle}>
-        <IconDotsCircleHorizontal class="text-accent" />
+        <DotsThreeCircleIcon class="text-accent" />
       </button>
       <Dropdown anchor={dropdownToggle}>
         <DropdownItem onclick={confirmDelete}>
-          Delete <IconTrash color="var(--color-red-500)" />
+          Delete <TrashIcon color="var(--color-red-500)" />
         </DropdownItem>
       </Dropdown>
     {/snippet}
@@ -83,12 +83,12 @@
     class="font-display flex items-center justify-between gap-2 rounded-sm p-1 text-lg font-semibold"
   >
     <div class="flex items-center gap-2">
-      <IconClock class="size-5" />
+      <ClockIcon class="size-5" />
       <span>{runTime}</span>
       min.
     </div>
     <div class="flex items-center gap-2">
-      <IconWeight class="size-5" />
+      <BarbellIcon class="size-5" />
       <span>{tonnage}</span>
       lbs
     </div>

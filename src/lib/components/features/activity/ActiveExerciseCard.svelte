@@ -1,9 +1,9 @@
 <script lang="ts">
   import {
-    IconCircle,
-    IconCircleCheck,
-    IconCircleMinus,
-  } from "@tabler/icons-svelte";
+    CheckCircleIcon,
+    CircleIcon,
+    MinusCircleIcon,
+  } from "phosphor-svelte";
 
   type Props = {
     exerciseName: string;
@@ -18,11 +18,11 @@
 <div class="border-border flex items-center gap-4 rounded-sm border p-2">
   <div>
     {#if isComplete}
-      <IconCircleCheck color="var(--color-accent)" />
+      <CheckCircleIcon color="var(--color-accent)" />
     {:else if completeSets > 0}
-      <IconCircleMinus color="var(--color-accent)" />
+      <MinusCircleIcon color="var(--color-accent)" />
     {:else}
-      <IconCircle class="text-muted-foreground" />
+      <CircleIcon class="text-muted-foreground" />
     {/if}
   </div>
   <div class="grid gap-2">

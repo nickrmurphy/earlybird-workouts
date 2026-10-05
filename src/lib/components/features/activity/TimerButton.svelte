@@ -1,6 +1,6 @@
 <script lang="ts">
   import { NavbarButton } from "$lib/components";
-  import { IconPlayerPlay, IconPlayerStop } from "@tabler/icons-svelte";
+  import { PlayIcon, StopIcon } from "phosphor-svelte";
 
   type Props = {
     elapsedTime: number;
@@ -28,9 +28,9 @@
   {onclick}
 >
   {#if isRunning}
-    <IconPlayerStop />
+    <StopIcon />
   {:else}
-    <IconPlayerPlay />
+    <PlayIcon />
   {/if}
   <time class="font-mono" data-expired={isExpired}
     >{formattedElapsedTime}/{runTimeSeconds} s.

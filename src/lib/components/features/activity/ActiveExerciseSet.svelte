@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { WeightUnit } from "$lib/db";
   import { Button, Input } from "../../ui";
-  import { IconCheck } from "@tabler/icons-svelte";
+  import { CheckIcon } from "phosphor-svelte";
 
   type Props = {
     setIndex: number;
@@ -66,7 +66,7 @@
     onclick={() => onToggleComplete?.(!isComplete)}
   >
     {#if isComplete}
-      <IconCheck />
+      <CheckIcon />
     {/if}
   </Button>
 </section>

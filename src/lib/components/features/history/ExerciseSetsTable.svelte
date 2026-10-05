@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { IconCircle, IconCircleCheck } from "@tabler/icons-svelte";
+  import { CheckCircleIcon, CircleIcon } from "phosphor-svelte";
 
   type Props = {
     exerciseName: string;
@@ -35,9 +35,9 @@
             <td>{set.count}</td>
             <td>
               {#if set.isSuccess}
-                <span><IconCircleCheck color="var(--color-accent)" /></span>
+                <span><CheckCircleIcon color="var(--color-accent)" /></span>
               {:else}
-                <span><IconCircle color="var(--color-foreground)" /></span>
+                <span><CircleIcon color="var(--color-foreground)" /></span>
               {/if}
             </td>
           </tr>

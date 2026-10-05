@@ -14,15 +14,15 @@
     DropdownItem,
   } from "$lib/components";
   import {
-    IconDotsCircleHorizontal,
-    IconPencil,
-    IconPlus,
-    IconPlusMinus,
-    IconReportAnalytics,
-    IconRocket,
-    IconSwitchVertical,
-    IconTrash,
-  } from "@tabler/icons-svelte";
+    ArrowsDownUpIcon,
+    ClockCounterClockwiseIcon,
+    DotsThreeCircleIcon,
+    PencilSimpleIcon,
+    PlusIcon,
+    PlusMinusIcon,
+    RocketLaunchIcon,
+    TrashIcon,
+  } from "phosphor-svelte";
   import { NavigationMonitor } from "$lib/assets";
   import { db, createWorkoutHistoryAndExerciseSets } from "$lib/db";
   import { liveQuery } from "dexie";
@@ -96,24 +96,24 @@
           onclick={() => goto(`/${page.params.workoutId}/reorder`)}
           disabled={$workoutExercises?.length === 0}
         >
-          <IconSwitchVertical class="text-accent" />
+          <ArrowsDownUpIcon class="text-accent" />
         </button>
         <button onclick={() => goto(`/${page.params.workoutId}/exercises`)}>
           {#if $workoutExercises?.length > 0}
-            <IconPlusMinus class="text-accent" />
+            <PlusMinusIcon class="text-accent" />
           {:else}
-            <IconPlus class="text-accent" />
+            <PlusIcon class="text-accent" />
           {/if}
         </button>
         <button bind:this={dropdownToggle}>
-          <IconDotsCircleHorizontal class="text-accent" />
+          <DotsThreeCircleIcon class="text-accent" />
         </button>
         <Dropdown anchor={dropdownToggle}>
           <DropdownItem onclick={() => (showEditDialog = true)}>
-            Rename <IconPencil />
+            Rename <PencilSimpleIcon />
           </DropdownItem>
           <DropdownItem onclick={confirmDelete}>
-            Delete <IconTrash color="var(--color-red-500)" />
+            Delete <TrashIcon color="var(--color-red-500)" />
           </DropdownItem>
         </Dropdown>
       {/snippet}
@@ -189,12 +189,12 @@
 <Navbar backHref="/">
   <NavbarButton class="w-full" onclick={async () => await startWorkout()}>
     Start workout
-    <IconRocket />
+    <RocketLaunchIcon />
   </NavbarButton>
   <NavbarButton
     variant="secondary"
     onclick={() => goto(`/${page.params.workoutId}/history`)}
   >
-    <IconReportAnalytics />
+    <ClockCounterClockwiseIcon />
   </NavbarButton>
 </Navbar>

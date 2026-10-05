@@ -12,11 +12,11 @@
     WeightUnitSelect,
   } from "$lib/components";
   import {
-    IconExposurePlus1,
-    IconInfoCircle,
-    IconPencil,
-    IconTrash,
-  } from "@tabler/icons-svelte";
+    InfoIcon,
+    PencilSimpleIcon,
+    PlusIcon,
+    TrashIcon,
+  } from "phosphor-svelte";
   import { liveQuery } from "dexie";
   import { db, type WeightUnit } from "$lib/db";
   import { page } from "$app/state";
@@ -63,10 +63,10 @@
   <PageHeader title={data.details.name}>
     {#snippet right()}
       <button onclick={() => (showEdit = true)}>
-        <IconPencil class="text-muted-foreground size-6" />
+        <PencilSimpleIcon class="text-muted-foreground size-6" />
       </button>
       <button onclick={() => (showInstructions = true)}>
-        <IconInfoCircle class="text-muted-foreground size-6" />
+        <InfoIcon class="text-muted-foreground size-6" />
       </button>
     {/snippet}
   </PageHeader>
@@ -102,7 +102,7 @@
     isExpired={globalState.activity.restTimer.isExpired}
   />
   <NavbarButton variant="secondary" onclick={addSet}>
-    <IconExposurePlus1 />
+    <PlusIcon />
   </NavbarButton>
 </Navbar>
 <Drawer bind:open={showEdit} title="Edit sets">
@@ -129,7 +129,7 @@
           disabled={$sets.length === 1}
           onclick={() => deleteSet(set.id)}
         >
-          <IconTrash />
+          <TrashIcon />
         </Button>
       </div>
     </div>

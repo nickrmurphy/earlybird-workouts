@@ -20,12 +20,12 @@
   "license": "MIT",
   "dependencies": {
     "@floating-ui/dom": "^1.7.4",
-    "@tabler/icons-svelte": "^3.35.0",
     "@tauri-apps/api": "^2.12.1",
     "@tauri-apps/plugin-dialog": "~2.8.1",
     "@tauri-apps/plugin-haptics": "^2.4.1",
     "dexie": "^4.2.0",
     "dexie-cloud-addon": "^4.2.0",
+    "phosphor-svelte": "^3.1.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

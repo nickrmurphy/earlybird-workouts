@@ -14,11 +14,11 @@
     Select,
   } from "$lib/components";
   import {
-    IconAdjustmentsHorizontal,
-    IconChecks,
-    IconPlus,
-    IconStopwatch,
-  } from "@tabler/icons-svelte";
+    ChecksIcon,
+    PlusIcon,
+    SlidersHorizontalIcon,
+    TimerIcon,
+  } from "phosphor-svelte";
   import { liveQuery } from "dexie";
   import { db, type Exercise } from "$lib/db";
   import { goto } from "$app/navigation";
@@ -100,12 +100,12 @@
         {#if $activeWorkout}
           <TimerDisplay elapsedSeconds={globalState.activity.timer.seconds}>
             {#snippet icon()}
-              <IconStopwatch class="size-4" />
+              <TimerIcon class="size-4" />
             {/snippet}
           </TimerDisplay>
         {/if}
         <button onclick={confirmEndWorkout}>
-          <IconChecks color="var(--color-accent)" size={24} />
+          <ChecksIcon color="var(--color-accent)" size={24} />
         </button>
       </div>
     {/snippet}
@@ -128,7 +128,7 @@
     variant="secondary"
     onclick={() => (settingsDrawerOpen = !settingsDrawerOpen)}
   >
-    <IconAdjustmentsHorizontal />
+    <SlidersHorizontalIcon />
   </NavbarButton>
   <TimerButton
     onclick={() => globalState.activity.restTimer.toggle()}
@@ -138,7 +138,7 @@
     isExpired={globalState.activity.restTimer.isExpired}
   />
   <NavbarButton variant="secondary" onclick={() => (exerciseDrawerOpen = true)}>
-    <IconPlus />
+    <PlusIcon />
   </NavbarButton>
 </Navbar>
 <Drawer
