@@ -11,7 +11,7 @@ pnpm build            # Build for production
 pnpm preview          # Preview production build
 
 # iOS development
-pnpm dev:ios          # iOS development with iPhone 16 Pro simulator
+pnpm dev:ios          # iOS development with iPhone 17 Pro simulator
 pnpm build:ios        # Build iOS app
 pnpm build:appstore   # Build for App Store submission
 pnpm publish:appstore # Publish to App Store (requires API keys)
