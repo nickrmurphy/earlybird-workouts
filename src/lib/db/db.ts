@@ -1,6 +1,5 @@
 import Dexie, { type EntityTable } from "dexie";
 import dexieCloud from "dexie-cloud-addon";
-import { env } from "$env/dynamic/public";
 import type {
   History,
   HistoryExercise,
@@ -29,7 +28,7 @@ db.version(1).stores({
 });
 
 db.cloud.configure({
-  databaseUrl: env.PUBLIC_DEXIE_CLOUD_DATABASE_URL,
+  databaseUrl: import.meta.env.PUBLIC_DEXIE_CLOUD_DATABASE_URL,
 });
 
 export { db };

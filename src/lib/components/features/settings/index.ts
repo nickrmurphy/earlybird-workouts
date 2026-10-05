@@ -1,1 +1,1 @@
-export { default as SettingsDrawer } from "./SettingsDrawer.svelte";
+export * from "./SettingsDrawer";

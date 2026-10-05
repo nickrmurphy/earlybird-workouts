@@ -1,2 +1,2 @@
-export { default as ExerciseSetsTable } from "./ExerciseSetsTable.svelte";
-export { default as HistoryCard } from "./HistoryCard.svelte";
+export * from "./ExerciseSetsTable";
+export * from "./HistoryCard";

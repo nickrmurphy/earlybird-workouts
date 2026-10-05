@@ -7,7 +7,6 @@
   ],
   "permissions": [
     "core:default",
-    "dialog:default",
     "haptics:allow-impact-feedback"
   ]
 }

@@ -4,3 +4,11 @@ coverage
 
 # Ignore tauri files
 src-tauri
+
+# Generated and vendored
+src/routeTree.gen.ts
+src/lib/eb
+
+# Written by pnpm
+pnpm-lock.yaml
+pnpm-workspace.yaml

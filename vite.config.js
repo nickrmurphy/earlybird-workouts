@@ -1,6 +1,7 @@
-import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
-import { sveltePhosphorOptimize } from "phosphor-svelte/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import react from "@vitejs/plugin-react";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 // @ts-expect-error process is a nodejs global
@@ -8,7 +9,28 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [sveltePhosphorOptimize(), sveltekit(), tailwindcss()],
+  plugins: [
+    tanstackRouter({ target: "react", autoCodeSplitting: true }),
+    react(),
+    tailwindcss(),
+  ],
+
+  resolve: {
+    alias: {
+      $lib: fileURLToPath(new URL("./src/lib", import.meta.url)),
+    },
+  },
+
+  // Keep the existing PUBLIC_ env names (e.g. PUBLIC_DEXIE_CLOUD_DATABASE_URL)
+  envPrefix: ["VITE_", "PUBLIC_"],
+
+  // Static exercise data, fonts and favicon are served from /static
+  publicDir: "static",
+
+  // tauri.conf.json reads the build from ../build
+  build: {
+    outDir: "build",
+  },
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

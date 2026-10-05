@@ -1,6 +1,6 @@
 # Workouts by Early Bird
 
-Cross-platform fitness tracking app built with Tauri, SvelteKit, and TypeScript.
+Cross-platform fitness tracking app built with Tauri, React, and TypeScript.
 
 ## Features
 
@@ -14,7 +14,7 @@ Cross-platform fitness tracking app built with Tauri, SvelteKit, and TypeScript.
 - **iOS (TestFlight)**: [https://testflight.apple.com/join/C9Fc3eSe](https://testflight.apple.com/join/E5JYBpSY)
 - **Web**: https://workouts-e5j.pages.dev
 
-*This app was developed for and tested primarily on iOS.*
+_This app was developed for and tested primarily on iOS._
 
 ## Screenshots
 
@@ -37,10 +37,11 @@ pnpm lint             # Code quality checks
 
 ## Tech Stack
 
-- **Frontend**: SvelteKit + Svelte 5 + TypeScript
+- **Frontend**: React 19 + TanStack Router + TypeScript
+- **Design system**: EB (Base UI)
 - **Backend**: Tauri (Rust)
 - **Database**: Dexie + Dexie Cloud
-- **Styling**: Tailwind CSS
+- **Styling**: EB + Tailwind CSS (layout)
 
 ## Known Issues
 

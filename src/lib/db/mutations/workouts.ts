@@ -54,4 +54,12 @@ async function createWorkoutHistoryAndExerciseSets(
   );
 }
 
-export { createWorkoutHistoryAndExerciseSets };
+/** Deletes a workout and its exercises; past history is kept. */
+async function deleteWorkout(workoutId: string) {
+  return db.transaction("rw", [db.workouts, db.workoutExercises], async () => {
+    await db.workoutExercises.where("workoutId").equals(workoutId).delete();
+    await db.workouts.delete(workoutId);
+  });
+}
+
+export { createWorkoutHistoryAndExerciseSets, deleteWorkout };
