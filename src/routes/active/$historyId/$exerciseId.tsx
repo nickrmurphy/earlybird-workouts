@@ -12,12 +12,7 @@ import { loadExerciseData } from "$lib/data/exerciseData";
 import { db } from "$lib/db";
 import { Button } from "$lib/eb";
 import { activity } from "$lib/state";
-import {
-  InfoIcon,
-  PencilSimpleIcon,
-  PlusIcon,
-  TrashIcon,
-} from "@phosphor-icons/react";
+import { InfoIcon, PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
@@ -115,9 +110,7 @@ function ActiveExercise() {
               db.historySets.update(set.id, { isSuccess: isComplete });
             }}
             onRepsChange={(count) => db.historySets.update(set.id, { count })}
-            onWeightChange={(weight) =>
-              db.historySets.update(set.id, { weight })
-            }
+            onWeightChange={(weight) => db.historySets.update(set.id, { weight })}
           />
         ))}
       </div>
@@ -147,9 +140,7 @@ function ActiveExercise() {
               className="w-28 [&_.eb-label]:sr-only"
               label={`Set ${idx + 1} unit`}
               value={set.weightUnit}
-              onValueChange={(weightUnit) =>
-                db.historySets.update(set.id, { weightUnit })
-              }
+              onValueChange={(weightUnit) => db.historySets.update(set.id, { weightUnit })}
             />
             <Button
               variant="ghost"

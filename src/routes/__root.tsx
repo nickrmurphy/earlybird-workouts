@@ -18,9 +18,7 @@ export const Route = createRootRoute({
 });
 
 function RootLayout() {
-  const [welcomed, setWelcomed] = useState(
-    () => localStorage.getItem("welcomed") === "true",
-  );
+  const [welcomed, setWelcomed] = useState(() => localStorage.getItem("welcomed") === "true");
 
   return (
     <IconContext.Provider value={{ size: 24, weight: "bold" }}>

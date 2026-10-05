@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    "build",
+    "coverage",
+    "src-tauri",
+    "src/routeTree.gen.ts",
+    "src/lib/eb",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml"
+  ]
+}

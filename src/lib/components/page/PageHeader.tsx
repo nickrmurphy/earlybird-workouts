@@ -20,9 +20,7 @@ export function PageHeader({ title, actions, children }: Props) {
               {title}
             </Display>
           )}
-          {actions && (
-            <div className="ml-auto flex items-center gap-1">{actions}</div>
-          )}
+          {actions && <div className="ml-auto flex items-center gap-1">{actions}</div>}
         </div>
       )}
       {children}

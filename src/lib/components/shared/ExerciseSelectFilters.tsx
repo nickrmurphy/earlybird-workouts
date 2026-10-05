@@ -1,9 +1,4 @@
-import type {
-  DiscreteEquipment,
-  DiscreteMuscle,
-  Equipment,
-  Muscle,
-} from "$lib/db";
+import type { DiscreteEquipment, DiscreteMuscle, Equipment, Muscle } from "$lib/db";
 import { Button, Checkbox } from "$lib/eb";
 import { FunnelIcon } from "@phosphor-icons/react";
 import { useState } from "react";
@@ -59,11 +54,7 @@ export function ExerciseSelectFilters({
             >
               Clear filters
             </Button>
-            <Button
-              className="flex-1"
-              variant="primary"
-              onClick={() => setOpen(false)}
-            >
+            <Button className="flex-1" variant="primary" onClick={() => setOpen(false)}>
               Show exercises
             </Button>
           </>
@@ -88,9 +79,7 @@ export function ExerciseSelectFilters({
               label={equipment.label}
               checked={selectedEquipment.includes(equipment.value)}
               onCheckedChange={(checked) =>
-                onEquipmentChange(
-                  toggle(selectedEquipment, equipment.value, checked),
-                )
+                onEquipmentChange(toggle(selectedEquipment, equipment.value, checked))
               }
             />
           ))}
@@ -100,13 +89,7 @@ export function ExerciseSelectFilters({
   );
 }
 
-function FilterGroup({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <fieldset className="flex flex-col gap-3">
       <legend className="text-accent mb-3 font-semibold">{title}</legend>

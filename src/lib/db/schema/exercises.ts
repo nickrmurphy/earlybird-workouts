@@ -1,10 +1,6 @@
 import { z } from "zod";
 
-const forceSchema = z.union([
-  z.literal("pull"),
-  z.literal("push"),
-  z.literal("static"),
-]);
+const forceSchema = z.union([z.literal("pull"), z.literal("push"), z.literal("static")]);
 
 const levelSchema = z.union([
   z.literal("beginner"),

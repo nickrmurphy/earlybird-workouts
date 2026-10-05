@@ -4,10 +4,7 @@ import { useSyncExternalStore } from "react";
 
 /** Renders requests from confirm(); mount once at the app root. */
 export function ConfirmHost() {
-  const { open, request } = useSyncExternalStore(
-    confirmStore.subscribe,
-    confirmStore.getSnapshot,
-  );
+  const { open, request } = useSyncExternalStore(confirmStore.subscribe, confirmStore.getSnapshot);
 
   return (
     <Dialog

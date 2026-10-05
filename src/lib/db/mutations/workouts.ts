@@ -1,17 +1,9 @@
 import { db } from "../db";
 
-async function createWorkoutHistoryAndExerciseSets(
-  workoutId: string,
-): Promise<string> {
+async function createWorkoutHistoryAndExerciseSets(workoutId: string): Promise<string> {
   return db.transaction(
     "rw",
-    [
-      db.workoutExercises,
-      db.workouts,
-      db.history,
-      db.historyExercises,
-      db.historySets,
-    ],
+    [db.workoutExercises, db.workouts, db.history, db.historyExercises, db.historySets],
     async (tx) => {
       const workout = await tx.workouts.get(workoutId);
 

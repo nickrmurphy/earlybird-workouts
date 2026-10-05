@@ -25,8 +25,7 @@ const workoutRoute = getRouteApi("/$workoutId");
 
 export const Route = createFileRoute("/$workoutId/exercises")({
   validateSearch: (search: Record<string, unknown>): Search => ({
-    complete:
-      search.complete === true || search.complete === "true" ? true : undefined,
+    complete: search.complete === true || search.complete === "true" ? true : undefined,
   }),
   component: ExerciseSelection,
 });
@@ -34,8 +33,7 @@ export const Route = createFileRoute("/$workoutId/exercises")({
 function ExerciseSelection() {
   const { workoutId } = Route.useParams();
   const { complete } = Route.useSearch();
-  const { allExercises, allMuscles, allEquipment } =
-    workoutRoute.useLoaderData();
+  const { allExercises, allMuscles, allEquipment } = workoutRoute.useLoaderData();
 
   const search = useExerciseSearch(allExercises);
   const [view, setView] = useState<"all" | "selected">("all");
@@ -107,9 +105,7 @@ function ExerciseSelection() {
 
       {options.length === 0 && (
         <EmptyMessage
-          header={
-            view === "selected" ? "No exercises selected." : "No matches."
-          }
+          header={view === "selected" ? "No exercises selected." : "No matches."}
           message={
             view === "selected"
               ? "Pick exercises from the All tab."

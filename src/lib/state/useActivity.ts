@@ -6,17 +6,11 @@ function useActiveId() {
 }
 
 function useTimer() {
-  return useSyncExternalStore(
-    activity.timer.subscribe,
-    activity.timer.getSnapshot,
-  );
+  return useSyncExternalStore(activity.timer.subscribe, activity.timer.getSnapshot);
 }
 
 function useRestTimer() {
-  return useSyncExternalStore(
-    activity.restTimer.subscribe,
-    activity.restTimer.getSnapshot,
-  );
+  return useSyncExternalStore(activity.restTimer.subscribe, activity.restTimer.getSnapshot);
 }
 
 export { useActiveId, useRestTimer, useTimer };

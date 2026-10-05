@@ -16,8 +16,7 @@ function Reorder() {
 
   const workout = useLiveQuery(() => db.workouts.get(workoutId), [workoutId]);
   const workoutExercises = useLiveQuery(
-    () =>
-      db.workoutExercises.where("workoutId").equals(workoutId).sortBy("order"),
+    () => db.workoutExercises.where("workoutId").equals(workoutId).sortBy("order"),
     [workoutId],
   );
 
@@ -27,9 +26,7 @@ function Reorder() {
 
   const changed =
     ordered !== null &&
-    ordered.some(
-      (exercise, idx) => exercise.id !== workoutExercises?.[idx]?.id,
-    );
+    ordered.some((exercise, idx) => exercise.id !== workoutExercises?.[idx]?.id);
 
   function move(from: number, to: number) {
     const next = [...exercises];

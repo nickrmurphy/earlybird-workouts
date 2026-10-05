@@ -215,13 +215,7 @@
     "mechanic": "compound",
     "equipment": null,
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "Assume a comfortable stance with one foot slightly in front of the other.",
       "Begin by pushing off with the front leg, driving the opposite knee forward and as high as possible before landing. Attempt to cover as much distance to each side with each bound.",
@@ -290,14 +284,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "biceps",
-      "calves",
-      "forearms",
-      "glutes",
-      "lower back",
-      "traps"
-    ],
+    "secondaryMuscles": ["biceps", "calves", "forearms", "glutes", "lower back", "traps"],
     "instructions": [
       "Place two kettlebells between your feet. To get in the starting position, push your butt back and look straight ahead.",
       "Clean one kettlebell to your shoulder and hold on to the other kettlebell in a hanging position. Clean the kettlebell to your shoulder by extending through the legs and hips as you pull the kettlebell towards your shoulders. Rotate your wrist as you do so.",
@@ -475,13 +462,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "biceps",
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["biceps", "forearms", "glutes", "hamstrings", "quadriceps"],
     "instructions": [
       "This trainer is effective for developing Atlas Stone strength for those who don't have access to stones, and are typically made from bar ends or heavy pipe.",
       "Begin by loading the desired weight onto the bar. Straddle the weight, wrapping your arms around the implement, bending at the hips.",
@@ -526,14 +507,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "middle back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "middle back", "quadriceps", "traps"],
     "instructions": [
       "Approach the bar so that it is centered over your feet. You feet should be about hip width apart. Bend at the hip to grip the bar at shoulder width, allowing your shoulder blades to protract. Typically, you would use an over/under grip.",
       "With your feet and your grip set, take a big breath and then lower your hips and flex the knees until your shins contact the bar. Look forward with your head, keep your chest up and your back arched, and begin driving through the heels to move the weight upward.",
@@ -569,13 +543,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "calves",
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "lower back"
-    ],
+    "secondaryMuscles": ["calves", "forearms", "glutes", "hamstrings", "lower back"],
     "instructions": [
       "Load a sled with the desired weight, attaching a rope or straps to the sled that you can hold onto.",
       "Begin the exercise by moving backwards for a given distance. Leaning back, extend through the legs for short steps to move as quickly as possible."
@@ -1567,9 +1535,7 @@
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
     "secondaryMuscles": ["calves", "glutes", "hamstrings"],
-    "instructions": [
-      "To begin, seat yourself on the bike and adjust the seat to your height."
-    ],
+    "instructions": ["To begin, seat yourself on the bike and adjust the seat to your height."],
     "category": "cardio",
     "id": "Bicycling"
   },
@@ -1768,13 +1734,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "quadriceps"],
     "instructions": [
       "Assume a relaxed stance facing the box or platform approximately an arm's length away. Arms should be down at the sides and legs slightly bent.",
       "Using the arms to aid in the initial burst, jump upward and forward, landing with feet simultaneously on top of the box or platform.",
@@ -1790,13 +1750,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "quadriceps"],
     "instructions": [
       "You will need several boxes lined up about 8 feet apart.",
       "Begin facing the first box with one leg slightly behind the other.",
@@ -1814,13 +1768,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back"
-    ],
+    "secondaryMuscles": ["adductors", "calves", "glutes", "hamstrings", "lower back"],
     "instructions": [
       "The box squat allows you to squat to desired depth and develop explosive strength in the squat movement. Begin in a power rack with a box at the appropriate height behind you. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired.",
       "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, adductors, and hamstrings, or closer together for more quad development. Keep your head facing forward.",
@@ -1837,14 +1785,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings", "lower back"],
     "instructions": [
       "Begin in a power rack with a box at the appropriate height behind you. Set up the bands on the sleeves, secured to either band pegs, the rack, or dumbbells so that there is appropriate tension. If dumbbells are used, secure them so that they don't move. Also, ensure that the dumbbells you are using are heavy enough for the bands that you are using. Additional plates can be used to hold the dumbbells down. If more tension is needed, you can either widen the base on the floor or choke the bands. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired.",
       "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, adductors, and hamstrings, or closer together for more quad development. Keep your head facing forward.",
@@ -1861,14 +1802,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings", "lower back"],
     "instructions": [
       "Begin in a power rack with a box at the appropriate height behind you. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired.",
       "To set up the chains, begin by looping the leader chain over the sleeves of the bar. The heavy chain should be attached using a snap hook. Adjust the length of the lead chain so that a few links are still on the floor at the top of the movement.",
@@ -2549,13 +2483,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "lower back", "traps"],
     "instructions": [
       "This event apparatus typically has neutral grip handles, however some have a straight bar that you can approach like a normal deadlift. The apparatus can be loaded with a vehicle or other heavy objects such as tractor tires or kegs.",
       "Center yourself between the handles if you are a strong squatter, or back a couple inches if you are a strong deadlifter. You feet should be about hip width apart. Bend at the hip to grip the handles. With your feet and your grip set, take a big breath and then lower your hips and flex the knees.",
@@ -2589,14 +2517,7 @@
     "mechanic": null,
     "equipment": null,
     "primaryMuscles": ["adductors"],
-    "secondaryMuscles": [
-      "abdominals",
-      "abductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abdominals", "abductors", "calves", "glutes", "hamstrings", "quadriceps"],
     "instructions": [
       "Begin with your feet a few inches apart and your left arm up in a relaxed, athletic position.",
       "With your right foot, quick step behind and pull the knee up.",
@@ -2889,14 +2810,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["shoulders"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps",
-      "triceps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "lower back", "traps", "triceps"],
     "instructions": [
       "The circus bell is an oversized dumbbell with a thick handle. Begin with the dumbbell between your feet, and grip the handle with both hands.",
       "Clean the dumbbell by extending through your hips and knees to deliver the implement to the desired shoulder, letting go with the extra hand.",
@@ -2940,14 +2854,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "lower back",
-      "middle back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "lower back", "middle back", "quadriceps", "traps"],
     "instructions": [
       "Begin standing with a barbell close to your shins. Your feet should be directly under your hips with your feet turned out slightly. Grip the bar with a double overhand grip or hook grip, about shoulder width apart. Squat down to the bar. Your spine should be in full extension, with a back angle that places your shoulders in front of the bar and your back as vertical as possible.",
       "Begin by driving through the floor through the front of your heels. As the bar travels upward, maintain a constant back angle. Flare your knees out to the side to help keep them out of the bar's path.",
@@ -2963,13 +2870,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "lower back", "traps"],
     "instructions": [
       "With a barbell on the floor close to the shins, take an overhand or hook grip just outside the legs. Lower your hips with the weight focused on the heels, back straight, head facing forward, chest up, with your shoulders just in front of the bar. This will be your starting position.",
       "Begin the first pull by driving through the heels, extending your knees. Your back angle should stay the same, and your arms should remain straight and elbows out. Move the weight with control as you continue to above the knees.",
@@ -3060,13 +2961,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "hamstrings",
-      "shoulders",
-      "traps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "hamstrings", "shoulders", "traps"],
     "instructions": [
       "With a barbell on boxes or stands of the desired height, take an overhand or hook grip just outside the legs. Lower your hips with the weight focused on the heels, back straight, head facing forward, chest up, with your shoulders just in front of the bar. This will be your starting position.",
       "Begin the first pull by driving through the heels, extending your knees. Your back angle should stay the same, and your arms should remain straight with the elbows pointed out.",
@@ -3357,13 +3252,7 @@
     "mechanic": null,
     "equipment": null,
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "abdominals",
-      "abductors",
-      "glutes",
-      "hamstrings",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abdominals", "abductors", "glutes", "hamstrings", "quadriceps"],
     "instructions": [
       "Stand with your feet shoulder width apart. This will be your starting position.",
       "Perform a rear lunge by stepping back with one foot and flexing the hips and front knee. As you do so, rotate your torso across the front leg.",
@@ -3506,14 +3395,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "middle back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "middle back", "quadriceps", "traps"],
     "instructions": [
       "To deadlift with short bands, simply loop them over the bar before you start, and step into them to set up. For long bands, they will need to be anchored to a secure base, such as heavy dumbbells or a rack.",
       "With your feet, and your grip set, take a big breath and then lower your hips and bend the knees until your shins contact the bar. Look forward with your head, keep your chest up and your back arched, and begin driving through the heels to move the weight upward. After the bar passes the knees, aggressively pull the bar back, pulling your shoulder blades together as you drive your hips forward into the bar.",
@@ -3529,14 +3411,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "middle back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "middle back", "quadriceps", "traps"],
     "instructions": [
       "You can attach the chains to the sleeves of the bar, or just drape the middle over the bar so there is a greater weight increase as you lift.",
       "Approach the bar so that it is centered over your feet. You feet should be about hip width apart. Bend at the hip to grip the bar at shoulder width, allowing your shoulder blades to protract. Typically, you would use an overhand grip or an over/under grip on heavier sets. With your feet, and your grip set, take a big breath and then lower your hips and bend the knees until your shins contact the bar.",
@@ -3756,14 +3631,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "middle back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "middle back", "quadriceps", "traps"],
     "instructions": [
       "Begin by having a platform or weight plates that you can stand on, usually 1-3 inches in height. Approach the bar so that it is centered over your feet. You feet should be about hip width apart. Bend at the hip to grip the bar at shoulder width, allowing your shoulder blades to protract. Typically, you would use an overhand grip or an over/under grip on heavier sets.",
       "With your feet, and your grip set, take a big breath and then lower your hips and bend the knees until your shins contact the bar. Look forward with your head, keep your chest up and your back arched, and begin driving through the heels to move the weight upward. After the bar passes the knees, aggressively pull the bar back, pulling your shoulder blades together as you drive your hips forward into the bar.",
@@ -3779,13 +3647,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "For this drill you will need two boxes or benches, one 12 to 16 inches high and the other 22 to 26 inches high.",
       "Stand on one of the two boxes with arms at the sides; feet should be together and slightly off the edge as in the depth jump. Place the other box approximately two or three feet in front of and facing the performer.",
@@ -3965,13 +3827,7 @@
     "mechanic": "compound",
     "equipment": null,
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "Begin standing with your knees slightly bent.",
       "Quickly squat a short distance, flexing the hips and knees, and immediately extend to jump for maximum vertical height.",
@@ -4860,14 +4716,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["forearms"],
-    "secondaryMuscles": [
-      "abdominals",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["abdominals", "glutes", "hamstrings", "lower back", "quadriceps", "traps"],
     "instructions": [
       "There are various implements that can be used for the farmers walk. These can also be performed with heavy dumbbells or short bars if these implements aren't available. Begin by standing between the implements.",
       "After gripping the handles, lift them up by driving through your heels, keeping your back straight and your head up.",
@@ -4883,13 +4732,7 @@
     "mechanic": "compound",
     "equipment": null,
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "Start in a relaxed position with one leg slightly forward. This will be your starting position.",
       "Skip by executing a step-hop pattern of right-right-step to left-left-step, and so on, alternating back and forth.",
@@ -5079,14 +4922,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["chest"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "hamstrings",
-      "quadriceps",
-      "shoulders",
-      "triceps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "hamstrings", "quadriceps", "shoulders", "triceps"],
     "instructions": [
       "Attach a dual handled chain or rope attachment to the sled. You should be facing away from the sled, holding a handle in each hand.",
       "Begin the movement by moving forward for one step. Leaning forward, extend through the legs and hips to move, pausing with each step to extend through the elbows, pressing your hands forward. Step forward until you return to the start position prepared to press."
@@ -5210,13 +5046,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "quadriceps"],
     "instructions": [
       "Begin with a box of an appropriate height 1-2 feet in front of you. Stand with your feet should width apart. This will be your starting position.",
       "Perform a short squat in preparation for jumping, swinging your arms behind you.",
@@ -5251,13 +5081,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "Set up a row of cones or other small barriers, placing them a few feet apart.",
       "Stand in front of the first cone with your feet shoulder width apart. This will be your starting position.",
@@ -5835,14 +5659,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abdominals",
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "shoulders",
-      "triceps"
-    ],
+    "secondaryMuscles": ["abdominals", "forearms", "glutes", "hamstrings", "shoulders", "triceps"],
     "instructions": [
       "This drill helps you learn the snatch. Begin by holding a light weight across the back of the shoulders. Your feet should be slightly wider than hip width apart with the feet turned out, the same position that you would perform a squat with.",
       "Begin by dipping with the knees slightly, and popping back up to briefly unload the bar. Drive yourself underneath the bar, elevating it overhead as you descend into a full squat.",
@@ -5990,13 +5807,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "Set up a row of hurdles or other small barriers, placing them a few feet apart.",
       "Stand in front of the first hurdle with your feet shoulder width apart. This will be your starting position.",
@@ -6490,14 +6301,7 @@
     "mechanic": "compound",
     "equipment": "dumbbell",
     "primaryMuscles": ["shoulders"],
-    "secondaryMuscles": [
-      "chest",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["chest", "glutes", "hamstrings", "lower back", "quadriceps", "traps"],
     "instructions": [],
     "category": "strength",
     "id": "Iron_Cross"
@@ -6648,13 +6452,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "hamstrings", "lower back", "traps"],
     "instructions": [
       "Place a barbell on the floor.",
       "Stand in the middle of the bar length wise.",
@@ -6764,13 +6562,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "lower back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "lower back", "quadriceps", "traps"],
     "instructions": [
       "Place kettlebell between your feet. To get in the starting position, push your butt back and look straight ahead.",
       "Clean the kettlebell to your shoulder. Clean the kettlebell to your shoulders by extending through the legs and hips as you raise the kettlebell towards your shoulder. The wrist should rotate as you do so.",
@@ -6801,13 +6593,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "lower back",
-      "shoulders",
-      "traps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "lower back", "shoulders", "traps"],
     "instructions": [
       "Place kettlebell between your feet. To get in the starting position, push your butt back and look straight ahead.",
       "Clean kettlebell to your shoulder. Clean the kettlebell to your shoulders by extending through the legs and hips as you raise the kettlebell towards your shoulder. The wrist should rotate as you do so.",
@@ -6920,13 +6706,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["traps"],
-    "secondaryMuscles": [
-      "adductors",
-      "glutes",
-      "hamstrings",
-      "quadriceps",
-      "shoulders"
-    ],
+    "secondaryMuscles": ["adductors", "glutes", "hamstrings", "quadriceps", "shoulders"],
     "instructions": [
       "Place a kettlebell on the ground between your feet. Position your feet in a wide stance, and grasp the kettlebell with two hands. Set your hips back as far as possible, with your knees bent. Keep your chest and head up. This will be your starting position.",
       "Begin by extending the hips and knees, simultaneously pulling the kettlebell to your shoulders, raising your elbows as you do so. Reverse the motion to return to the starting position."
@@ -6974,13 +6754,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["shoulders"],
-    "secondaryMuscles": [
-      "abdominals",
-      "calves",
-      "hamstrings",
-      "quadriceps",
-      "triceps"
-    ],
+    "secondaryMuscles": ["abdominals", "calves", "hamstrings", "quadriceps", "triceps"],
     "instructions": [
       "Lie on your back on the floor and press a kettlebell to the top position by extending the elbow. Bend the knee on the same side as the kettlebell.",
       "Keeping the kettlebell locked out at all times, pivot to the opposite side and use your non- working arm to assist you in driving forward to the lunge position.",
@@ -7087,13 +6861,7 @@
     "mechanic": "compound",
     "equipment": null,
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "quadriceps"],
     "instructions": [
       "Begin in a comfortable standing position with your knees slightly bent. Hold your hands in front of you, palms down with your fingertips together at chest height. This will be your starting position.",
       "Rapidly dip down into a quarter squat and immediately explode upward. Drive the knees towards the chest, attempting to touch them to the palms of the hands.",
@@ -7282,14 +7050,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["shoulders"],
-    "secondaryMuscles": [
-      "abdominals",
-      "calves",
-      "chest",
-      "hamstrings",
-      "quadriceps",
-      "triceps"
-    ],
+    "secondaryMuscles": ["abdominals", "calves", "chest", "hamstrings", "quadriceps", "triceps"],
     "instructions": [
       "Position a bar into landmine or, lacking one, securely anchor it in a corner. Load the bar to an appropriate weight and position the handle attachment on the bar.",
       "Raise the bar from the floor, taking the handles to your shoulders. This will be your starting position.",
@@ -7307,13 +7068,7 @@
     "mechanic": "compound",
     "equipment": null,
     "primaryMuscles": ["adductors"],
-    "secondaryMuscles": [
-      "abductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "calves", "glutes", "hamstrings", "quadriceps"],
     "instructions": [
       "Assume a half squat position facing 90 degrees from your direction of travel. This will be your starting position.",
       "Allow your lead leg to do a countermovement inward as you shift your weight to the outside leg.",
@@ -7331,13 +7086,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["adductors"],
-    "secondaryMuscles": [
-      "abductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "calves", "glutes", "hamstrings", "quadriceps"],
     "instructions": [
       "Assume a comfortable standing position, with a short box positioned next to you. This will be your starting position.",
       "Quickly dip into a quarter squat to initiate the stretch reflex, and immediately reverse direction to jump up and to the side.",
@@ -7355,13 +7104,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["adductors"],
-    "secondaryMuscles": [
-      "abductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "calves", "glutes", "hamstrings", "quadriceps"],
     "instructions": [
       "Position a number of cones in a row several feet apart.",
       "Stand next to the end of the cones, facing 90 degrees to the direction of travel. This will be your starting position.",
@@ -8479,13 +8222,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "glutes",
-      "lower back",
-      "quadriceps",
-      "shoulders",
-      "triceps"
-    ],
+    "secondaryMuscles": ["glutes", "lower back", "quadriceps", "shoulders", "triceps"],
     "instructions": [
       "Begin with a loaded barbell held at the mid thigh position with a wide grip. The feet should be directly below the hips, with the feet turned out as needed. Lower the hips, with the chest up and the head looking forward. The shoulders should be just in front of the bar. This will be the starting position.",
       "Begin the pull by driving through the front of the heels, raising the bar. Transition into the second pull by extending through the hips knees and ankles, driving the bar up as quickly as possible. The bar should be close to the body.",
@@ -8928,14 +8665,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["shoulders"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps",
-      "triceps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "hamstrings", "lower back", "traps", "triceps"],
     "instructions": [
       "Place a kettlebell between your feet. Bend your knees and push your butt back to get in the proper starting position.",
       "Look straight ahead and swing the kettlebell back between your legs.",
@@ -9033,13 +8763,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "lower back",
-      "quadriceps",
-      "shoulders"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "lower back", "quadriceps", "shoulders"],
     "instructions": [
       "Place one kettlebell between your feet.",
       "Grab the handle with one hand and raise the kettlebell rapidly, let it flip so that the ball of the kettlebell lands in the palm of your hand.",
@@ -9072,14 +8796,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abdominals",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps"
-    ],
+    "secondaryMuscles": ["abdominals", "calves", "glutes", "hamstrings", "lower back", "traps"],
     "instructions": [
       "Stand to the side of a barbell next to its center. Bend your knees and lower your body until you are able to reach the barbell.",
       "Grasp the bar as if you were grabbing a briefcase (palms facing you since the bar is sideways). You may need a wrist wrap if you are using a significant amount of weight. This is your starting position.",
@@ -9696,13 +9413,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["triceps"],
-    "secondaryMuscles": [
-      "chest",
-      "forearms",
-      "lats",
-      "middle back",
-      "shoulders"
-    ],
+    "secondaryMuscles": ["chest", "forearms", "lats", "middle back", "shoulders"],
     "instructions": [
       "Pin presses remove the eccentric phase of the bench press, developing starting strength. They also allow you to train a desired range of motion.",
       "The bench should be set up in a power rack. Set the pins to the desired point in your range of motion, whether it just be lockout or an inch off of your chest. The bar should be moved to the pins and prepared for lifting.",
@@ -9937,14 +9648,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abdominals",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "shoulders",
-      "triceps"
-    ],
+    "secondaryMuscles": ["abdominals", "calves", "glutes", "hamstrings", "shoulders", "triceps"],
     "instructions": [
       "Standing with the weight racked on the front of the shoulders, begin with the dip. With your feet directly under your hips, flex the knees without moving the hips backward. Go down only slightly, and reverse direction as powerfully as possible.",
       "Drive through the heels create as much speed and force as possible, and be sure to move your head out of the way as the bar leaves the shoulders.",
@@ -10126,13 +9830,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "calves",
-      "chest",
-      "glutes",
-      "quadriceps",
-      "shoulders"
-    ],
+    "secondaryMuscles": ["calves", "chest", "glutes", "quadriceps", "shoulders"],
     "instructions": [
       "Place your sled on an appropriate surface, loaded to a suitable weight. The sled should provide enough resistance to require effort, but not so heavy that you are significantly slowed down.",
       "You may use the upright or the low handles for this exercise. Place your hands on the handles with your arms extended, leaning into the implement.",
@@ -10409,13 +10107,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "quadriceps", "traps"],
     "instructions": [
       "Set up in a power rack with the bar on the pins. The pins should be set to the desired point; just below the knees, just above, or in the mid thigh position. Attach bands to the base of the rack, or secure them with dumbbells. Attach the other end to the bar. You may need to choke the bands to provide tension.",
       "Position yourself against the bar in proper deadlifting position. Your feet should be under your hips, your grip shoulder width, back arched, and hips back to engage the hamstrings. Since the weight is typically heavy, you may use a mixed grip, a hook grip, or use straps to aid in holding the weight.",
@@ -10496,13 +10188,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["triceps"],
-    "secondaryMuscles": [
-      "chest",
-      "forearms",
-      "lats",
-      "middle back",
-      "shoulders"
-    ],
+    "secondaryMuscles": ["chest", "forearms", "lats", "middle back", "shoulders"],
     "instructions": [
       "Position a bench inside a power rack, with the bar set to the correct height. Begin by anchoring bands either to band pegs or to the top of the rack. Ensure that you will be position properly under the bands. Attach the other end to the barbell.",
       "Lie on the bench, tuck your feet underneath you and arch your back. Using the bar to help support your weight, lift your shoulder off the bench and retract them, squeezing the shoulder blades together. Use your feet to drive your traps into the bench. Maintain this tight body position throughout the movement. However wide your grip, it should cover the ring on the bar.",
@@ -10544,14 +10230,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["lower back"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "quadriceps"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings", "quadriceps"],
     "instructions": [
       "Set the bar up in a power rack. Attach bands to the top of the rack, using either bands pegs or the frame itself. Attach the other end of the bands to the bar.",
       "Approach the bar so that it is centered over your feet. You feet should be about hip width apart. Bend at the hip to grip the bar at shoulder width, allowing your shoulder blades to protract. Typically, you would use an overhand grip or an over/under grip on heavier sets.",
@@ -10569,13 +10248,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back"
-    ],
+    "secondaryMuscles": ["adductors", "calves", "glutes", "hamstrings", "lower back"],
     "instructions": [
       "Begin in a power rack with the pins and bar set at the appropriate height. After loading the bar, attach bands to the top of the rack, using either pegs or the frame itself. Attach the other end of the bands to the bar.",
       "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wide for more emphasis on the back, glutes, adductors, and hamstrings.",
@@ -10873,13 +10546,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "lower back", "traps"],
     "instructions": [
       "Load the frame with the desired weight. Center yourself between the handles. You feet should be about hip width apart. Bend at the hips to grip the handles, allowing your shoulder blades to protract.",
       "With your feet and your grip set, take a big breath and then lower your hips and flex the knees. Look forward with your head, keep your chest up and your back arched, and begin driving through the heels to move the weight upward. As the weight comes up, pull your shoulder blades together as you drive your hips forward.",
@@ -11086,14 +10753,7 @@
     "mechanic": null,
     "equipment": "machine",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "biceps",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "middle back"
-    ],
+    "secondaryMuscles": ["biceps", "calves", "glutes", "hamstrings", "lower back", "middle back"],
     "instructions": [
       "To begin, seat yourself on the rower. Make sure that your heels are resting comfortably against the base of the foot pedals and that the straps are secured. Select the program that you wish to use, if applicable. Sit up straight and bend forward at the hips.",
       "There are three phases of movement when using a rower. The first phase is when you come forward on the rower. Your knees are bent and against your chest. Your upper body is leaning slightly forward while still maintaining good posture. Next, push against the foot pedals and extend your legs while bringing your hands to your upper abdominal area, squeezing your shoulders back as you do so. To avoid straining your back, use primarily your leg and hip muscles.",
@@ -11963,9 +11623,7 @@
     "equipment": null,
     "primaryMuscles": ["shoulders"],
     "secondaryMuscles": [],
-    "instructions": [
-      "Reach your left arm across your body and hold it straight."
-    ],
+    "instructions": ["Reach your left arm across your body and hold it straight."],
     "category": "stretching",
     "id": "Shoulder_Stretch"
   },
@@ -12432,13 +12090,7 @@
     "mechanic": null,
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "Roller skating is a fun activity which can be effective in improving cardiorespiratory fitness and muscular endurance. It requires relatively good balance and coordination. It is necessary to learn the basics of skating including turning and stopping and to wear protective gear to avoid possible injury.",
       "You can skate at a comfortable pace for 30 minutes straight. If you want a cardio challenge, do interval skating — speed skate two minutes of every five minutes, using the remaining three minutes to recover. A 150 lb person will typically burn about 175 calories in 30 minutes skating at a comfortable pace, similar to brisk walking."
@@ -12550,13 +12202,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["abdominals"],
-    "secondaryMuscles": [
-      "calves",
-      "forearms",
-      "lats",
-      "middle back",
-      "shoulders"
-    ],
+    "secondaryMuscles": ["calves", "forearms", "lats", "middle back", "shoulders"],
     "instructions": [
       "You will need a tire and a sledgehammer for this exercise. Stand in front of the tire about two feet away from it with a staggered stance. Grip the sledgehammer.",
       "If you are right handed, your left hand should be at the bottom of the handle, and your right hand should be choking up closer to the head.",
@@ -12701,13 +12347,7 @@
     "mechanic": "compound",
     "equipment": "machine",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "glutes",
-      "lower back",
-      "quadriceps",
-      "shoulders",
-      "traps"
-    ],
+    "secondaryMuscles": ["glutes", "lower back", "quadriceps", "shoulders", "traps"],
     "instructions": [
       "Position the bar at knee height and load it to an appropriate weight.",
       "Take a pronated grip on the bar outside of shoulder width and unhook the bar from the machine. Your arms should be fully extended with your head and chest up. Your elbows should be pointed out with your shoulders back and down. Your hips should be back, loading the tension into the hamstrings. This will be your starting position.",
@@ -12953,13 +12593,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "hamstrings",
-      "shoulders",
-      "triceps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "hamstrings", "shoulders", "triceps"],
     "instructions": [
       "Begin with the feet in the pulling position, the bar racked across the back of the shoulders, and the hands placed in a wide snatch grip.",
       "Pop the bar with an abrupt dip and drive of the knees, and aggressively drive under the bar, transitioning the feet into the receiving position.",
@@ -12976,14 +12610,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "forearms",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["forearms", "glutes", "hamstrings", "lower back", "quadriceps", "traps"],
     "instructions": [
       "The snatch deadlift strengthens the first pull of the snatch. Begin with a wide snatch grip with the barbell placed on the platform. The feet should be directly under the hips, with the feet turned out. Squat down to the bar, keeping the back in absolute extension with the head facing forward.",
       "Initiate the movement by driving through the heels, raising the hips. The back angle should remain the same until the bar passes the knees.",
@@ -12999,13 +12626,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "lower back",
-      "quadriceps",
-      "traps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "lower back", "quadriceps", "traps"],
     "instructions": [
       "With a barbell on the floor close to the shins, take a wide snatch grip. Lower your hips with the weight focused on the heels, back straight, head facing forward, chest up, with your shoulders just in front of the bar. This will be your starting position.",
       "Begin the first pull by driving through the heels, extending your knees. Your back angle should stay the same, and your arms should remain straight. Move the weight with control as you continue to above the knees.",
@@ -13311,13 +12932,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "hamstrings",
-      "shoulders",
-      "triceps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "hamstrings", "shoulders", "triceps"],
     "instructions": [
       "Standing with the weight racked on the front of the shoulders, begin with the dip. With your feet directly under your hips, flex the knees without moving the hips backward. Go down only slightly, and reverse direction as powerfully as possible. Drive through the heels create as much speed and force as possible, and be sure to move your head out of the way as the bar leaves the shoulders.",
       "At this moment as the feet leave the floor, the feet must be placed into the receiving position as quickly as possible. In the brief moment the feet are not actively driving against the platform, the athlete's effort to push the bar up will drive them down. The feet should move forcefully to just outside the hips, turned out as necessary. Receive the bar with your body in a full squat and the arms fully extended overhead.",
@@ -13333,13 +12948,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back"
-    ],
+    "secondaryMuscles": ["adductors", "calves", "glutes", "hamstrings", "lower back"],
     "instructions": [
       "Set up the bands on the sleeves, secured to either band pegs, the rack, or dumbbells so that there is appropriate tension.",
       "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wide for more emphasis on the back, glutes, adductors, and hamstrings. Keep your head facing forward.",
@@ -13356,13 +12965,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back"
-    ],
+    "secondaryMuscles": ["adductors", "calves", "glutes", "hamstrings", "lower back"],
     "instructions": [
       "To set up the chains, begin by looping the leader chain over the sleeves of the bar. The heavy chain should be attached using a snap hook. Adjust the length of the lead chain so that a few links are still on the floor at the top of the movement.",
       "Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wide for more emphasis on the back, glutes, adductors, and hamstrings. Keep your head facing forward.",
@@ -13379,13 +12982,7 @@
     "mechanic": "compound",
     "equipment": "barbell",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "To begin, first set the bar on a rack to just below shoulder level. Position a weight plate on the ground a couple feet back from the rack. Once the bar is loaded, step under it and place the back of your shoulders across it.",
       "Hold on to the bar with both hands and lift it off the rack by first pushing with your legs and at the same time straighten your torso.",
@@ -14669,13 +14266,7 @@
     "mechanic": "compound",
     "equipment": "other",
     "primaryMuscles": ["quadriceps"],
-    "secondaryMuscles": [
-      "abductors",
-      "adductors",
-      "calves",
-      "glutes",
-      "hamstrings"
-    ],
+    "secondaryMuscles": ["abductors", "adductors", "calves", "glutes", "hamstrings"],
     "instructions": [
       "Suspend your straps so the handles are 18-30 inches from the floor.",
       "Facing away from the setup, place your rear foot into the handle behind you. Keep your head looking forward and your chest up, with your knee slightly bent. This will be your starting position.",
@@ -15038,13 +14629,7 @@
     "mechanic": "compound",
     "equipment": "kettlebells",
     "primaryMuscles": ["shoulders"],
-    "secondaryMuscles": [
-      "calves",
-      "glutes",
-      "hamstrings",
-      "lower back",
-      "traps"
-    ],
+    "secondaryMuscles": ["calves", "glutes", "hamstrings", "lower back", "traps"],
     "instructions": [
       "Place two kettlebells between your feet. To get in the starting position, push your butt back and look straight ahead.",
       "Clean the kettlebells to your shoulders by extending through the legs and hips as you raise the kettlebells towards your shoulders. Rotate your wrists as you do so.",

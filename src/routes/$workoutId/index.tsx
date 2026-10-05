@@ -21,11 +21,7 @@ import {
   RocketLaunchIcon,
   TrashIcon,
 } from "@phosphor-icons/react";
-import {
-  createFileRoute,
-  getRouteApi,
-  useNavigate,
-} from "@tanstack/react-router";
+import { createFileRoute, getRouteApi, useNavigate } from "@tanstack/react-router";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
 
@@ -47,8 +43,7 @@ function WorkoutDetail() {
 
   const workout = useLiveQuery(() => db.workouts.get(workoutId), [workoutId]);
   const workoutExercises = useLiveQuery(
-    () =>
-      db.workoutExercises.where("workoutId").equals(workoutId).sortBy("order"),
+    () => db.workoutExercises.where("workoutId").equals(workoutId).sortBy("order"),
     [workoutId],
   );
 
@@ -57,10 +52,10 @@ function WorkoutDetail() {
   const hasExercises = (workoutExercises?.length ?? 0) > 0;
 
   async function confirmDelete() {
-    const confirmed = await confirm(
-      "This action cannot be reverted. Are you sure?",
-      { title: "Delete workout", okLabel: "Delete" },
-    );
+    const confirmed = await confirm("This action cannot be reverted. Are you sure?", {
+      title: "Delete workout",
+      okLabel: "Delete",
+    });
 
     if (confirmed) {
       await deleteWorkout(workoutId);
@@ -86,9 +81,7 @@ function WorkoutDetail() {
                 iconOnly
                 aria-label="Reorder exercises"
                 disabled={!hasExercises}
-                onClick={() =>
-                  navigate({ to: "/$workoutId/reorder", params: { workoutId } })
-                }
+                onClick={() => navigate({ to: "/$workoutId/reorder", params: { workoutId } })}
               >
                 <ArrowsDownUpIcon />
               </Button>
@@ -117,18 +110,11 @@ function WorkoutDetail() {
                   }
                 />
                 <Menu.Content align="end">
-                  <Menu.Item
-                    icon={<PencilSimpleIcon />}
-                    onClick={() => setShowRename(true)}
-                  >
+                  <Menu.Item icon={<PencilSimpleIcon />} onClick={() => setShowRename(true)}>
                     Rename
                   </Menu.Item>
                   <Menu.Separator />
-                  <Menu.Item
-                    tone="danger"
-                    icon={<TrashIcon />}
-                    onClick={confirmDelete}
-                  >
+                  <Menu.Item tone="danger" icon={<TrashIcon />} onClick={confirmDelete}>
                     Delete
                   </Menu.Item>
                 </Menu.Content>
@@ -173,25 +159,17 @@ function WorkoutDetail() {
           open={drawerOpen}
           onOpenChange={setDrawerOpen}
           name={selected.name}
-          instructions={
-            allExercises.find((e) => e.id === selected.exerciseId)?.instructions
-          }
+          instructions={allExercises.find((e) => e.id === selected.exerciseId)?.instructions}
           defaultWeight={selected.weight}
           defaultWeightUnit={selected.weightUnit}
           defaultSets={selected.sets}
           defaultReps={selected.count}
-          onWeightChange={(weight) =>
-            db.workoutExercises.update(selected.id, { weight })
-          }
+          onWeightChange={(weight) => db.workoutExercises.update(selected.id, { weight })}
           onWeightUnitChange={(weightUnit) =>
             db.workoutExercises.update(selected.id, { weightUnit })
           }
-          onSetsChange={(sets) =>
-            db.workoutExercises.update(selected.id, { sets })
-          }
-          onRepsChange={(count) =>
-            db.workoutExercises.update(selected.id, { count })
-          }
+          onSetsChange={(sets) => db.workoutExercises.update(selected.id, { sets })}
+          onRepsChange={(count) => db.workoutExercises.update(selected.id, { count })}
         />
       )}
 
@@ -219,9 +197,7 @@ function WorkoutDetail() {
         <Button
           iconOnly
           aria-label="Workout history"
-          onClick={() =>
-            navigate({ to: "/$workoutId/history", params: { workoutId } })
-          }
+          onClick={() => navigate({ to: "/$workoutId/history", params: { workoutId } })}
         >
           <ClockCounterClockwiseIcon />
         </Button>

@@ -7,10 +7,7 @@ export function NotFound() {
   return (
     <Page>
       <PageHeader title="Not found" />
-      <EmptyMessage
-        header="This page doesn't exist."
-        message="It may have been deleted."
-      />
+      <EmptyMessage header="This page doesn't exist." message="It may have been deleted." />
       <Navbar backHref="/" />
     </Page>
   );

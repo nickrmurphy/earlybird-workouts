@@ -12,14 +12,7 @@ type Props = {
 };
 
 /** EB bottom drawer with the app's safe-area padding. */
-export function Sheet({
-  open,
-  onOpenChange,
-  title,
-  description,
-  footer,
-  children,
-}: Props) {
+export function Sheet({ open, onOpenChange, title, description, footer, children }: Props) {
   return (
     <Drawer side="bottom" open={open} onOpenChange={onOpenChange}>
       <Drawer.Content className="pb-[calc(var(--safe-bottom)+2rem)]">

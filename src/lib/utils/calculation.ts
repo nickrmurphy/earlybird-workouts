@@ -10,10 +10,7 @@ function getCalcWeight(set: HistorySet): number {
 
 // TODO: Handle different weight units (kg vs lb)
 function calculateTonnage(sets: HistorySet[]): number {
-  return sets.reduce(
-    (acc, set) => acc + (set.isSuccess ? set.count * getCalcWeight(set) : 0),
-    0,
-  );
+  return sets.reduce((acc, set) => acc + (set.isSuccess ? set.count * getCalcWeight(set) : 0), 0);
 }
 
 // TODO: Handle different weight units (kg vs lb)
@@ -25,10 +22,7 @@ function calculateTonnagePerAttribute<T extends string | number>(
   sets.forEach((set) => {
     const key = predicate(set);
     const value = tonnagePerExercise.get(key) || 0;
-    tonnagePerExercise.set(
-      key,
-      value + (set.isSuccess ? set.count * getCalcWeight(set) : 0),
-    );
+    tonnagePerExercise.set(key, value + (set.isSuccess ? set.count * getCalcWeight(set) : 0));
   });
   return tonnagePerExercise;
 }

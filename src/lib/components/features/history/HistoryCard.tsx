@@ -9,18 +9,11 @@ type Props = {
   tonnage: number;
 };
 
-export function HistoryCard({
-  startTime,
-  endTime,
-  workoutName,
-  tonnage,
-}: Props) {
+export function HistoryCard({ startTime, endTime, workoutName, tonnage }: Props) {
   return (
     <Card>
       <Card.Header>
-        {workoutName && (
-          <span className="text-muted-foreground">{workoutName}</span>
-        )}
+        {workoutName && <span className="text-muted-foreground">{workoutName}</span>}
         <Card.Title>
           <time dateTime={new Date(startTime).toISOString()}>
             {dateFormatter.format(new Date(startTime))}
@@ -28,9 +21,7 @@ export function HistoryCard({
         </Card.Title>
       </Card.Header>
       <Card.Content className="flex items-center justify-between">
-        <Stat icon={<BarbellIcon size={16} />}>
-          {Math.round(tonnage).toLocaleString()} lbs
-        </Stat>
+        <Stat icon={<BarbellIcon size={16} />}>{Math.round(tonnage).toLocaleString()} lbs</Stat>
         {endTime && (
           <Stat icon={<ClockIcon size={16} />}>
             {dateDifferenceInMinutes(startTime, endTime)} min
@@ -41,13 +32,7 @@ export function HistoryCard({
   );
 }
 
-function Stat({
-  icon,
-  children,
-}: {
-  icon: React.ReactNode;
-  children: React.ReactNode;
-}) {
+function Stat({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <span className="flex items-center gap-2">
       {icon}

@@ -10,13 +10,7 @@ import {
 } from "$lib/components";
 import { db, type Exercise } from "$lib/db";
 import { Button, Input, Select, type SelectProps } from "$lib/eb";
-import {
-  activity,
-  confirm,
-  useExerciseSearch,
-  useRestTimer,
-  useTimer,
-} from "$lib/state";
+import { activity, confirm, useExerciseSearch, useRestTimer, useTimer } from "$lib/state";
 import { getDefaultWeightUnit } from "$lib/utils";
 import {
   CheckCircleIcon,
@@ -24,18 +18,14 @@ import {
   PlusIcon,
   SlidersHorizontalIcon,
 } from "@phosphor-icons/react";
-import {
-  createFileRoute,
-  getRouteApi,
-  Link,
-  useNavigate,
-} from "@tanstack/react-router";
+import { createFileRoute, getRouteApi, Link, useNavigate } from "@tanstack/react-router";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect, useState } from "react";
 
-const restTimeOptions: SelectProps["items"] = [
-  10, 20, 30, 45, 60, 90, 120, 180,
-].map((seconds) => ({ label: `${seconds}s`, value: String(seconds) }));
+const restTimeOptions: SelectProps["items"] = [10, 20, 30, 45, 60, 90, 120, 180].map((seconds) => ({
+  label: `${seconds}s`,
+  value: String(seconds),
+}));
 
 // Exercise data is loaded once by the parent /active route
 const activeRoute = getRouteApi("/active");
@@ -54,10 +44,7 @@ function ActiveWorkout() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
 
-  const activeWorkout = useLiveQuery(
-    () => db.history.get(historyId),
-    [historyId],
-  );
+  const activeWorkout = useLiveQuery(() => db.history.get(historyId), [historyId]);
   const exercises = useLiveQuery(
     () => db.historyExercises.where("historyId").equals(historyId).toArray(),
     [historyId],
@@ -76,10 +63,10 @@ function ActiveWorkout() {
   }, [startTime]);
 
   async function confirmEndWorkout() {
-    const confirmed = await confirm(
-      "This action cannot be reverted. Are you sure?",
-      { title: "End workout", okLabel: "Finish" },
-    );
+    const confirmed = await confirm("This action cannot be reverted. Are you sure?", {
+      title: "End workout",
+      okLabel: "Finish",
+    });
     if (!confirmed || !activeWorkout) return;
 
     await db.history.update(historyId, { endTime: new Date() });
@@ -93,28 +80,24 @@ function ActiveWorkout() {
   async function addExercise(exercise: Exercise) {
     if (exercises?.some((e) => e.exerciseId === exercise.id)) return;
 
-    await db.transaction(
-      "rw",
-      [db.historyExercises, db.historySets],
-      async () => {
-        const historyExerciseId = await db.historyExercises.add({
-          historyId,
-          exerciseName: exercise.name,
-          exerciseId: exercise.id,
-        });
+    await db.transaction("rw", [db.historyExercises, db.historySets], async () => {
+      const historyExerciseId = await db.historyExercises.add({
+        historyId,
+        exerciseName: exercise.name,
+        exerciseId: exercise.id,
+      });
 
-        await db.historySets.add({
-          historyId,
-          historyExerciseId,
-          exerciseId: exercise.id,
-          count: 10,
-          weight: 40,
-          isSuccess: false,
-          weightUnit: getDefaultWeightUnit(),
-          countUnit: "reps",
-        });
-      },
-    );
+      await db.historySets.add({
+        historyId,
+        historyExerciseId,
+        exerciseId: exercise.id,
+        count: 10,
+        weight: 40,
+        isSuccess: false,
+        weightUnit: getDefaultWeightUnit(),
+        countUnit: "reps",
+      });
+    });
   }
 
   return (
@@ -138,16 +121,11 @@ function ActiveWorkout() {
       />
 
       {exercises?.length === 0 && (
-        <EmptyMessage
-          header="No exercises yet."
-          message="Tap the plus button to add one."
-        />
+        <EmptyMessage header="No exercises yet." message="Tap the plus button to add one." />
       )}
       <section className="flex flex-col gap-4">
         {exercises?.map((exercise) => {
-          const sets =
-            exerciseSets?.filter((s) => s.exerciseId === exercise.exerciseId) ??
-            [];
+          const sets = exerciseSets?.filter((s) => s.exerciseId === exercise.exerciseId) ?? [];
           return (
             <Link
               key={exercise.id}
@@ -165,28 +143,16 @@ function ActiveWorkout() {
       </section>
 
       <Navbar>
-        <Button
-          iconOnly
-          aria-label="Rest timer settings"
-          onClick={() => setSettingsOpen(true)}
-        >
+        <Button iconOnly aria-label="Rest timer settings" onClick={() => setSettingsOpen(true)}>
           <SlidersHorizontalIcon />
         </Button>
         <TimerButton />
-        <Button
-          iconOnly
-          aria-label="Add an exercise"
-          onClick={() => setAddOpen(true)}
-        >
+        <Button iconOnly aria-label="Add an exercise" onClick={() => setAddOpen(true)}>
           <PlusIcon />
         </Button>
       </Navbar>
 
-      <Sheet
-        open={settingsOpen}
-        onOpenChange={setSettingsOpen}
-        title="Activity settings"
-      >
+      <Sheet open={settingsOpen} onOpenChange={setSettingsOpen} title="Activity settings">
         <Select
           label="Rest time"
           items={restTimeOptions}

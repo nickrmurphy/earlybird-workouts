@@ -36,10 +36,7 @@ async function extractProperties(filePath: string) {
     });
 
     const toTitleCase = (str: string) =>
-      str.replace(
-        /\w\S*/g,
-        (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase(),
-      );
+      str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
 
     const formatToLabelValue = (set: Set<string>) =>
       Array.from(set).map((item) => ({
@@ -53,34 +50,18 @@ async function extractProperties(filePath: string) {
     await writeJson("./static/levels.json", formatToLabelValue(uniqueLevels), {
       spaces: 2,
     });
-    await writeJson(
-      "./static/mechanics.json",
-      formatToLabelValue(uniqueMechanics),
-      {
-        spaces: 2,
-      },
-    );
-    await writeJson(
-      "./static/equipment.json",
-      formatToLabelValue(uniqueEquipment),
-      {
-        spaces: 2,
-      },
-    );
-    await writeJson(
-      "./static/muscles.json",
-      formatToLabelValue(uniqueMuscles),
-      {
-        spaces: 2,
-      },
-    );
-    await writeJson(
-      "./static/categories.json",
-      formatToLabelValue(uniqueCategories),
-      {
-        spaces: 2,
-      },
-    );
+    await writeJson("./static/mechanics.json", formatToLabelValue(uniqueMechanics), {
+      spaces: 2,
+    });
+    await writeJson("./static/equipment.json", formatToLabelValue(uniqueEquipment), {
+      spaces: 2,
+    });
+    await writeJson("./static/muscles.json", formatToLabelValue(uniqueMuscles), {
+      spaces: 2,
+    });
+    await writeJson("./static/categories.json", formatToLabelValue(uniqueCategories), {
+      spaces: 2,
+    });
 
     console.log("Properties extracted and written to JSON files successfully.");
   } catch (error) {

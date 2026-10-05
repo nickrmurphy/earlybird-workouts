@@ -2,17 +2,8 @@ import { ExerciseSetsTable, Navbar, Page, PageHeader } from "$lib/components";
 import { db, deleteHistory } from "$lib/db";
 import { Button, Menu } from "$lib/eb";
 import { confirm } from "$lib/state";
-import {
-  calculateTonnage,
-  dateDifferenceInMinutes,
-  dateFormatter,
-} from "$lib/utils";
-import {
-  BarbellIcon,
-  ClockIcon,
-  DotsThreeCircleIcon,
-  TrashIcon,
-} from "@phosphor-icons/react";
+import { calculateTonnage, dateDifferenceInMinutes, dateFormatter } from "$lib/utils";
+import { BarbellIcon, ClockIcon, DotsThreeCircleIcon, TrashIcon } from "@phosphor-icons/react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useLiveQuery } from "dexie-react-hooks";
 
@@ -23,10 +14,7 @@ type Search = {
 
 export const Route = createFileRoute("/$workoutId/history/$historyId")({
   validateSearch: (search: Record<string, unknown>): Search => ({
-    from:
-      typeof search.from === "string" && search.from.startsWith("/")
-        ? search.from
-        : undefined,
+    from: typeof search.from === "string" && search.from.startsWith("/") ? search.from : undefined,
   }),
   component: HistoryDetail,
 });
@@ -46,17 +34,15 @@ function HistoryDetail() {
     [historyId],
   );
 
-  const runTime =
-    history?.endTime &&
-    dateDifferenceInMinutes(history.startTime, history.endTime);
+  const runTime = history?.endTime && dateDifferenceInMinutes(history.startTime, history.endTime);
   const tonnage = historySets ? calculateTonnage(historySets) : undefined;
   const backHref = from ?? `/${workoutId}/history`;
 
   async function confirmDelete() {
-    const confirmed = await confirm(
-      "This action cannot be reverted. Are you sure?",
-      { title: "Delete history", okLabel: "Delete" },
-    );
+    const confirmed = await confirm("This action cannot be reverted. Are you sure?", {
+      title: "Delete history",
+      okLabel: "Delete",
+    });
 
     if (confirmed) {
       await deleteHistory(historyId);
@@ -81,11 +67,7 @@ function HistoryDetail() {
               }
             />
             <Menu.Content align="end">
-              <Menu.Item
-                tone="danger"
-                icon={<TrashIcon />}
-                onClick={confirmDelete}
-              >
+              <Menu.Item tone="danger" icon={<TrashIcon />} onClick={confirmDelete}>
                 Delete
               </Menu.Item>
             </Menu.Content>
@@ -93,9 +75,7 @@ function HistoryDetail() {
         }
       >
         {history && (
-          <p className="text-accent font-semibold">
-            {dateFormatter.format(history.startTime)}
-          </p>
+          <p className="text-accent font-semibold">{dateFormatter.format(history.startTime)}</p>
         )}
       </PageHeader>
 
@@ -106,10 +86,7 @@ function HistoryDetail() {
         </span>
         <span className="flex items-center gap-2">
           <BarbellIcon size={20} />
-          {tonnage === undefined
-            ? "–"
-            : Math.round(tonnage).toLocaleString()}{" "}
-          lbs
+          {tonnage === undefined ? "–" : Math.round(tonnage).toLocaleString()} lbs
         </span>
       </div>
 
@@ -117,10 +94,7 @@ function HistoryDetail() {
         <ExerciseSetsTable
           key={exercise.id}
           exerciseName={exercise.exerciseName}
-          sets={
-            historySets?.filter((s) => s.exerciseId === exercise.exerciseId) ??
-            []
-          }
+          sets={historySets?.filter((s) => s.exerciseId === exercise.exerciseId) ?? []}
         />
       ))}
 

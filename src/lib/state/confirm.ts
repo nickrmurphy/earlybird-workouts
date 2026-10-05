@@ -42,9 +42,7 @@ const confirmStore = new ConfirmStore();
  * Native confirm() is unavailable in Tauri's iOS webview.
  */
 function confirm(message: string, options: ConfirmOptions): Promise<boolean> {
-  return new Promise((resolve) =>
-    confirmStore.open({ ...options, message, resolve }),
-  );
+  return new Promise((resolve) => confirmStore.open({ ...options, message, resolve }));
 }
 
 export { confirm, confirmStore };

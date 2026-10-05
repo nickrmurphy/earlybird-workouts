@@ -17,13 +17,7 @@ function haptic() {
   impactFeedback("soft").catch(() => {});
 }
 
-export function ExerciseSelectList({
-  options,
-  selected,
-  onAdd,
-  onRemove,
-  onSelectInfo,
-}: Props) {
+export function ExerciseSelectList({ options, selected, onAdd, onRemove, onSelectInfo }: Props) {
   return (
     <ul className="divide-muted divide-y">
       {options.map((option) => {
@@ -45,10 +39,7 @@ export function ExerciseSelectList({
               }}
             >
               {isSelected ? (
-                <CheckCircleIcon
-                  weight="fill"
-                  className="text-accent shrink-0"
-                />
+                <CheckCircleIcon weight="fill" className="text-accent shrink-0" />
               ) : (
                 <CircleIcon className="text-muted-foreground shrink-0" />
               )}

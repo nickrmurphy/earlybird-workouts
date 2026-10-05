@@ -17,8 +17,8 @@ pnpm build:appstore   # Build for App Store submission
 pnpm publish:appstore # Publish to App Store (requires API keys)
 
 # Code quality
-pnpm lint             # Run ESLint + Prettier check
-pnpm format           # Format code with Prettier
+pnpm lint             # Run oxlint + oxfmt check
+pnpm format           # Format code with oxfmt
 pnpm check            # TypeScript type checking (tsc)
 pnpm check:watch      # Type checking in watch mode
 
@@ -118,7 +118,7 @@ Exercises are referenced by ID in workout data but not stored in Dexie.
 
 ## Key Development Notes
 
-- **React 19** function components and hooks; keep lint clean (`eslint-plugin-react-hooks`)
+- **React 19** function components and hooks; keep lint clean (`oxlint`)
 - **Type-first approach** - always define Zod schema before TypeScript types
 - **Offline-first** - app works without internet, syncs when available
 - **Mobile-optimized** - fullscreen app with haptic feedback

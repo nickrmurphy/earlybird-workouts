@@ -1,11 +1,5 @@
 import { BusinessClipboard } from "$lib/assets";
-import {
-  EmptyMessage,
-  HistoryCard,
-  Navbar,
-  Page,
-  PageHeader,
-} from "$lib/components";
+import { EmptyMessage, HistoryCard, Navbar, Page, PageHeader } from "$lib/components";
 import { db } from "$lib/db";
 import { calculateTonnagePerAttribute } from "$lib/utils";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -21,12 +15,7 @@ function WorkoutHistory() {
 
   const workout = useLiveQuery(() => db.workouts.get(workoutId), [workoutId]);
   const history = useLiveQuery(
-    () =>
-      db.history
-        .where("workoutId")
-        .equals(workoutId)
-        .reverse()
-        .sortBy("startTime"),
+    () => db.history.where("workoutId").equals(workoutId).reverse().sortBy("startTime"),
     [workoutId],
   );
   const successSets = useLiveQuery(async () => {
@@ -53,10 +42,7 @@ function WorkoutHistory() {
       </PageHeader>
       {history?.length === 0 && (
         <>
-          <EmptyMessage
-            header="No history yet."
-            message="Past workout details will appear here."
-          />
+          <EmptyMessage header="No history yet." message="Past workout details will appear here." />
           <BusinessClipboard />
         </>
       )}

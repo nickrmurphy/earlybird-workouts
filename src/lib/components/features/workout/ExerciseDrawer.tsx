@@ -80,9 +80,7 @@ export function ExerciseDrawer({
       </div>
       {instructions && instructions.length > 0 && (
         <details className="group mt-2">
-          <summary className="text-accent cursor-pointer font-semibold">
-            Instructions
-          </summary>
+          <summary className="text-accent cursor-pointer font-semibold">Instructions</summary>
           <div className="pt-3">
             <InstructionsList instructions={instructions} />
           </div>

@@ -1,12 +1,6 @@
 import Dexie, { type EntityTable } from "dexie";
 import dexieCloud from "dexie-cloud-addon";
-import type {
-  History,
-  HistoryExercise,
-  HistorySet,
-  Workout,
-  WorkoutExercise,
-} from "./schema";
+import type { History, HistoryExercise, HistorySet, Workout, WorkoutExercise } from "./schema";
 
 const db = new Dexie("earlybird-workouts", {
   addons: [dexieCloud],

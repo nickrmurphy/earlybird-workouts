@@ -2,6 +2,7 @@
   "name": "earlybird-workout",
   "version": "0.7.1",
   "description": "",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,10 +15,9 @@
     "check": "tsc --noEmit",
     "check:watch": "tsc --noEmit --watch",
     "tauri": "tauri",
-    "lint": "eslint . && prettier --check .",
-    "format": "prettier --write ."
+    "lint": "oxlint && oxfmt --check",
+    "format": "oxfmt"
   },
-  "license": "MIT",
   "dependencies": {
     "@base-ui/react": "^1.8.0",
     "@fontsource-variable/karla": "^5.3.0",
@@ -33,26 +33,17 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.3.2",
-    "@eslint/js": "^9.35.0",
     "@tailwindcss/vite": "^4.1.13",
     "@tanstack/router-plugin": "^1.168.42",
     "@tauri-apps/cli": "^2.12.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^5.2.0",
-    "eslint": "^9.35.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "globals": "^16.4.0",
+    "oxfmt": "^0.71.0",
+    "oxlint": "^1.86.0",
     "postcss": "^8.5.6",
-    "prettier": "^3.6.2",
-    "prettier-plugin-css-order": "^2.1.2",
-    "prettier-plugin-organize-imports": "^4.2.0",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.13",
     "typescript": "~5.7.3",
-    "typescript-eslint": "^8.44.0",
     "vite": "^6.3.6"
   }
 }

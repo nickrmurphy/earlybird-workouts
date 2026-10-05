@@ -1,9 +1,5 @@
 import { Card } from "$lib/eb";
-import {
-  CheckCircleIcon,
-  CircleIcon,
-  MinusCircleIcon,
-} from "@phosphor-icons/react";
+import { CheckCircleIcon, CircleIcon, MinusCircleIcon } from "@phosphor-icons/react";
 
 type Props = {
   exerciseName: string;
@@ -11,11 +7,7 @@ type Props = {
   completeSets: number;
 };
 
-export function ActiveExerciseCard({
-  exerciseName,
-  setCount,
-  completeSets,
-}: Props) {
+export function ActiveExerciseCard({ exerciseName, setCount, completeSets }: Props) {
   const isComplete = setCount > 0 && completeSets === setCount;
 
   return (

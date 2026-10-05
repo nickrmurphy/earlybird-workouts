@@ -10,11 +10,7 @@ import {
 } from "$lib/components";
 import { db, getWorkoutsInfo } from "$lib/db";
 import { Button } from "$lib/eb";
-import {
-  ClockCounterClockwiseIcon,
-  GearIcon,
-  PlusIcon,
-} from "@phosphor-icons/react";
+import { ClockCounterClockwiseIcon, GearIcon, PlusIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
@@ -58,23 +54,13 @@ function Home() {
       <section className="flex flex-col gap-4">
         {workouts?.length === 0 ? (
           <>
-            <EmptyMessage
-              header="No workouts yet."
-              message="Tap the plus button to add one."
-            />
+            <EmptyMessage header="No workouts yet." message="Tap the plus button to add one." />
             <SportsJogging />
           </>
         ) : (
           workouts?.map((workout) => (
-            <Link
-              key={workout.id}
-              to="/$workoutId"
-              params={{ workoutId: workout.id }}
-            >
-              <WorkoutCard
-                workoutName={workout.name}
-                exercises={workout.exercises}
-              />
+            <Link key={workout.id} to="/$workoutId" params={{ workoutId: workout.id }}>
+              <WorkoutCard workoutName={workout.name} exercises={workout.exercises} />
             </Link>
           ))
         )}
@@ -89,11 +75,7 @@ function Home() {
         >
           History
         </Button>
-        <Button
-          iconOnly
-          aria-label="Settings"
-          onClick={() => setShowSettings(true)}
-        >
+        <Button iconOnly aria-label="Settings" onClick={() => setShowSettings(true)}>
           <GearIcon />
         </Button>
       </Navbar>

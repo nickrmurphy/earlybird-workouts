@@ -9,14 +9,7 @@ type Props = {
   onClick?: () => void;
 };
 
-export function ExerciseItem({
-  name,
-  sets,
-  reps,
-  weight,
-  weightUnit,
-  onClick,
-}: Props) {
+export function ExerciseItem({ name, sets, reps, weight, weightUnit, onClick }: Props) {
   return (
     <button
       type="button"

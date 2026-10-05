@@ -12,13 +12,7 @@ class RestTimer extends Store<RestTimerSnapshot> {
   #intervalId: ReturnType<typeof setInterval> | undefined = undefined;
   #persister: (value: number) => void;
 
-  constructor({
-    loader,
-    persister,
-  }: {
-    loader: () => number;
-    persister: (value: number) => void;
-  }) {
+  constructor({ loader, persister }: { loader: () => number; persister: (value: number) => void }) {
     super({
       elapsedTime: 0,
       runTimeSeconds: loader(),

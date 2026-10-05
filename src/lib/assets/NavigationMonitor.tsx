@@ -3,9 +3,7 @@ type Props = { className?: string };
 export function NavigationMonitor({ className }: Props) {
   return (
     <svg
-      className={["animate-fade-in text-muted-foreground", className]
-        .filter(Boolean)
-        .join(" ")}
+      className={["animate-fade-in text-muted-foreground", className].filter(Boolean).join(" ")}
       viewBox="0 0 350 350"
       xmlns="http://www.w3.org/2000/svg"
     >
