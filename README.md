@@ -1,20 +1,19 @@
 # Workouts by Early Bird
 
-Cross-platform fitness tracking app built with Tauri, React, and TypeScript.
+Installable, offline-first fitness tracking PWA built with React and TypeScript.
 
 ## Features
 
 - **Custom Workouts**: Create personalized routines from 873 exercises
 - **Comprehensive Tracking**: Log sets, weights, reps, and rest periods
 - **Offline-First**: Full functionality without internet, syncs when connected
-- **Cross-Platform**: Native desktop, iOS, and Web apps from a single codebase
+- **Installable**: Add to your home screen on iOS, Android, or desktop for a full-screen app
 
 ## Try it Out
 
-- **iOS (TestFlight)**: [https://testflight.apple.com/join/C9Fc3eSe](https://testflight.apple.com/join/E5JYBpSY)
 - **Web**: https://workouts-e5j.pages.dev
 
-_This app was developed for and tested primarily on iOS._
+On iOS, open it in Safari and choose **Share → Add to Home Screen** to install it. _This app was developed for and tested primarily on iOS._
 
 ## Screenshots
 
@@ -30,8 +29,8 @@ _This app was developed for and tested primarily on iOS._
 
 ```bash
 pnpm dev              # Start development server
-pnpm dev:ios          # iOS simulator
-pnpm build            # Build for production
+pnpm build            # Build for production (includes the service worker)
+pnpm preview          # Serve the production build to test offline/install
 pnpm lint             # Code quality checks
 ```
 
@@ -39,7 +38,7 @@ pnpm lint             # Code quality checks
 
 - **Frontend**: React 19 + TanStack Router + TypeScript
 - **Design system**: EB (Base UI)
-- **Backend**: Tauri (Rust)
+- **PWA**: vite-plugin-pwa (Workbox service worker, web app manifest)
 - **Database**: Dexie + Dexie Cloud
 - **Styling**: EB + Tailwind CSS (layout)
 

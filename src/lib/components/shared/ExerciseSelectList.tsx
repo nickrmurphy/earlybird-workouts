@@ -1,6 +1,6 @@
 import { Button } from "$lib/eb";
+import { haptic } from "$lib/utils";
 import { CheckCircleIcon, CircleIcon, InfoIcon } from "@phosphor-icons/react";
-import { impactFeedback } from "@tauri-apps/plugin-haptics";
 
 type Option = { value: string; label: string };
 
@@ -11,11 +11,6 @@ type Props = {
   onRemove: (value: string) => void;
   onSelectInfo: (value: string) => void;
 };
-
-function haptic() {
-  // No haptics outside the native app
-  impactFeedback("soft").catch(() => {});
-}
 
 export function ExerciseSelectList({ options, selected, onAdd, onRemove, onSelectInfo }: Props) {
   return (

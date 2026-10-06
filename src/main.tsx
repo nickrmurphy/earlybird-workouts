@@ -1,5 +1,6 @@
 import "@fontsource-variable/karla";
 import "./main.css";
+import "./pwa";
 
 import { NotFound } from "$lib/components";
 import { createRouter, RouterProvider } from "@tanstack/react-router";

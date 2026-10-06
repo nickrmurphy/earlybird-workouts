@@ -3,13 +3,45 @@ import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
-
-// @ts-expect-error process is a nodejs global
-const host = process.env.TAURI_DEV_HOST;
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
-export default defineConfig(async () => ({
-  plugins: [tanstackRouter({ target: "react", autoCodeSplitting: true }), react(), tailwindcss()],
+export default defineConfig({
+  plugins: [
+    tanstackRouter({ target: "react", autoCodeSplitting: true }),
+    react(),
+    tailwindcss(),
+    VitePWA({
+      // A new version waits until the user accepts the in-app prompt (src/pwa.ts)
+      registerType: "prompt",
+      injectRegister: false,
+      manifest: {
+        id: "/",
+        name: "Workouts by Earlybird",
+        short_name: "Workouts",
+        description: "Plan workouts and track every set, offline.",
+        start_url: "/",
+        scope: "/",
+        display: "standalone",
+        orientation: "portrait",
+        categories: ["fitness", "health"],
+        background_color: "#1d1d1b",
+        theme_color: "#1d1d1b",
+        icons: [
+          { src: "pwa-192.png", sizes: "192x192", type: "image/png" },
+          { src: "pwa-512.png", sizes: "512x512", type: "image/png" },
+          { src: "pwa-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+        ],
+      },
+      workbox: {
+        // Precache the app shell and the static exercise data so the app works offline
+        globPatterns: ["**/*.{js,css,html,json,png,woff2}"],
+        // exercises.json is ~0.9 MB
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        navigateFallback: "/index.html",
+      },
+    }),
+  ],
 
   resolve: {
     alias: {
@@ -20,33 +52,15 @@ export default defineConfig(async () => ({
   // Keep the existing PUBLIC_ env names (e.g. PUBLIC_DEXIE_CLOUD_DATABASE_URL)
   envPrefix: ["VITE_", "PUBLIC_"],
 
-  // Static exercise data, fonts and favicon are served from /static
+  // Static exercise data, icons and favicon are served from /static
   publicDir: "static",
 
-  // tauri.conf.json reads the build from ../build
   build: {
     outDir: "build",
   },
 
-  // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
-  //
-  // 1. prevent vite from obscuring rust errors
-  clearScreen: false,
-  // 2. tauri expects a fixed port, fail if that port is not available
   server: {
     port: 1420,
     strictPort: true,
-    host: host || false,
-    hmr: host
-      ? {
-          protocol: "ws",
-          host,
-          port: 1421,
-        }
-      : undefined,
-    watch: {
-      // 3. tell vite to ignore watching `src-tauri`
-      ignored: ["**/src-tauri/**"],
-    },
   },
-}));
+});

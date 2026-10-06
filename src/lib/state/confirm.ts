@@ -39,7 +39,7 @@ const confirmStore = new ConfirmStore();
 
 /**
  * Asks the user to confirm in an in-app dialog (rendered by ConfirmHost).
- * Native confirm() is unavailable in Tauri's iOS webview.
+ * Used instead of the browser's native confirm() to keep the app's look.
  */
 function confirm(message: string, options: ConfirmOptions): Promise<boolean> {
   return new Promise((resolve) => confirmStore.open({ ...options, message, resolve }));
