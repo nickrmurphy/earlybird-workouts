@@ -11,7 +11,7 @@ Installable, offline-first fitness tracking PWA built with React and TypeScript.
 
 ## Try it Out
 
-- **Web**: https://workouts-e5j.pages.dev
+- **Web**: https://workouts.byearlybird.com
 
 On iOS, open it in Safari and choose **Share → Add to Home Screen** to install it. _This app was developed for and tested primarily on iOS._
 
@@ -31,6 +31,7 @@ On iOS, open it in Safari and choose **Share → Add to Home Screen** to install
 pnpm dev              # Start development server
 pnpm build            # Build for production (includes the service worker)
 pnpm preview          # Serve the production build to test offline/install
+pnpm release          # Build and deploy to Cloudflare
 pnpm lint             # Code quality checks
 ```
 

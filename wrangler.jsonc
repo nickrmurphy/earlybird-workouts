@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "earlybird-workouts",
+  "compatibility_date": "2026-10-01",
+  // Static assets only: the Vite build, with unknown paths falling back to index.html
+  "assets": {
+    "directory": "./build",
+    "not_found_handling": "single-page-application",
+  },
+  "routes": [{ "pattern": "workouts.byearlybird.com", "custom_domain": true }],
+  // One origin only: installed PWAs and their IndexedDB data are tied to it
+  "workers_dev": false,
+  "preview_urls": false,
+}

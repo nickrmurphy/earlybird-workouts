@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pnpm dev              # Start development server (Vite on port 1420)
 pnpm build            # Build for production
 pnpm preview          # Preview production build (service worker active; use to test offline/install)
+pnpm release          # Build and deploy to workouts.byearlybird.com (Cloudflare Workers static assets)
 
 # Code quality
 pnpm lint             # Run oxlint + oxfmt check
@@ -100,6 +101,7 @@ Exercises are referenced by ID in workout data but not stored in Dexie.
 ## PWA
 
 - **Static SPA build**: Vite outputs to `build/`, serving `static/` as the public dir
+- **Hosting**: Cloudflare Workers static assets (`wrangler.jsonc`), custom domain `workouts.byearlybird.com` only (no workers.dev or preview URLs, since installs and IndexedDB data are per origin). `static/_headers` sets long caching for hashed `assets/`. Use `pnpm release`, not `pnpm deploy` (a pnpm built-in)
 - **Service worker**: registered in `src/pwa.ts` with `registerType: "prompt"`; a new version asks to reload via `confirm()`. The dev server does not run the service worker, so test offline behaviour with `pnpm build && pnpm preview`
 - **Icons**: `static/pwa-192.png`, `static/pwa-512.png` (also maskable) and `static/apple-touch-icon.png`, generated from `app-icon.png` with an opaque background
 - **iOS install**: meta tags in `index.html` make the home-screen app full screen under the status bar; layout relies on the safe-area variables in `src/main.css`
