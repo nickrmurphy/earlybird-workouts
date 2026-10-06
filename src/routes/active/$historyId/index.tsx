@@ -1,12 +1,12 @@
 import {
   ActiveExerciseCard,
   EmptyMessage,
-  Navbar,
   Page,
   PageHeader,
   Sheet,
   TimerButton,
   TimerDisplay,
+  Toolbar,
 } from "$lib/components";
 import { db, type Exercise } from "$lib/db";
 import { Button, Input, Select, type SelectProps } from "$lib/eb";
@@ -142,7 +142,7 @@ function ActiveWorkout() {
         })}
       </section>
 
-      <Navbar>
+      <Toolbar>
         <Button iconOnly aria-label="Rest timer settings" onClick={() => setSettingsOpen(true)}>
           <SlidersHorizontalIcon />
         </Button>
@@ -150,7 +150,7 @@ function ActiveWorkout() {
         <Button iconOnly aria-label="Add an exercise" onClick={() => setAddOpen(true)}>
           <PlusIcon />
         </Button>
-      </Navbar>
+      </Toolbar>
 
       <Sheet open={settingsOpen} onOpenChange={setSettingsOpen} title="Activity settings">
         <Select

@@ -1,11 +1,11 @@
 import {
   ActiveExerciseSet,
   InstructionsDrawer,
-  Navbar,
   Page,
   PageHeader,
   Sheet,
   TimerButton,
+  Toolbar,
   WeightUnitSelect,
 } from "$lib/components";
 import { loadExerciseData } from "$lib/data/exerciseData";
@@ -71,6 +71,7 @@ function ActiveExercise() {
     <Page>
       <PageHeader
         title={details.name}
+        backHref={`/active/${historyId}`}
         actions={
           <>
             <Button
@@ -115,12 +116,12 @@ function ActiveExercise() {
         ))}
       </div>
 
-      <Navbar backHref={`/active/${historyId}`}>
+      <Toolbar>
         <TimerButton />
         <Button iconOnly aria-label="Add a set" onClick={addSet}>
           <PlusIcon />
         </Button>
-      </Navbar>
+      </Toolbar>
 
       <Sheet
         open={showEdit}

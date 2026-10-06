@@ -1,28 +1,19 @@
 import { SportsJogging } from "$lib/assets";
-import {
-  EmptyMessage,
-  InputDialog,
-  Navbar,
-  Page,
-  PageHeader,
-  SettingsDrawer,
-  WorkoutCard,
-} from "$lib/components";
+import { EmptyMessage, InputDialog, Page, PageHeader, WorkoutCard } from "$lib/components";
 import { db, getWorkoutsInfo } from "$lib/db";
 import { Button } from "$lib/eb";
-import { ClockCounterClockwiseIcon, GearIcon, PlusIcon } from "@phosphor-icons/react";
+import { PlusIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_tabs/")({
   component: Home,
 });
 
 function Home() {
   const navigate = useNavigate();
   const [showCreate, setShowCreate] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
 
   const workouts = useLiveQuery(() => getWorkoutsInfo());
 
@@ -32,7 +23,7 @@ function Home() {
     navigate({
       to: "/$workoutId/exercises",
       params: { workoutId: newId },
-      search: { complete: true },
+      search: { add: true },
     });
   }
 
@@ -66,21 +57,6 @@ function Home() {
         )}
       </section>
 
-      <Navbar>
-        <Button
-          className="flex-1"
-          icon={<ClockCounterClockwiseIcon />}
-          iconPosition="end"
-          onClick={() => navigate({ to: "/history" })}
-        >
-          History
-        </Button>
-        <Button iconOnly aria-label="Settings" onClick={() => setShowSettings(true)}>
-          <GearIcon />
-        </Button>
-      </Navbar>
-
-      <SettingsDrawer open={showSettings} onOpenChange={setShowSettings} />
       <InputDialog
         open={showCreate}
         onOpenChange={setShowCreate}

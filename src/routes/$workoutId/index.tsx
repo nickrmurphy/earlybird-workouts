@@ -4,20 +4,19 @@ import {
   ExerciseDrawer,
   ExerciseItem,
   InputDialog,
-  Navbar,
   Page,
   PageHeader,
+  Toolbar,
 } from "$lib/components";
 import { createWorkoutHistoryAndExerciseSets, db, deleteWorkout } from "$lib/db";
 import { Button, Menu } from "$lib/eb";
 import { activity, confirm } from "$lib/state";
 import {
-  ArrowsDownUpIcon,
   ClockCounterClockwiseIcon,
   DotsThreeCircleIcon,
+  ListBulletsIcon,
   PencilSimpleIcon,
   PlusIcon,
-  PlusMinusIcon,
   RocketLaunchIcon,
   TrashIcon,
 } from "@phosphor-icons/react";
@@ -74,29 +73,16 @@ function WorkoutDetail() {
       {workout && (
         <PageHeader
           title={workout.name}
+          backHref="/"
           actions={
             <>
               <Button
                 variant="ghost"
                 iconOnly
-                aria-label="Reorder exercises"
-                disabled={!hasExercises}
-                onClick={() => navigate({ to: "/$workoutId/reorder", params: { workoutId } })}
+                aria-label="Workout history"
+                onClick={() => navigate({ to: "/$workoutId/history", params: { workoutId } })}
               >
-                <ArrowsDownUpIcon />
-              </Button>
-              <Button
-                variant="ghost"
-                iconOnly
-                aria-label={hasExercises ? "Edit exercises" : "Add exercises"}
-                onClick={() =>
-                  navigate({
-                    to: "/$workoutId/exercises",
-                    params: { workoutId },
-                  })
-                }
-              >
-                {hasExercises ? <PlusMinusIcon /> : <PlusIcon />}
+                <ClockCounterClockwiseIcon />
               </Button>
               <Menu>
                 <Menu.Trigger
@@ -110,6 +96,19 @@ function WorkoutDetail() {
                   }
                 />
                 <Menu.Content align="end">
+                  <Menu.Item
+                    icon={hasExercises ? <ListBulletsIcon /> : <PlusIcon />}
+                    onClick={() =>
+                      navigate({
+                        to: "/$workoutId/exercises",
+                        params: { workoutId },
+                        // Straight to the catalog when there's nothing to edit yet
+                        search: { add: hasExercises ? undefined : true },
+                      })
+                    }
+                  >
+                    {hasExercises ? "Edit exercises" : "Add exercises"}
+                  </Menu.Item>
                   <Menu.Item icon={<PencilSimpleIcon />} onClick={() => setShowRename(true)}>
                     Rename
                   </Menu.Item>
@@ -128,10 +127,7 @@ function WorkoutDetail() {
         <section className="flex flex-col gap-3">
           {workoutExercises.length === 0 ? (
             <>
-              <EmptyMessage
-                header="No exercises yet."
-                message="Tap the plus button to add an exercise."
-              />
+              <EmptyMessage header="No exercises yet." message="Add exercises from the ⋯ menu." />
               <NavigationMonitor />
             </>
           ) : (
@@ -184,7 +180,7 @@ function WorkoutDetail() {
         }}
       />
 
-      <Navbar backHref="/">
+      <Toolbar>
         <Button
           variant="primary"
           className="flex-1"
@@ -194,14 +190,7 @@ function WorkoutDetail() {
         >
           Start workout
         </Button>
-        <Button
-          iconOnly
-          aria-label="Workout history"
-          onClick={() => navigate({ to: "/$workoutId/history", params: { workoutId } })}
-        >
-          <ClockCounterClockwiseIcon />
-        </Button>
-      </Navbar>
+      </Toolbar>
     </Page>
   );
 }

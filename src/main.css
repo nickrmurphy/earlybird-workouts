@@ -39,8 +39,8 @@
   --safe-bottom: env(safe-area-inset-bottom, 8px);
   --safe-left: env(safe-area-inset-left, 8px);
 
-  /* Bottom Navbar: padding-top + 40px EB button + safe area */
-  --navbar-height: calc(var(--safe-bottom) + 3.5rem);
+  /* Tallest bottom bar (60px TabNav) + safe area */
+  --bottom-bar-height: calc(var(--safe-bottom) + 3.75rem);
 }
 
 /* Own stacking context, so EB overlays (portalled to body) sit above everything */

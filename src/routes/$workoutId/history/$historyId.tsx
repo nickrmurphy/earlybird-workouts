@@ -1,4 +1,4 @@
-import { ExerciseSetsTable, Navbar, Page, PageHeader } from "$lib/components";
+import { ExerciseSetsTable, Page, PageHeader } from "$lib/components";
 import { db, deleteHistory } from "$lib/db";
 import { Button, Menu } from "$lib/eb";
 import { confirm } from "$lib/state";
@@ -54,6 +54,7 @@ function HistoryDetail() {
     <Page>
       <PageHeader
         title={history?.workoutName}
+        backHref={backHref}
         actions={
           <Menu>
             <Menu.Trigger
@@ -97,8 +98,6 @@ function HistoryDetail() {
           sets={historySets?.filter((s) => s.exerciseId === exercise.exerciseId) ?? []}
         />
       ))}
-
-      <Navbar backHref={backHref} />
     </Page>
   );
 }

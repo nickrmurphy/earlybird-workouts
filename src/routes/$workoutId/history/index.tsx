@@ -1,5 +1,5 @@
 import { BusinessClipboard } from "$lib/assets";
-import { EmptyMessage, HistoryCard, Navbar, Page, PageHeader } from "$lib/components";
+import { EmptyMessage, HistoryCard, Page, PageHeader } from "$lib/components";
 import { db } from "$lib/db";
 import { calculateTonnagePerAttribute } from "$lib/utils";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -37,7 +37,7 @@ function WorkoutHistory() {
 
   return (
     <Page>
-      <PageHeader title={workout?.name}>
+      <PageHeader title={workout?.name} backHref={`/${workoutId}`}>
         <p className="text-accent font-semibold">History</p>
       </PageHeader>
       {history?.length === 0 && (
@@ -61,7 +61,6 @@ function WorkoutHistory() {
           </Link>
         ))}
       </section>
-      <Navbar backHref={`/${workoutId}`} />
     </Page>
   );
 }

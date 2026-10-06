@@ -9,36 +9,31 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkoutIdRouteRouteImport } from './routes/$workoutId/route'
+import { Route as TabsRouteRouteImport } from './routes/_tabs/route'
 import { Route as ActiveRouteRouteImport } from './routes/active/route'
-import { Route as HistoryRouteImport } from './routes/history'
 import { Route as WorkoutIdIndexRouteImport } from './routes/$workoutId/index'
 import { Route as WorkoutIdExercisesRouteImport } from './routes/$workoutId/exercises'
-import { Route as WorkoutIdReorderRouteImport } from './routes/$workoutId/reorder'
+import { Route as TabsIndexRouteImport } from './routes/_tabs/index'
+import { Route as TabsHistoryRouteImport } from './routes/_tabs/history'
+import { Route as TabsSettingsRouteImport } from './routes/_tabs/settings'
 import { Route as WorkoutIdHistoryIndexRouteImport } from './routes/$workoutId/history/index'
 import { Route as WorkoutIdHistoryHistoryIdRouteImport } from './routes/$workoutId/history/$historyId'
 import { Route as ActiveHistoryIdIndexRouteImport } from './routes/active/$historyId/index'
 import { Route as ActiveHistoryIdExerciseIdRouteImport } from './routes/active/$historyId/$exerciseId'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WorkoutIdRouteRoute = WorkoutIdRouteRouteImport.update({
   id: '/$workoutId',
   path: '/$workoutId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TabsRouteRoute = TabsRouteRouteImport.update({
+  id: '/_tabs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActiveRouteRoute = ActiveRouteRouteImport.update({
   id: '/active',
   path: '/active',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistoryRoute = HistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkoutIdIndexRoute = WorkoutIdIndexRouteImport.update({
@@ -51,10 +46,20 @@ const WorkoutIdExercisesRoute = WorkoutIdExercisesRouteImport.update({
   path: '/exercises',
   getParentRoute: () => WorkoutIdRouteRoute,
 } as any)
-const WorkoutIdReorderRoute = WorkoutIdReorderRouteImport.update({
-  id: '/reorder',
-  path: '/reorder',
-  getParentRoute: () => WorkoutIdRouteRoute,
+const TabsIndexRoute = TabsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TabsRouteRoute,
+} as any)
+const TabsHistoryRoute = TabsHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => TabsRouteRoute,
+} as any)
+const TabsSettingsRoute = TabsSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => TabsRouteRoute,
 } as any)
 const WorkoutIdHistoryIndexRoute = WorkoutIdHistoryIndexRouteImport.update({
   id: '/history/',
@@ -80,12 +85,12 @@ const ActiveHistoryIdExerciseIdRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/$workoutId': typeof WorkoutIdRouteRouteWithChildren
+  '/': typeof TabsIndexRoute
   '/active': typeof ActiveRouteRouteWithChildren
-  '/history': typeof HistoryRoute
   '/$workoutId/exercises': typeof WorkoutIdExercisesRoute
-  '/$workoutId/reorder': typeof WorkoutIdReorderRoute
+  '/history': typeof TabsHistoryRoute
+  '/settings': typeof TabsSettingsRoute
   '/$workoutId/': typeof WorkoutIdIndexRoute
   '/$workoutId/history/$historyId': typeof WorkoutIdHistoryHistoryIdRoute
   '/active/$historyId/$exerciseId': typeof ActiveHistoryIdExerciseIdRoute
@@ -93,12 +98,12 @@ export interface FileRoutesByFullPath {
   '/active/$historyId/': typeof ActiveHistoryIdIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/active': typeof ActiveRouteRouteWithChildren
-  '/history': typeof HistoryRoute
   '/$workoutId/exercises': typeof WorkoutIdExercisesRoute
-  '/$workoutId/reorder': typeof WorkoutIdReorderRoute
+  '/history': typeof TabsHistoryRoute
+  '/settings': typeof TabsSettingsRoute
   '/$workoutId': typeof WorkoutIdIndexRoute
+  '/': typeof TabsIndexRoute
   '/$workoutId/history/$historyId': typeof WorkoutIdHistoryHistoryIdRoute
   '/active/$historyId/$exerciseId': typeof ActiveHistoryIdExerciseIdRoute
   '/$workoutId/history': typeof WorkoutIdHistoryIndexRoute
@@ -106,13 +111,14 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/$workoutId': typeof WorkoutIdRouteRouteWithChildren
+  '/_tabs': typeof TabsRouteRouteWithChildren
   '/active': typeof ActiveRouteRouteWithChildren
-  '/history': typeof HistoryRoute
   '/$workoutId/exercises': typeof WorkoutIdExercisesRoute
-  '/$workoutId/reorder': typeof WorkoutIdReorderRoute
+  '/_tabs/history': typeof TabsHistoryRoute
+  '/_tabs/settings': typeof TabsSettingsRoute
   '/$workoutId/': typeof WorkoutIdIndexRoute
+  '/_tabs/': typeof TabsIndexRoute
   '/$workoutId/history/$historyId': typeof WorkoutIdHistoryHistoryIdRoute
   '/active/$historyId/$exerciseId': typeof ActiveHistoryIdExerciseIdRoute
   '/$workoutId/history/': typeof WorkoutIdHistoryIndexRoute
@@ -121,12 +127,12 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/$workoutId'
+    | '/'
     | '/active'
-    | '/history'
     | '/$workoutId/exercises'
-    | '/$workoutId/reorder'
+    | '/history'
+    | '/settings'
     | '/$workoutId/'
     | '/$workoutId/history/$historyId'
     | '/active/$historyId/$exerciseId'
@@ -134,25 +140,26 @@ export interface FileRouteTypes {
     | '/active/$historyId/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/active'
-    | '/history'
     | '/$workoutId/exercises'
-    | '/$workoutId/reorder'
+    | '/history'
+    | '/settings'
     | '/$workoutId'
+    | '/'
     | '/$workoutId/history/$historyId'
     | '/active/$historyId/$exerciseId'
     | '/$workoutId/history'
     | '/active/$historyId'
   id:
     | '__root__'
-    | '/'
     | '/$workoutId'
+    | '/_tabs'
     | '/active'
-    | '/history'
     | '/$workoutId/exercises'
-    | '/$workoutId/reorder'
+    | '/_tabs/history'
+    | '/_tabs/settings'
     | '/$workoutId/'
+    | '/_tabs/'
     | '/$workoutId/history/$historyId'
     | '/active/$historyId/$exerciseId'
     | '/$workoutId/history/'
@@ -160,21 +167,13 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   WorkoutIdRouteRoute: typeof WorkoutIdRouteRouteWithChildren
+  TabsRouteRoute: typeof TabsRouteRouteWithChildren
   ActiveRouteRoute: typeof ActiveRouteRouteWithChildren
-  HistoryRoute: typeof HistoryRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/$workoutId': {
       id: '/$workoutId'
       path: '/$workoutId'
@@ -182,18 +181,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkoutIdRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_tabs': {
+      id: '/_tabs'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof TabsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/active': {
       id: '/active'
       path: '/active'
       fullPath: '/active'
       preLoaderRoute: typeof ActiveRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/history': {
-      id: '/history'
-      path: '/history'
-      fullPath: '/history'
-      preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$workoutId/': {
@@ -210,12 +209,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkoutIdExercisesRouteImport
       parentRoute: typeof WorkoutIdRouteRoute
     }
-    '/$workoutId/reorder': {
-      id: '/$workoutId/reorder'
-      path: '/reorder'
-      fullPath: '/$workoutId/reorder'
-      preLoaderRoute: typeof WorkoutIdReorderRouteImport
-      parentRoute: typeof WorkoutIdRouteRoute
+    '/_tabs/': {
+      id: '/_tabs/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof TabsIndexRouteImport
+      parentRoute: typeof TabsRouteRoute
+    }
+    '/_tabs/history': {
+      id: '/_tabs/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof TabsHistoryRouteImport
+      parentRoute: typeof TabsRouteRoute
+    }
+    '/_tabs/settings': {
+      id: '/_tabs/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof TabsSettingsRouteImport
+      parentRoute: typeof TabsRouteRoute
     }
     '/$workoutId/history/': {
       id: '/$workoutId/history/'
@@ -250,7 +263,6 @@ declare module '@tanstack/react-router' {
 
 interface WorkoutIdRouteRouteChildren {
   WorkoutIdExercisesRoute: typeof WorkoutIdExercisesRoute
-  WorkoutIdReorderRoute: typeof WorkoutIdReorderRoute
   WorkoutIdIndexRoute: typeof WorkoutIdIndexRoute
   WorkoutIdHistoryHistoryIdRoute: typeof WorkoutIdHistoryHistoryIdRoute
   WorkoutIdHistoryIndexRoute: typeof WorkoutIdHistoryIndexRoute
@@ -258,7 +270,6 @@ interface WorkoutIdRouteRouteChildren {
 
 const WorkoutIdRouteRouteChildren: WorkoutIdRouteRouteChildren = {
   WorkoutIdExercisesRoute: WorkoutIdExercisesRoute,
-  WorkoutIdReorderRoute: WorkoutIdReorderRoute,
   WorkoutIdIndexRoute: WorkoutIdIndexRoute,
   WorkoutIdHistoryHistoryIdRoute: WorkoutIdHistoryHistoryIdRoute,
   WorkoutIdHistoryIndexRoute: WorkoutIdHistoryIndexRoute,
@@ -266,6 +277,22 @@ const WorkoutIdRouteRouteChildren: WorkoutIdRouteRouteChildren = {
 
 const WorkoutIdRouteRouteWithChildren = WorkoutIdRouteRoute._addFileChildren(
   WorkoutIdRouteRouteChildren,
+)
+
+interface TabsRouteRouteChildren {
+  TabsHistoryRoute: typeof TabsHistoryRoute
+  TabsSettingsRoute: typeof TabsSettingsRoute
+  TabsIndexRoute: typeof TabsIndexRoute
+}
+
+const TabsRouteRouteChildren: TabsRouteRouteChildren = {
+  TabsHistoryRoute: TabsHistoryRoute,
+  TabsSettingsRoute: TabsSettingsRoute,
+  TabsIndexRoute: TabsIndexRoute,
+}
+
+const TabsRouteRouteWithChildren = TabsRouteRoute._addFileChildren(
+  TabsRouteRouteChildren,
 )
 
 interface ActiveRouteRouteChildren {
@@ -283,10 +310,9 @@ const ActiveRouteRouteWithChildren = ActiveRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   WorkoutIdRouteRoute: WorkoutIdRouteRouteWithChildren,
+  TabsRouteRoute: TabsRouteRouteWithChildren,
   ActiveRouteRoute: ActiveRouteRouteWithChildren,
-  HistoryRoute: HistoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

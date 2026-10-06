@@ -1,17 +1,18 @@
+import { Page, PageHeader, WeightUnitSelect } from "$lib/components";
 import { getDefaultWeightUnit, setDefaultWeightUnit } from "$lib/utils";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Sheet, WeightUnitSelect } from "../../shared";
 
-type Props = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-};
+export const Route = createFileRoute("/_tabs/settings")({
+  component: Settings,
+});
 
-export function SettingsDrawer({ open, onOpenChange }: Props) {
+function Settings() {
   const [defaultUnit, setDefaultUnit] = useState(getDefaultWeightUnit);
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange} title="Settings">
+    <Page>
+      <PageHeader title="Settings" />
       <WeightUnitSelect
         label="Default weight unit"
         value={defaultUnit}
@@ -20,6 +21,6 @@ export function SettingsDrawer({ open, onOpenChange }: Props) {
           setDefaultUnit(unit);
         }}
       />
-    </Sheet>
+    </Page>
   );
 }

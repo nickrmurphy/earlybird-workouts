@@ -1,5 +1,5 @@
 import { BusinessClipboard } from "$lib/assets";
-import { EmptyMessage, HistoryCard, Navbar, Page, PageHeader } from "$lib/components";
+import { EmptyMessage, HistoryCard, Page, PageHeader } from "$lib/components";
 import { db } from "$lib/db";
 import { calculateTonnagePerAttribute } from "$lib/utils";
 import { SpinnerIcon } from "@phosphor-icons/react";
@@ -7,7 +7,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useMemo } from "react";
 
-export const Route = createFileRoute("/history")({
+export const Route = createFileRoute("/_tabs/history")({
   component: History,
 });
 
@@ -49,7 +49,6 @@ function History() {
           ))}
         </section>
       )}
-      <Navbar backHref="/" />
     </Page>
   );
 }

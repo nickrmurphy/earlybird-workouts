@@ -31,11 +31,11 @@ export function ExerciseSelectFilters({
   return (
     <>
       <Button
-        className="flex-1"
-        icon={<FunnelIcon weight={count > 0 ? "fill" : "bold"} />}
+        iconOnly
+        aria-label={count > 0 ? `Filters (${count})` : "Filter exercises"}
         onClick={() => setOpen(true)}
       >
-        {count > 0 ? `Filters (${count})` : "Filter exercises"}
+        <FunnelIcon weight={count > 0 ? "fill" : "bold"} />
       </Button>
 
       <Sheet

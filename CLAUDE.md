@@ -65,8 +65,8 @@ historySets: { id, historyId, historyExerciseId, ... }   // Individual sets perf
 src/lib/
 ├── eb/                # Vendored EB design system (do not edit; re-sync from the EB artifact)
 ├── components/
-│   ├── features/      # Business logic components (activity, history, settings, workout)
-│   ├── page/          # Page, PageHeader, bottom Navbar, NotFound
+│   ├── features/      # Business logic components (activity, history, workout)
+│   ├── page/          # Page, PageHeader, TabNav, bottom Toolbar, NotFound
 │   └── shared/        # Reusable pieces (Sheet, InputDialog, ConfirmHost, …)
 ├── state/             # External stores + hooks (active workout, timers, confirm)
 └── data/              # Cached loader for the static exercise JSON
@@ -90,13 +90,11 @@ src/lib/
 
 TanStack Router file-based routing (`src/routes/`, generating `src/routeTree.gen.ts`):
 
-- `/` - Home (workout list)
+- `/`, `/history`, `/settings` - Tab pages (Workouts, History, Settings) under the pathless `_tabs` layout with the bottom `TabNav`
 - `/$workoutId/` - Workout details; `route.tsx` loads the exercise data for its children:
-  - `exercises` - Exercise selection (`?complete=true` after creating a workout)
+  - `exercises` - Edit the workout's exercises: reorder, remove, and an add sheet with the catalog (`?add=true` opens it)
   - `history/` and `history/$historyId` - Workout history and detail (`?from=` back link)
-  - `reorder` - Exercise reordering
 - `/active/$historyId/` and `/active/$historyId/$exerciseId` - Active workout tracking
-- `/history` - Global workout history
 
 The root route redirects to the active workout while one is in progress.
 
