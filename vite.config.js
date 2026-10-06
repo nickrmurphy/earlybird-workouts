@@ -49,9 +49,6 @@ export default defineConfig({
     },
   },
 
-  // Keep the existing PUBLIC_ env names (e.g. PUBLIC_DEXIE_CLOUD_DATABASE_URL)
-  envPrefix: ["VITE_", "PUBLIC_"],
-
   // Static exercise data, icons and favicon are served from /static
   publicDir: "static",
 

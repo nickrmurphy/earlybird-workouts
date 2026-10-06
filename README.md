@@ -6,7 +6,7 @@ Installable, offline-first fitness tracking PWA built with React and TypeScript.
 
 - **Custom Workouts**: Create personalized routines from 873 exercises
 - **Comprehensive Tracking**: Log sets, weights, reps, and rest periods
-- **Offline-First**: Full functionality without internet, syncs when connected
+- **Offline-First**: Full functionality without internet; your data stays on your device
 - **Installable**: Add to your home screen on iOS, Android, or desktop for a full-screen app
 
 ## Try it Out
@@ -39,7 +39,7 @@ pnpm lint             # Code quality checks
 - **Frontend**: React 19 + TanStack Router + TypeScript
 - **Design system**: EB (Base UI)
 - **PWA**: vite-plugin-pwa (Workbox service worker, web app manifest)
-- **Database**: Dexie + Dexie Cloud
+- **Database**: Dexie (IndexedDB)
 - **Styling**: EB + Tailwind CSS (layout)
 
 ## Known Issues
